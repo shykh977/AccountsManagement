@@ -1,0 +1,623 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Group License</title>
+
+    <link href="css/add-expense.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+
+    <style>
+
+        .Attachimg {
+            background-image: url('MunshiImagesMain/Save_Normal.svg');
+            background-repeat: no-repeat;
+            color: #009444;
+            padding: 4px;
+            font-weight: bold;
+        }
+
+            .Attachimg:hover {
+                background-image: url('MunshiImagesMain/Save_Hover.svg');
+                background-repeat: no-repeat;
+                color: gray;
+                padding: 4px;
+                text-decoration: unset;
+                font-weight: bold;
+            }
+
+
+        .w-120 {
+            width: 125px
+        }
+
+        .Mywidth2 {
+            width: 125px;
+        }
+    </style>
+
+
+
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Group License</div>
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+
+                    <div class="d-flex w-100 "></div>
+
+                    <div class=" col-gl-4 col-md-4 col-sm-12">
+
+
+                        <div class="input-group small mt-2 ">
+                            <div class="input-group-prepend  Mywidth2 pr-0 pl-0">
+                                <span class="input-group-text w-120 Itext" style="font-size:small;background-color: #809bbb !important;">Total License</span>
+                            </div>
+                            <input id="TotalLicense" type="text" inputmode="numeric" class="form-control" placeholder="" />
+                        </div>
+                    </div>
+
+                    <div class=" col-gl-4 col-md-4 col-sm-12">
+
+
+                        <div class="input-group small mt-2 ">
+                            <div class="input-group-prepend  Mywidth2 pr-0 pl-0">
+                                <span class="input-group-text w-120 Itext" style="font-size:small;background-color: #809bbb !important;">Invitation Sent</span>
+                            </div>
+                            <input id="InviteSent" type="text" inputmode="numeric" class="form-control" placeholder="" />
+                        </div>
+                    </div>
+
+                    <div class=" col-gl-4 col-md-4 col-sm-12">
+                        <div class="input-group small mt-2">
+                            <div class="input-group-prepend Mywidth2  pr-0 pl-0">
+                                <span class="input-group-text w-120 Itext" style="font-size:small;background-color: #809bbb !important;">License Used</span>
+                            </div>
+                            <input id="ConsumedLicense" type="text" inputmode="numeric" class="form-control" placeholder="" />
+                        </div>
+
+
+                    </div>
+                    <div class=" col-gl-12 col-md-12 col-sm-12">
+                        <div style="margin-top:20px;margin-bottom:-4px;font-weight:bold;border-bottom:1px solid #a79b9b">NEW INVITATION</div>
+                    </div>
+                    <div class=" col-gl-12 col-md-12 col-sm-12">
+
+
+
+                        <div class="input-group small mt-2">
+                            <div class="input-group-prepend Mywidth2 pr-0 pl-0">
+                                <span class="input-group-text w-120 Itext" style="font-size:small">Name</span>
+                            </div>
+                            <input id="Name" type="text" inputmode="numeric" class="form-control" placeholder="Enter Name" />
+
+                        </div>
+                    </div>
+
+                    <div class=" col-gl-12 col-md-12 col-sm-12">
+
+                        <div class="input-group small mt-2">
+                            <div class="input-group-prepend Mywidth2 pr-0 pl-0">
+                                <span class="input-group-text w-120 Itext" style="font-size:small">Email</span>
+                            </div>
+                            <input id="Email" type="text" inputmode="numeric" class="form-control" placeholder="Enter Email" />
+
+                        </div>
+
+                    </div>
+
+                    <div class=" col-gl-12 col-md-12 col-sm-12">
+
+                        <div class="input-group small mt-2">
+                            <div class="input-group-prepend Mywidth2 pr-0 pl-0">
+                                <span class="input-group-text w-120 Itext" style="font-size:small">Contact No</span>
+                            </div>
+                            <input id="ContactNo" type="text" inputmode="numeric" class="form-control" placeholder="Enter Contact No" />
+
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="mt-2">
+
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="clearAll();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="Save();"> <span class="btn-name">Save  </span> </a>
+                            <!--<a id="btnEdit" href="#" class="reset-btn delete-btn pull-right" onclick=" "> <span class="btn-name">Delete  </span> </a>-->
+                        </div>
+                    </div>
+                </div>
+                <div id="CalHead" class="col-xl-5 ">
+                    <div id="MyCal" class="col-xl-12" style="overflow:hidden;">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div id="datetimepicker12"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+
+
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">License Details</div>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Contact No</th>
+
+                                        <th style="text-align:center;">Delete</th>
+                                        <th style="text-align:center;">Re-Invite</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="GroupLicenceDetails">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+
+
+
+
+    <script src="js/add-expense.js"></script>
+
+
+    <script>
+
+        var InviteLength = "";
+        LoadGroupLicenseOwnerDetail();
+        LoadGroupLicenseDetail();
+
+        function LoadGroupLicenseOwnerDetail() {
+            var UserID = sessionStorage.getItem("UserID");
+            $('#loader').show();
+
+
+         
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                url: 'Settings.asmx/LoadGroupLicenseOwnerDetail',
+                data: "{'UserID':'" + UserID + "'}",
+                success: function (response) {
+                    
+
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+
+                    if (data.Row[0].UserID == UserID) {
+
+                        window.sessionStorage.setItem("GroupID", data.Row[0].GroupID);
+                        document.getElementById("TotalLicense").value = data.Row[0].TotalLicense;
+                        document.getElementById("InviteSent").value = data.Row[0].InviteSent;
+                        document.getElementById("ConsumedLicense").value = data.Row[0].ConsumedLicense;
+
+                    }
+                    else {
+
+                        AddGroupLicense();
+                    }
+                    $('#loader').hide();
+                },
+                Error: function (textMsg) {
+
+                    $('#Result').text("Error: " + Error);
+                }
+            });
+            
+
+        }
+        function Save() {
+            if (document.getElementById("TotalLicense").value != InviteLength) {
+                AddGroupLicenseDetail();
+            }
+            else {
+               // alert("Limit Exceeded. You can add only " + InviteLength + " persons in your group license");
+                $.alert({ title: 'Alert!:', content: 'Limit Exceeded. You can add only " + InviteLength + " persons in your group license', });
+            }
+        }
+        function AddGroupLicense() {
+            $('#loader').show();
+            var UserID = sessionStorage.getItem("UserID");
+
+
+  
+
+            $.ajax({
+                type: 'POST',
+                url: 'Settings.asmx/AddGroupLicense',
+                dataType: 'json',
+                data: "{'UserID':'" + UserID + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+                 
+               
+
+
+                    window.sessionStorage.setItem("GroupID", response.d);
+                    AddGroupLicenseOwnerDetail(UserID);
+                    $('#loader').hide();
+                },
+                error: function (error) {
+
+                    console.log(error);
+                }
+            });
+
+
+ 
+
+        }
+        function AddGroupLicenseOwnerDetail() {
+            $('#loader').show();
+            var GroupID = sessionStorage.getItem("GroupID");
+            var UserID = sessionStorage.getItem("UserID");
+            var Name = sessionStorage.getItem("UserTitle");
+            var Email = sessionStorage.getItem("email");
+            var ContactNo = sessionStorage.getItem("CellNo");
+
+
+      
+            $.ajax({
+                type: 'POST',
+                url: 'Settings.asmx/AddGroupLicenseOwnerDetail',
+                dataType: 'json',
+                data: "{'GroupID':'" + GroupID + "','UserID':'" + UserID + "','Name':'" + Name + "','Email':'" + Email + "','ContactNo':'" + ContactNo + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+               
+
+                    LoadGroupLicenseOwnerDetail();
+                    LoadGroupLicenseDetail();
+                    $('#loader').hide();
+                },
+                error: function (error) {
+
+                    console.log(error);
+                }
+            });
+
+ 
+
+
+        }
+        function LoadGroupLicenseDetail() {
+
+            var UserID = sessionStorage.getItem("UserID");
+            $('#loader').show();
+
+            $.ajax({
+                type: 'POST',
+                url: 'Settings.asmx/LoadGroupLicenseDetail',
+                dataType: 'json',
+                data: "{'UserID':'" + UserID + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+           
+
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+                    var str = "";
+                    var dt = "";
+                    var mRow = 0;
+
+
+                    InviteLength = data.Row.length;
+
+                    for (var i = 0; i < data.Row.length; i++) {
+
+
+                        mRow = mRow + 1;
+                        dt = dt + " <tr>";
+
+
+
+
+                        var dateOnly = data.Row[i].Date;
+                        dateOnly = dateOnly.split(' ')[0];
+
+
+                        dt = dt + "   <td>" + mRow + "</td>";
+                        dt = dt + "   <td>" + dateOnly + "</td>";
+                        dt = dt + "   <td>" + data.Row[i].Name + "</td>";
+                        dt = dt + "   <td>" + data.Row[i].Email + "</td>";
+                        dt = dt + "   <td>" + data.Row[i].ContactNo + "</td>";
+
+
+                        if (data.Row[i].Owner != 1) {
+
+                            if (data.Row[i].ActiveStatus != 1) {
+
+                                dt = dt + "  <td style='text-align:center;'><a href='#' style='color:red;' onclick=deleteIT('" + data.Row[i].GroupDetailID + "')><i class='fa fa-trash'></i></a></td>"
+                                //dt = dt + "  <td style='text-align:center;'><a href='#' style='color:blue;' onclick=SendInvite('" + data.Row[i].GroupDetailID + "')><i class='fa fa-envelope'></i></a></td>"
+                                dt = dt + "  <td style='text-align:center;'><a href='#' style='color:blue;' onclick=SendInvite('" + data.Row[i].GroupDetailID + "," + data.Row[i].Email + "')><i class='fa fa-envelope'></i></a></td>"
+                            }
+                            else {
+                                dt = dt + "<td></td>";
+                                dt = dt + "<td></td>";
+                            }
+                        }
+                        else {
+                            dt = dt + "<td></td>";
+                            dt = dt + "<td></td>";
+                        }
+
+
+                        dt = dt + "</tr>";
+
+                        str = str + dt;
+                        dt = "";
+                    }
+
+
+                    document.getElementById("GroupLicenceDetails").innerHTML = str;
+                    LoadGroupLicenseOwnerDetail();
+
+                    $('#loader').hide();
+                },
+
+
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+
+
+        }
+        function AddGroupLicenseDetail() {
+
+            var GroupID = sessionStorage.getItem("GroupID");
+            var UserID = sessionStorage.getItem("UserID");
+            var Name = document.getElementById("Name").value;
+            var Email = document.getElementById("Email").value;
+            var ContactNo = document.getElementById("ContactNo").value;
+
+
+        
+            $.ajax({
+                type: 'POST',
+                url: 'Settings.asmx/AddGroupLicenseDetail',
+                dataType: 'json',
+                data: "{'GroupID':'" + GroupID + "','UserID':'" + UserID + "','Name':'" + Name + "','Email':'" + Email + "','ContactNo':'" + ContactNo + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+
+
+                    //LoadGroupLicenseOwnerDetail();
+                    LoadGroupLicenseDetail();
+
+                },
+                error: function (error) {
+
+                    console.log(error);
+                }
+            });
+
+            
+
+
+
+        }
+
+
+
+
+        function deleteIT(a) {
+            // alert(a);
+
+        
+            $.ajax({
+                type: 'POST',
+                url: 'Settings.asmx/DeleteGroupLicenseDetail',
+                dataType: 'json',
+
+                data: "{'GroupDetailID':'" + a + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+                   
+
+
+                    //alert("Record Deleted.");
+
+                    $.alert({ title: 'Alert!:', content: 'Record Deleted.', });
+
+                    LoadGroupLicenseDetail();
+
+                    $('#iSave').attr('class', 'fa fa-save');
+
+
+                    TType = "New";
+
+
+
+                    $('#spandataloading').hide();
+
+                    $('#loader').hide();
+
+                    //$('#loadI').attr('class', 'fa fa-gear');
+
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+           
+        }
+
+        var ID = "";
+        var EmailID = "";
+
+        function SendInvite(a) {
+            //alert(a);
+
+            var str = a;
+            ID = str.slice(0, 36);
+            //alert(ID);
+            var str2 = a;
+            EmailID = str2.substr(37);
+            //alert(EmailID);
+
+
+            $('#loader').show();
+
+
+            $.ajax({
+                type: 'POST',
+                url: 'Settings.asmx/InviteGroupLicenseDetail',
+                dataType: 'json',
+
+                data: "{'GroupDetailID':'" + ID + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+              
+
+
+                    Accept(a);
+
+
+
+
+
+                    $('#loader').hide();
+
+                    //$('#loadI').attr('class', 'fa fa-gear');
+
+
+                },
+                error: function (error) {
+                    console.log(error);
+                    $('#loader').hide();
+                }
+            });
+
+
+       
+
+
+
+        }
+
+
+        function Accept(a) {
+
+
+            var str = a;
+            ID = str.slice(0, 36);
+            //alert(ID);
+            var str2 = a;
+            EmailID = str2.substr(37);
+            //alert(EmailID);
+
+
+            $('#loader').show();
+ 
+
+            $.ajax({
+                type: 'POST',
+                url: 'Settings.asmx/UpdateGroupLicenseStatus',
+                dataType: 'json',
+                data: "{'email':'" + EmailID + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+
+ 
+
+                    LoadGroupLicenseDetail();
+                    //alert("Invitation Sent.");
+                    $.alert({ title: 'Alert!:', content: 'Invitation Sent.', });
+                    $('#loader').hide();
+                },
+                error: function (error) {
+                    console.log(error);
+                    $('#loader').hide();
+                }
+            });
+
+
+
+         
+
+
+
+        }
+
+    </script>
+</body>
+</html>

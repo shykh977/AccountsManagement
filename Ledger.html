@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="css/add-expense.css" rel="stylesheet" />
+    <title>Ledger</title>
+    <link href="css/ledger.css" rel="stylesheet" />
+    <script>
+        $(function () {
+
+            $("#includedContent").load("navbar.html");
+
+        });
+    </script>
+    <script>
+        $(function () {
+            $('input[name="daterange"]').daterangepicker({
+                opens: 'left'
+            }, function (start, end, label) {
+                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            });
+        });
+    </script>
+
+
+    <style>
+
+        .payment, .receipt {
+            border: solid 1px #747572;
+            width: 200px;
+            height: 30px;
+            padding: 4px 2px;
+            border-bottom: 0;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+    <section class="content-header breadcrumb-header">
+ 
+
+
+        <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+            <div class="d-flex w-100">
+                <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                
+				
+				<div id="payment" class="payment" onclick="LoadFile('ledger.html')">    <span class="myac">My Accounts</span> </div>
+                <div id="receipt" class="receipt" onclick="LoadFile('LedgerMyShared.html')"><span class="mysa">Shared Accounts (My)</span></div>
+                <div id="receipt" class="receipt" onclick="LoadFile('LedgerOtherShared.html')"><span class="mysa">Shared Accounts (Others)</span></div>
+		   </div>
+        </div>
+
+ 
+    </section>
+
+
+
+
+    <section class="content-inr expense" style="padding: 10px 0 20px 0;">
+        <div id="includedContent"></div>
+        <div id="loader" class="loader" style="margin:0;display:none;"></div>
+     
+
+        <div id="inputDiv" class=" bg-white  " style="padding: 8px;padding-top:5px;margin-top: -10px;">
+            <div class=" col-lg-12 col-md-12 col-sm-12" style="padding:0px 15px 0px 15px;">
+                <div class="d-flex w-100"></div>
+                <div class="tab-slider--container">
+                    <div id="tab1" class="tab-slider--body">
+                        <div id="localledger" style="clear:both;">
+                            <div class="row">
+                                <div class="col-lg-12" style="padding-bottom:5px;padding-left:0; padding-right:0;margin-top:8px;">
+                                    <div class="" style=" cursor: pointer; float:left;">
+                                        <span>
+                                            <select id="sortoption" style="font-size:12px;width:192px;" onchange="CalltableFill('sortoption');">
+                                                <option value="AccTitle:asc">Account Title (A - Z) </option>
+                                                <option value="AccTitle:desc">Account Title (Z - A)</option>
+                                                <option value="Balance2:asc">Lowest Balance</option>
+                                                <option value="Balance2:desc">Highest Balance</option>
+                                                <option value="SortDate:desc">Last Entry</option>
+                                                <option value="SortDate:asc">First Entry</option>
+                                            </select>
+                                        </span>
+                                        <!--<span>
+                                            <a href="#" style="font-size:15px;margin-left:7px;" onclick="CalltableFill('sortoption')"><i class="fa fa-refresh"></i></a>
+                                        </span>-->
+                                    </div>
+                                    <div style=" float:right;margin-right:0px;">
+
+                                      <!--  <a href="#" style="color:#757472;"> <i class="fa fa-print fa-print">&nbsp;&nbsp;&nbsp;&nbsp;   </i></a>
+                                        <a href="#" style="color:#757472;"><i class="fa fa-print fa-file-pdf-o">&nbsp;&nbsp;&nbsp;&nbsp; </i></a>
+                                        <a href="#" id="sharedfa" style="color:#757472;">   <i class="fa fa-print fa-share-alt">&nbsp;&nbsp;&nbsp;&nbsp; </i></a>
+-->
+                                    </div>
+                                </div>
+
+                                <style>
+                                </style>
+                                <div class="" style="clear:both;">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 table-responsive p-0">
+                                        <table id="MyTable" class="table-borderless table-hover w-100 Mytable">
+                                            <thead class="  font-weight-bold " style="border-bottom:solid 1px #a1a1a1; font-size:11px; width:100%;">
+                                                <tr>
+
+                                                    <th>SNo</th>
+                                                    <th>Accounts</th>
+                                                    <!--<th style="min-width:70px;">Date</th>-->
+                                                    <th class='myamount'>Opening</th>
+                                                    <th class='myamount'>Receipts</th>
+                                                    <th class='myamount'>Payments</th>
+                                                    <th class='myamount'>Balance</th>
+                                                    <th class="text-c">Search</th>
+
+                                                </tr>
+
+
+                                            </thead>
+                                            <tbody id="dtMyledger" class="small"></tbody>
+
+                                        </table>
+                                        <div id="MyDiv" class=" w-100 mt-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-slider--container">
+                    <div id="tab2" class="tab-slider--body">
+                        <div id="localledger" style="clear:both;">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12" style="padding-bottom:5px;padding-left:0; padding-right:0;margin-top:10px;">
+                                    <div class="" style=" cursor: pointer; float:left;">
+                                        <span>
+                                            <select id="sortoption2" style="font-size:12px;width:192px;" onchange="CalltableFill('sortoption2')">
+                                                <option value="AccTitle:asc">Account Title (A - Z) </option>
+                                                <option value="AccTitle:desc">Account Title (Z - A)</option>
+                                                <option value="Balance2:asc">Lowest Balance</option>
+                                                <option value="Balance2:desc">Highest Balance</option>
+                                                <option value="SortDate:desc">Last Entry</option>
+                                                <option value="SortDate:asc">First Entry</option>
+                                            </select>
+                                        </span>
+                                        <span>
+                                            <a href="#" style="font-size:12px;margin-left:7px;" onclick="CalltableFill('sortoption2')"><i class="fa fa-refresh"></i></a>
+                                        </span>
+                                    </div>
+                                    <div style=" float:right;margin-right:5px;">
+
+                                        <a href="#" style="color:#757472;"> <i class="fa fa-print fa-print">&nbsp;&nbsp;&nbsp;&nbsp;   </i></a>
+                                        <a href="#" style="color:#757472;"><i class="fa fa-print fa-file-pdf-o">&nbsp;&nbsp;&nbsp;&nbsp; </i></a>
+                                        <a href="#" id="sharedfa" style="color:#757472;">   <i class="fa fa-print fa-share-alt">&nbsp;&nbsp;&nbsp;&nbsp; </i></a>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 table-responsive p-0 pt-2">
+                                    <table id="MyTableO" class="table-borderless table-hover w-100 Mytable">
+                                        <thead class="  font-weight-bold ">
+                                            <tr>
+
+                                                <th>SNo</th>
+                                                <th>Accounts</th>
+                                                <!--<th style="min-width:70px;">Date</th>-->
+                                                <th class='myamount'>Opening</th>
+                                                <th class='myamount'>Receipts</th>
+                                                <th class='myamount'>Payments</th>
+                                                <th class='myamount'>Balance</th>
+                                                <th class="text-c">Search </th>
+
+                                            </tr>
+
+
+                                        </thead>
+                                        <tbody id="dtOthersledger" class="small"></tbody>
+
+                                    </table>
+                                    <div id="MyDivO" class="mt-3 w-100"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    </section>
+
+    <script src="js/ledger.js"></script>
+
+
+</body>
+</html>

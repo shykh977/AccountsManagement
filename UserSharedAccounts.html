@@ -1,0 +1,80 @@
+﻿
+<script src="js/jquery-confirm.min.js"></script>
+<link href="css/jquery-confirm.min.css" rel="stylesheet" />
+<link href="css/UserSharedAccounts.css" rel="stylesheet" />
+<script>
+    $(function () {
+
+        $("#includedContent").load("navbar.html");
+
+    });
+</script>
+
+<section class="content-header breadcrumb-header">
+    <h1>
+        <ol class="breadcrumb">
+            <li></li>
+
+            <li><span id="MainHeading" class="pagenameb"> </span></li>
+        </ol>
+
+    </h1>
+
+
+</section>
+<div class="">
+    <div id="includedContent"></div>
+    <center>
+
+        <div class="row bg-white share-heading">
+
+            <div class="pull-left  pt-1 pl-1 text-left">
+                <div class="share-account-titte">
+                    <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a>
+                    <span id="textTitle">CHOOSE ACCOUNT FOR SHARING WITH</span>
+                    <span style="font-weight:bold;color:darkblue" id="SharedUserName"></span>
+                </div>
+
+            </div>
+            <div class="share-icon-m pull-right p-1 pr-4  text-right ">
+                <img id="Rpic1" class="userpic-share" onerror="imgerror(this)" />
+
+            </div>
+        </div>
+    </center>
+    <div class="" style="z-index:1;">
+        <div id="clientAreaSharing" class="col-12" style="background-color:#E5E4E7 !important; ">
+            <div class="" style="">
+                <div class="col-12" id="SearchResult" style="display:block;   ">
+                    <h6 class="text-left text-white p-2 mt-3 ">
+                        <span id="Heading1"></span>
+                    </h6>
+                    <div id="divDataShared" class=" MainSharing " style="height:calc(100vh - 236px);background-color:white !important;overflow-x:hidden;overflow-y:auto; margin-top:-10px;padding-top:10px;">
+
+
+
+
+
+                    </div>
+
+                    <div class="clear"></div>
+                    <div class="share-footer">
+                        <div class="col-12 pt-3">
+                            <a id="btnReset" href="#" onclick="LoadFile('UserSharingCategory.html');" class="MyCancel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Cancel</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a id="btnsave" href="#" class="MySubmit" onclick="callSave();">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;    Submit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script src="js/UserSharedAccounts.js"></script>
+
+
+<!-- Modal -->

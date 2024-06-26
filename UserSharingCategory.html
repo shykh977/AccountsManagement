@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Manage Categories</title>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+    <script src="js/dexie.js"></script>
+    <style>  .border1 {border: solid 2px red; } </style>
+    <script>$(function () { $("#includedContent").load("navbar.html"); });</script>
+    <link href="css/UserSharingCategory.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <section class="content-inr expense">
+        <div id="includedContent"></div>
+        <center>
+
+            <div class=" bg-white share-heading">
+                <div class="d-flex w-100 "></div>
+                <div class="col-10-lg col-sm-9 p-1 pl-2 text-left pull-left">
+                    <div class="share-account-titte">
+                        <a href="#" class="callback" onclick="PageBackward();"> <img src="img/back-arrow.png" /> </a>
+                        <span id="textTitle"></span> <span style="font-weight:bold;color:darkblue; " id="SharedUserName"></span>
+                    </div>
+                </div>
+                <div class="col-2 p-1 pr-4  text-right ">
+                    <img id="Rpic1" class="userpic-share" onerror="imgerror(this)" />
+
+                </div>
+            </div>
+        </center>
+        <div class="clear"></div>
+        <div class="">
+
+            <div id="clientAreaSharing" class="col-12" style="overflow-y:auto;overflow-x:hidden;">
+                <div class=""  id="ShareCatLevel" style="display:none;">
+                    <div class="col-12" id="SearchResult" style="display:block; ">
+                        <h6 class="text-left text-white p-2 mt-3 ">Categories</h6>
+                        <div id="divDataShared" class="mainSharing ">
+
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="" id="ShareCatLevel2" style="display:none;">
+                    <div class="col-12 " id="ResultListF" style="">
+                        <div id="HeadingForLevel3" style="display:none;"><h6 class="text-left text-white p-2  mt-3" style="vertical-align:middle;text-align:center !important; background-color:#162e47">Sub Categories <span id="SubTitle"></span></h6></div>
+                        <div id="HeadingForLevel2" style="display:none;"><h6 class="text-left text-white p-2  mt-3" style="vertical-align:middle;text-align:center !important; background-color:#162e47">Categories</h6></div>
+                            <div id="FirendsList" class="mainSharing ">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+        </div>
+
+        <script src="js/UserSharingCategory.js"></script>
+
+    </section>
+    <!-- Modal -->
+    
+</body>
+</html>

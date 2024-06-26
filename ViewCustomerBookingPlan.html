@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment" style="width:180px"> Customer Booking Plan</div>
+
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important; ">
+
+                <div class=" col-gl-12 col-md-12 col-sm-12" style="background-color: #162e47;">
+                    <div class="d-flex w-100 ">  <span style="color:white;font-weight:700"> &nbsp;</span></div>
+                </div>
+
+                <div class=" col-gl-12 col-md-12 col-sm-12" style="background-color: #162e47;">
+                    <center>  <div class="" style="color:white;font-weight:700;font-size:large">  BTG - Project</div> </center>
+                </div>
+
+                <div class=" col-gl-12 col-md-12 col-sm-12" style="background-color: #162e47;">
+                    <div class="d-flex w-100 ">  <span style="color:white;font-weight:700">&nbsp;</span></div>
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important; ">
+                <div class=" col-gl-12 col-md-12 col-sm-12" style="background-color: #162e47;">
+                    <div class="d-flex w-100 ">  <span style="color:white;font-weight:700"> &nbsp;</span></div>
+                </div>
+
+                <div class=" col-gl-12 col-md-12 col-sm-12" style="background-color: #162e47;">
+                    <center>  <div class="" style="color:white;font-weight:700;font-size:large"> INSTALLMENT PLAN</div> </center>
+                </div>
+
+                <div class=" col-gl-12 col-md-12 col-sm-12" style="background-color: #162e47;">
+                    <div class="d-flex w-100 ">  <span style="color:white;font-weight:700">&nbsp;</span></div>
+                </div>
+            </div>
+
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important; ">
+
+                <div class="row">
+                    <div class=" col-gl-6 col-md-6 col-sm-6">
+                        <div class="d-flex w-100 ">  <span style="font-weight:600"> Customer Name : </span><span style="font-weight:700" id="CustomerName"> </span></div>
+                        <div class="d-flex w-100 ">  <span style="font-weight:600"> Email : </span><span style="font-weight:700" id="CustomerEmail"> </span></div>
+                        <div class="d-flex w-100 ">  <span style="font-weight:600"> Address : </span><span style="font-weight:700" id="CustomerCity"> </span></div>
+                        <div class="d-flex w-100 ">  <span style="font-weight:600"> Contact : </span><span style="font-weight:700" id="CustomerContact"> </span></div>
+
+                    </div>
+
+                    <div class=" col-gl-3 col-md-3 col-sm-3">
+                    </div>
+                    <div class=" col-gl-3 col-md-3 col-sm-3">
+                    </div>
+                    <div class=" col-gl-3 col-md-3 col-sm-3">
+                    </div>
+
+                    <div class=" col-gl-3 col-md-3 col-sm-3">
+                        <div class="d-flex w-100 ">  <span style="font-weight:600;   ">Inventory Name : &nbsp;</span><span style="font-weight: 700;color: red" id="InventoryName"> </span></div>
+                        <div class="d-flex w-100 ">  <span style="font-weight: 600; "> Floor No : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-weight: 700; color: red" id="FloorNo"> </span></div>
+                        <div class="d-flex w-100 ">  <span style="font-weight: 600; "> Property No : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-weight: 700; color: red" id="PropertyNo"></span></div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important; ">
+                <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+
+
+
+                    <div class=" col-gl-3 col-md-3 col-sm-3" style="background-color: green; border: 2px solid black; background-color: #162e47; color: white; opacity: 1; margin-right:5px; border:groove; height:50px; font-weight:600;  padding-top:15px ">
+                        <center>    <span>Down Payment</span></center>
+                    </div>
+
+                    <div class=" col-gl-3 col-md-3 col-sm-3" style="background-color: green; border: 2px solid black; background-color: #162e47; color: white; opacity: 1; margin-right: 5px; border: groove; height: 50px; font-weight: 600; padding-top: 15px ">
+                        <center>    <span id="lblMonthlyInstallment">Monthly Installment</span></center>
+                    </div>
+
+                    <div class=" col-gl-3 col-md-3 col-sm-3" style="background-color: green; border: 2px solid black; background-color: #162e47; color: white; opacity: 1; margin-right: 5px; border: groove; height: 50px; font-weight: 600; padding-top: 15px ">
+                        <center>    <span id="lblCustomInstallment">Custom Installment</span></center>
+                    </div>
+
+                    <div class=" col-gl-2 col-md-2 col-sm-2" style="background-color: green; border: 2px solid black; background-color: #162e47; color: white; opacity: 1; margin-right: 5px; border: groove; height: 50px; font-weight: 600; padding-top: 15px ">
+                        <center>    <span>Total Amount </span></center>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important; ">
+                <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+
+
+
+                    <div class=" col-gl-3 col-md-3 col-sm-3" style="background-color: green; border: 2px solid black; background-color: #162e47; color: white; opacity: 1; margin-right: 5px; border: groove; height: 50px; font-weight: 600; padding-top: 15px ">
+                        <center>    <span id="DownPayment">Down Payment</span></center>
+                    </div>
+
+                    <div class=" col-gl-3 col-md-3 col-sm-3" style="background-color: green; border: 2px solid black; background-color: #162e47; color: white; opacity: 1; margin-right: 5px; border: groove; height: 50px; font-weight: 600; padding-top: 15px ">
+                        <center>    <span id="MonthlyInstallment">Monthly Installment</span></center>
+                    </div>
+
+                    <div class=" col-gl-3 col-md-3 col-sm-3" style="background-color: green; border: 2px solid black; background-color: #162e47; color: white; opacity: 1; margin-right: 5px; border: groove; height: 50px; font-weight: 600; padding-top: 15px ">
+                        <center>    <span id="CustomInstallment">Custom Installment</span></center>
+                    </div>
+
+                    <div class=" col-gl-2 col-md-2 col-sm-2" style="background-color: green; border: 2px solid black; background-color: #162e47; color: white; opacity: 1; margin-right: 5px; border: groove; height: 50px; font-weight: 600; padding-top: 15px ">
+                        <center>    <span id="TotalAmount">Total Amount </span></center>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+</section>
+        <!--
+
+
+        <div class=" col-gl-12 ">
+            <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;"></div>
+                <div class="col-lg-12  " style="padding:15px;">
+                    <table class="table table-borderless" style="font-size:12px;">
+                        <thead>
+                            <tr style="border-bottom:solid 1px #747572">
+                                <th>S.No.</th>
+                                <th>Customer Name</th>
+                                <th>InventoryType</th>
+                                <th>House / Floor No</th>
+                                <th>PropertyNo</th>
+                                <th>Property Value</th>
+                                <th>On Booking</th>
+                                <th>Installments Months</th>
+                                <th>Installments Amount</th>
+                                <th>Custom Installments</th>
+                                <th>Custom Installments Months</th>
+                                <th>Custom Installments Amount</th>
+                                <th>View Plan</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="CustomerList">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        -->
+
+
+
+
+
+
+        <script src="js/Budgetsetting.js"></script>
+</body>
+</html>
+
+
+<script>
+
+
+
+
+    GetCustomerBookingPlan()
+    GetProjectCustomersById()
+    
+    function GetCustomerBookingPlan() {
+      
+        var CustomerId = sessionStorage.getItem("CustomerId")
+
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/GetCustomerBookingPlanByCustomer',
+            dataType: 'json',
+            data: "{'CustomerId':'" + CustomerId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+              
+              
+                    //dt = dt + " <tr>";
+                    //dt = dt + "   <td>" + mRow + ".</td>";
+                    //dt = dt + "   <td> " + data.Row[i].Firstname + "  " + data.Row[i].Lastname +"</td>";
+                    //dt = dt + "   <td> " + data.Row[i].InventoryType       + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i].FloorNo       + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i].PropertyNo       + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i].PropertyValue       + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i].OnBooking       + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i].InstallmentsMonths + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i].InstallmentsAmount + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i].CustomInstallments + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i].CustomInstallmentsMonths + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i].CustomInstallmentsAmount + "</td>";
+
+               
+                document.getElementById("InventoryName").innerHTML = data.Row[0].InventoryType
+                document.getElementById("FloorNo").innerHTML = data.Row[0].FloorNo
+                document.getElementById("PropertyNo").innerHTML = data.Row[0].PropertyNo
+
+
+                var QuarterInstallmentsMonths = parseFloat(data.Row[0].InstallmentsMonths) / parseFloat(data.Row[0].CustomInstallmentsMonths)
+
+                document.getElementById("lblMonthlyInstallment").innerHTML = "Monthly Installments (" + data.Row[0].InstallmentsMonths + " x " + data.Row[0].InstallmentsAmount + ")"
+
+
+
+               
+
+
+                document.getElementById("lblCustomInstallment").innerHTML = "" + data.Row[0].CustomInstallments + " Installments (" + QuarterInstallmentsMonths +" x)   "
+
+                var TotalMonthlyInstallments = parseFloat(data.Row[0].InstallmentsMonths) * parseFloat(data.Row[0].InstallmentsAmount)
+
+
+                var RemainingInstallmentsAmount = (parseFloat(data.Row[0].PropertyValue) - parseFloat(data.Row[0].OnBooking)  ) - parseFloat(TotalMonthlyInstallments);
+
+              
+
+                var TotalCustomInstallmentAmountMonthly = RemainingInstallmentsAmount / parseFloat(QuarterInstallmentsMonths);
+
+                var TotalCustomeInstallments = parseFloat(QuarterInstallmentsMonths) * parseFloat(TotalCustomInstallmentAmountMonthly)
+
+                document.getElementById("lblCustomInstallment").innerHTML = "" + data.Row[0].CustomInstallments + " Installments (" + QuarterInstallmentsMonths + " x " + TotalCustomInstallmentAmountMonthly +")   "
+                document.getElementById("DownPayment").innerHTML = numberWithCommas(data.Row[0].OnBooking)
+
+                document.getElementById("MonthlyInstallment").innerHTML = numberWithCommas(TotalMonthlyInstallments)
+
+                document.getElementById("CustomInstallment").innerHTML = numberWithCommas(TotalCustomeInstallments)
+                document.getElementById("TotalAmount").innerHTML = numberWithCommas(data.Row[0].PropertyValue)
+
+                
+                
+                   
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    function GetProjectCustomersById() {
+
+
+        var CustomerId = sessionStorage.getItem("CustomerId")
+
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/GetProjectCustomersById',
+            dataType: 'json',
+            data: "{'CustomerId':'" + CustomerId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+
+                document.getElementById("CustomerName").innerHTML = data.Row[0].Firstname + " " + data.Row[0].Lastname;
+               
+                document.getElementById("CustomerCity").innerHTML = data.Row[0].Address;
+               
+                document.getElementById("CustomerContact").innerHTML = data.Row[0].Contact;
+                document.getElementById("CustomerEmail").innerHTML = data.Row[0].Email;
+               
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+</script>
+
+

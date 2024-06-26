@@ -1,0 +1,66 @@
+﻿body {
+}
+.sidebar-menu > li.treeview .patient-icon
+{
+    background-image: url(../img/DoctorMenu/patient-a.svg);
+    background-repeat: no-repeat;
+    background-position: center left;
+    color: white;
+    text-decoration: unset;
+    font-weight: normal;
+    background-size: auto;
+}
+
+.sidebar-menu li.treeview.menu-open .patient-icon
+{
+    color: #f99d1c;
+    background-image: url(../img/DoctorMenu/patient-b.svg);
+}
+.sidebar-menu > li.treeview .appointment-icon
+{
+    background-image: url(../img/DoctorMenu/2a.png);
+    background-repeat: no-repeat;
+    background-position: center left;
+    color: white;
+    text-decoration: unset;
+    font-weight: normal;
+    background-size: auto;
+}
+
+.sidebar-menu li.treeview.menu-open .appointment-icon
+{
+    color: #f99d1c;
+    background-image: url(../img/DoctorMenu/2b.png);
+}
+.sidebar-menu > li.treeview .doctor-icon
+{
+    background-image: url(../img/DoctorMenu/3a.png);
+    background-repeat: no-repeat;
+    background-position: center left;
+    color: white;
+    text-decoration: unset;
+    font-weight: normal;
+    background-size: auto;
+}
+
+.sidebar-menu li.treeview.menu-open .doctor-icon
+{
+    color: #f99d1c;
+    background-image: url(../img/DoctorMenu/3b.png);
+}
+.sidebar-menu > li.treeview .clinic-icon
+{
+    background-image: url(../img/DoctorMenu/4a.png);
+    background-repeat: no-repeat;
+    background-position: center left;
+    color: white;
+    text-decoration: unset;
+    font-weight: normal;
+    background-size: auto;
+}
+
+.sidebar-menu li.treeview.menu-open .clinic-icon
+{
+    color: #f99d1c;
+    background-image: url(../img/DoctorMenu/);
+}

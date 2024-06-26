@@ -1,0 +1,743 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment" style="width:180px"> Customer Booking Plan</div>
+                    
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Select Project Inventory</span>
+                        </div>
+                        <select id="ProjectInventory" class="form-control " style="font-family:'fontAwesome',Arial;" onchange="GetFloorsInProject(this.value)"></select>
+                    </div> 
+                    
+                    
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Select Floor</span>
+                        </div>
+                        <select id="SelectFloor" class="form-control " style="font-family:'fontAwesome',Arial;" onchange="GetAppartmentsInFloor(this.value)"></select>
+                    </div>
+                    
+                    
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Select Appartments / Office</span>
+                        </div>
+                        <select id="AppartmentsAndOffice" class="form-control " style="font-family:'fontAwesome',Arial;" onchange="GetInventoryDetailById(this.value)"></select>
+                    </div> 
+                    
+                    
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Customer</span>
+                        </div>
+                        <select id="Customers" class="form-control " style="font-family:'fontAwesome',Arial;" onchange="GetInventoryDetailById(this.value)"></select>
+                    </div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Property Value</span>
+                        </div>
+                        <input id="propertyvalue" type="number" inputmode="numeric" class="form-control" readonly />
+                    </div>
+                    
+                    
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">OnBooking</span>
+                        </div>
+                        <input id="txtOnBooking" type="number" inputmode="numeric" class="form-control" placeholder="On Booking Amount" onkeyup="GetInstallmentPlan()" />
+                    </div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Installment Months</span>
+                        </div>
+                        <input id="txtInstallmentsMonths" type="text" inputmode="numeric" class="form-control" placeholder="Enter Installment Months" onkeyup="GetInstallmentPlan()" />
+                    </div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Installment Amount</span>
+                        </div>
+                        <input id="txtInstallmentsAmount" type="text" inputmode="numeric" class="form-control" placeholder="Enter Installment Amount" onkeyup="GetInstallmentPlan()" />
+                    </div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Custom Installments</span>
+                        </div>
+                        <input id="txtCustomInstallments" type="text" inputmode="numeric" class="form-control" readonly />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Custom Installment Months</span>
+                        </div>
+                        <input id="txtCustomInstallmentsMonths" type="text" inputmode="numeric" class="form-control" readonly />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Custom Installment Amount</span>
+                        </div>
+                        <input id="txtCustomInstallmentsAmount" value="0" type="text" inputmode="numeric" class="form-control" placeholder="Enter Custom Installment Amount" />
+                    </div>
+                    
+                    
+                    <!--<div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Remaining Installments</span>
+                        </div>
+                        <input id="txtRemainingInstallments" value="0" type="text" inputmode="numeric" class="form-control" readonly/>
+                    </div>-->
+
+
+
+
+
+                    <div class="mt-2">
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="Save();"> <span class="btn-name">Save  </span> </a>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">Users</div>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>Customer Name</th>
+                                        <th>InventoryType</th>
+                                        <th>House / Floor No</th>
+                                        <th>PropertyNo</th>
+                                        <th>Property Value</th>
+                                        <th>On Booking</th>
+                                        <th>Installments Months</th>
+                                        <th>Installments Amount</th>
+                                        <th>Custom Installments</th>
+                                        <th>Custom Installments Months</th>
+                                        <th>Custom Installments Amount</th>
+                                        <th>View Plan</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="CustomerList">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal -->
+    <div id="myAddExpes" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="ModelTitle"></span> Assign Project To User</h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+
+                    <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                        <div class=" col-gl-12 col-md-12 col-sm-12">
+                            <div class="d-flex w-100 "></div>
+
+
+
+                            <div class="input-group small mt-2 ">
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Projects </span>
+                                    </div>
+
+                                    <select id="Projects" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                                    <!--<a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>-->
+                                    <a id="" href="#" class="save-btn " onclick="AssignProjectsToSubUsers();"> <span class="btn-name">Save  </span> </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                            <div class=" col-gl-12 ">
+                                <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                                    
+                                    <div class="col-lg-12  " style="padding:15px;">
+                                        <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                            <thead>
+                                                <tr style="border-bottom:solid 1px #747572">
+                                                    <th>S.No.</th>
+                                                    <th>On Booking</th>
+                                                    <th>Installments Months</th>
+                                                    <th>Installments Amount</th>                                                    
+                                                    <th>Custom Installments</th>
+                                                    <th>Custom Installments Months</th>
+                                                    <th>Custom Installments Amount</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ProjectAssignedList">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/Budgetsetting.js"></script>
+</body>
+</html>
+
+
+<script>
+
+
+
+    var save = "ADD";
+    var CustomerBookingPlanID = "";
+    function Save() {
+
+        if (save == 'ADD') {
+            CreateBookingPlan()
+        }
+        else {
+            UpdateBookingPlan()
+        }
+    }
+
+
+
+    GetCustomerBookingPlan()
+    function CreateBookingPlan() {
+        var txtOnBooking =                  document.getElementById("txtOnBooking").value;
+        var txtInstallmentsMonths =         document.getElementById("txtInstallmentsMonths").value;
+        var txtInstallmentsAmount =         document.getElementById("txtInstallmentsAmount").value;
+        var txtCustomInstallments =         document.getElementById("txtCustomInstallments").value;
+        var txtCustomInstallmentsMonths =   document.getElementById("txtCustomInstallmentsMonths").value;
+        var txtCustomInstallmentsAmount =   document.getElementById("txtCustomInstallmentsAmount").value;
+        var PropertyValue = document.getElementById("propertyvalue").value;
+        var CustomerId =                    document.getElementById("Customers").value;
+        var ProjectInventoryId =            document.getElementById("AppartmentsAndOffice").value;
+        var ProjectId = sessionStorage.getItem("ProjectId")
+
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/CreateCustomerBookingPlan',
+            dataType: 'json',
+            data: "{'ProjectInventoryId':'" + ProjectInventoryId + "','CustomerId':'" + CustomerId + "','ProjectId':'" + ProjectId + "','ProjectId':'" + ProjectId + "','OnBooking':'" + txtOnBooking + "','InstallmentsMonths':'" + txtInstallmentsMonths + "','InstallmentsAmount':'" + txtInstallmentsAmount + "','CustomInstallments':'" + txtCustomInstallments + "','CustomInstallmentsMonths':'" + txtCustomInstallmentsMonths + "','CustomInstallmentsAmount':'" + txtCustomInstallmentsAmount + "','PropertyValue':'" + PropertyValue + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Customer Booking Plan Has Been Added")
+                Clear()
+                GetCustomerBookingPlan()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function UpdateBookingPlan() {
+
+        var txtOnBooking = document.getElementById("txtOnBooking").value;
+        var txtInstallmentsMonths = document.getElementById("txtInstallmentsMonths").value;
+        var txtInstallmentsAmount = document.getElementById("txtInstallmentsAmount").value;
+        var txtCustomInstallments = document.getElementById("txtCustomInstallments").value;
+        var txtCustomInstallmentsMonths = document.getElementById("txtCustomInstallmentsMonths").value;
+        var txtCustomInstallmentsAmount = document.getElementById("txtCustomInstallmentsAmount").value;
+        var PropertyValue = document.getElementById("propertyvalue").value;
+        var CustomerId = document.getElementById("Customers").value;
+        var ProjectInventoryId = document.getElementById("AppartmentsAndOffice").value;
+        var ProjectId = sessionStorage.getItem("ProjectId")
+
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/UpdateCustomerBookingPlan',
+            dataType: 'json',
+            data: "{'CustomerBookingPlanId':'" + CustomerBookingPlanID + "','ProjectInventoryId':'" + ProjectInventoryId + "','CustomerId':'" + CustomerId + "','ProjectId':'" + ProjectId + "','ProjectId':'" + ProjectId + "','OnBooking':'" + txtOnBooking + "','InstallmentsMonths':'" + txtInstallmentsMonths + "','InstallmentsAmount':'" + txtInstallmentsAmount + "','CustomInstallments':'" + txtCustomInstallments + "','CustomInstallmentsMonths':'" + txtCustomInstallmentsMonths + "','CustomInstallmentsAmount':'" + txtCustomInstallmentsAmount + "','PropertyValue':'" + PropertyValue + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Customer Booking Plan Has Been Updated")
+                Clear()
+                GetCustomerBookingPlan()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    
+    function GetCustomerBookingPlan() {
+        var ProjectId = sessionStorage.getItem("ProjectId")
+
+       
+
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/GetCustomerBookingPlan',
+            dataType: 'json',
+            data: "{'ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+                    dt = dt + " <tr>";
+                    dt = dt + "   <td>" + mRow + ".</td>";
+                    dt = dt + "   <td> " + data.Row[i].Firstname + "  " + data.Row[i].Lastname +"</td>";
+                    dt = dt + "   <td> " + data.Row[i].InventoryType       + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].FloorNo       + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].PropertyNo       + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].PropertyValue       + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].OnBooking       + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].InstallmentsMonths + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].InstallmentsAmount + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].CustomInstallments + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].CustomInstallmentsMonths + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].CustomInstallmentsAmount + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i]. + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i]. + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i]. + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i]. + "</td>";
+                    //dt = dt + "   <td> " + data.Row[i]. + "</td>";
+
+                    dt = dt + " <td><a href='#'  onclick=ViewBookingPlan('" + data.Row[i].CustomerId + "');><i class='fa fa-eye'></i> &nbsp;</a></td>";
+                    dt = dt + " <td><a href='#'  onclick=EditCustomerBookingPlan('" + data.Row[i].CustomerBookingPlanId + "');><i class='fa fa-edit'></i> &nbsp;</a></td>";
+                    dt = dt + " <td><a href='#'  onclick=DeleteCustomerBookingPlan('" + data.Row[i].CustomerBookingPlanId + "');>  <i class='fa fa-trash' style='color:red'></i> &nbsp;</a></td>";
+                   
+                    dt = dt + "</tr>";
+                    str = str + dt;
+                    dt = "";
+                }
+                document.getElementById("CustomerList").innerHTML = str;
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+   
+    function EditCustomerBookingPlan(CustomerBookingPlanId) {
+
+        CustomerBookingPlanID = CustomerBookingPlanId
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/GetCustomerBookingPlanById',
+            dataType: 'json',
+            data: "{'CustomerBookingPlanId':'" + CustomerBookingPlanId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+
+                
+               
+                
+                document.getElementById("txtOnBooking").value = data.Row[0].OnBooking;
+                document.getElementById("txtInstallmentsMonths").value = data.Row[0].InstallmentsMonths;
+                document.getElementById("txtInstallmentsAmount").value = data.Row[0].InstallmentsAmount;
+                document.getElementById("txtCustomInstallments").value = data.Row[0].CustomInstallments;
+                document.getElementById("txtCustomInstallmentsMonths").value = data.Row[0].CustomInstallmentsMonths;
+                document.getElementById("txtCustomInstallmentsAmount").value = data.Row[0].CustomInstallmentsAmount;
+                document.getElementById("propertyvalue").value = data.Row[0].PropertyValue;
+                document.getElementById("Customers").value = data.Row[0].CustomerId;
+                document.getElementById("ProjectInventory").value = data.Row[0].InventoryType;
+                
+                document.getElementById("AppartmentsAndOffice").value = data.Row[0].ProjectInventoryId;
+
+                GetFloorsInProject(data.Row[0].InventoryType)
+               
+                GetAppartmentsInFloor(data.Row[0].FloorNo)
+
+
+                document.getElementById("btnsave").innerHTML = 'Update';
+
+                save = 'update'
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function DeleteCustomerBookingPlan(CustomerBookingPlanId) {
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/DeleteCustomerBookingPlan',
+            dataType: 'json',
+            data: "{'CustomerBookingPlanId':'" + CustomerBookingPlanId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Customer Booking Plan Plan Has Been Deleted")
+                GetCustomerBookingPlan()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function Clear() {
+
+        document.getElementById("txtOnBooking").value ='';
+        document.getElementById("txtInstallmentsMonths").value = '';
+        document.getElementById("txtInstallmentsAmount").value = '';
+        document.getElementById("txtCustomInstallments").value = '';
+        document.getElementById("txtCustomInstallmentsMonths").value = '';
+        document.getElementById("txtCustomInstallmentsAmount").value = '';
+        document.getElementById("propertyvalue").value = '';
+        document.getElementById("Customers").value = '';
+        document.getElementById("ProjectInventory").value = '';
+        document.getElementById("SelectFloor").value = '';
+        document.getElementById("AppartmentsAndOffice").value ='';
+
+        document.getElementById("btnsave").innerHTML = 'Save';
+        save = 'ADD'
+
+        GetProjectBookingPlan()
+    }
+
+
+    GetProjectCustomers()
+    function GetProjectCustomers() {
+        var ProjectId = sessionStorage.getItem("ProjectId")
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/GetProjectCustomers',
+            dataType: 'json',
+            data: "{'ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                dt = dt + "<option value=''>Select Customer</option>"
+
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                 
+                    dt = dt + "<option value=" + data.Row[i].CustomerId + "> " + data.Row[i].Firstname + "  " + data.Row[i].Lastname + " ( " + data.Row[i].Cnic +" )</option>";
+                   
+                }
+                document.getElementById("Customers").innerHTML = dt;
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    GetProjectBookingPlan()
+    function GetProjectBookingPlan() {
+        var ProjectId = sessionStorage.getItem("ProjectId")
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/GetProjectBookingPlan',
+            dataType: 'json',
+            data: "{'ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+             
+               
+                document.getElementById("txtOnBooking").value =data.Row[0].OnBooking      
+                document.getElementById("txtInstallmentsMonths").value =data.Row[0].InstallmentsMonths
+                document.getElementById("txtInstallmentsAmount").value =data.Row[0].InstallmentsAmount
+                document.getElementById("txtCustomInstallments").value =data.Row[0].CustomInstallments
+                document.getElementById("txtCustomInstallmentsMonths").value =data.Row[0].CustomInstallmentsMonths
+                   
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    function ViewBookingPlan(CustomerId) {
+
+        sessionStorage.setItem("CustomerId", CustomerId);
+
+        LoadFile('ViewCustomerBookingPlan.html');
+    }
+
+
+</script>
+
+<!-- Inventory View -->
+<script>
+
+    GetProjectInventoryForBookingPlan()
+    function GetProjectInventoryForBookingPlan() {
+        var ProjectId = sessionStorage.getItem("ProjectId")
+        $.ajax({
+            type: 'POST',
+            url: "ProjectCustomers.asmx/GetProjectInventoryForBookingPlan",
+            headers: { 'PtApiKey': 'pgH7QzFHJx4w46fI~5Uzi4RvtTwlEXp' },
+            data: "{'ProjectId':'" + ProjectId + "'}",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var dt = "";
+                dt = dt + "<option value=''>Select Inventory </option>";
+                for (var i = 0; i < data.Row.length; i++) {
+
+                    dt = dt + "<option value=" + data.Row[i].InventoryType + ">" + data.Row[i].InventoryType + " </option>";
+                }
+
+                document.getElementById("ProjectInventory").innerHTML = dt
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+   
+
+    function GetFloorsInProject(Project) {
+
+        var ProjectId = sessionStorage.getItem("ProjectId")
+
+        if (Project == "Appartments") {
+          $.ajax({
+            type: 'POST',
+            url: "Project.asmx/GetFloorsInProject",
+            headers: { 'PtApiKey': 'pgH7QzFHJx4w46fI~5Uzi4RvtTwlEXp' },
+            data: "{'ProjectId':'" + ProjectId + "'}",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var dt = "";
+               
+                dt = dt + "<option value=''>Select Floor </option>";
+                for (var i = 0; i < data.Row.length; i++) {                  
+                    dt = dt + "<option value='" + data.Row[i].FloorNo +"'>" + data.Row[i].FloorNo +" </option>";
+                }
+                document.getElementById("SelectFloor").innerHTML = dt
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+        }
+      
+    }
+
+
+    function GetInventoryDetailById(ProjectInventoryDetailId) {
+
+        $.ajax({
+            type: 'POST',
+            url: "Project.asmx/GetInventoryDetailById",
+            headers: { 'PtApiKey': 'pgH7QzFHJx4w46fI~5Uzi4RvtTwlEXp' },
+            data: "{'ProjectInventoryDetailId':'" + ProjectInventoryDetailId + "'}",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+      
+                document.getElementById("propertyvalue").value = data.Row[0].PriceTo
+
+                GetInstallmentPlan()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+
+
+
+    }
+
+
+    function GetAppartmentsInFloor(FloorNo) {
+
+        var ProjectId = sessionStorage.getItem("ProjectId")
+
+
+
+        $.ajax({
+            type: 'POST',
+            url: "Project.asmx/GetAppartmentsInFloor",
+            headers: { 'PtApiKey': 'pgH7QzFHJx4w46fI~5Uzi4RvtTwlEXp' },
+            data: "{'ProjectId':'" + ProjectId + "','FloorNo':'" + FloorNo + "'}",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var dt = "";
+                dt = dt + "<option value=''>Select Appaartments / Offices </option>";
+                for (var i = 0; i < data.Row.length; i++) {
+
+                    dt = dt + "<option value='" + data.Row[i].ProjectInventoryDetailId +"'>Property No. " + data.Row[i].PropertyNo + "  (Area " + data.Row[i].Area + " sqft)</option>";
+                }
+                document.getElementById("AppartmentsAndOffice").innerHTML = dt
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+
+
+
+    }
+
+    function GetInstallmentPlan() {
+
+        var ActualValue = parseFloat(document.getElementById("propertyvalue").value)
+        var OnBooking = parseFloat(document.getElementById("txtOnBooking").value)
+
+        var TotalInstallmets = ActualValue - OnBooking;
+
+        
+
+        var InstallmentsMonths = parseFloat(document.getElementById("txtInstallmentsMonths").value)
+        var InstallmentsAmountMonthly = parseFloat(document.getElementById("txtInstallmentsAmount").value)
+
+
+        var TotalInstallmentsMonthlyAmount = InstallmentsMonths * InstallmentsAmountMonthly;
+
+       
+
+
+        var RemainingInstallmentsAmount = TotalInstallmets - TotalInstallmentsMonthlyAmount;
+
+
+        
+
+        var InstallmentsAmountMonthly = parseFloat(document.getElementById("txtCustomInstallmentsMonths").value)
+
+        var CustomInstallmentsMonths = InstallmentsMonths / InstallmentsAmountMonthly;
+
+       
+
+
+        var TotalCustomInstallmentAmount = RemainingInstallmentsAmount / CustomInstallmentsMonths;
+
+
+        if (TotalCustomInstallmentAmount < 0) {
+            document.getElementById("txtCustomInstallmentsAmount").value = 0
+
+        }
+        else {
+            document.getElementById("txtCustomInstallmentsAmount").value = TotalCustomInstallmentAmount
+
+        }
+
+
+
+        var TotalInstallments = (TotalCustomInstallmentAmount * CustomInstallmentsMonths) + TotalInstallmentsMonthlyAmount + OnBooking;
+
+
+        document.getElementById("txtRemainingInstallments").value = TotalInstallments
+
+       
+    }
+</script>

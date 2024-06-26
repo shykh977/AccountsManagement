@@ -1,0 +1,1294 @@
+﻿<script src="lib/Chart.js/Chart.min.js"></script>
+<style>
+    .canvas
+    {
+        width: 661px;
+        height: 661px;
+    }
+    .dropdown-backdrop {
+        position: absolute;
+    }
+</style>
+
+<section class="content-header breadcrumb-header">
+    <h1>
+        <ol class="breadcrumb">
+            <li><a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></li>
+            <li id="" class=""><span class="level">Level 2</span></li>
+            <li id="MainHeading"><span class="pagename">dashboard</span></li>
+        </ol>
+
+    </h1>
+
+    <div href="#" class="calender-link" id="menu1">
+
+        <div class="links-add-date">
+            <a href="#" class="calender-linka" id="txtcalender-img" onclick="SubShowPopup('Category Settings','Add')">
+                <span class="icon-f"> <img src="img/add-icon.png" /> </span><b> Add <span id="mainButton"> Add Category</span></b>
+            </a>
+
+
+
+            <a href="#" class="calender-linka" id="txtcalender-img" onclick="LedgerFilterShowPopup('Date Filter')">
+                <span class="icon-f"><img src="img/calender-icon.png" />	 </span> <b>Select Date</b>
+            </a>
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">
+                <img src="img/search_icon.png" />
+            </span>
+            <input type="search" id="SearchString2" oninput="SearchValue()" class="form-control" placeholder="search">
+        </div>
+
+
+
+
+        <!-- <a href="#" class="callback" onclick='PageFarward();' ><img src="img/forword-arrow.png" /></a>-->
+    </div>
+
+</section>
+<section class="content-inr expense">
+
+
+
+    <div class="row">
+        <div id="DivData" class="col-md-12 col-lg-4 graph-detail">
+
+
+        </div>
+        <div style="display:none;">
+            <input id="txtDate1" readonly class="form-control date" type="text" placeholder="Select date" required />
+            <input id="txtDate2" readonly class="form-control date" type="text" placeholder="Select date" required />
+        </div>
+        <div class="col-md-12 col-lg-8 main-graph-seation">
+
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="box dashboard-box">
+                    <div class="col-md-12 col-lg-12 graph no-padding">
+                        <div class="dashboard-box-g">
+                            <div style="width:100%; height:100%;">
+                                <canvas id="CChart1"></canvas>
+                                <div id="TCChart1" class="table-amount" style="display:none"></div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 no-padding g-data">
+                        <div class="dashboard-box-sl col-lg-3 col-md-3">
+                            <a id="txtincome-title" href="#"> <span class="tittle"></span> </a>
+                            <span id="txtincome-value" class="amount"></span>
+                        </div>
+
+                        <div class="dashboard-box-sm right">
+
+
+                            <div class="dashboard-box-sm-d right"><a id="txtline-img" onclick="ChartShape('Chart1','grid')"><img id="grid" src="img/main_cat_Icon/Grid_Deactive.svg"></a></div>
+                            <div class="dashboard-box-sm-d right"><a id="txtlineb-img" onclick="ChartShape('Chart1','bar')"><img id="bar" src="img/main_cat_Icon/Bar_Deactive.svg"></a></div>
+                            <div class="dashboard-box-sm-d right"><a id="txtincome-sm-img" onclick="ChartShape('Chart1','doughnut')"><img id="doughnut" src="img/main_cat_Icon/Pie_active.svg"></a></div>
+                            <div class="dashboard-box-sm-d right"><a id="txtcalender-img" onclick="LedgerFilterShowPopup('Date Filter')"><img src="img/calender-gray.png"></a></div>
+                            <div class="selected-filter">
+
+                                <span class="from-filter"><b>From:</b><span id="SdateDisplay"></span> </span>
+                                <span class="from-filter"><b>To:</b><span id="EdateDisplay"></span> </span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<script>
+    var myChart = [];
+    var catidarray = [];
+    var catvalues = [];
+    var catname = [];
+    var catnameChart = [];
+
+    var catcolor = [];
+    var bgcolors = [];
+    var catidchartType = new Array("pie", "bar", "bar", "line");
+    //var icons = ["Bank", "Cash", "Expenses", "Income", "Payments", "Receipts"]
+    var Dashprpority = [];
+    var userid = sessionStorage.getItem("UserID");
+    if (userid == null) {
+        location.href = "login2.html";
+    }
+    var usertitle = sessionStorage.getItem("UserTitle");
+
+    var type = "I";
+    function displayDashboardDate() {
+        if (window.sessionStorage.getItem("DateParam") == "ALL") {
+            $(".selected-filter").hide();
+
+        }
+        else {
+
+            $(".selected-filter").show();
+            document.getElementById("SdateDisplay").innerHTML = returnFormatedDate(window.sessionStorage.getItem("StartDate"), ".");
+            document.getElementById("EdateDisplay").innerHTML = returnFormatedDate(window.sessionStorage.getItem("EndDate"), ".");
+        }
+    }
+    
+    document.getElementById("txtDate1").value = window.sessionStorage.getItem("StartDate");
+    document.getElementById("txtDate2").value = window.sessionStorage.getItem("EndDate");
+    displayDashboardDate();
+    getLedger("ALL");
+    var ledgerobj = [];
+    function SearchValue() {
+
+        var sv = document.getElementById("SearchString2").value.toUpperCase();
+        //alert(sv);
+        if (sv == "" || sv == 'NaN') {
+            FillTable(ledgerobj);
+            //alert("n");
+        }
+        else {
+            var newArray = [];
+            ledgerobj.forEach(function (k) {
+                //alert(k.Narration);
+                var data1 = (" " + k.category.toUpperCase() + " ");
+
+                if (data1.match(sv) == sv) {
+                    //alert(JSON.stringify(k) + "----" + data1);
+                    newArray.push(k)
+                };
+            });
+            //alert("F");
+            FillTable(newArray);
+        }
+    }
+    function FillTable(Mdata) {
+        var data = Mdata;
+        var str = "";
+        var dt = "";
+        var TBalance = 0;
+        if (data.length > 0) {
+            // dt = dt + '<div class="gallery js-flickity small">';
+            catidarray = [];
+            catvalues = [];
+            catname = [];
+            poparr = [];
+            bgcolors = [];
+            catcolor = [];
+            catnameChart = [];
+            for (var i = 0; i < data.length; i++) {
+                catidarray.push(data[i].CatId);
+                var bal = 0;
+                if (data[i].Balance == "") {
+                    bal = "0.00";
+
+                }
+
+                else if (parseFloat(data[i].Balance) < 0) {
+                    bal = "(" + data[i].Balance.toString() + ")";
+                    bal = bal.replace("-", "");
+                }
+                else {
+                    bal = data[i].Balance;
+                }
+                TBalance = TBalance + parseInt(data[i].Balance2, 10)
+
+                catvalues.push((parseInt(data[i].Balance2, 10)));
+                var poparr = [];
+                catname.push(data[i].category);
+                var nl = ""
+                if ((i % 2) == 0) {
+                    poparr.push(data[i].category);
+                    //poparr.push("");
+                    //poparr.push("");
+                }
+                else {
+                    //poparr.push("");
+                    //poparr.push("");
+                    poparr.push(data[i].category);
+
+                }
+
+                catnameChart.push(poparr);
+                bgcolors.push(data[i].Color.replace(")", ",1)").replace("rgb", "rgba"));
+                catcolor.push(data[i].Color)
+                var faicon = ""
+                if (data[i].Icon == "") {
+                    faicon = "fa fa-blank";
+                }
+                else {
+                    faicon = data[i].Icon;
+                }
+                dt = dt + ' <div class="col-md-2 col-lg-6 col-sm-6 col-xs-6 center-12">';
+                dt = dt + '     <div class="info-box">';
+                dt = dt + ' <a href="#" class="info-box-icon  " style="background-color:' + data[i].Color + '" onclick=LoadSub("' + data[i].CatId + '","' + sessionStorage.getItem("CatNature") + '") > <span id="txtcash" class="info-box-text mobile-only">' + data[i].category.toUpperCase() + '</span> <i style="color: transparent; -webkit-text-stroke-width: 1px;  -webkit-text-stroke-color: white;" class="' + faicon + '"></i></a>';
+                dt = dt + '             <div class="info-box-content">';
+                dt = dt + '         <a id="' + data[i].CatId + ":" + data[i].Main + ":" + data[i].MainID + ":" + data[i].category + ':' + data[i].Icon + ":" + data[i].Color + ":" + data[i].ACount + '" name="' + data[i].category + '" href="#" onclick="editCatSub(this.id)" class="edit-cash" > <i  class="fa fa-edit"></i></a>';
+                dt = dt + '                 <br>';
+                dt = dt + '                     <span id="txtcash" class="info-box-text desktop-only">' + data[i].category.toUpperCase() + '</span><br>';
+                dt = dt + '                         <span id="txtcash-value" class="info-box-number">' + bal + '</span>';
+                dt = dt + '             </div>';
+                dt = dt + '     </div>';
+                dt = dt + ' </div>';
+
+
+
+
+
+                str = str + dt;
+                dt = "";
+
+
+
+            }
+            str = str + dt;
+
+            //str = str + '</div>';
+
+            document.getElementById("DivData").innerHTML = str;
+            //getPaymentandReceipt(param);
+            $('#loadI').removeAttr('class');// attr('class', 'fa fa-gear');
+            document.getElementById("MainHeading").innerHTML = data[0].Main;
+            document.getElementById("mainButton").innerHTML = data[0].Main;
+            //mainButton
+            document.getElementById("txtincome-title").innerHTML = data[0].Main;
+            document.getElementById("txtincome-value").innerHTML = parseFloat(TBalance).toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+
+            $('#loadI').attr('class', 'fa fa-gear');
+            // alert(catidarray);
+
+        }
+    }
+    function getLedger(param) {
+        var catid = sessionStorage.getItem("CatID");
+        //$('#loadI').attr('class', 'fa fa-refresh fa-spin');
+        //loading script
+        param = window.sessionStorage.getItem("DateParam");
+        var Sdate = document.getElementById("txtDate1").value;
+        var Edate = document.getElementById("txtDate2").value;
+        var url = "";
+        var paramdata = "";
+        if (param == "ALL") {
+            url = 'Accounts.asmx/loadCatbyID'
+            paramdata = "{'CatID':'" + catid + "'}";
+        }
+        else {
+            url = 'Accounts.asmx/loadCatbyIDFilter';
+            paramdata = "{'CatID':'" + catid + "','StartDate':'" + Sdate + "','EndDate':'" + Edate + "'}"
+        }
+        // alert(param+ "--"+ url + "---" + paramdata)
+
+
+    
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            data: paramdata,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+
+ 
+
+
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                ledgerobj = [];
+                for (var i = 0; i < data.Row.length; i++) {
+                    var Dvalues = {
+                        CatId: data.Row[i].CatId
+                        , category: data.Row[i].category
+                        , Color: data.Row[i].Color
+                        , Icon: data.Row[i].Icon
+                        , Balance: data.Row[i].Balance
+                        , ACount: data.Row[i].ACount
+                        , Main: data.Row[i].Main
+                        , Balance2: data.Row[i].Balance2
+                        , MainID: data.Row[i].MainID
+                    };
+                    ledgerobj.push(Dvalues);
+                }
+                FillTable(ledgerobj);
+                $('#loadI').attr('class', 'fa fa-gear');
+
+                drawchartsingle("doughnut");
+            
+
+
+
+                //drawChart();
+                // google.charts.load('current', { 'packages': ['corechart'], "callback": drawChart });
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+
+   
+
+
+    }
+
+    //function getPaymentandReceipt(param) {
+
+    //    //$('#loadI').attr('class', 'fa fa-refresh fa-spin');
+    //    //loading script
+    //    var Sdate = document.getElementById("txtDate1").value;
+    //    var Edate = document.getElementById("txtDate2").value;
+    //    var url = "";
+    //    var paramdata = "";
+    //    if (param == "ALL") {
+    //        url = 'Accounts.asmx/loadRP'
+    //        paramdata = paramdata = "{'UserID':'" + userid + "','StartDate':'" + param + "','EndDate':'" + param + "'}";
+    //    }
+    //    else {
+    //        url = 'Accounts.asmx/loadRP';
+    //        paramdata = "{'UserID':'" + userid + "','StartDate':'" + Sdate + "','EndDate':'" + Edate + "'}"
+    //    }
+    //    // alert(param+ "--"+ url + "---" + paramdata)
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: url,
+    //        dataType: 'json',
+    //        data: paramdata,
+    //        contentType: 'application/json; charset=utf-8',
+
+    //        success: function (response) {
+
+    //            var txt = '{"Row": ' + response.d + '}';
+    //            var data = JSON.parse(txt);
+    //            var str = "";
+    //            var dt = "";
+    //            var TBalance = 0;
+    //            // dt = dt + '<div class="gallery js-flickity small">';
+    //            //parseInt(data.Row[i].Balance2, 10)
+    //            if (data.Row.length > 0) {
+
+    //                // ******************* dummy *************
+    //                dt = dt + ' <div class="col-md-2 col-lg-6 col-sm-6 col-xs-6">';
+    //                dt = dt + '     <div class="info-box">';
+    //                dt = dt + '         <a href="#" class="info-box-icon ' + Dashprpority[4].toLowerCase() + '-bg " ><span id="txtcash" class="info-box-text mobile-only">' + Dashprpority[4].toUpperCase() + '</span><img src="img/main_cat_Icon/' + Dashprpority[4] + '.png"></a>';
+    //                dt = dt + '             <div class="info-box-content">';
+    //                dt = dt + '                 <br>';
+    //                dt = dt + '                     <span id="txtcash" class="info-box-text desktop-only">' + Dashprpority[4].toUpperCase() + '</span><br>';
+    //                dt = dt + '                         <span id="txtcash-value" class="info-box-number">' + parseInt(data.Row[0].Payment, 10) + '</span>';
+    //                dt = dt + '             </div>';
+    //                dt = dt + '     </div>';
+    //                dt = dt + ' </div>';
+    //                dt = dt + ' <div class="col-md-2 col-lg-6 col-sm-6 col-xs-6">';
+    //                dt = dt + '     <div class="info-box">';
+    //                dt = dt + '         <a href="#" class="info-box-icon ' + Dashprpority[5].toLowerCase() + '-bg " ><span id="txtcash" class="info-box-text mobile-only">' + Dashprpority[5].toUpperCase() + '</span><img src="img/main_cat_Icon/' + Dashprpority[5] + '.png"></a>';
+    //                dt = dt + '             <div class="info-box-content">';
+    //                dt = dt + '                 <br>';
+    //                dt = dt + '                     <span id="txtcash" class="info-box-text desktop-only">' + Dashprpority[5].toUpperCase() + '</span><br>';
+    //                dt = dt + '                         <span id="txtcash-value" class="info-box-number">' + parseInt(data.Row[0].Receipt, 10) + '</span>';
+    //                dt = dt + '             </div>';
+    //                dt = dt + '     </div>';
+    //                dt = dt + ' </div>';
+    //                // ****************** dummay end **********
+
+    //            }
+    //            str = str + dt;
+
+    //            //str = str + '</div>';
+
+    //            document.getElementById("DivData").innerHTML = document.getElementById("DivData").innerHTML + str;
+    //            $('#loadI').removeAttr('class');// attr('class', 'fa fa-gear');
+
+
+    //            $('#loadI').attr('class', 'fa fa-gear');
+
+
+
+
+
+    //            //drawChart();
+    //            // google.charts.load('current', { 'packages': ['corechart'], "callback": drawChart });
+
+    //        },
+    //        error: function (error) {
+    //            console.log(error);
+    //        }
+    //    });
+    //}
+    function LoadSub(a, n) {
+        sessionStorage.setItem("CatNature", n);
+        sessionStorage.setItem("SubCatID", a);
+        LoadFile("DashBoardLevel3.html");
+    }
+
+    var element, bgColor, brightness, r, g, b, hsp;
+    var subcatid, CatID;
+    function editCatSub(a) {
+
+        sessionStorage.setItem("SubCatData", a);
+        //alert(a);
+        //data.Row[i].CatId + ":" + data.Row[i].Main + ":" + data.Row[i].MainID + ":" + data.Row[i].category + ':' + data.Row[i].Icon + ":" + data.Row[i].Color + ":" + data.Row[i].ACount
+        var v = a.split(":");
+
+        //CatName, divColor, IconS
+        subcatid = v[0];
+        //alert(v[2]);
+        //alert(subcatid);
+        CatID = v[2];
+        document.getElementById("CatName").value = v[3];
+        document.getElementById("divColor").style.backgroundColor = v[5];
+        document.getElementById("IconS").className = v[4];
+        SubShowPopup("Edit Sub Category", "Edit");
+        //LoadFile("UserSubCatAddEdit.html");
+
+    }
+</script>
+<script>
+    var countlegend = 0;
+
+    //google.charts.load("visualization", "1", { packages: ["corechart"], "callback": drawChart });
+
+
+    function drawChart() {
+        //alert("1");
+        for (var a = 0; a < catidarray.length; a++) {
+            var ch = a + 1;
+
+            // alert(catidarray[a]);
+            DrawChartbyChart(catidarray[a], "Chart" + ch, catidchartType[a], a);
+        }
+        //DrawChartbyChart('1461F357-3F31-4D8F-869A-FF97E98C4199', "Chart1", "Pie");
+        //DrawChartbyChart('61264BA3-3AB7-4E9D-A3C9-E779BFFD0D6B', "Chart2", "Bar");
+        //DrawChartbyChart('FD8AB8FA-C28B-49C0-8B18-C912F1F5398B', "Chart3", "Grid");
+        //DrawChartbyChart('CD37F50A-D372-4DC1-8A9F-3E84FCFB039E', "Chart4", "Line");
+
+
+
+
+    }
+
+    var scalevalue;
+    var chartdata;
+    var chartOption;
+    function returnScalvalue(ChartType) {
+
+        if (ChartType == "bar")
+            scalevalue = {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 8,
+                        display: true
+                    },
+                    gridLines: {
+                        display: true,
+                        drawBorder: true
+                    }
+
+                }],
+
+                xAxes: [{
+                    afterTickToLabelConversion: function (data) {
+
+
+                        var xLabels = data.ticks;
+
+                        xLabels.forEach(function (labels, i) {
+                            //if (i % 2 == 1) {
+                                xLabels[i] = xLabels[i].substring(0,8);
+                            //}
+                        });
+                    } ,
+                    barPercentage: 1,
+                    offset: true,
+                    ticks: {
+                        stepSize: 1,
+                        autoSkip: false,
+                        minRotation: 90,
+                        //maxRotation: 0,
+                        display: true //this will remove only the label
+                    },
+                    gridLines: {
+                        display: false
+                        ,
+                        drawBorder: true
+                    }
+                }]
+            }
+        else
+            scalevalue = {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 8,
+                        display: false
+                    },
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    }
+
+                }],
+
+                xAxes: [{
+                    barPercentage: 1,
+                    offset: true,
+                    ticks: {
+                        display: false //this will remove only the label
+                    },
+                    gridLines: {
+                        display: false
+                        ,
+                        drawBorder: false
+                    }
+                }]
+            }
+        chartOption = {
+
+
+            maintainAspectRatio: false,
+            cutoutPercentage: 30,
+            scales: scalevalue,
+            legend: {
+                display: false
+            }
+        }
+
+
+    }
+    function drawchartsingle(ChartType) {
+        // alert(catvalues);
+
+        returnScalvalue(ChartType);
+        chartdata = {
+            labels: catname,//catnameChart,
+            mynames: catname,
+            mydata: catvalues,
+            mycolor: catcolor,
+            mykeys: catidarray,
+            myheader: "Main Dashboard",
+            datasets: [{
+
+                data: catvalues,
+                MyKeys: catidarray,
+                backgroundColor: bgcolors,
+                borderColor: catcolor,
+                borderWidth: 1
+            }]
+        };
+
+        var ctx = document.getElementById("CChart1");
+        if (myChart.length > 0) {
+            var MChart = myChart[1];
+            MChart.destroy();
+        }
+        myChart[1] = new Chart(ctx, {
+            type: ChartType,
+            data: chartdata,
+            options: chartOption
+        });
+        ctx.onclick = function (evt) {
+            var activePoints = myChart[1].getElementsAtEvent(evt);
+            if (activePoints[0]) {
+                var chartData = activePoints[0]['_chart'].config.data;
+                var idx = activePoints[0]['_index'];
+
+                var label = chartData.labels[idx];
+                var value = chartData.datasets[0].data[idx];
+                var Key1 = chartData.datasets[0].MyKeys[idx];
+     
+                sessionStorage.setItem("SubCatID", Key1);
+
+                LoadFile("DashBoardLevel3.html");
+
+                //alert(url);
+            }
+        };
+    }
+
+
+    function ChartShape(a, b) {
+        var scalevalue = returnScalvalue(b);
+        var bb = parseInt(a.replace("Chart", ""));
+        var MChart = myChart[bb];
+        if (b != 'grid') {
+            //alert(myChart.length);
+            MChart.config.type = b;
+            //MChart.config.scales = scalevalue;
+            MChart.destroy();
+            var ctx = document.getElementById("C" + a).getContext("2d");
+
+            myChart[bb] = new Chart(ctx, { type: b, data: chartdata, options: chartOption });
+            //drawchartsingle(b);
+            document.getElementById("C" + a).style.display = "block";
+            document.getElementById("TC" + a).style.display = "none";
+
+        }
+        else {
+            //alert("T");
+            var lbl = MChart.config.data.mynames;
+            var dat = MChart.config.data.mydata;
+            var colr = MChart.config.data.mycolor;
+            var main1 = MChart.config.data.myheader;
+            var Key1 = MChart.config.data.mykeys;
+            var st = "";
+            for (var i = 0; i < lbl.length; i++) {
+                var bval1 = parseFloat(dat[i]).toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+                st = st + "<tr style='color:" + colr[i] + "; cursor:pointer;' onclick=LoadSub('" + Key1[i] + "')><td class='text-cGG' >" + (i + 1) + ".</td><td  class='text-l'>" + lbl[i] + "</td><td  class='text-r'>" + bval1 + " </td></tr>";
+            }
+            //alert("T1");
+            var dt = "";
+            // dt = dt + '<div id=' + "TC" + a + ' class="row tableFlow" style=" overflow-y:auto;margin-left:15px; margin-right:15px;">';
+            //dt = dt + '<div class="col-12" style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">' + main1 + '</div>';
+            //dt = dt + '<div class="col-12">';
+            dt = dt + '    <table class="table table-borderless table-hover " >';
+            dt = dt + '        <thead>';
+            dt = dt + '            <tr >';
+            dt = dt + '                <th class="text-cGG">S.No.</th>';
+            dt = dt + '                <th class="text-l">Description</th>';
+            dt = dt + '                <th class="text-r">Amount</th>';
+            dt = dt + '            </tr>';
+            dt = dt + '        </thead>';
+            dt = dt + '        <tbody>';
+            dt = dt + '        ' + st;
+            dt = dt + '        </tbody>';
+            dt = dt + '    </table>';
+            //dt = dt + '</div>';
+            //dt = dt + '</div>';
+            // dt = dt + '</div>';
+            document.getElementById("TC" + a).innerHTML = dt;
+            document.getElementById("TC" + a).style.display = "block";
+            document.getElementById("C" + a).style.display = "none";
+
+            //alert(dt);
+        }
+        activeIcon(b);
+    }
+
+    function activeIcon(a) {
+
+        document.getElementById("bar").src = 'img/main_cat_Icon/Bar_Deactive.svg';
+        document.getElementById("doughnut").src = 'img/main_cat_Icon/Pie_Deactive.svg';
+        document.getElementById("grid").src = 'img/main_cat_Icon/Grid_Deactive.svg';
+        if (a == "bar") {
+            document.getElementById("bar").src = 'img/main_cat_Icon/Bar_Active.svg';
+        }
+        if (a == "doughnut") {
+            document.getElementById("doughnut").src = 'img/main_cat_Icon/Pie_active.svg';
+        }
+        if (a == "grid") {
+            document.getElementById("grid").src = 'img/main_cat_Icon/Grid_Active.svg';
+        }
+
+
+    }
+</script>
+
+<!-- Model for Filter ******************************************-->
+<div id="LedgerFilter99" class="modal fade">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="LedgerFilterTitle" class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Cancel';">&times;</button>
+            </div>
+
+            <div id="LedgerInvDiv" class="modal-body">
+                <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="title">
+                            <input id="LedgerFilter1" name="LedgerFilterSelect" type="radio" value="1" checked onchange="CallFilterCheck(this)" /><label for="LedgerFilter1">Regular</label>
+                        </div>
+
+                        <div class="col-12">
+                            <select id="LedgerFilterList" class="w-100 form-control pl-0 ">
+                                <option value="-1">ALL</option>
+                                <option value="0">Today</option>
+                                <option value="30" selected>Last 30 Days</option>
+                                <option value="90">Last Quarter</option>
+                                <option value="180">Last Six Months</option>
+                                <option value="365">Full Year</option>
+
+                            </select>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="col-lg-8 col-md-8 col-sm-12">
+
+                        <div class="col-12">
+                            <div class="title">
+                                <input id="LedgerFilter2" name="LedgerFilterSelect" type="radio" value="2" onchange="CallFilterCheck(this)" /><label for="Filter2">Custom</label>
+                            </div>
+                            <div class="col-lg-6 col-md-6  col-sm-12 no-padding">
+                                <div class="col-12">
+                                    <input placeholder="From" type="date" class="form-control" id="LedgerFromDate" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 m-no-padding">
+
+                                <div class="col-12 ">
+                                    <input placeholder="To" type="date" class="form-control" id="LedgerToDate" />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+
+
+                <style>
+                    .MyCancel
+                    {
+                        background-image: url('MunshiImagesMain/Cancel_Normal.svg');
+                        background-repeat: no-repeat;
+                        color: #EB2227;
+                        padding: 4px;
+                        font-weight: bold;
+                    }
+
+                    .Itext
+                    {
+                        border-radius: 0px !important;
+                        background-color: #747572 !important;
+                        color: whitesmoke;
+                        border: solid 1px #747572;
+                    }
+
+                    #Filter *
+                    {
+                        border-radius: 0px !important;
+                    }
+
+                    .MyCancel:hover
+                    {
+                        background-image: url('MunshiImagesMain/Cancel_Hover.svg');
+                        background-repeat: no-repeat;
+                        color: gray;
+                        padding: 4px;
+                        text-decoration: unset;
+                        font-weight: bold;
+                    }
+
+                    .MySubmit
+                    {
+                        background-image: url('MunshiImagesMain/Submit_Normal.svg');
+                        background-repeat: no-repeat;
+                        color: #0C72BA;
+                        padding: 4px;
+                        font-weight: bold;
+                    }
+
+                        .MySubmit:hover
+                        {
+                            background-image: url('MunshiImagesMain/Submit_Hover.svg');
+                            background-repeat: no-repeat;
+                            color: gray;
+                            padding: 4px;
+                            text-decoration: unset;
+                            font-weight: bold;
+                        }
+                </style>
+                <div class="modal-footer">
+                    <div class="col-12 text-right">
+                        <a id="LedgerbtnReset" href="#" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Cancel';" class="MyCancel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Cancel</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a id="Ledgerbtnsave" href="#" class="MySubmit" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Apply';">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;    Apply</a>
+                    </div>
+
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+        <script>
+            $('#LedgerFromDate').prop("disabled", true);
+            $('#LedgerToDate').prop("disabled", true);
+            function CallFilterCheck(a) {
+                if (a.id == "LedgerFilter1" && a.checked) {
+                    $('#LedgerFilterList').prop("disabled", false);
+                    $('#LedgerFromDate').prop("disabled", true);
+                    $('#LedgerToDate').prop("disabled", true);
+
+                } else
+                    if (a.id == "LedgerFilter2" && a.checked) {
+                        $('#LedgerFilterList').prop("disabled", true);
+                        $('#LedgerFromDate').prop("disabled", false);
+                        $('#LedgerToDate').prop("disabled", false);
+
+                    }
+            }
+
+            var LedgerOptFilter = "";
+            var LedgerFormOptionOptFilter = "";
+            function LedgerFilterShowPopup(a) {
+                //alert(LedgerOptFilter);
+                $("#LedgerFilterTitle").html('<span style="color:oranged;">' + a + '</span>');
+                $("#LedgerFilter99").modal();
+                FormOptionOptFilter = a;
+
+            }
+
+            $('#LedgerFilter99').on('hidden.bs.modal', function (e) {
+                // alert(LedgerOptFilter);
+                if (LedgerOptFilter == "Cancel") {
+                    //alert("Reminder");
+                    //SendInvite("Reminder");
+                    //alert(LedgerFormOptionOptFilter + " Cancel");
+                }
+                else if (LedgerOptFilter == "Apply") {
+
+                    if ($('#LedgerFilterList').prop("disabled") == false) {
+
+                        var val1 = parseInt(document.getElementById("LedgerFilterList").value);
+                        //alert(val1);
+                        var param = "none";
+                        if (val1 == "-1") {
+                            param = "ALL";
+                            window.sessionStorage.removeItem("StartDate");
+                            window.sessionStorage.removeItem("EndDate");
+                        }
+                        else {
+                            var dateto = new Date();
+                            var datefrom = new Date();
+                            datefrom.setDate(dateto.getDate() - val1);
+
+                            var Sdate = (dateto.getDate() < 10 ? "0" + dateto.getDate() : dateto.getDate()) + "." + (dateto.getMonth() < 10 ? "0" + (dateto.getMonth() + 1) : (dateto.getMonth() + 1)) + "." + dateto.getFullYear(); //document.getElementById("txtDate1").value;
+                            var sd = Sdate.split(".");
+
+                            document.getElementById("txtDate2").value = sd[2] + "." + sd[1] + "." + sd[0];
+                            var Edate = (datefrom.getDate() < 10 ? "0" + datefrom.getDate() : datefrom.getDate()) + "." + (datefrom.getMonth() < 10 ? "0" + (datefrom.getMonth() + 1) : (datefrom.getMonth() + 1)) + "." + datefrom.getFullYear(); //document.getElementById("txtDate1").value;
+                            sd = Edate.split(".");
+                            document.getElementById("txtDate1").value = sd[2] + "." + sd[1] + "." + sd[0];
+                            window.sessionStorage.setItem("StartDate", document.getElementById("txtDate1").value);
+                            window.sessionStorage.setItem("EndDate", document.getElementById("txtDate2").value);
+                            document.getElementById("SdateDisplay").innerHTML = returnFormatedDate(window.sessionStorage.getItem("StartDate"), ".");
+                            document.getElementById("EdateDisplay").innerHTML = returnFormatedDate(window.sessionStorage.getItem("EndDate"), ".");
+                            //alert(param + "pppp");
+                        }
+                        window.sessionStorage.setItem("DateParam", param);
+                        //alert(param + "pppp");
+                        getLedger(param);
+
+
+                    } else {
+                        var param = "none";
+                        var Sd1 = document.getElementById("LedgerFromDate").value;
+                        var Ed1 = document.getElementById("LedgerToDate").value;
+                        var SD2 = Sd1.split("-");
+                        document.getElementById("txtDate1").value = SD2[0] + "." + SD2[1] + "." + SD2[2];
+
+                        var ED2 = Ed1.split("-");
+                        document.getElementById("txtDate2").value = ED2[0] + "." + ED2[1] + "." + ED2[2];
+
+                        window.sessionStorage.setItem("StartDate", document.getElementById("txtDate1").value);
+                        window.sessionStorage.setItem("EndDate", document.getElementById("txtDate2").value);
+                        document.getElementById("SdateDisplay").innerHTML = returnFormatedDate(window.sessionStorage.getItem("StartDate"), ".");
+                        document.getElementById("EdateDisplay").innerHTML = returnFormatedDate(window.sessionStorage.getItem("EndDate"), ".");
+                        //alert(param + "pppp");
+                        window.sessionStorage.setItem("DateParam", param);
+                        getLedger(param);
+                    }
+                    displayDashboardDate();
+                    //alert("newInvitation");
+                    //SendInvite("newInvitation");
+
+                    var tt;
+                    if (LedgerFormOptionOptFilter == "To") {
+                        //tt = $("#AccountTitle option:selected").text();
+                        //document.getElementById("cashID").value = tt;
+                        //srcText = tt;
+                        //mValFrom = $("#AccountTitle").val();
+
+                        //alert(tt + ForText);
+                    }
+                    else {
+                        // document.getElementById("cashID").value = document.getElementById("AccountTitle").value;
+                        //tt = $("#AccountTitle option:selected").text();
+                        //document.getElementById("paymentsID").value = tt;
+                        //ForText = tt;
+                        //mValTo = $("#AccountTitle").val();
+                        //alert(tt + srcText);
+                    }
+                    //alert(FormOption + " Submit");
+                }
+
+                // this handler is detached after it has run once
+            });
+        </script>
+    </div>
+
+</div>
+<!-- Model for Filter End **************************************-->
+
+<!--*********************** Model for sub Data Entry **************************-->
+<div id="SubCatEntry" class="modal fade">
+    <div class="modal-dialog">
+        <style>
+
+            .MyDelete
+            {
+                background-image: url('MunshiImagesMain/Trash_Active.png');
+                background-repeat: no-repeat;
+                background-size: 24px 24px;
+                color: #EB2227;
+                padding: 4px;
+                font-weight: bold;
+            }
+
+                .MyDelete:hover
+                {
+                    background-image: url('MunshiImagesMain/Trash_Deactive.png');
+                    background-repeat: no-repeat;
+                    background-size: 24px 24px;
+                    color: gray;
+                    padding: 4px;
+                    text-decoration: unset;
+                    font-weight: bold;
+                }
+
+            .IconFill
+            {
+                width: 40px;
+                height: 40px;
+                font-size: 30px;
+                float: left;
+                margin: 6px;
+                color: #a1a1a1;
+            }
+
+            .ColorFill
+            {
+                width: 30px;
+                height: 30px;
+                float: left;
+                margin: 6px;
+                border: solid 1px #a1a1a1;
+            }
+        </style>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title"><span id="FilterTitle"></span></h4>
+                <button type="button" class="close" data-dismiss="modal" onmouseup="OptFilter = 'Cancel';">&times;</button>
+
+            </div>
+            <div class="modal-body">
+
+                <div id="InvDiv" class="row ">
+
+                    <div class=" col-lg-12 col-md-12 col-sm-12  ">
+
+                        <div class="col-lg-8 col-md-8 col-sm-8 ">
+                            Sub Category Name
+                        </div>
+                        <div class="col-lg-2  col-md-2 col-sm-2 text-right">
+                            Color
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2  text-right">
+                            <div style="text-align: center;width:50px; float:right;  ">Icon</div>
+
+
+                        </div>
+
+
+
+                        <div class="col-lg-8 col-md-8 col-sm-8 ">
+                            <input type="text" class="form-control" placeholder="Enter Name" id="CatName" style="border-radius:0px !important;">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <div id="divColor" onclick="$('#FillDivIcon').hide(); $('#FillDiv').toggle(); " style="cursor:pointer;float:right;width:38px; height:38px;background-color:red;border:solid 1px #a1a1a1;"></div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 ">
+                            <div onclick="$('#FillDiv').hide(); $('#FillDivIcon').toggle();" style="cursor:pointer;  text-align: center; background-color:whitesmoke; width:50px; height:38px;border:solid 1px #a1a1a1;float:right; padding:3px; padding-left:4px;">
+                                <i id="IconS" style="font-size:30px;color:#a1a1a1; " class="fa fa-id-badge"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                            <div id="FillDiv" style="height:200px;  background-color: whitesmoke;border: 1px solid rgb(161, 161, 161);margin-left: 1px;margin-top: 25px; padding: 6px;overflow:auto;" class="col-12">
+
+                            </div>
+                            <div id="FillDivIcon" style="text-align:center; height:200px; background-color: whitesmoke;border: 1px solid rgb(161, 161, 161);margin-left: 1px;margin-top: 25px; padding: 6px;overflow:auto;" class="col-12">
+
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                    <div class=" col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 modal-footer">
+                            <div style="float:left;    margin-top: -2px;"><a id="btnDelet" href="#" class="MyDelete" data-dismiss="modal" onmouseup="OptFilter = 'Delete';">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;    Delete</a></div>
+                            <div style="float:right;">
+                                <a id="btnReset" href="#" data-dismiss="modal" onmouseup="OptFilter = 'Cancel';" class="MyCancel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Cancel</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <a id="btnsave" href="#" class="MySubmit" data-dismiss="modal" onmouseup="OptFilter = 'Apply';">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;    Apply</a>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <script>
+            var edate = new Date();
+            var sdate = new Date(edate.getFullYear(), edate.getMonth() - 1, edate.getDate());
+            var Defa_A_Filter = "w";
+            var Defa_To_Filter = edate.getFullYear() + "/" + (edate.getMonth() + 1) + "/" + edate.getDate() + " 23:59:59";
+            var Defa_From_Filter = sdate.getFullYear() + "/" + (sdate.getMonth() + 1) + "/" + sdate.getDate() + " 00:00:00";
+
+
+
+
+
+            fillColor();
+            fillIcon();
+            function fillColor() {
+                document.getElementById("FillDiv").style.display = "none";
+
+                var colorArray = ['00FFFF', '7FFFD4', 'F0FFFF', 'F5F5DC', 'FFE4C4', '000000', 'FFEBCD', '0000FF', '8A2BE2', 'A52A2A', 'DEB887', '5F9EA0', '7FFF00',
+                    'D2691E', 'FF7F50', '6495ED', 'FFF8DC', 'DC143C', '00FFFF', '00008B', '008B8B', 'B8860B', 'A9A9A9', 'A9A9A9', '006400', 'BDB76B', '8B008B', '556B2F', 'FF8C00',
+                    '9932CC', '8B0000', 'E9967A', '8FBC8F', '483D8B', '2F4F4F', '2F4F4F', '00CED1', '9400D3', 'FF1493', 'FF1493'];
+                var elem = document.getElementById("FillDiv");
+                for (var a = 0; a < colorArray.length; a++) {
+                    var str = "";
+                    str = "<div onclick=ColorClicked('" + colorArray[a] + "') class='ColorFill' style='background-color:#" + colorArray[a] + ";' > </div>";
+                    elem.innerHTML = elem.innerHTML + str;
+                }
+            }
+
+            function fillIcon() {
+                document.getElementById("FillDivIcon").style.display = "none";
+
+                var iconArray = ['android', 'apple', 'bluetooth', 'cc-mastercard', 'cc-paypal', 'cc-stripe', 'cc-visa', 'facebook', 'facebook-official', 'linkedin', 'linkedin-square', 'skype', 'twitter', 'twitter-square', 'whatsapp', 'windows', 'wordpress', 'yahoo', 'youtube', 'youtube-play', 'area-chart', 'bar-chart', 'line-chart', 'pie-chart', 'bitcoin', 'dollar', 'euro', 'gbp', 'money', 'usd', 'yen', 'arrow-down', 'arrow-left', 'arrow-right', 'arrow-up', 'file', 'file-pdf-o', 'photo-o', 'file-powerpoint-o', 'file-video-o', 'file-word-o', 'file-zip-o',
+                    'check-square-o', 'check-square', 'circle', 'circle-o', 'dot-circle-o', 'minus-square', 'minus-square-o', 'plus-square', 'plus-square-o', 'square', 'square-o', 'refresh', 'spinner', 'copy', 'cut', 'save', 'play', 'address-book', 'address-book-o', 'address-card-o', 'address-card', 'adjust', 'archive', 'barcode', 'book', 'briefcase', 'building-o', 'camera', 'comment', 'comment-o', 'comments', 'dashboard', 'database', 'desktop', 'diamond', 'download', 'edit', 'envelope', 'envelope-o', 'fax', 'folder', 'folder-o', 'folder-open', 'folder-open-o', 'history', 'home', 'hotel', 'hourglass-2', 'id-card', 'id-card-o', 'image', 'inbox', 'info', 'institution', 'keyboard-o', 'laptop', 'legal', 'line-chart', 'lock', 'male', 'map', 'map-o', 'map-signs', 'map-marker', 'minus', 'mobile-phone', 'mortar-board', 'mouse-pointer', 'phone', 'phone-square', 'photo', 'pie-chart', 'plus', 'plus-circle', 'print', 'rss', 'search-plus', 'shopping-cart', 'tablet', 'ticket', 'trash', 'trash-o', 'university', 'unlock', 'lock', 'upload', 'user', 'user-circle-o', 'video-camera'];
+                var elem = document.getElementById("FillDivIcon");
+                for (var a = 0; a < iconArray.length; a++) {
+                    var str = "";
+                    str = "<div onclick=IconClicked('" + iconArray[a] + "') class='IconFill' ><i class='fa fa-" + iconArray[a] + "'</i> </div>";
+                    elem.innerHTML = elem.innerHTML + str;
+                }
+            }
+
+            function IconClicked(a) {
+                document.getElementById("IconS").className = "fa fa-" + a;
+
+            }
+            function ColorClicked(a) {
+                document.getElementById("divColor").style.backgroundColor = "#" + a;
+            }
+            var OptFilter = "";
+            var FormOptionOptFilter = "";
+            function SubShowPopup(a, b) {
+                if (b == "Add") {
+                    document.getElementById("CatName").value = "";
+                    document.getElementById("divColor").style.backgroundColor = "black";
+                    document.getElementById("IconS").className = "fa fa-plus-circle";
+                    CatID = sessionStorage.getItem("CatID");
+
+                }
+                //alert(OptFilter);
+                $("#FilterTitle").html(' <span style="color:oranged;">' + a + '</span> ');
+                if (b == "Edit") {
+                    document.getElementById("btnDelet").style.display = "block";
+                }
+                else { document.getElementById("btnDelet").style.display = "none"; }
+                $("#SubCatEntry").modal();
+                FormOptionOptFilter = b;
+
+            }
+            $('#SubCatEntry').on('hidden.bs.modal', function (e) {
+                //alert(OptFilter);
+                if (OptFilter == "Cancel") {
+                    //alert("Reminder");
+                    //SendInvite("Reminder");
+                    //alert(FormOptionOptFilter + " Cancel");
+                }
+                else if (OptFilter == "Apply") {
+                    //alert("newInvitation");
+                    //SendInvite("newInvitation");
+                    var tt;
+                    if (FormOptionOptFilter == "Edit") {
+
+                        updateSubCategory();
+
+                    }
+                    else {
+
+                        insertSubCategory();
+                    }
+                    //alert(FormOption + " Submit");
+                } else if (OptFilter == "Delete") {
+                    Delete();
+                }
+
+                // this handler is detached after it has run once
+            });
+
+
+
+            
+
+
+
+
+            function insertSubCategory() {
+                // var mCat, mCol, mIcon;
+
+                var mCat = document.getElementById("CatName").value;
+                if (mCat == "") {
+                    return "";
+                }
+                var mCol = document.getElementById("divColor").style.backgroundColor;
+                var mIcon = document.getElementById("IconS").className;
+                var type = "E";
+                var userid = window.sessionStorage.getItem("UserID");
+
+ 
+
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Accounts.asmx/AddSubCat',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: "{'Category':'" + mCat + "','mColor':'" + mCol + "','mIcon':'" + mIcon + "','CatId':'" + CatID + "','Nature':'" + sessionStorage.getItem("CatNature") +"'}",
+                    success: function (response) {
+
+
+ 
+
+
+                        //alert("Sub Category Added Successfully");
+                        $.alert({ title: 'Alert!:', content: 'Sub Category Added Successfully', });
+                        getLedger("ALL");
+                        //  alert(response.d);
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+
+
+             
+
+
+            }
+            function updateSubCategory() {
+                // var mCat, mCol, mIcon;
+
+                var mCat = document.getElementById("CatName").value;
+                var mCol = document.getElementById("divColor").style.backgroundColor;
+                var mIcon = document.getElementById("IconS").className;
+               // alert(mCat + "*" + mCol + "*" + mIcon);
+                var type = "E";
+                var userid = window.sessionStorage.getItem("UserID");
+
+
+     
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Accounts.asmx/UpdateSubCat',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: "{ 'subcatid':'" + subcatid + "','Category':'" + mCat + "','mColor':'" + mCol + "','mIcon':'" + mIcon + "','CatId':'" + CatID + "','Nature':'" + sessionStorage.getItem("CatNature") +"'}",
+                    success: function (response) {
+
+                       
+
+
+                        //alert("Sub Category Updated");
+                        $.alert({ title: 'Alert!:', content: 'Sub Category Updated', });
+                        getLedger("ALL");
+
+                        //  alert(response.d);
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+
+ 
+
+            }
+            function Delete() {
+                // var mCat, mCol, mIcon;
+
+               // alert(subcatid);
+
+
+          
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Accounts.asmx/DeleteSubCat',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: "{ 'subcatid':'" + subcatid + "'}",
+                    success: function (response) {
+
+ 
+
+
+                        if (response.d == "1") {
+                            //alert("Sub Category Deleted");
+                            $.alert({ title: 'Alert!:', content: 'Sub Category Deleted', });
+                            getLedger();
+                        }
+                        else {
+
+                           // alert("Sub Category not deleted; please delete all sub categories first");
+                            $.alert({ title: 'Alert!:', content: 'Sub Category not deleted; please delete all sub categories first', });
+                        }
+
+                        //  alert(response.d);
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                    });
+
+ 
+            }
+        </script>
+    </div>
+
+</div>
+<!--*********************** Model for sub Data Entry End **********************-->

@@ -1,0 +1,242 @@
+﻿
+<link href="css/loader.css" rel="stylesheet" />
+<link href="css/AccountSharedList.css" rel="stylesheet" />
+<script src="MyTools/DatabaseAjax.js"></script>
+
+
+<script>
+    /*eslint eqeqeq: ["error", "smart"]*/
+    var accid = sessionStorage.getItem("Accountid");
+    var accTitle = sessionStorage.getItem("AccountTitle");
+    var accOpening = sessionStorage.getItem("AccountOpening");
+    var accop = "";
+    if (accOpening == "") { accop = "0"; accOpening = "0"; }
+    else {
+        accop = accOpening.replace(new RegExp(",", 'g'), "");
+        accop = accop.replace(".00", "");
+    }
+</script>
+<script>
+    $(function () {
+
+        $("#includedContent").load("navbar.html");
+
+    });
+</script>
+
+
+
+
+
+
+<section class="content-header breadcrumb-header">
+    <h1>
+        <ol class="breadcrumb">
+            <li><a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></li>
+
+            <li><span id="MainHeading" class="pagenameb"> List of Shared Entries</span></li>
+        </ol>
+
+    </h1>
+
+    <div href="#" class="calender-link" id="menu1">
+
+        <div class="links-add-date">
+
+
+
+
+            <a href="#" class="calender-linka" id="txtcalender-img" onclick="LedgerFilterShowPopup('Date Filter')">
+                <span class="icon-f"><img src="img/calender-icon.png" />	 </span> <b>Select Date</b>
+            </a>
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">
+                <img src="img/search_icon.png" />
+            </span>
+            <input type="search" id="SearchString2" oninput="SearchValue()" class="form-control" placeholder="search">
+        </div>
+
+
+
+
+    </div>
+
+</section>
+
+
+<section class="content-inr shared-entries-main">
+    <div id="includedContent"></div>
+    <div id="loader" class="loader" style="margin:0;display:none;"></div>
+    <div class="shared-entries">
+        <div class="header-shared bg-white col-lg-12">
+            <div class="" style=" cursor: pointer; float:left;">
+                <span>
+                    <select id="sortoption" onchange="CalltableFill('sortoption');">
+                        <option value="Narration:asc">Account Name (A - Z) </option>
+                        <option value="Narration:desc">Account Name (Z - A)</option>
+                        <option value="Balance2:asc">Low Balance First</option>
+                        <option value="Balance2:desc">Heigh Balance First</option>
+                        <option value="TDate:desc">Latest Entry First</option>
+                        <option value="TDate:asc">Oldest Entry First</option>
+                    </select>
+                </span>
+                <!--<span>
+                    <a href="#" style="font-size:15px;margin-left:7px;" onclick="CalltableFill('sortoption')"><i class="fa fa-refresh"></i></a>
+                </span>-->
+            </div>
+            <div style=" float:right;margin-right:0px;">
+
+                <div>
+                    Total Entries <span id="AccOpening"></span>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="shared-entries-table">
+            <div class="col=lg-12  col-md-12 col-sm-12 table-responsive no-padding">
+                <table class="table table-borderless table-hover w-100">
+                    <thead class="">
+                        <tr>
+
+                            <th>SNo</th>
+
+                            <th style="min-width:75px;">Date</th>
+                            <th>Narration</th>
+                            <th class="text-r">Amount</th>
+                            <th class="text-c">Type</th>
+                            <th class="text-c">Status</th>
+
+                            <th class="text-c">Select</th>
+
+                            <!--<td>Balance</td>-->
+                            <!--<td><i class="fa fa-search"></i></td>-->
+
+                        </tr>
+
+
+                    </thead>
+                    <tbody id="ledger" class="small bg-white"></tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="row" style="display:none;">
+
+        <div class="input-group col-lg-5 " style="padding-left:0px !important; padding-right:0px !important">
+            <div class="input-group-prepend col-lg-4 pr-0">
+                <span class="input-group-text w-100" style="font-size:small">From </span>
+            </div>
+
+            <input id="txtDate1" readonly class="form-control date" type="text" placeholder="Select date" required />
+            <div class="input-group-append">
+                <span class="input-group-text" style="cursor:pointer;" id="cal21"><i class="fa fa-calendar fa-fw"></i></span>
+            </div>
+        </div>
+        <div class="input-group col-lg-5 pl-0 pr-0 " style="">
+            <div class="input-group-prepend col-lg-4 pr-0 pl-0">
+                <span class="input-group-text w-100" style="font-size:small">To </span>
+            </div>
+
+            <input id="txtDate2" readonly class="form-control date" type="text" placeholder="Select date" required />
+            <div class="input-group-append">
+                <span class="input-group-text" style="cursor:pointer;" id="cal22"><i class="fa fa-calendar fa-fw"></i></span>
+            </div>
+        </div>
+        <div class="input-group col-lg-2 pl-0 " style="">
+
+            <button class="btn btn-primary w-100" onclick="getAccountOpening();"><i class="fa fa-refresh"></i></button>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- Model for Filter-->
+<div id="LedgerFilter99" class="modal fade">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="LedgerFilterTitle" class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Cancel';">&times;</button>
+            </div>
+
+            <div id="LedgerInvDiv" class="modal-body">
+                <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="title">
+                            <input id="LedgerFilter1" name="LedgerFilterSelect" type="radio" value="1" checked onchange="CallFilterCheck(this)" /><label for="LedgerFilter1">Regular</label>
+                        </div>
+
+                        <div class="col-12">
+                            <select id="LedgerFilterList" class="w-100 form-control pl-0 ">
+                                <option value="-1">ALL</option>
+                                <option value="0">Today</option>
+                                <option value="30" selected>Last 30 Days</option>
+                                <option value="90">Last Quarter</option>
+                                <option value="180">Last Six Months</option>
+                                <option value="365">Full Year</option>
+
+                            </select>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="col-lg-8 col-md-8 col-sm-12">
+
+                        <div class="col-12">
+                            <div class="title">
+                                <input id="LedgerFilter2" name="LedgerFilterSelect" type="radio" value="2" onchange="CallFilterCheck(this)" /><label for="Filter2">Custom</label>
+                            </div>
+                            <div class="col-lg-6 col-md-6  col-sm-12 no-padding">
+                                <div class="col-12">
+                                    <input placeholder="From" type="date" class="form-control" id="LedgerFromDate" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 m-no-padding">
+
+                                <div class="col-12 ">
+                                    <input placeholder="To" type="date" class="form-control" id="LedgerToDate" />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <div class="col-12 text-right">
+                        <a id="LedgerbtnReset" href="#" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Cancel';" class="MyCancel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Cancel</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a id="Ledgerbtnsave" href="#" class="MySubmit" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Apply';">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;    Apply</a>
+                    </div>
+
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+<script src="js/AccountSharedList.js"></script>
+<!-- Model for Filter End **************************************-->

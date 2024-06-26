@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Add Supplier</div>
+
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Supplier Name:</span>
+                        </div>
+                        <input id="AgencyName" type="text" inputmode="numeric" class="form-control" placeholder="Enter Supplier Name" />
+                    </div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Contact Person:</span>
+                        </div>
+                        <input id="ContactPerson" type="text" inputmode="numeric" class="form-control" placeholder="Enter Contact Person" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Country:</span>
+                        </div>
+                        <input id="Country" type="text" inputmode="numeric" class="form-control" placeholder="Enter Country" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">State:</span>
+                        </div>
+                        <input id="State" type="text" inputmode="numeric" class="form-control" placeholder="Enter State" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Office Location:</span>
+                        </div>
+                        <input id="officelocation" type="text" inputmode="numeric" class="form-control" placeholder="Enter Office Location:" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">CNIC:</span>
+                        </div>
+                        <input id="cnic" type="text" inputmode="numeric" class="form-control" placeholder="Enter CNIC" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Phone:</span>
+                        </div>
+                        <input id="phonenum" type="text" inputmode="numeric" class="form-control" placeholder="Enter Phone" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">City:</span>
+                        </div>
+                        <input id="txtcity" type="text" inputmode="numeric" class="form-control" placeholder="Enter City" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Area:</span>
+                        </div>
+                        <input id="txtarea" type="text" inputmode="numeric" class="form-control" placeholder="Enter Area:" />
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                        <div>
+                            <input id="imgfile" class="form-control" onchange="MyFile();" type="file" name="image" accept="application/pdf, image/*" />
+                            <a id="btnReset" href="#" class="attach-btn " onclick="AddAttchement();"> <span class="btn-name">Attachment </span> </a><br /><span style="font-size:12px;"> (Maximum two attachments allowed)</span>
+
+                            <div id="AttachmentData" style="max-height:100px;overflow:auto;">
+                                <br />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="CreateSuplier();"> <span class="btn-name">Save  </span> </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">Users</div>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>Supplier Name</th>
+                                        <th>Contact Person</th>
+                                        <th>Phone</th>
+                                        <th>Country</th>
+                                        <th>State</th>
+                                        <th>City</th>
+                                        <th>Area</th>
+                                        <th>Office Location</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="AgentList">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--Inventory Model Modal -->
+    <div id="InventoryModel" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content modal-xl">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="ModelTitle"></span> ADD PROJECT INVENTORY</h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+
+                    <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                        <div class=" col-gl-12 col-md-12 col-sm-12">
+                            <div class="d-flex w-100 "></div>
+
+
+
+                            <div class="input-group small mt-2 ">
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Projects </span>
+                                    </div>
+
+                                    <select id="InventoryType" class="form-control " style="font-family:'fontAwesome',Arial;" onchange="OpenTextFields(this.value)">
+
+                                        <option value="">Select Inventory Type</option>
+                                        <option value="Appartments">Appartments</option>
+                                        <option value="HosingSchemes">Housing Scheme</option>
+                                        <option value="HouseAndVillas">House / Villas</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+
+
+
+
+                            <div id="Appartments" style="display:none">
+
+                                <div class="input-group small mt-2 ">
+                                    <div class="input-group small mt-2 ">
+                                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Floors</span>
+                                        </div>
+                                        <input id="TotalFloors" type="text" inputmode="numeric" class="form-control" placeholder="Total Floors" />
+                                    </div>
+
+                                </div>
+
+                                <div class="input-group small mt-2 ">
+                                    <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                                        <span class="input-group-text w-100 Itext" style="font-size:12px" id="">Offices/Apparments</span>
+                                    </div>
+                                    <input id="TotalOffices" onkeyup="OpenPropertyDetailModal(this.value,'F')" type="text" inputmode="numeric" class="form-control" placeholder="Total Offices / Apparments" />
+                                </div>
+
+                            </div>
+
+                            <div id="HosingSchemes" style="display:none">
+                                <div class="input-group small mt-2 ">
+                                    <div class="input-group small mt-2 ">
+                                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Commerical</span>
+                                        </div>
+                                        <input id="Commerical" onkeyup="OpenPropertyDetailModal(this.value,'hs','rs')" type="text" inputmode="numeric" class="form-control" placeholder="Commerical Plot" />
+                                    </div>
+
+
+
+
+
+
+
+                                </div>
+
+                                <div class="input-group small mt-2 ">
+                                    <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                                        <span class="input-group-text w-100 Itext" style="font-size:12px" id="">Residential</span>
+                                    </div>
+                                    <input id="Residential" onkeyup="OpenPropertyDetailModal(this.value,'hs','rs')" type="text" inputmode="numeric" class="form-control" placeholder="Residential Plot" />
+                                </div>
+                            </div>
+
+
+                            <div id="HouseAndVillas" style="display:none">
+                                <div class="input-group small mt-2 ">
+                                    <div class="input-group small mt-2 ">
+                                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">HouseVilla</span>
+                                        </div>
+                                        <input id="HouseVilla" onkeyup="OpenPropertyDetailModal(this.value,'house','rs')" type="text" inputmode="numeric" class="form-control" placeholder="House / Villa" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <!--<div class="mt-2">
+                                <div class="col-lg-12 col-md-12 col-sm-12 pt-3">-->
+                            <!--<a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>-->
+                            <!--<a id="" href="#" class="save-btn " onclick="AssignProjectsToSubUsers();"> <span class="btn-name">Save  </span> </a>
+                                </div>
+                            </div>-->
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!--Inventory Model Modal -->
+    <div id="FloorsModal" class="modal fade">
+        <div class="modal-dialog modal-xl" role="document">
+
+            <!-- Modal content-->
+            <div class="modal-content ">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="ModelTitle"></span> ADD PROJECT INVENTORY</h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row clearfix" id="FloorsModalDesc">
+
+
+                    </div>
+                </div>
+                <div class="modal-footer" id="FloorsModalFooter">
+                    <!--<button type="button" class="btn btn-default btn-round waves-effect" onclick="SavePropertyDetails()">SAVE CHANGES</button>
+                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">CLOSE</button>-->
+                </div>
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <script src="js/Budgetsetting.js"></script>
+
+    <script src="BuilderScripts/PurchaseAndSaleServices.js"></script>
+</body>
+</html>
+
+
+<script>
+    GetSuplier()
+</script>
+
+<script>
+    function AddAttchement() {
+
+        $('#imgfile').click();
+
+
+    }
+
+    var file2;
+    $('#imgfile').hide();
+    var filename1 = [];
+
+
+
+    function Click() {
+
+        FilterShowPopup();
+    }
+
+
+    fillColor();
+
+    function fillColor() {
+        document.getElementById("FillDiv").style.display = "none";
+
+
+        var colorArray = ['FFFFFF', 'DA5353', 'FFFF00', '7FFFD4', 'F0FFFF', 'F5F5DC', 'FFE4C4', 'FFEBCD', 'DEB887', '7FFF00',
+            'FF7F50', '6495ED', 'FFF8DC', '00FFFF', 'BDB76B', 'FF8C00',
+            'E9967A', '8FBC8F', '00CED1'];
+        var elem = document.getElementById("FillDiv");
+
+        for (var a = 0; a < colorArray.length; a++) {
+            var str = "";
+            str = "<div onclick=ColorClicked('" + colorArray[a] + "') class='ColorFill' style='background-color:#" + colorArray[a] + ";' > </div>";
+            elem.innerHTML = elem.innerHTML + str;
+
+        }
+    }
+
+
+    function ColorClicked(a) {
+        //alert(a);
+        document.getElementById("divColor").style.backgroundColor = "#" + a;
+
+        $('#FillDiv').hide();
+    }
+
+
+</script>

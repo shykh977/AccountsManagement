@@ -1,0 +1,671 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add income</title>
+    <link href="css/add-payment.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+
+
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+    </script>
+    <style>
+        section.content-inr.expense .select2-container--default.select2-container--focus,
+        .select2-selection.select2-container--focus,
+        .select2-container--default:focus,
+        .select2-selection:focus,
+        .select2-container--default:active,
+        .select2-selection:active {
+            outline: -webkit-focus-ring-color auto 0px;
+            border: solid 1px #E8F0FE;
+            background: #E8F0FE;
+            color: #000000 !important;
+            box-sizing: border-box;
+            outline-color: #aecbff;
+            display: inline-block;
+            height: -webkit-fill-available;
+        }
+        .Attachimg {
+            background-image: url('MunshiImagesMain/Save_Normal.svg');
+            background-repeat: no-repeat;
+            color: #009444;
+            padding: 4px;
+            font-weight: bold;
+        }
+
+            .Attachimg:hover {
+                background-image: url('MunshiImagesMain/Save_Hover.svg');
+                background-repeat: no-repeat;
+                color: gray;
+                padding: 4px;
+                text-decoration: unset;
+                font-weight: bold;
+            }
+
+        .ColorFill {
+            width: 30px;
+            height: 30px;
+            float: left;
+            margin: 6px;
+            border: solid 1px #a1a1a1;
+        }
+    </style>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0">
+
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572; margin-left:0; margin-right:0;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment" onclick="sessionStorage.setItem('InputOption', 'New');LoadFile('AddExpense.html')"> Payment</div>
+                    <div id="receipt" class="receipt"> Receipt</div>
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-lg-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class=" w-100"></div>
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+
+                            <span class="input-group-text w-100 Itext " style="font-size:small" id="CurrencyName">Rs.</span>
+                        </div>
+                        <input id="txtAmount" type="number" inputmode="numeric" class="form-control" placeholder="Enter Amount" />
+                    </div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:100px;">
+                            <span class="input-group-text w-100 Itext" style="font-size:small">Payment Type</span>
+                        </div>
+                        <div id="" class="form-control divSelect2" style="padding:0px;">
+                            <select id="PaymentType" class="select2  form-control" onchange="PaymentType(this.value)">
+
+                                <option value="">Select Payment Type</option>
+                                <option value="CASH">CASH</option>
+                                <option value="CHEQUE">CHEQUE</option>
+                                <option value="ONLINE">ONLINE</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small">From</span>
+                        </div>
+                        <div class="form-control divSelect2" style="padding:0px;">
+                            <!--<input id="paymentsID" class="form-control " readonly type="text" onchange="setValeCash(this);" style="background-color:transparent !important" />-->
+                            <select id="paymentsID" class="select2 form-control  " type="text" onchange="setValue(this);"></select>
+                            <!--<button class="btn form-control  col-1 Itext " onclick="ShowPopup('From');" style="padding: 3px !important;">...</button>-->
+                            <!--<select id="cashID" onchange="setValeCash(this)" class="form-control" style="font-family:'fontAwesome',Arial;"></select>-->
+                        </div>
+                    </div>
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small">To</span>
+                        </div>
+                        <div class="form-control divSelect2" style="padding:0px;">
+                            <!--<input id="cashID" class="form-control  " readonly type="text" onclick="setValue(this);" style="background-color:transparent !important" />-->
+                            <select id="cashID" class="select2  form-control" onchange="setValeCash(this);"></select>
+                            <!--<button class="btn form-control Itext col-1" onclick="ShowPopup('To');" style="padding: 3px !important;">...</button>-->
+                            <!--<select id="paymentsID" onchange="setValue(this)" class="form-control"></select>-->
+                        </div>
+                    </div>
+
+                    <!--<div class="input-group small mt-2">
+        <div class="input-group-prepend col-2 pr-0 pl-0">
+            <span class="input-group-text w-100 Itext" style="font-size:small">From:</span>
+        </div>
+        <select id="paymentsID" onchange="setValue(this)" class="form-control" style="font-family:'fontAwesome',Arial;"></select>
+    </div>
+
+    <div class="input-group small mt-2">
+        <div class="input-group-prepend col-2 pr-0 pl-0">
+            <span class="input-group-text w-100 Itext" style="font-size:small">To:</span>
+        </div>
+        <select id="cashID" onchange="setValeCash(this)" class="form-control" style="font-family:'fontAwesome',Arial;"></select>
+    </div>-->
+
+
+
+                    <div id="ChaqueDiv" style="display:none">
+
+
+                        <div class="input-group small mt-2">
+                            <div class="input-group-prepend Mywidth  pr-0 pl-0" style="width:100px;">
+                                <span class="input-group-text w-100 Itext" style="font-size:small">Cheque Type</span>
+                            </div>
+                            <div id="" class="form-control divSelect2" style="padding:0px;">
+                                <select id="ChequeType" class="select2  form-control">
+                                    <option value="">Select Cheque Type</option>
+                                    <option value="BearerCheque">Bearer Cheque.</option>
+                                    <option value="OrderCheque">Order Cheque.</option>
+                                    <option value="CrossedCheque">Crossed Cheque.</option>
+                                    <option value="Opencheque">Open cheque.</option>
+                                    <option value="Post-DatedCheque">Post-Dated Cheque.</option>
+                                    <option value="StaleCheque">Stale Cheque.</option>
+                                    <option value="TravellersCheque">Traveller's Cheque.</option>
+                                    <option value="SelfCheque">Self Cheque.</option>
+                                    <option value="BankersCheque">Banker’s Cheque.</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="input-group small mt-2 ">
+                            <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                                <span class="input-group-text w-100 Itext" style="font-size:small">Chaque No.</span>
+                            </div>
+                            <input id="txtChaqueNo" type="number" inputmode="numeric" class="form-control" placeholder="Chaque No." />
+                        </div>
+
+                        <div class="input-group small mt-2">
+                            <div class="input-group-prepend  Mywidth pr-0 pl-0" style="width:100px;">
+                                <span class="input-group-text w-100 Itext" style="font-size:small">Chaque Date</span>
+                            </div>
+                            <input id="ChaqueDate" class="form-control" type="date" />
+                        </div>
+
+
+                        <div class="input-group small mt-2">
+                            <div class="input-group-prepend  Mywidth pr-0 pl-0" style="width:100px;">
+                                <span class="input-group-text w-100 Itext" style="font-size:small">Posted Date</span>
+                            </div>
+                            <input id="txtPostedDate" class="form-control" type="date" />
+                        </div>
+
+                        <div class="input-group small mt-2">
+                            <div class="input-group-prepend  Mywidth pr-0 pl-0" style="width:100px;">
+                                <span class="input-group-text w-100 Itext" style="font-size:small">Clearing Date</span>
+                            </div>
+                            <input id="txtClearingDate" class="form-control" type="date" placeholder="Select date" />
+                        </div>
+                    </div>
+
+
+
+                    <div id="TransectionDiv" style="display:none">
+
+                        <div class="input-group small mt-2 ">
+                            <div class="input-group-prepend  Mywidth pr-0 pl-0" style="width:100px;">
+                                <span class="input-group-text w-100 Itext" style="font-size:small">Transection ID.</span>
+                            </div>
+                            <input id="txtTransection" type="number" inputmode="numeric" class="form-control" placeholder="Transection ID." />
+                        </div>
+
+                        <div class="input-group small mt-2">
+                            <div class="input-group-prepend  Mywidth pr-0 pl-0" style="width:120px;">
+                                <span class="input-group-text w-100 Itext" style="font-size:small">Transection Date</span>
+                            </div>
+                            <input id="TransectionDate" class="form-control" type="date" />
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small">Date</span>
+                        </div>
+                        <input id="txtDate" class="form-control" type="date" onchange="CallDtChange(this.value);" placeholder="Select date" />
+                    </div>
+
+
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext">Notes</span>
+                        </div>
+                        <textarea id="txtNarration" class="form-control" rows="3" placeholder="Enter note here"></textarea>
+                    </div>
+
+
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext">Highlighter</span>
+                        </div>
+                        <div id="divColor" class="form-control" onclick="$('#FillDiv').toggle(); " style="cursor:pointer;background-color:rgb(255, 255, 255);border:solid 1px #a1a1a1;"></div>
+                    </div>
+
+
+
+
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 pt-2">
+                        <div id="FillDiv" style="height:56px;  background-color: whitesmoke;border: 1px solid rgb(161, 161, 161);margin-left: 1px;margin-top: 25px; padding: 6px;overflow:auto;" class="col-12"></div>
+                    </div>
+
+
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                        <div>
+                            <input id="imgfile" class="form-control" onchange="MyFile();" type="file" name="image" accept="application/pdf, image/*" />
+                            <a id="btnReset" href="#" class="attach-btn " onclick="AddAttchement();"> <span class="btn-name">Attachment </span> </a><br /><span style="font-size:12px;"> (Maximum two attachments allowed)</span>
+                            <div id="AttachmentData" style="max-height:100px;overflow:auto;">
+                                <br />
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                        <a id="btnReset" href="#" class="reset-btn " onclick="clearAll();"> <span class="btn-name">Reset </span> </a>
+                        <a id="btnsave" href="#" class="save-btn " onclick="addPayment();"> <span class="btn-name">Save  </span> </a>
+                        <a id="btnEdit" href="#" class="reset-btn delete-btn pull-right" onclick="deleteIT(sessionStorage.getItem('TransID'));"> <span class="btn-name">Delete  </span> </a>
+                    </div>
+
+                </div>
+                <div id="CalHead" class="col-xl-5 col-lg-5">
+                    <div id="MyCal" class="col-lg-12" style="overflow:hidden;">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="datetimepicker12"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+
+
+                <div class="col-lg-12 receipt_history">RECEIPT HISTORY</div>
+                <div class="col-lg-12" style="padding:15px;">
+                    <table id="DataTable1" class="table table-borderless table-hover " style="font-size:12px; min-width:360px;">
+                        <thead>
+                            <tr style="border-bottom:solid 1px #747572">
+                                <th>S.No.</th>
+                                <th>Date</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th class="textar">Amount</th>
+                                <!--<th class="textac">Status</th>-->
+                                <th class="textac">Edit</th>
+                                <th class="textac">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ledger">
+                            <tr>
+                                <td>1</td>
+                                <td>12-12-1992</td>
+                                <td>Here to there</td>
+                                <td>There to here</td>
+                                <td>1,008,382</td>
+                                <!--<td>Approved</td>-->
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <div id="myAddExpes" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="ModelTitle"></span></h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div id="InvDiv" class="row ">
+
+                        <div class="row w-100 p-0 m-0 ">
+                            <div class="col-12">
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Category </span>
+                                    </div>
+
+                                    <select id="Category" onchange="GetSubCategory(this.value,'SubCategory')" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+                                <div class="input-group small mt-2 col-12 ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Sub-Category </span>
+                                    </div>
+
+                                    <select id="SubCategory" onchange="getAccountbySubCatID(this.value,'AccountTitle')" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Account Tile </span>
+                                    </div>
+
+                                    <select id="AccountTitle" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div id="result" class="col-12" style="display:none;">
+                            <center>
+                                <h5>Invitation Sent</h5>
+                            </center>
+                        </div>
+
+                    </div>
+
+                    <div class="row p-3">
+                        <div class="col-12 pt-3">
+                            <a id="btnReset" href="#" data-dismiss="modal" onmouseup="Opt = 'Cancel';" class="MyCancel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Cancel</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a id="btnsave" href="#" class="MySubmit" data-dismiss="modal" onmouseup="Opt = 'Submit';">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;    Submit</a>
+                        </div>
+                        <!--<div class="col-4">
+
+                            <button class="form-control bg-dark text-white" style="cursor:pointer;" data-dismiss="modal" onmouseup="Opt = 'Cancel';"> <i class="fa fa-close"></i> Cancel</button>
+                        </div>
+                        <div class="col-4"></div>
+                        <div class="col-4 align-self-end " style="text-align:right;">
+
+                            <button class="form-control bg-success text-white " style="cursor:pointer;" data-dismiss="modal" onmouseup="Opt = 'Submit';"> <i class="fa fa-save"></i> Submit</button>
+                        </div>-->
+
+                    </div>
+                </div>
+
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <link href="css/w3slidercss.css" rel="stylesheet" />
+    <style>
+        .mySlides {
+            display: none;
+        }
+    </style>
+
+
+
+    <div id="Filter" class="modal fade">
+        <div class="modal-dialog modal-lg">
+
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="FilterTitle"></span></h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="OptFilter = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body ">
+
+                    <div id="InvDiv" class="row ">
+
+
+                        <div class="row p-4">
+
+
+                            <!--<center><img style="width:90%;" id="AttachmentImage" src="" /></center>-->
+
+                            <div id="Images" style="width:90%;" class="w3-content w3-display-container">
+                                <!--<center><img style="width:90%;" id="AttachmentImage" src="" /></center>-->
+                                <!--<img style="width:86%;" class="mySlides" id="AttachmentImage" src="imgAttachments/01f010d8-dde2-4718-a04e-f17f51773e7f.png" />
+                                <img style="width:86%;" class="mySlides" src="imgAttachments/05024a1a-cfb6-4b2d-8a3b-dcfdbf583990.PNG" />
+                                <img style="width:86%;" class="mySlides" src="imgAttachments/07507935-053c-450d-ae02-b526fbeaccfe.png" />-->
+                                <!--<button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                                <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>-->
+                            </div>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                    <style>
+                        .MyCancel {
+                            background: image: url('MunshiImagesMain/Cancel_Normal.svg');
+                            background-repeat: no-repeat;
+                            color: #EB2227;
+                            padding: 4px;
+                            font-weight: bold;
+                        }
+
+
+
+                        .Itext {
+                            border: radius: 0px !important;
+                            background-color: #747572 !important;
+                            color: whitesmoke;
+                            border: solid 1px #747572;
+                        }
+
+                        #Filter * {
+                            border: radius: 0px !important;
+                        }
+
+                        .MyCancel:hover {
+                            background - image: url('MunshiImagesMain/Cancel_Hover.svg');
+                            background-repeat: no-repeat;
+                            color: gray;
+                            padding: 4px;
+                            text-decoration: unset;
+                            font-weight: bold;
+                        }
+                    </style>
+                    <div class="row p-3">
+                        <div class="col-12 pt-3">
+                            <a id="btnReset" href="#" data-dismiss="modal" onmouseup="OptFilter = 'Cancel';" class="MyCancel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Cancel</a>
+
+                        </div>
+                        <!--<div class="col-4">
+
+                            <button class="form-control bg-dark text-white" style="cursor:pointer;" data-dismiss="modal" onmouseup="Opt = 'Cancel';"> <i class="fa fa-close"></i> Cancel</button>
+                        </div>
+                        <div class="col-4"></div>
+                        <div class="col-4 align-self-end " style="text-align:right;">
+
+                            <button class="form-control bg-success text-white " style="cursor:pointer;" data-dismiss="modal" onmouseup="Opt = 'Submit';"> <i class="fa fa-save"></i> Submit</button>
+                        </div>-->
+
+                    </div>
+                </div>
+
+
+                <!--<div class="modal-footer">
+                    <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                    <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                </div>-->
+            </div>
+
+
+
+
+
+
+        </div>
+        <script>
+
+
+            function FilterShowPopup() {
+
+                $("#FilterTitle").html('<span style="color:oranged;">Attachment</span>');
+
+                $("#Filter").modal();
+                plusDivs(0);
+
+            }
+
+        </script>
+    </div>
+
+
+
+
+
+    <script src="js/add-income.js"></script>
+
+
+
+
+
+
+    <script>
+        function AddAttchement() {
+
+            $('#imgfile').click();
+
+        }
+
+        var file2;
+        $('#imgfile').hide();
+        var filename1 = [];
+
+
+
+        function Click() {
+
+            FilterShowPopup();
+        }
+
+        fillColor();
+
+        function fillColor() {
+            document.getElementById("FillDiv").style.display = "none";
+
+
+            var colorArray = ['FFFFFF', 'DA5353', 'FFFF00', '7FFFD4', 'F0FFFF', 'F5F5DC', 'FFE4C4', 'FFEBCD', 'DEB887', '7FFF00',
+                'FF7F50', '6495ED', 'FFF8DC', '00FFFF', 'BDB76B', 'FF8C00',
+                'E9967A', '8FBC8F', '00CED1'];
+            var elem = document.getElementById("FillDiv");
+
+            for (var a = 0; a < colorArray.length; a++) {
+                var str = "";
+                str = "<div onclick=ColorClicked('" + colorArray[a] + "') class='ColorFill' style='background-color:#" + colorArray[a] + ";' > </div>";
+                elem.innerHTML = elem.innerHTML + str;
+
+            }
+        }
+
+
+        function ColorClicked(a) {
+            //alert(a);
+            document.getElementById("divColor").style.backgroundColor = "#" + a;
+
+            $('#FillDiv').hide();
+        }
+
+    </script>
+
+
+
+
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+
+        function showDivs(n) {
+
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex - 1].style.display = "block";
+        }
+    </script>
+
+
+
+
+</body>
+</html>
+
+
+
+<script>
+
+
+    function PaymentType(val) {
+
+        if (val == "CHEQUE") {
+            document.getElementById("ChaqueDiv").style.display = 'block'
+            document.getElementById("TransectionDiv").style.display = 'none'
+        }
+        else if (val == "ONLINE") {
+            document.getElementById("ChaqueDiv").style.display = 'none'
+            document.getElementById("TransectionDiv").style.display = 'block'
+        }
+        else {
+            document.getElementById("ChaqueDiv").style.display = 'none'
+            document.getElementById("TransectionDiv").style.display = 'none'
+        }
+
+
+
+    }
+
+</script>

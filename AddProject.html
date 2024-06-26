@@ -1,0 +1,936 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Add Project</div>
+
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Project Name</span>
+                        </div>
+                        <input id="txtProject" type="text" inputmode="numeric" class="form-control" placeholder="Enter Project Name" />
+                    </div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">City Name</span>
+                        </div>
+                        <input id="cityname" type="text" inputmode="numeric" class="form-control" placeholder="Enter City Name" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Location </span>
+                        </div>
+                        <input id="location" type="text" inputmode="numeric" class="form-control" placeholder="Enter Location" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Address </span>
+                        </div>
+                        <input id="address" type="text" inputmode="numeric" class="form-control" placeholder="Enter Address" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Near By </span>
+                        </div>
+                        <input id="nearby" type="text" inputmode="numeric" class="form-control" placeholder="Near By" />
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                        <div>
+                            <input id="imgfile" class="form-control" onchange="MyFile();" type="file" name="image" accept="application/pdf, image/*" />
+                            <a id="btnReset" href="#" class="attach-btn " onclick="AddAttchement();"> <span class="btn-name">Attachment </span> </a><br /><span style="font-size:12px;"> (Maximum two attachments allowed)</span>
+
+                            <div id="AttachmentData" style="max-height:100px;overflow:auto;">
+                                <br />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="Save();"> <span class="btn-name">Save  </span> </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">Users</div>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>Project Name</th>
+                                        <th>City Name</th>
+                                        <th>Location</th>
+                                        <th>Address</th>
+                                        <th>Near By</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="ProjectList">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--Inventory Model Modal -->
+    <div id="InventoryModel" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content modal-xl">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="ModelTitle"></span> ADD PROJECT INVENTORY</h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+
+                    <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                        <div class=" col-gl-12 col-md-12 col-sm-12">
+                            <div class="d-flex w-100 "></div>
+
+
+
+                            <div class="input-group small mt-2 ">
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Projects </span>
+                                    </div>
+
+                                    <select id="InventoryType" class="form-control " style="font-family:'fontAwesome',Arial;" onchange="OpenTextFields(this.value)">
+
+                                        <option value="">Select Inventory Type</option>
+                                        <option value="Appartments">Appartments</option>
+                                        <option value="HosingSchemes">Housing Scheme</option>
+                                        <option value="HouseAndVillas">House / Villas</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+
+
+
+
+                            <div id="Appartments" style="display:none">
+
+                                <div class="input-group small mt-2 ">
+                                    <div class="input-group small mt-2 ">
+                                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Floors</span>
+                                        </div>
+                                        <input id="TotalFloors" type="text" inputmode="numeric" class="form-control" placeholder="Total Floors" />
+                                    </div>
+
+                                </div>
+
+                                <div class="input-group small mt-2 ">
+                                    <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                                        <span class="input-group-text w-100 Itext" style="font-size:12px" id="">Offices/Apparments</span>
+                                    </div>
+                                    <input id="TotalOffices" onkeyup="OpenPropertyDetailModal(this.value,'F')" type="text" inputmode="numeric" class="form-control" placeholder="Total Offices / Apparments" />
+                                </div>
+
+                            </div>
+
+                            <div id="HosingSchemes" style="display:none">
+                                <div class="input-group small mt-2 ">
+                                    <div class="input-group small mt-2 ">
+                                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Commerical</span>
+                                        </div>
+                                        <input id="Commerical" onkeyup="OpenPropertyDetailModal(this.value,'hs','rs')" type="text" inputmode="numeric" class="form-control" placeholder="Commerical Plot" />
+                                    </div>
+
+
+
+
+
+
+
+                                </div>
+
+                                <div class="input-group small mt-2 ">
+                                    <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                                        <span class="input-group-text w-100 Itext" style="font-size:12px" id="">Residential</span>
+                                    </div>
+                                    <input id="Residential" onkeyup="OpenPropertyDetailModal(this.value,'hs','rs')" type="text" inputmode="numeric" class="form-control" placeholder="Residential Plot" />
+                                </div>
+                            </div>
+
+
+                            <div id="HouseAndVillas" style="display:none">
+                                <div class="input-group small mt-2 ">
+                                    <div class="input-group small mt-2 ">
+                                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">HouseVilla</span>
+                                        </div>
+                                        <input id="HouseVilla" onkeyup="OpenPropertyDetailModal(this.value,'house','rs')" type="text" inputmode="numeric" class="form-control" placeholder="House / Villa" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <!--<div class="mt-2">
+                                <div class="col-lg-12 col-md-12 col-sm-12 pt-3">-->
+                            <!--<a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>-->
+                            <!--<a id="" href="#" class="save-btn " onclick="AssignProjectsToSubUsers();"> <span class="btn-name">Save  </span> </a>
+                                </div>
+                            </div>-->
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!--Inventory Model Modal -->
+    <div id="FloorsModal" class="modal fade">
+        <div class="modal-dialog modal-xl" role="document">
+
+            <!-- Modal content-->
+            <div class="modal-content ">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="ModelTitle"></span> ADD PROJECT INVENTORY</h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row clearfix" id="FloorsModalDesc">
+
+
+                    </div>
+                </div>
+                <div class="modal-footer" id="FloorsModalFooter">
+                    <!--<button type="button" class="btn btn-default btn-round waves-effect" onclick="SavePropertyDetails()">SAVE CHANGES</button>
+                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">CLOSE</button>-->
+                </div>
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <script src="js/Budgetsetting.js"></script>
+</body>
+</html>
+
+
+<script>
+
+
+
+    var save = "ADD";
+    var ProjectId = "";
+
+    var ProjectInventoryId = uuidv4();
+
+
+
+
+    function uuidv4() {
+        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+    }
+
+
+    function Save() {
+
+        if (save == 'ADD') {
+            CreateProjects()
+        }
+        else {
+            UpdateSubUsers()
+        }
+    }
+
+
+
+
+    function CreateProjects() {
+
+        var UserID = sessionStorage.getItem("UserID");
+        var txtProject = document.getElementById("txtProject").value;
+
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/CreateProjects',
+            dataType: 'json',
+            data: "{'UserID':'" + UserID + "','ProjectName':'" + txtProject + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Project Has Been Added")
+                GetProjects()
+                Clear()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function UpdateSubUsers() {
+
+        var UserID = sessionStorage.getItem("UserID");
+        var txtProject = document.getElementById("txtProject").value;
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/UpdateProjects',
+            dataType: 'json',
+            data: "{'UserID':'" + UserID + "','ProjectID':'" + ProjectId + "','ProjectName':'" + txtProject + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Project Has Been Updated")
+                GetProjects()
+                Clear()
+
+                document.getElementById("btnsave").innerHTML = 'Save';
+
+                save = 'ADD'
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+
+
+    GetProjects()
+    function GetProjects() {
+        var UserID = sessionStorage.getItem("UserID");
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/GetProjects',
+            dataType: 'json',
+            data: "{'UserId':'" + UserID + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+                    dt = dt + " <tr>";
+                    dt = dt + "   <td>" + mRow + ".</td>";
+                    dt = dt + "   <td> " + data.Row[i].ProjectName + "</td>";
+                    //<i class="fa-solid fa-shelves"></i>
+
+                    dt = dt + " <td><a href='#'  onclick=ProjectInventory('" + data.Row[i].ProjectID + "');><i class='fa fa-plus' style='font-size:25px;'></i> &nbsp;</a></td>";
+                    dt = dt + " <td><a href='#'  onclick=LoadFile('ViewInventory.html');><i class='fa fa-eye' style='font-size:15px;'></i> &nbsp;</a></td>";
+                    dt = dt + " <td><a href='#'  onclick=EditProject('" + data.Row[i].ProjectID + "');><i class='fa fa-edit'></i> &nbsp;</a></td>";
+                    dt = dt + " <td><a href='#'  onclick=DeleteProject('" + data.Row[i].ProjectID + "');>  <i class='fa fa-trash' style='color:red'></i> &nbsp;</a></td>";
+
+
+
+                    dt = dt + "</tr>";
+                    str = str + dt;
+                    dt = "";
+                }
+                document.getElementById("ProjectList").innerHTML = str;
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function EditProject(ProjectID) {
+
+        ProjectId = ProjectID
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/GetProjectsById',
+            dataType: 'json',
+            data: "{'ProjectId':'" + ProjectID + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+
+                document.getElementById("txtProject").value = data.Row[0].ProjectName
+
+
+                document.getElementById("btnsave").innerHTML = 'Update';
+
+                save = 'update'
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function DeleteProject(ProjectID) {
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/DeleteProjects',
+            dataType: 'json',
+            data: "{'ProjectID':'" + ProjectID + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Project Has Been Deleted")
+                GetProjects()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+
+
+    function Clear() {
+        document.getElementById("txtProject").value = '';
+
+    }
+
+
+
+    function ProjectInventory(val) {
+
+        ProjectId = val
+        $("#InventoryModel").modal('show')
+    }
+
+
+
+    function OpenTextFields(val) {
+
+        if (val == "Appartments") {
+            document.getElementById("Appartments").style.display = 'block'
+
+            document.getElementById("HosingSchemes").style.display = 'none'
+            document.getElementById("HouseAndVillas").style.display = 'none'
+        }
+        else if (val == "HosingSchemes") {
+            document.getElementById("HosingSchemes").style.display = 'block'
+            document.getElementById("Appartments").style.display = 'none'
+            document.getElementById("HouseAndVillas").style.display = 'none'
+        }
+        else if (val == "HouseAndVillas") {
+            document.getElementById("HouseAndVillas").style.display = 'block'
+            document.getElementById("Appartments").style.display = 'none'
+            document.getElementById("HosingSchemes").style.display = 'none'
+        }
+        else {
+            document.getElementById("Appartments").style.display = 'none'
+            document.getElementById("HosingSchemes").style.display = 'none'
+            document.getElementById("HouseAndVillas").style.display = 'none'
+        }
+
+    }
+
+
+    function OpenPropertyDetailModal(val, floor, type) {
+
+
+
+        if (floor == 'F') {
+
+            var TotalFloors = $("#TotalFloors").val()
+
+            var div = '';
+            var mRow = 0;
+            var mRoww = 0;
+            for (var i = 0; i < TotalFloors; i++) {
+                mRow = mRow + 1
+                for (var j = 0; j < val; j++) {
+                    mRoww = mRoww + 1
+
+                    div = div + '               <div class="row">'
+                    div = div + '                   <div class="col-sm-6">'
+                    div = div + '  <h6 class="mt-8 FloorNo"> Floor ' + mRow + '</h6>'
+                    div = div + '  <h6 class="mt-8">Appatment / Office ' + mRoww + '</h6>'
+                    div = div + '  <h6 class="mt-8"></h6>'
+
+
+                    div = div + '                       <div class="col-lg-6 col-md-6 col-sm-6">'
+                    div = div + '   <div class="form-group">'
+                    div = div + '                           <input id="" class="form-control AppartmentAndOfficeNo" type="text" placeholder="Appartment / Office No">'
+                    div = div + '                       </div>'
+                    div = div + '                       </div>'
+
+
+                    div = div + '                       <div class="col-lg-6 col-md-6 col-sm-6">'
+                    div = div + '   <div class="form-group">'
+                    div = div + '                           <input id="" class="form-control area" type="text" placeholder="Area">'
+                    div = div + '                       </div>'
+                    div = div + '                       </div>'
+
+                    div = div + '                       <div class="col-lg-6 col-md-6 col-sm-6">'
+                    div = div + '   <div class="form-group">'
+                    div = div + '                          <input id="" class="form-control beds" type="text" placeholder="Beds">'
+                    div = div + '                       </div>'
+                    div = div + '                       </div>'
+
+
+
+
+
+
+                    div = div + '                       <div class="col-lg-6 col-md-6 col-sm-6">'
+                    div = div + '   <div class="form-group">'
+                    div = div + '                            <input id="" class="form-control bath" type="text" placeholder="Bath">'
+                    div = div + '                       </div>'
+                    div = div + '                       </div>'
+
+                    div = div + '                       <div class="col-lg-6 col-md-6 col-sm-6">'
+                    div = div + '   <div class="form-group">'
+                    div = div + '                           <input id="" class="form-control PriceTo" type="text" placeholder="Price To">'
+                    div = div + '                       </div>'
+                    div = div + '                       </div>'
+
+                    div = div + '                       <div class="col-lg-6 col-md-6 col-sm-6">'
+                    div = div + '   <div class="form-group">'
+                    div = div + '                           <input id="" class="form-control PriceFrom" type="text" placeholder="Price From">'
+                    div = div + '                       </div>'
+                    div = div + '                       </div>'
+
+
+                    div = div + '                   </div>'
+                    div = div + '               </div>'
+
+
+                }
+                document.getElementById("FloorsModalDesc").innerHTML = div;
+
+                var foorter = "";
+                foorter = foorter + '<button type="button" class="btn btn-default btn-round waves-effect" value="F" onclick="CreateProjectInventory(this.value)">SAVE CHANGES</button>'
+                foorter = foorter + '<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">CLOSE</button>'
+                document.getElementById("FloorsModalFooter").innerHTML = foorter
+
+            }
+
+        }
+
+        else if (floor == 'hs') {
+
+
+            if (type == 'rs') {
+
+                var Plotno = 0;
+                var dt = "";
+                for (var i = 0; i < val; i++) {
+
+                    Plotno = Plotno + 1;
+
+
+                    dt = dt + '               <div class="row">'
+                    dt = dt + '                   <div class="col-sm-12">'
+
+                    dt = dt + '  <h6 class="mt-8 PlotNo">Plot No: ' + Plotno + '</h6>'
+
+                    dt = dt + '                       <div class="col-lg-12 col-md-12 col-sm-12">'
+                    dt = dt + '   <div class="form-group">'
+                    dt = dt + '                           <input id="" class="form-control AppartmentAndOfficeNo" type="text" placeholder="Plot Number">'
+                    dt = dt + '                       </div>'
+                    dt = dt + '                       </div>'
+
+
+                    dt = dt + '                       <div class="col-lg-12 col-md-12 col-sm-12">'
+                    dt = dt + '   <div class="form-group">'
+                    dt = dt + '                           <input id="" class="form-control area" type="text" placeholder="Area">'
+                    dt = dt + '                       </div>'
+                    dt = dt + '                       </div>'
+
+
+                    dt = dt + '                       <div class="col-lg-12 col-md-12 col-sm-12">'
+                    dt = dt + '   <div class="form-group">'
+                    dt = dt + '                           <input id="" class="form-control Block" type="text" placeholder="Block">'
+                    dt = dt + '                       </div>'
+                    dt = dt + '                       </div>'
+
+                    dt = dt + '                       <div class="col-lg-12 col-md-12 col-sm-12">'
+                    dt = dt + '   <div class="form-group">'
+                    dt = dt + '                           <input id="" class="form-control PriceTo" type="text" placeholder="Price To">'
+                    dt = dt + '                       </div>'
+                    dt = dt + '                       </div>'
+
+
+                    dt = dt + '                       <div class="col-lg-12 col-md-12 col-sm-12">'
+                    dt = dt + '   <div class="form-group">'
+                    dt = dt + '                           <input id="" class="form-control PriceFrom" type="text" placeholder="Price From">'
+                    dt = dt + '                       </div>'
+                    dt = dt + '                       </div>'
+
+
+
+
+
+                    //div = div + '                       <div class="col-lg-6 col-md-6 col-sm-6" >'
+                    //div = div + '   <div class="form-group">'
+                    //div = div + '                          <input id="" class="form-control beds" type="text" placeholder="Beds">'
+                    //div = div + '                       </div>'
+                    //div = div + '                       </div>'
+
+
+
+
+
+
+                    //div = div + '                       <div class="col-lg-6 col-md-6 col-sm-6" >'
+                    //div = div + '   <div class="form-group">'
+                    //div = div + '                            <input id="" class="form-control bath" type="text" placeholder="Bath">'
+                    //div = div + '                       </div>'
+                    //div = div + '                       </div>'
+
+
+                    dt = dt + '                       <div class="col-lg-12 col-md-12 col-sm-12" style="display:none">'
+                    dt = dt + '   <div class="form-group">'
+                    dt = dt + '                   <input id="" class="form-control beds" type="text" placeholder="Beds">       <input id="" class="form-control bath" type="text" placeholder="Bath">'
+                    dt = dt + '                       </div>'
+                    dt = dt + '                       </div>'
+
+                    dt = dt + '                   </div>'
+                    dt = dt + '               </div>'
+
+                }
+                document.getElementById("FloorsModalDesc").innerHTML = dt
+
+                var foorter = "";
+                foorter = foorter + '<button type="button" class="btn btn-default btn-round waves-effect" value="hs" onclick="CreateProjectInventory(this.value)">SAVE CHANGES</button>'
+                foorter = foorter + '<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">CLOSE</button>'
+                document.getElementById("FloorsModalFooter").innerHTML = foorter
+            }
+
+        }
+
+        else if (floor == 'house') {
+
+            var hs = "";
+            var hsno = 0;
+            for (var i = 0; i < val; i++) {
+
+                hsno++;
+
+                hs = hs + '               <div class="row">'
+                hs = hs + '                   <div class="col-sm-12">'
+
+                hs = hs + '  <h6 class="mt-8 PlotNo">House No: ' + hsno + '</h6>'
+
+
+                hs = hs + '                       <div class="col-lg-12 col-md-12 col-sm-12">'
+                hs = hs + '   <div class="form-group">'
+                hs = hs + '                           <input id="" class="form-control AppartmentAndOfficeNo" type="text" placeholder="House Number">'
+                hs = hs + '                       </div>'
+                hs = hs + '                       </div>'
+
+
+                hs = hs + '                       <div class="col-lg-12 col-md-12 col-sm-12">'
+                hs = hs + '   <div class="form-group">'
+                hs = hs + '                           <input id="" class="form-control Block" type="text" placeholder="Block">'
+                hs = hs + '                       </div>'
+                hs = hs + '                       </div>'
+
+
+                hs = hs + '                       <div class="col-lg-12 col-md-12 col-sm-12">'
+                hs = hs + '   <div class="form-group">'
+                hs = hs + '                           <input id="" class="form-control Price" type="text" placeholder="Price">'
+                hs = hs + '                       </div>'
+                hs = hs + '                       </div>'
+
+                hs = hs + '                       <div class="col-lg-12 col-md-12 col-sm-12">'
+                hs = hs + '   <div class="form-group">'
+                hs = hs + '                           <input id="" class="form-control area" type="text" placeholder="Area">'
+                hs = hs + '                       </div>'
+                hs = hs + '                       </div>'
+
+                hs = hs + '                       <div class="col-lg-12 col-md-12 col-sm-12">'
+                hs = hs + '   <div class="form-group">'
+                hs = hs + '                          <input id="" class="form-control beds" type="text" placeholder="Beds">'
+                hs = hs + '                       </div>'
+                hs = hs + '                       </div>'
+
+                hs = hs + '                       <div class="col-lg-12 col-md-12 col-sm-12">'
+                hs = hs + '   <div class="form-group">'
+                hs = hs + '                            <input id="" class="form-control bath" type="text" placeholder="Bath">'
+
+                hs = hs + '                       </div>'
+                hs = hs + '                       </div>'
+                hs = hs + '                   </div>'
+                hs = hs + '               </div>'
+            }
+
+            var foorter = "";
+            foorter = foorter + '<button type="button" class="btn btn-default btn-round waves-effect" value="house" onclick="CreateProjectInventory(this.value)">SAVE CHANGES</button>'
+            foorter = foorter + '<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">CLOSE</button>'
+            document.getElementById("FloorsModalFooter").innerHTML = foorter
+
+            document.getElementById("FloorsModalDesc").innerHTML = hs
+
+
+        }
+
+        $("#FloorsModal").modal('show')
+    }
+
+
+
+    function SavePropertyDetails(val) {
+        if (val == "house") {
+            var AppartmentAndOfficeNo = document.getElementsByClassName("AppartmentAndOfficeNo")
+            var area = document.getElementsByClassName("area")
+            var Block = document.getElementsByClassName("Block")
+            var Price = document.getElementsByClassName("Price")
+
+            var Beds = document.getElementsByClassName("beds")
+            var Bath = document.getElementsByClassName("bath")
+
+            for (var i = 0; i < AppartmentAndOfficeNo.length; i++) {
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Project.asmx/CreateProjectInventoryDetail',
+                    data: "{'ProjectInventoryId':'" + ProjectInventoryId + "','Area':'" + area[i].value + "','Block':'" + Block[i].value + "','Bath':'" + Bath[i].value + "','Bed':'" + Beds[i].value + "','PriceTo':'" + Price[i].value + "','PriceFrom':'" + Price[i].value + "','PropertyNo':'" + AppartmentAndOfficeNo[i].value + "','FloorNo':'','PeymentPlan':''}",
+                    headers: { 'PtApiKey': 'pgH7QzFHJx4w46fI~5Uzi4RvtTwlEXp' },
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (response) {
+                        //alert("Property Detail Has Been Saved")
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+        }
+        else if (val == "hs") {
+
+            var AppartmentAndOfficeNo = document.getElementsByClassName("AppartmentAndOfficeNo")
+            var area = document.getElementsByClassName("area")
+            var Block = document.getElementsByClassName("Block")
+            var PriceTo = document.getElementsByClassName("PriceTo")
+            var PriceFrom = document.getElementsByClassName("PriceFrom")
+            var Beds = document.getElementsByClassName("beds")
+            var Bath = document.getElementsByClassName("bath")
+            var paymentplan = ""
+
+            for (var i = 0; i < AppartmentAndOfficeNo.length; i++) {
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Project.asmx/CreateProjectInventoryDetail',
+                    data: "{'ProjectInventoryId':'" + ProjectInventoryId + "','Area':'" + area[i].value + "','Block':'" + Block[i].value + "','Bath':'" + Bath[i].value + "','Bed':'" + Beds[i].value + "','PriceTo':'" + PriceTo[i].value + "','PriceFrom':'" + PriceFrom[i].value + "','PropertyNo':'" + AppartmentAndOfficeNo[i].value + "','FloorNo':'','PeymentPlan':'" + paymentplan + "'}",
+                    headers: { 'PtApiKey': 'pgH7QzFHJx4w46fI~5Uzi4RvtTwlEXp' },
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (response) {
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+            }
+        }
+        else {
+            var AppartmentAndOfficeNo = document.getElementsByClassName("AppartmentAndOfficeNo")
+            var area = document.getElementsByClassName("area")
+            /* var Block = document.getElementsByClassName("Block")*/
+            var PriceTo = document.getElementsByClassName("PriceTo")
+            var PriceFrom = document.getElementsByClassName("PriceFrom")
+            var Beds = document.getElementsByClassName("beds")
+            var Bath = document.getElementsByClassName("bath")
+            var FloorNo = document.getElementsByClassName("FloorNo")
+
+
+            for (var i = 0; i < AppartmentAndOfficeNo.length; i++) {
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Project.asmx/CreateProjectInventoryDetail',
+                    data: "{'ProjectInventoryId':'" + ProjectInventoryId + "','Area':'" + area[i].value + "','Bath':'" + Bath[i].value + "','Bed':'" + Beds[i].value + "','PriceTo':'" + PriceTo[i].value + "','PriceFrom':'" + PriceFrom[i].value + "','PropertyNo':'" + AppartmentAndOfficeNo[i].value + "','FloorNo':'" + FloorNo[i].innerHTML + "','PeymentPlan':'','Block':''}",
+                    headers: { 'PtApiKey': 'pgH7QzFHJx4w46fI~5Uzi4RvtTwlEXp' },
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (response) {
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+            }
+
+
+        }
+        alert("Inventory Has Been Saved")
+    }
+
+
+    function CreateProjectInventory(val) {
+
+        var UserID = sessionStorage.getItem("UserID");
+        var InventoryType = document.getElementById("InventoryType").value;
+        var TotalFloors = document.getElementById("TotalFloors").value;
+        var TotalOffices = document.getElementById("TotalOffices").value;
+        var Commerical = document.getElementById("Commerical").value;
+        var Residential = document.getElementById("Residential").value;
+        var HouseVilla = document.getElementById("HouseVilla").value;
+
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/CreateProjectInventory',
+            dataType: 'json',
+            data: "{'ProjectInventoryId':'" + ProjectInventoryId + "','ProjectId':'" + ProjectId + "','InventoryType':'" + InventoryType + "','Commerical':'" + Commerical + "','Residential':'" + Residential + "','Floors':'" + TotalFloors + "','OfficesAndAppartments':'" + TotalFloors + "','Houses':'" + HouseVilla + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                SavePropertyDetails(val)
+                ProjectInventoryId = uuidv4();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+
+</script>
+
+<script>
+    function AddAttchement() {
+
+        $('#imgfile').click();
+
+
+    }
+
+    var file2;
+    $('#imgfile').hide();
+    var filename1 = [];
+
+
+
+    function Click() {
+
+        FilterShowPopup();
+    }
+
+
+    fillColor();
+
+    function fillColor() {
+        document.getElementById("FillDiv").style.display = "none";
+
+
+        var colorArray = ['FFFFFF', 'DA5353', 'FFFF00', '7FFFD4', 'F0FFFF', 'F5F5DC', 'FFE4C4', 'FFEBCD', 'DEB887', '7FFF00',
+            'FF7F50', '6495ED', 'FFF8DC', '00FFFF', 'BDB76B', 'FF8C00',
+            'E9967A', '8FBC8F', '00CED1'];
+        var elem = document.getElementById("FillDiv");
+
+        for (var a = 0; a < colorArray.length; a++) {
+            var str = "";
+            str = "<div onclick=ColorClicked('" + colorArray[a] + "') class='ColorFill' style='background-color:#" + colorArray[a] + ";' > </div>";
+            elem.innerHTML = elem.innerHTML + str;
+
+        }
+    }
+
+
+    function ColorClicked(a) {
+        //alert(a);
+        document.getElementById("divColor").style.backgroundColor = "#" + a;
+
+        $('#FillDiv').hide();
+    }
+
+
+</script>

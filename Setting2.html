@@ -1,0 +1,518 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/dycalendar.min.css" />
+    <script>
+        $(function () {
+
+            $("#includedContent").load("navbar.html");
+
+        });
+    </script>
+
+</head>
+<style>
+
+    @media (max-width: 768px) {
+        section.content.dashboard {
+            padding-bottom: 0px;
+            min-height: 742px;
+        }
+    }
+
+
+</style>
+<body class="bg-white">
+    <div class="">
+        <div id="includedContent"></div>
+        <div class="row ml-2 mr-2   " style="line-height:250%;color:#747572; ">
+            <div class="col-12   pl-0" style="vertical-align:middle;border-bottom:1px solid #757472">
+                <div class="share-tittle">Settings 2</div>
+
+            </div>
+        </div>
+        <div id="moveMAin" class="row ml-2 mr-2">
+
+            <div class="seating-section">
+                <!--<div class="card  CardStyleSettings border-0" >
+
+                    <div class="card-body p-1 mt-1 ">
+                        <div class="share-icon"><img src="img/seating/Setting_category1.svg" style="width:40px;" /></div>
+                        <div class="share-tittle">Accounts Categories</div>
+                        <div class="mt-1"><a href="expenseN.html">Add or Edit Account Type</a></div>
+                    </div>
+                </div>-->
+                <!--<div class="row border-bottom">
+                    <div class="col-2"><img src="img/seating/income.png" style="width:30px;" /></div>
+                    <div class="col-10">Income Categories<br /><a href="income.html">Add or Edit Income Category</div></a></div>
+                </div>-->
+                <!--<div class="card  CardStyleSettings border-0" >
+
+                    <div class="card-body  p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/Setting_Language1.svg" style="width:40px;" /></div>
+                        <div class="share-tittle">Language</div>
+
+                        <div class="mt-1"><a href="settings//lang.html">Choose language</a></div>
+                    </div>
+                </div>-->
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/Setting_currency1.svg" style="width:40px;" /></div>
+                        <div class="share-tittle">Currency</div>
+
+                        <div class="mt-1"><a href="settings/currency.html">Choose currency</a></div>
+                    </div>
+                </div>
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/Setting_currency-3a.svg" style="width:40px;" /></div>
+                        <div class="share-tittle">Currency format</div>
+
+                        <div class="mt-1"><a href="#" onclick="LedgerFilterShowPopup('Currency')">Choose currency format</a></div>
+                    </div>
+                </div>
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/date.png" style="width:40px;" /></div>
+                        <div class="share-tittle">Date format</div>
+
+                        <div class="mt-1"><a href="#">Choose your preferred date format</a></div>
+                    </div>
+                </div>
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/Setting_share1.svg" style="width:30px;" /></div>
+                        <div class="mt-1">Share Accounts</div>
+                        <div class="mt-1"><a href="UserSharing.html">Choose your preferred User to Share</a></div>
+                    </div>
+                </div>
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/Moveicon.png" style="width:40px;" /></div>
+                        <div class="share-tittle">Move Accounts</div>
+
+                        <div class="mt-1"><a href="MoveAccount.html">Choose your preferred User to Share</a></div>
+                    </div>
+                </div>
+
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/Setting_data1.svg" style="width:40px;" /></div>
+                        <div class="share-tittle">Backup & Restore</div>
+
+                        <div class="mt-1"><a href="#">Backup or restore your date</div></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        go();
+        window.addEventListener('resize', go);
+
+        function go() {
+            // alert("abc");
+            var cardContainerW = $("#dFlexWW").width();
+            var cardContainerH = $("#dFlexWW").height();
+            var h = window.innerHeight
+                || document.documentElement.clientHeight
+                || document.body.clientHeight;
+            var w = window.innerWidth
+                || document.documentElement.clientWidth
+                || document.body.clientWidth;
+            $("#moveMAin").height(h - 150);
+            if (w > 1360) {
+                var ww = (w - 500) / 4;
+                ww = ww + 200;
+                $(".CardStyleSettings").css({ "width": ww + "px !important", "hieght": "300px" });
+                //alert(ww);
+            }
+
+
+        }
+        function loadUserSettings(control) {
+            //alert("newUI");
+            var userid = sessionStorage.getItem("UserID");
+            var type = t;
+            //$('#spandataloading').show();
+            //  var type = "E";
+            //$('#loadI').attr('class', 'fa fa-refresh fa-spin');
+            //AccountID, AccountTitle.SubCatID, SubCatName, CatID, CatName
+
+            $.ajax({
+                type: 'POST',
+                url: 'Settings.asmx/LoadUserSettings',
+                dataType: 'json',
+                data: "{'UserID':'" + userid + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+                    //$('#spandataloading').hide()
+                    //  alert(data.Row[0].District);
+                    // yaha loop lage ga na
+                    var str = "";
+                    var dt = "";
+                    var mvalue;
+                    var optg = "";
+                    var Ccat
+
+                    for (var i = 0; i < data.Row.length; i++) {
+
+
+
+                        balance = data.Row[i].Balance;
+                        // var strbalance = " &#xf0a4; "+"[" + balance + "]" ;
+                        dt = dt + "<option value=" + data.Row[i].CountryID + ">" + data.Row[i].name + " (" + data.Row[i].callingCodes0 + ")" + "</option > ";
+
+
+
+                    }
+
+                    str = str + dt;
+                    document.getElementById(control).innerHTML = str;
+                    //$.fn.select2.defaults.set("theme", "bootstrap");
+                    $("#" + control).select2({
+                        placeholder: "Select Country",
+                        allowClear: true
+                    });
+                    $(".select2-container").css({ "width": "100% !important" })
+                    //$('#loadI').attr('class', 'fa fa-gear');
+                    if (t == "All") cc = 1;
+                    if (t == "Source") pc = 1;
+
+                    //alert(cc + " cc1 " + pc);
+                    if (pc == 1 && cc == 1) {
+                        // alert(cc + " cc " + pc);
+                        LoadTransaction();
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+
+            function EditRow(a) {
+                // alert(a.id);
+                //var mDiv = document.getElementById("ID" + a.id);
+                //var mIcon = document.getElementById("C" + a.id);
+                //alert(mIcon.className);
+                //mIcon.className = mIcon.className + " border1";
+                // mIcon.addEventListener('click', function () { loadIcon(); }, false);
+                //alert(mIcon.className);
+                document.location.href = "EditCategory.html?ID=" + a.id;
+
+
+            }
+
+        }
+
+        function loadCountry(control) {
+            //alert("newUI");
+            var userid = sessionStorage.getItem("UserID");
+            var type = t;
+            //$('#spandataloading').show();
+            //  var type = "E";
+            //$('#loadI').attr('class', 'fa fa-refresh fa-spin');
+            //AccountID, AccountTitle.SubCatID, SubCatName, CatID, CatName
+
+            $.ajax({
+                type: 'POST',
+                url: 'Settings.asmx/LoadCountry',
+                dataType: 'json',
+               // data: "{'UserID':'" + userid + "','type':'" + type + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+                    //$('#spandataloading').hide()
+                    //  alert(data.Row[0].District);
+                    // yaha loop lage ga na
+                    var str = "";
+                    var dt = "";
+                    var mvalue;
+                    var optg = "";
+                    var Ccat
+                    
+                    for (var i = 0; i < data.Row.length; i++) {
+
+                        
+                       
+                            balance = data.Row[i].Balance;
+                            // var strbalance = " &#xf0a4; "+"[" + balance + "]" ;
+                        dt = dt + "<option value=" + data.Row[i].CountryID + ">" + data.Row[i].name + " (" + data.Row[i].callingCodes0+ ")" + "</option > ";
+                            
+                       
+
+                    }
+                 
+                    str = str + dt;
+                    document.getElementById(control).innerHTML = str;
+                    //$.fn.select2.defaults.set("theme", "bootstrap");
+                    $("#" + control).select2({
+                        placeholder: "Select Country",
+                        allowClear: true
+                    });
+                    $(".select2-container").css({ "width": "100% !important" })
+                    //$('#loadI').attr('class', 'fa fa-gear');
+                    if (t == "All") cc = 1;
+                    if (t == "Source") pc = 1;
+
+                    //alert(cc + " cc1 " + pc);
+                    if (pc == 1 && cc == 1) {
+                        // alert(cc + " cc " + pc);
+                        LoadTransaction();
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+
+            function EditRow(a) {
+                // alert(a.id);
+                //var mDiv = document.getElementById("ID" + a.id);
+                //var mIcon = document.getElementById("C" + a.id);
+                //alert(mIcon.className);
+                //mIcon.className = mIcon.className + " border1";
+                // mIcon.addEventListener('click', function () { loadIcon(); }, false);
+                //alert(mIcon.className);
+                document.location.href = "EditCategory.html?ID=" + a.id;
+
+
+            }
+
+        }
+    </script>
+    <!-- Model for Filter ******************************************-->
+    <div id="LedgerFilter99" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="LedgerFilterTitle" class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Cancel';">&times;</button>
+                </div>
+
+                <div id="LedgerInvDiv" class="modal-body">
+                    <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+                        
+
+
+
+                    </div>
+
+
+                    <style>
+                        .MyCancel
+                        {
+                            background-image: url('MunshiImagesMain/Cancel_Normal.svg');
+                            background-repeat: no-repeat;
+                            color: #EB2227;
+                            padding: 4px;
+                            font-weight: bold;
+                        }
+
+                        .Itext
+                        {
+                            border-radius: 0px !important;
+                            background-color: #747572 !important;
+                            color: whitesmoke;
+                            border: solid 1px #747572;
+                        }
+
+                        #Filter *
+                        {
+                            border-radius: 0px !important;
+                        }
+
+                        .MyCancel:hover
+                        {
+                            background-image: url('MunshiImagesMain/Cancel_Hover.svg');
+                            background-repeat: no-repeat;
+                            color: gray;
+                            padding: 4px;
+                            text-decoration: unset;
+                            font-weight: bold;
+                        }
+
+                        .MySubmit
+                        {
+                            background-image: url('MunshiImagesMain/Submit_Normal.svg');
+                            background-repeat: no-repeat;
+                            color: #0C72BA;
+                            padding: 4px;
+                            font-weight: bold;
+                        }
+
+                            .MySubmit:hover
+                            {
+                                background-image: url('MunshiImagesMain/Submit_Hover.svg');
+                                background-repeat: no-repeat;
+                                color: gray;
+                                padding: 4px;
+                                text-decoration: unset;
+                                font-weight: bold;
+                            }
+                    </style>
+                    <div class="modal-footer">
+                        <div class="col-12 text-right">
+                            <a id="LedgerbtnReset" href="#" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Cancel';" class="MyCancel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Cancel</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a id="Ledgerbtnsave" href="#" class="MySubmit" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Apply';">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;    Apply</a>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+            <script>
+                $("#CChart1").outerHeight($(window).height() - $("#CChart1").offset().top - Math.abs($("#CChart1").outerHeight(true) - $("#CChart1").outerHeight()));
+                $(window).on("resize", function () {
+                    $("#CChart1").outerHeight($(window).height() - $("#CChart1").offset().top - Math.abs($("#CChart1").outerHeight(true) - $("#canvas").outerHeight()));
+                });
+            </script>
+            <script>
+                $('#LedgerFromDate').prop("disabled", true);
+                $('#LedgerToDate').prop("disabled", true);
+                function CallFilterCheck(a) {
+                    if (a.id == "LedgerFilter1" && a.checked) {
+                        $('#LedgerFilterList').prop("disabled", false);
+                        $('#LedgerFromDate').prop("disabled", true);
+                        $('#LedgerToDate').prop("disabled", true);
+
+                    } else
+                        if (a.id == "LedgerFilter2" && a.checked) {
+                            $('#LedgerFilterList').prop("disabled", true);
+                            $('#LedgerFromDate').prop("disabled", false);
+                            $('#LedgerToDate').prop("disabled", false);
+
+                        }
+                }
+
+                var LedgerOptFilter = "";
+                var LedgerFormOptionOptFilter = "";
+                function LedgerFilterShowPopup(a) {
+                    //alert(LedgerOptFilter);
+                    $("#LedgerFilterTitle").html('Select <span style="color:oranged;">' + a + '</span> Account');
+                    $("#LedgerFilter99").modal();
+                    FormOptionOptFilter = a;
+
+                }
+
+                $('#LedgerFilter99').on('hidden.bs.modal', function (e) {
+                    // alert(LedgerOptFilter);
+                    if (LedgerOptFilter == "Cancel") {
+                        //alert("Reminder");
+                        //SendInvite("Reminder");
+                        //alert(LedgerFormOptionOptFilter + " Cancel");
+                    }
+                    else if (LedgerOptFilter == "Apply") {
+
+                        if ($('#LedgerFilterList').prop("disabled") == false) {
+
+                            var val1 = parseInt(document.getElementById("LedgerFilterList").value);
+                            //alert(val1);
+                            var param = "none";
+                            if (val1 == "-1") {
+                                param = "ALL";
+                            }
+                            var dateto = new Date();
+                            var datefrom = new Date();
+                            datefrom.setDate(dateto.getDate() - val1);
+
+                            var Sdate = (dateto.getDate() < 10 ? "0" + dateto.getDate() : dateto.getDate()) + "." + (dateto.getMonth() < 10 ? "0" + (dateto.getMonth() + 1) : (dateto.getMonth() + 1)) + "." + dateto.getFullYear(); //document.getElementById("txtDate1").value;
+                            var sd = Sdate.split(".");
+                            //alert(Sdate);
+                            document.getElementById("txtDate2").value = sd[2] + "." + sd[1] + "." + sd[0];
+                            var Edate = (datefrom.getDate() < 10 ? "0" + datefrom.getDate() : datefrom.getDate()) + "." + (datefrom.getMonth() < 10 ? "0" + (datefrom.getMonth() + 1) : (datefrom.getMonth() + 1)) + "." + datefrom.getFullYear(); //document.getElementById("txtDate1").value;
+                            sd = Edate.split(".");
+                            document.getElementById("txtDate1").value = sd[2] + "." + sd[1] + "." + sd[0];
+                            //alert(param + "pppp");
+                            getLedger(param);
+
+
+                        } else {
+                            var param = "none";
+                            var Sd1 = document.getElementById("LedgerFromDate").value;
+                            var Ed1 = document.getElementById("LedgerToDate").value;
+                            var SD2 = Sd1.split("-");
+                            //alert(Sd1);
+                            document.getElementById("txtDate1").value = SD2[0] + "." + SD2[1] + "." + SD2[2];
+
+                            var ED2 = Ed1.split("-");
+                            document.getElementById("txtDate2").value = ED2[0] + "." + ED2[1] + "." + ED2[2];
+
+
+                            getLedger(param);
+                        }
+                        //alert("newInvitation");
+                        //SendInvite("newInvitation");
+
+                        var tt;
+                        if (LedgerFormOptionOptFilter == "To") {
+                            //tt = $("#AccountTitle option:selected").text();
+                            //document.getElementById("cashID").value = tt;
+                            //srcText = tt;
+                            //mValFrom = $("#AccountTitle").val();
+
+                            //alert(tt + ForText);
+                        }
+                        else {
+                            // document.getElementById("cashID").value = document.getElementById("AccountTitle").value;
+                            //tt = $("#AccountTitle option:selected").text();
+                            //document.getElementById("paymentsID").value = tt;
+                            //ForText = tt;
+                            //mValTo = $("#AccountTitle").val();
+                            //alert(tt + srcText);
+                        }
+                        //alert(FormOption + " Submit");
+                    }
+
+                    // this handler is detached after it has run once
+                });
+            </script>
+        </div>
+
+    </div>
+    <!-- Model for Filter End **************************************-->
+
+
+
+</body>
+</html>

@@ -1,0 +1,651 @@
+﻿
+    <link href="lib/select2/css/select2.min.css?123457" rel="stylesheet" />
+
+
+
+    <script src="lib/select2/js/select2.min.js"></script>
+ 
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div id="profile" class="ProfileItem" onclick="callProfile()">INFO </div>
+                    <div id="editprofile" class="ProfileItem" onclick="CallEdit()"> EDIT</div>
+                    <div id="chpassword" class="ProfileItem" onclick="Callpassword()">PASSOWRD</div>
+                </div>
+                
+            </div>
+            <style>
+                #payment {
+                    color: #fff;
+                    background: #f49f21;
+                    border: solid 1px #bf7508;
+                    border-bottom: 0;
+                }
+
+                .ActiveItem
+                {
+                    color: #fff;
+                    background: #f49f21;
+                    border: solid 1px #bf7508;
+                    border-bottom: 0;
+                    cursor: pointer;
+                }
+                .ProfileItem
+                {
+                    border: solid 1px #747572;
+                    height: 30px;
+                    width:100px;
+                    padding: 4px 2px;
+                    border-bottom: 0;
+                    cursor: pointer;
+                }
+                
+
+
+                div#receipt
+                {
+                    color: #747572;
+                    background: #eaeaee;
+                }
+
+                .payment, .receipt {
+                    border: solid 1px #747572;
+                    width: 110px;
+                    height: 30px;
+                    padding: 4px 2px;
+                    border-bottom: 0;
+                    cursor: pointer;
+                }
+                .Itext
+                {
+                    border-radius: 0px !important;
+                    background-color: #747572 !important;
+                    color: whitesmoke;
+                    border: solid 1px #747572;
+                }
+
+                div *
+                {
+                    border-radius: 0px !important;
+                }
+
+                .select2-results
+                {
+                    font-size: 12px;
+                    line-height: normal;
+                }
+
+                .select2-search__field
+                {
+                    font-size: 12px;
+                    line-height: normal;
+                }
+
+                .selection__rendered
+                {
+                    line-height: 38px !important;
+                }
+
+                .select2-container .select2-selection--single
+                {
+                    border: 0px;
+                    width: 100% !important
+                }
+
+                .Mywidth
+                {
+                    width: 100px;
+                }
+                .imgover
+                {
+                    position: absolute;
+                    bottom: 0px;
+                    width: 230px;
+                    padding-top: 5px;
+                    background-color: #747572;
+                    opacity: 0.8;
+                    height: 30px;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    color: white;
+                    display: none;
+                    cursor: pointer;
+                }
+
+                .img1:hover .imgover
+                {
+                    display: block;
+                }
+
+                .imgover2
+                {
+                    position: relative;
+                    bottom: 30px;
+                    width: 230px;
+                    padding-top: 5px;
+                    background-color: #747572;
+                    opacity: 0.8;
+                    height: 30px;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    margin-bottom: -30px;
+                    color: white;
+                    display: none;
+                    cursor: pointer;
+                    overflow: hidden
+                }
+
+                .img2:hover .imgover2
+                {
+                    display: block;
+                    overflow: hidden
+                }
+            </style>
+            <div id="inputDiv" class="row bg-white  " style="padding:15px;margin:0px !important;">
+                
+                   
+                <form id="form1">
+                    <div class=" col-gl-7 col-md-12 col-sm-12">
+                        <div id="Pic2" class="img2" style="display:none;width:100%; min-width:230px;;padding-top:0px;text-align:center;">
+                            <img id="MyImage2" style="height:230px;width:230px;border:solid 1px #a1a2a3;" src="../imgServicesPic/12a2d609-2fc7-4bb1-b8a3-85796e556ec6.jpg" onerror="imgerror(this)" />
+                            <div class="imgover2 uploadme" style="">Load Picture</div>
+                        </div>
+
+                        <div class="input-group small mt-2">
+
+                            <div class="input-group-prepend Mywidth pr-0">
+                                <span class="input-group-text w-100" style="font-size:small">Full Name</span>
+                            </div>
+                            <input id="txtFullName" type="text" inputmode="text" class="form-control" placeholder="Enter Full Name" required />
+
+                        </div>
+
+                        <div class="input-group small mt-2">
+
+                            <div class="input-group-prepend Mywidth pr-0">
+                                <span class="input-group-text w-100" style="font-size:small">Email </span>
+                            </div>
+                            <input id="txtemail" class="form-control" type="text" onblur="callemailout();" inputmode="email" placeholder="Enter Email" required />
+                            <span id="chkEmail" class="form-control col-2 text-center" style="font-size:small;padding-left :0px; padding-right:0px;">--</span>
+                        </div>
+                        <div class="input-group small mt-2">
+
+                            <div class="input-group-prepend Mywidth pr-0">
+                                <span class="input-group-text w-100" style="font-size:small">Cell # </span>
+                            </div>
+                            <input id="txtCell" class="form-control" type="text" onblur="callcelllout();" inputmode="numeric" placeholder="Enter Cell #" required />
+
+                        </div>
+                        <div class="input-group small mt-2">
+                            <div class="input-group-prepend Mywidth pr-0">
+                                <span class="input-group-text w-100" style="font-size:small">User Name</span>
+                            </div>
+
+                            <input id="txtUser" type="text" inputmode="text" disabled class="form-control " placeholder="Enter User Name" required />
+                            <select id="UserNameChoise" class="form-control col-2 text-center " onchange="ChangeChoise(this);" style="font-size:small;padding:0px;">
+                                <option value="email" selected>As Email</option>
+                                <option value="cell">As Cell</option>
+                                <option value="0">Input</option>
+
+                            </select>
+                        </div>
+
+
+                        <div class="input-group small mt-2">
+                            <div class="input-group-prepend Mywidth pr-0">
+                                <span class="input-group-text w-100" style="font-size:small">Password&nbsp;</span>
+                            </div>
+                            <input id="txtpassword" type="password" inputmode="passsword" onkeyup="checkStrength(this.value, getElementById('STpassord'), getElementById('STpassord'));" class="form-control pass_show" placeholder="Enter Paswword" required />
+                            <span id="STpassord" class="form-control col-2 text-center" style="font-size:small;padding-left :0px; padding-right:0px;">--</span>
+
+                        </div>
+                        <div class="input-group small mt-2">
+                            <div class="input-group-prepend Mywidth pr-0">
+                                <span class="input-group-text w-100" style="font-size:small">Re-Enter Password</span>
+                            </div>
+                            <input id="txtpassword2" type="password" inputmode="password" onkeyup="Passmatch(this.value);" class="form-control pass_show" placeholder="Confirm Password" required />
+                            <span id="STCpassord" class="form-control col-2 text-center" style="font-size:small;padding-left :0px; padding-right:0px;">--</span>
+
+                        </div>
+                        <div class="input-group small mt-2 ">
+                            <div class="input-group-prepend Mywidth pr-0">
+                                <span class="input-group-text w-100" style="font-size:small">Date of Birth </span>
+                            </div>
+
+                            <input id="txtDOB" readonly class="form-control date" type="text" placeholder="Select date" required />
+                            <div class="input-group-append">
+                                <span class="input-group-text" style="cursor:pointer;" id="cal2"><i class="fa fa-calendar fa-fw"></i></span>
+                            </div>
+                        </div>
+                        <div class="input-group small mt-2 ">
+                            <div class="input-group-prepend Mywidth pr-0">
+                                <span class="input-group-text w-100" style="font-size:small">Photo </span>
+                            </div>
+                            <input id="imgfile" class="form-control" onchange="MyFile();" type="file" name="image" accept="image/*" />
+                        </div>
+                        <div class="input-group small mt-2" style="display:none;">
+                            <div class="input-group-prepend Mywidth pr-0">
+                                <span class="input-group-text w-100" style="font-size:small">Status </span>
+                            </div>
+                            <select id="txtActive" class="form-control">
+                                <option value="1">Active</option>
+                                <option value="0">In-Active</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div id="CalHead" class="col-lg-5">
+                        <div id="Pic" class="img1" style="width:100%; min-width:230px;;padding-top:5px;text-align:center;">
+                            <img id="MyImage" style="height:230px;width:230px;border:solid 1px #a1a2a3;margin-top: 10px;" src="../imgServicesPic/12a2d609-2fc7-4bb1-b8a3-85796e556ec6.jpg" onerror="imgerror(this)" />
+                            <div class="imgover uploadme " style="">Load Picture</div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+
+                        <div class="col-lg-12">
+                            <button class="form-control bg-warning" onclick="CallSaveUser(); return false;"> <i class="fa fa-save"></i> Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+
+
+               
+                
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+        </div>
+        <script>
+            go();
+            window.addEventListener('resize', go);
+
+            function go() {
+                var cardContainerW = $("#dFlexWW").width();
+                var cardContainerH = $("#dFlexWW").height();
+                var w = window.innerWidth
+                    || document.documentElement.clientWidth
+                    || document.body.clientWidth;
+                if (w < 1200) {
+
+                    $("#CalHead").hide();
+                    //$("#Pic2").html($("#Pic").html());
+                    $("#Pic2").show();
+                }
+                else {
+
+                    $("#CalHead").show();
+                    //$("#Pic2").html("");
+                    $("#Pic2").hide();
+
+                }
+            }
+        </script>
+    </section>
+
+    <script>
+        function callProfile() {
+
+            AddClass("profile");
+            
+            
+        }
+        function CallEdit(){
+            AddClass("editprofile");
+        }
+        function Callpassword(){
+            AddClass("chpassword");
+        }
+        function AddClass(a) {
+            document.getElementById("profile").classList.remove('ActiveItem');
+            document.getElementById("editprofile").classList.remove('ActiveItem');
+            document.getElementById("chpassword").classList.remove('ActiveItem');
+            document.getElementById(a).classList.add('ActiveItem');
+        }
+    </script>
+    <script>
+
+        $(function () {
+            $('#txtDOB').datetimepicker({
+                format: 'DD/MM/YYYY', ignoreReadonly: true,
+                allowInputToggle: true
+            });
+        });
+
+
+        $('#cal2').click(function () {
+            $(document).ready(function () {
+                $("#txtDOB").datetimepicker().focus();
+            });
+        });
+
+
+        //---------------------------- date picker end ----------------------------
+
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        //---------------------- Email Validation
+        $('#spandataloading').hide();
+        $('#loader').hide();
+
+        var StatusValue = "";
+        var file2 = "";
+
+        function callemailout() {
+            var a = document.getElementById("UserNameChoise");
+            var aa = document.getElementById("txtemail");
+            var chk = document.getElementById("chkEmail");
+            //chkEmail
+            if (validateEmail(aa.value)) {
+                chk.innerHTML = "valid";
+                chk.style.color = "green";
+                ChangeChoise(a);
+            }
+            else {
+                chk.innerHTML = "Invalid";
+                chk.style.color = "Red";
+                aa.focus();
+            }
+
+
+        }
+        function callcellout() {
+            var a = document.getElementById("UserNameChoise");
+            ChangeChoise(a);
+        }
+        function ChangeChoise(a) {
+            if (a.value == "0") {
+                document.getElementById("txtUser").disabled = false;
+
+            }
+            if (a.value == "email") {
+                txtUser.value = txtemail.value;
+                document.getElementById("txtUser").disabled = true;
+            }
+            if (a.value == "cell") {
+                txtUser.value = txtCell.value;
+                document.getElementById("txtUser").disabled = true;
+            }
+
+
+        }
+        function MyFile() {
+            var elm = document.getElementById("imgfile").files[0];
+            getBase64(elm);
+        }
+
+
+        function getBase64(file) {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                file2 = reader.result;
+                document.getElementById("Rpic").src = file2;
+                return "";
+            };
+            reader.onerror = function (error) {
+                return "";
+            };
+        }
+
+        function CallSaveUser() {
+
+            if (txtUser.checkValidity() && txtpassword.checkValidity() && txtemail.checkValidity() && txtCell.checkValidity() && txtDOB.checkValidity() && txtFullName.checkValidity()) {
+                var d = document;
+                //var varFullName = txtFullName.value;
+
+                var vartxtUse = txtUser.value;
+                var vartxtpassword = txtpassword.value;
+                var vartxtemail = txtemail.value;
+                var vartxtCell = txtCell.value;
+                var vartxtDOB = txtDOB.value;
+                var varFullName = txtFullName.value;
+
+                if (StatusValue == 2)
+                    vartxtActive = "2";
+                else
+                    var vartxtActive = txtActive.value;
+
+                var formData = new FormData();
+                var totalFiles = document.getElementById("imgfile").files.length;
+                //alert("99");
+                // alert(totalFiles);
+
+                var file1 = file2;
+                formData.append("imgfile", file1);
+
+                // alert(formData.get("imgfile"));
+
+                formData.append("FullName", varFullName);
+                formData.append("UserName", vartxtUse);
+                formData.append("Password", vartxtpassword);
+                formData.append("email", vartxtemail);
+                formData.append("Cell", vartxtCell);
+                formData.append("DOB", vartxtDOB);
+                formData.append("Active", vartxtActive);
+                //'fullname':'"+ vartxtUse +"', 'username':'"+ vartxtUse +"', 'password':'" + vartxtpassword +"', 'cell':'"+ vartxtCell +"', 'email':'"+ vartxtemail +"', 'dob':'"+ vartxtDOB +"', 'active':'"+ vartxtActive +"', 'img':'"+ file1 +"'
+                //if ($("#form1").checkValidity()) {
+                //alert(formData);
+                //var id = SaveUsers(vartxtUse, vartxtpassword, vartxtCell, vartxtemail, vartxtDOB, vartxtActive);
+                //}
+                //$.ajax({
+                //    type: 'post',
+                //    url: 'Users.asmx/SaveUsers2',
+                //    data: formData,
+                //    dataType: 'json',
+                //    contentType: false,
+                //    processData: false,
+                //    success: function (response) {
+                //        //alert("a1");
+                //        alert("User Registered");
+                //    },
+                //    error: function (error) {
+
+
+                //        document.getElementById("txtUser").value = "";
+                //        document.getElementById("txtpassword").value = "";
+                //        document.getElementById("txtemail").value = "";
+                //        document.getElementById("txtCell").value = "";
+                //        document.getElementById("txtDOB").value = "";
+                //    }
+                //});
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    url: "Users.asmx/SaveUsers2",
+                    data: "{'fullname':'" + varFullName + "', 'username':'" + vartxtUse + "', 'password':'" + vartxtpassword + "', 'cell':'" + vartxtCell + "', 'email':'" + vartxtemail + "', 'dob':'" + vartxtDOB + "', 'active':'" + vartxtActive + "', 'img':'" + file1 + "'}",
+                    success: function (response) {
+
+                        //alert("You are Registred");
+
+                        $.alert({ title: 'Alert!:', content: 'You are Registred', });
+
+                        window.location.href = "login.html";
+                        //  alert(response.d);
+
+                    },
+                    error: function (error) {
+                        //alert("error");
+                        $.alert({ title: 'Alert!:', content: 'error', });
+                        console.log(error);
+                    }
+                });
+
+            }
+            else {
+                document.getElementById("txtUser").style.borderColor = txtUser.checkValidity ? document.getElementById("txtUser").style.borderColor : "red";
+                document.getElementById("txtpassword").style.borderColor = txtpassword.checkValidity ? document.getElementById("txtpassword").style.borderColor : "red";
+                document.getElementById("txtemail").style.borderColor = txtemail.checkValidity ? document.getElementById("txtemail").style.borderColor : "red";
+                document.getElementById("txtCell").style.borderColor = txtCell.checkValidity ? document.getElementById("txtCell").style.borderColor = txtCell.checkValidity : "red";
+                document.getElementById("txtDOB").style.borderColor = txtDOB.checkValidity ? document.getElementById("txtDOB").style.borderColor = txtDOB.checkValidity : "red";
+                //alert("a2");
+            }
+        }
+        ////for server sider only
+        ////Request.Form["guid"];
+        ////Request.Files["FileUpload"];
+
+        function upload() {
+            var formData = new FormData();
+
+            var totalFiles = document.getElementById("FileUpload").files.length;
+
+            for (var i = 0; i < totalFiles; i++) {
+                var file = document.getElementById("FileUpload").files[i];
+
+                formData.append("FileUpload", file);
+                formData.append("guid", theGuid);
+            }
+
+            $.ajax({
+                type: 'post',
+                url: '/myController/Upload',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // alert('succes!!');
+                },
+                error: function (error) {
+                    // alert("errror");
+                }
+            });
+        }
+
+
+
+        function UserInfo() {
+            var userid = sessionStorage.getItem("UserID");
+            //var AccountID = accid;
+            //if (AccountID.length == 36) {
+            //    $('#spandataloading').show();
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                url: "Users.asmx/getUserInfo",
+                data: "{'UserID':'" + userid + "' }",
+                success: function (Record) {
+
+                    var txt = '{"Row": ' + Record.d + '}';
+                    var data = JSON.parse(txt);
+                    //alert(Record.d);
+                    
+                 
+
+                        $('#spandataloading').hide();
+                        $('#loader').hide();
+
+                    
+
+                   
+                },
+                Error: function (textMsg) {
+
+                    Messege = "Error";
+                    // $('#Result').text("Error: " + Error);
+
+                }
+
+
+            });
+
+
+
+
+        }
+
+        var ur1 = window.location.href;
+        if (ur1.indexOf("id=X") > 0) {
+            // $('#loader').show();
+            var id1 = ur1.split("id=X");
+            CheckSharedAccount(id1[1]);
+        }
+        else {
+            $('#spandataloading').hide();
+            $('#loader').hide();
+        }
+
+        function checkStrength(txtpass, strenghtMsg, errorMsg) {
+            var SthChk = new Array();
+            SthChk[0] = "Very Weak";
+            SthChk[1] = "Weak";
+            SthChk[2] = "Better";
+            SthChk[3] = "Medium";
+            SthChk[4] = "Strong";
+            SthChk[5] = "Strongest";
+            var STColor = new Array();
+            STColor[0] = "#B20E37";
+            STColor[1] = "#D32847";
+            STColor[2] = "#ff5f5f";
+            STColor[3] = "#83D680";
+            STColor[4] = "#4dcd00";
+            STColor[5] = "#399800";
+
+            errorMsg.innerHTML = '';
+            var score = 0;
+
+            //if txtpass bigger than 6 give 1 point
+            if (txtpass.length >= 6) score++;
+
+            //if txtpass has both lower and uppercase characters give 1 point
+            if ((txtpass.match(/[a-z]/)) && (txtpass.match(/[A-Z]/))) score++;
+
+            //if txtpass has at least one number give 1 point
+            if (txtpass.match(/\d+/)) score++;
+
+            //if txtpass has at least one special caracther give 1 point
+            if (txtpass.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) score++;
+
+            //if txtpass bigger than 12 give another 1 point
+            if (txtpass.length > 12) score++;
+
+            strenghtMsg.innerHTML = SthChk[score];
+            strenghtMsg.style.color = STColor[score];
+
+            if (txtpass.length < 6) {
+                errorMsg.innerHTML = "Invalid";
+                errorMsg.style.color = "red";
+            }
+
+
+        }
+
+        function Passmatch(pass) {
+            var pass1 = document.getElementById("txtpassword").value;
+            var pass2 = document.getElementById("txtpassword2").value;
+            var stc = document.getElementById("STCpassord");
+            if (pass1 == pass2) {
+                //stc.style
+                stc.style.color = "green";
+                stc.innerHTML = "Matches";
+
+            }
+            else {
+                stc.style.color = "Red";
+                stc.innerHTML = "invalid";
+            }
+        }
+
+        //document.getElementById("collapsibleNavbar").style.display = 'none';
+        var elm = document.getElementsByClassName("navbar-nav");
+        elm[0].style.display = 'none';
+        $('#collapsibleNavbar').collapse('hide');
+        $('.navbar-nav').collapse('hide');
+    </script>

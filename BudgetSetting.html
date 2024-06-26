@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Budget Settings</div>
+                    
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth  pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small">Account</span>
+                        </div>
+                        <!--<input id="cashID" class="form-control " readonly type="text" onclick="ShowPopup('From');" style="background-color:transparent !important" />-->
+                        <div id="" class="form-control divSelect2" style="padding:0px;">
+                            <select id="cashID" class="select2  form-control" onchange="setValeCash(this);"></select>
+                        </div>
+                        <!--<button class="btn form-control  col-1  Itext " onclick="ShowPopup('From');" style="padding: 3px !important;">...</button>-->
+                        <!--<select id="cashID" onchange="setValeCash(this)" class="form-control" style="font-family:'fontAwesome',Arial;"></select>-->
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="CurrencyName">Rs.</span>
+                        </div>
+                        <input id="txtAmount" type="text" inputmode="numeric" class="form-control" placeholder="Enter Amount" />
+                    </div>
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small">Distribution</span>
+                        </div>
+                        <select id="Btype" class="form-control" placeholder="Select date">
+                            <option value="Month">Per Month</option>
+                            <option value="Quarter">Per Quarter</option>
+                            <option value="Six Month">Per Half Year</option>
+                            <option value="Year">Per Full Year</option>
+                        </select>
+                    </div>
+                    <div class="input-group  small mt-2">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext">Allow</span>
+                        </div>
+                        <div class="form-control" style="text-align:left;padding-right:13px;"><label class="checkbox-inline" style="padding:0;font-size:12px;line-height: 14px;"><input id="inTrans" type="checkbox" onchange="UpdateColor(this.checked)" style="margin-left:unset;" />&nbsp;&nbsp;&nbsp;&nbsp;Show Alert on Every Transaction </label></div>
+                    </div>
+                    <div class="input-group  small mt-2">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext">Show on</span>
+                        </div>
+                        <style>
+                            .checkbox-inline
+                            {
+                                margin-left: unset !important;
+                                margin-right: 10px !important;
+                            }
+                        </style>
+                        <div class="form-control" style="text-align:left;padding-right:13px;height:auto;">
+                            <label class="checkbox-inline" style="padding:0;font-size:12px;line-height: 14px;">
+                                <input id="inLedger" type="checkbox" style="margin-left:unset;" />
+                                &nbsp;&nbsp;&nbsp;&nbsp;Ledger
+                            </label>
+                            <label class="checkbox-inline" style="padding:0;font-size:12px;line-height: 14px;">
+                                <input id="inNetWorth" type="checkbox" style="margin-left:unset;" />
+                                &nbsp;&nbsp;&nbsp;&nbsp;Net Worth
+                            </label>
+                            <label class="checkbox-inline" style="padding:0;font-size:12px;line-height: 14px;">
+                                <input id="inBalanceSheet" type="checkbox" style="margin-left:unset;" />
+                                &nbsp;&nbsp;&nbsp;&nbsp;Balance Sheet
+                            </label>
+                            <label class="checkbox-inline" style="padding:0;font-size:12px;line-height: 14px;">
+                                <input id="inFullStatement" type="checkbox" style="margin-left:unset;" />
+                                &nbsp;&nbsp;&nbsp;&nbsp;Full Statement
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input-group  small mt-2">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext">Effective </span>
+                        </div>
+                        
+                        <div class="form-control" style="text-align:left;padding-right:13px;height:auto;">
+                            <label class="checkbox-inline" style="padding:0;font-size:12px;line-height: 14px;">
+                                From <input id="StartDate" type="date" style="margin-left:unset;" />
+
+                            </label>
+                            <label class="checkbox-inline" style="padding:0;font-size:12px;line-height: 14px;">
+                                To&nbsp;&nbsp;&nbsp;&nbsp;&thinsp;&thinsp;<input id="EndDate" type="date" style="margin-left:unset;" />
+
+                            </label>
+
+                        </div>
+                    </div>
+
+
+                    <!--<div class="row mt-2">
+        <div class="col-12" style="text-align:right;">
+            <a href="UserInvitation.html"> Invite a Friend</a>
+        </div>
+    </div>-->
+
+                    <div class="mt-2">
+                        <!--<div class="col-2">
+            <button onclick="Sharing()" class="form-control bg-success" style="color:white"><i class="fa fa-share"></i> Sharing</button>
+        </div>-->
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="clearAll();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="BudgetCheck();"> <span class="btn-name">Save  </span> </a>
+                            <a id="btnEdit" href="#" class="reset-btn delete-btn pull-right" onclick="deleteIT(sessionStorage.getItem('BudgetID'));"> <span class="btn-name">Delete  </span> </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="CalHead" class="col-xl-5 ">
+                    <div id="MyCal" class="col-xl-12" style="overflow:hidden;">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div id="datetimepicker12"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">Budget Account</div>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>Account</th>
+                                        <th>Type</th>
+                                        <th>Allow On</th>
+                                        <th class="">EFfective</th>
+                                        <th class="textar">Amount</th>
+                                        <th class="textac">Edit</th>
+                                        <th class="textac">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ledger">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal -->
+    <div id="myAddExpes" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="ModelTitle"></span></h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div id="InvDiv" class="row ">
+
+                        <div class="row w-100 p-0 m-0 ">
+                            <div class="col-12">
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Category </span>
+                                    </div>
+
+                                    <select id="Category" onchange="GetSubCategory(this.value,'SubCategory')" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+                                <div class="input-group small mt-2 col-12 ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Sub-Category </span>
+                                    </div>
+
+                                    <select id="SubCategory" onchange="getAccountbySubCatID(this.value,'AccountTitle')" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Account Tile </span>
+                                    </div>
+
+                                    <select id="AccountTitle" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div id="result" class="col-12" style="display:none;">
+                            <center>
+                                <h5>Invitation Sent</h5>
+                            </center>
+                        </div>
+
+                    </div>
+
+                    <div class="row p-3">
+                        <div class="col-12 pt-3">
+                            <a id="btnReset" href="#" data-dismiss="modal" onmouseup="Opt = 'Cancel';" class="MyCancel"> Cancel </a>
+                          
+                            <a id="btnsave" href="#" class="MySubmit" data-dismiss="modal" onmouseup="Opt = 'Submit';"> Submit </a>
+                        </div>
+                       
+
+                    </div>
+                </div>
+
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/Budgetsetting.js"></script>
+</body>
+</html>

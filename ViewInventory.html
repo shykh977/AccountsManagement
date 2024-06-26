@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Add Project</div>
+
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12" id="ProjectInformation">
+                    
+
+
+                  
+                </div>
+
+            </div>
+            
+          
+        </div>
+    </section>
+
+
+
+
+    <!--<section class="content-inr expense" style="padding-top: 0px; display:none" >
+        <div class=" p-0 m-0 " style="font-family:Arial;" id="ProjectInformation">
+
+
+        </div>
+    </section>-->
+
+
+
+
+
+
+    <script src="js/Budgetsetting.js"></script>
+</body>
+</html>
+
+
+<script>
+
+    GetprojectInformation()
+    function GetprojectInformation() {
+
+       
+        var ProjectId = '9B06F17D-EC4F-4E31-9651-CDA06B989A83'
+        $.ajax({
+            type: 'POST',
+            url: "Project.asmx/GetprojectInventory",
+            headers: { 'PtApiKey': 'pgH7QzFHJx4w46fI~5Uzi4RvtTwlEXp' },
+            data: "{'ProjectId':'" + ProjectId + "'}",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var dt = "";
+                for (var i = 0; i < data.Row.length; i++) {
+
+                    if (data.Row[i].FloorNo != "") {
+
+                        GetFloorsInProject(ProjectId)
+                    }
+                    else {
+
+                        dt = dt + '    <div class="panel panel-default">'
+                        dt = dt + '     <div class="panel-heading">'                                         
+                        dt = dt + '                 <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion_1" href="#' + data.Row[i].ProjectInventoryDetailId + '" aria-expanded="true" aria-controls="collapseOne_1"> <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#' + data.Row[i].ProjectInventoryDetailId + '" aria-expanded="true" aria-controls="collapseOne_1"> House No:' + data.Row[i].PropertyNo + '</a> </h4>'
+                        dt = dt + '             </div>'
+
+                        dt = dt + '             <div id="' + data.Row[i].ProjectInventoryDetailId + '" class="panel-collapse collapse">'
+                        dt = dt + '                 <div class="panel-body">'
+
+                        dt = dt +' <span class="btn-group btn-group-toggle" data-toggle="buttons">'
+
+
+                        //dt = dt + ' <label >'
+                        //dt = dt + ' <a href="#"  title="Area"><i class="zmdi zmdi-view-dashboard mr-2"></i><span id="bathrom">' + data.Row[i].Area + '</span></a>'
+                        //dt = dt + ' </label>'
+
+                        dt = dt + '               <label>'
+                        dt = dt + '                   <a href="#" class="w100" title="Area"><i class="zmdi zmdi-view-dashboard mr-2"></i><span id="bathrom">' + data.Row[i].Area + '</span></a>'
+                        dt = dt + '              &nbsp &nbsp&nbsp&nbsp&nbsp</label>'
+
+                        dt = dt + '               <label>'
+                        dt = dt + '                   <a href="#" class="w100" title="Price"><i class="fa fa-tag"></i>&nbsp<span id="bathrom">' + data.Row[i].PriceTo + '</span></a>'
+                        dt = dt + '       &nbsp &nbsp&nbsp&nbsp&nbsp       </label>'
+
+
+                        dt = dt + '               <label>'
+                        dt = dt + '                   <a href="#" class="w100" title="Beds"><i class="fa fa-bed"></i>&nbsp<span id="bathrom">' + data.Row[i].Bed + '</span></a>'
+                        dt = dt + '        &nbsp &nbsp&nbsp&nbsp&nbsp       </label>'
+
+                        dt = dt + '               <label>'
+                        dt = dt + '                   <a href="#" class="w100" title="Bathroom"><i class="fa fa-bath"></i>&nbsp<span id="bathrom">' + data.Row[i].Bath + '</span></a>'
+                        dt = dt + '        &nbsp &nbsp&nbsp&nbsp&nbsp       </label>'
+
+                        dt = dt + '                </span>'
+                        dt = dt + '               </div>'
+
+
+
+
+
+                        dt = dt + '             </div>'
+                        dt = dt + '         </div>'
+
+                        dt = dt + '     </div>'
+                        dt = dt + ' </div>'
+                    }
+                }
+
+                document.getElementById("ProjectInformation").innerHTML = dt
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+
+
+    function GetFloorsInProject(ProjectId) {
+
+        
+
+        // var ProjectId = 'CDBC3724-6A01-490D-AEE4-03003BDA1A90'
+        $.ajax({
+            type: 'POST',
+            url: "Project.asmx/GetFloorsInProject",
+            headers: { 'PtApiKey': 'pgH7QzFHJx4w46fI~5Uzi4RvtTwlEXp' },
+            data: "{'ProjectId':'" + ProjectId + "'}",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow++;
+
+                    dt = dt + '  <div class="panel panel-default">'
+                    dt = dt + '      <div class="panel-heading">'
+                    dt = dt + '                  <h1 class="panel-title" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_1' + mRow + '" aria-expanded="true" aria-controls="collapseOne_1" id="' + data.Row[i].FloorNo + '" onclick="GetAppartmentsInFloor(this.id)"> <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseOne_1' + mRow + '" aria-expanded="true" aria-controls="collapseOne_1" id="' + data.Row[i].FloorNo + '" onclick="GetAppartmentsInFloor(this.id)"> ' + data.Row[i].FloorNo + ' </a> </h1>'
+                    dt = dt + '              </div>'
+
+
+                    dt = dt + '              <div id="collapseOne_1' + mRow + '" class="panel-collapse collapse">'
+                    dt = dt + '                  <div class="panel-body" id="FloorAppart' + data.Row[i].FloorNo + '"> '
+                    dt = dt + '<center> <span class="btn-group btn-group-toggle" data-toggle="buttons">'
+                    dt = dt + '</div>'
+                    dt = dt + '              </div>'
+                    dt = dt + '          </div>'
+                   
+                    dt = dt + '      </div>'
+                    dt = dt + '  </div>'
+                }
+                document.getElementById("ProjectInformation").innerHTML = dt
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    function GetAppartmentsInFloor(FloorNo) {
+
+        var ProjectId = '9B06F17D-EC4F-4E31-9651-CDA06B989A83'
+
+        // var ProjectId = 'CDBC3724-6A01-490D-AEE4-03003BDA1A90'
+        //var x = window.location.href.split("?x=");
+
+        //var Pid = x[1]
+
+        $.ajax({
+            type: 'POST',
+            url: "Project.asmx/GetAppartmentsInFloor",
+            headers: { 'PtApiKey': 'pgH7QzFHJx4w46fI~5Uzi4RvtTwlEXp' },
+            data: "{'ProjectId':'" + ProjectId + "','FloorNo':'" + FloorNo + "'}",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow++;
+
+                   
+
+                    
+                   
+
+                    dt = dt + '                <center><div class="col-sm-12">'
+                    dt = dt + '                  <h3 id="bathrom">Appartment / Office No (' + data.Row[i].PropertyNo + ')</h3> '
+                    dt = dt + '               </div></center><br/>'
+
+                   
+
+                    dt = dt + '    <center>           <h5>'
+                    dt = dt + '               <label>'
+                    dt = dt + '                   <a href="#" class="w100" title="Area"><i class="zmdi zmdi-view-dashboard mr-2"></i><span id="bathrom">' + data.Row[i].Area + '</span></a>'
+                    dt = dt + '              &nbsp &nbsp&nbsp&nbsp&nbsp</label>'
+
+                    dt = dt + '               <label>'
+                    dt = dt + '                   <a href="#" class="w100" title="Price"><i class="fa fa-tag"></i>&nbsp<span id="bathrom">' + data.Row[i].PriceTo + '</span></a>'
+                    dt = dt + '       <i class="fa fa-ruler-combined"></i>       </label>'
+
+
+                    dt = dt + '               <label>'
+                    dt = dt + '                   <a href="#" class="w100" title="Beds"><i class="fa fa-bed"></i>&nbsp<span id="bathrom">' + data.Row[i].Bed + '</span></a>'
+                    dt = dt + '        &nbsp &nbsp&nbsp&nbsp&nbsp       </label>'
+
+                    dt = dt + '               <label>'
+                    dt = dt + '                   <a href="#" class="w100" title="Bathroom"><i class="fa fa-bath"></i>&nbsp<span id="bathrom">' + data.Row[i].Bath + '</span></a>'
+                    dt = dt + '        &nbsp &nbsp&nbsp&nbsp&nbsp       </label>'
+                    dt = dt + '              </h5></center>'
+
+                    dt = dt + '                </span>'
+                    dt = dt + '               </div>'
+
+                   
+
+                }
+                document.getElementById("FloorAppart" + FloorNo).innerHTML = dt
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+
+
+
+    }
+
+
+
+
+
+
+</script>

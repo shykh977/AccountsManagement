@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="date=no">
+    <meta name="format-detection" content="address=no">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="./css/bootstrap/css/bootstrap.min.css">
+    <link href="../css/jquery-confirm.min.css" rel="stylesheet" />
+    <!--<script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
+
+    <!-- Munshibaba css -->
+    <link rel="stylesheet" href="./css/mb.css">
+    
+    <!-- Google Font -->
+
+</head>
+<style >
+
+    .align-self-center {
+        -ms-flex-item-align: center !important;
+        /* align-self: center!important; */
+    }
+
+    .col {
+        -ms-flex-preferred-size: 0;
+        flex-basis: 0;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        max-width: 100%;
+    }
+    .m-login-section.vcenter.unserinvitation {        margin-top: 140px;    }
+    .m-login-section.vcenter.unserinvitation .login-box.animate { float: none;  max-width: 100%;}
+    .m-login-section.vcenter.unserinvitation .login-box.animate .login-logo img {width: 150px;}
+</style>
+<body class="bg-light login-pagemain">
+
+
+
+
+    <div class="container login-page">
+
+
+
+
+
+
+
+        <div class="m-login-section vcenter unserinvitation ">
+            <div class="login-box animate">
+                <div class="login-logo">
+                    <a href="../../index2.html"><img src="./img/logo-png.png"></a>
+                </div>
+
+                <div class="login-box-body">
+                    <h2 class="login-box-msg">Account Sharing</h2>
+
+                    <p class="text-left float-lett" style="margin-bottom:4px;"> <b><span id="Receiver"></span> </b></p>
+                    <p class="text-left float-lett"> <b><span id="sender"></span></b> Intends to share account <b><span id="accountlist"></span></b> with you</p>
+                    <hr>
+
+
+
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 clear no-padding">
+                        <button style="float: right; margin-left: 10px;" type="submit" id="btndecline" onclick="Accept(-1)" class="btn btn-primary">Decline</button>
+                        <button style="float: right;" type="submit" id="btnaccept" onclick="Accept(1)" class="btn btn-primary">ACCEPT</button>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./css/bootstrap/js/bootstrap.js"></script>
+
+    <script src="./js/fastclick.js"></script>
+    <script src="../js/jquery-confirm.min.js"></script>
+    <script src="./js/mb.min.js"></script>
+    <script>
+        var ur1 = window.location.href;
+       
+        var sharedid = "none";
+        if (ur1.indexOf("id=X") > 0) {
+            // $('#loader').show();
+            var id1 = ur1.split("id=X");
+            
+            getAccountSharingStatus(id1[1]);
+        }
+        function getAccountSharingStatus(SharedID) {
+            $.ajax({
+                type: 'POST',
+                url: 'Users.asmx/getAccountSharingStatus',
+                dataType: 'json',
+                data: "{'SharedID':'" + SharedID + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+                    sharedid = SharedID;
+                    //  alert(data.Row[0].District);
+                    // yaha loop lage ga na
+                    var str = "";
+                    var dt = "";
+
+                    var LastUserID = '0';
+                    var count1 = 0;
+                    //data.Row[i].UserID
+                    if (data.Row[0].NotiStatus == "-1") {
+                        $.alert({
+                            title: 'Alert!', content: 'You have already declined this request; Kindly ask your friend to send you invitation again.', confirm: function () {
+                                window.location.href = "/"; // shorthand.
+                            }
+                        });
+                    }
+                    if (data.Row[0].NotiStatus == "0") {
+
+
+                        for (var i = 0; i < data.Row.length; i++) {
+
+                            document.getElementById("Receiver").innerHTML = data.Row[i].Receiver;
+                            document.getElementById("sender").innerHTML = data.Row[i].sender;
+                            document.getElementById("accountlist").innerHTML = data.Row[i].Accounts;
+
+                        }
+                    }
+                    if (data.Row[0].NotiStatus == "1") {
+                        $.alert({
+                            title: 'Information', content: 'You have already accepted this request; please check you shared accounts list', confirm: function () {
+                                window.location.href = "http://www.munshibaba.com"; // shorthand.
+                            }
+                        });
+                    }
+
+
+
+
+
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        function Accept(a) {
+            $.ajax({
+                type: 'POST',
+                url: 'Users.asmx/UpdateAccountSharingStatus',
+                dataType: 'json',
+                data: "{'SharedID':'" + sharedid + "','Status':'"+ a +"'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+                    
+                    if (response.d == "0") {
+                        $.alert({ title: 'Alert!', content: 'Technical issues with web site !', }).then(function () {
+                            window.location.href = "./";
+                        });
+                    }
+                    else {
+
+                        //sessionStorage.removeItem("PageInput");
+                        //sessionStorage.setItem('GroupActive', '1');
+                        //sessionStorage.setItem("PageInput", "ledger.html");
+                        if (sessionStorage.getItem("FromMainpage") == null || sessionStorage.getItem("FromMainpage") == "") {
+                            window.location.href = "./";
+                        }
+                        else {
+                            //sessionStorage.setItem('GroupActive', '1');
+                            //sessionStorage.setItem("PageInput", "ledger.html");
+                            window.location.href = "mainpage.html";
+                        }
+                    
+                    }
+
+
+
+
+
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

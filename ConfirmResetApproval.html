@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="date=no">
+    <meta name="format-detection" content="address=no">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="./css/bootstrap/css/bootstrap.min.css">
+    <link href="../css/jquery-confirm.min.css" rel="stylesheet" />
+    <!--<script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Munshibaba css -->
+    <link rel="stylesheet" href="./css/mb.css">
+
+    <!-- Google Font -->
+
+</head>
+<style >
+
+    .align-self-center {
+        -ms-flex-item-align: center !important;
+        /* align-self: center!important; */
+    }
+
+    .col {
+        -ms-flex-preferred-size: 0;
+        flex-basis: 0;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        max-width: 100%;
+    }
+    .m-login-section.vcenter.unserinvitation {        margin-top: 140px;    }
+    .m-login-section.vcenter.unserinvitation .login-box.animate { float: none;  max-width: 100%;}
+    .m-login-section.vcenter.unserinvitation .login-box.animate .login-logo img {width: 150px;}
+    .forgotpassword input#txtemail {     position: relative;        z-index: 1;    }
+    .forgotpassword span#chkEmail {        position: absolute;        z-index: 5;        right: 0;        padding: 8px 12px;    }
+    .m-login-section.vcenter.unserinvitation {        margin-top: 72px;    }
+</style>
+<body class="bg-light login-pagemain">
+
+
+
+
+    <div class="container login-page">
+
+
+
+   
+
+
+
+        <div class="m-login-section vcenter unserinvitation ">
+            <div class="login-box animate">
+                <div class="login-logo">
+                    <a href="../../index2.html"><img src="./img/logo-png.png"></a>
+                </div>
+
+                <div class="login-box-body">
+                    <h2 class="login-box-msg"><span id="Heading"></span></h2>
+
+                    <p class="text-left float-lett  hidereset" style="margin-bottom:4px;"><span id="Name"></span></p>
+                    <h2 class="text-center hidereset">Thank You for Approval</h2>
+                    <p class="hidereset">Your account has been Reseted</p>
+                    
+                    <p class="text-left float-lett " style="padding-top: 10px;padding-left: 3px;"><span id="message"></span></p>
+                    <span id="spandataloading" style="display:none;color:darkblue; width:100%"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> </span>
+                    <hr>
+
+
+
+
+                    
+
+
+
+
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./css/bootstrap/js/bootstrap.js"></script>
+    <script src="lib/jquery-cookie/jquery.cookie.js"></script>
+    <script src="./js/fastclick.js"></script>
+    <script src="../js/jquery-confirm.min.js"></script>
+    <script src="./js/mb.min.js"></script>
+    <script>
+        
+        var ur1 = window.location.href;
+
+        if (ur1.indexOf("token=") > 0) {
+            
+            var id1 = ur1.split("token=");
+         
+            AcceptInvitation(id1[1]);
+        }
+
+        function AcceptInvitation(id1) {
+           // alert(id1);
+
+            $.ajax({
+                type: 'POST',
+                url: 'Settings.asmx/ConfirmResetApproval',
+                dataType: 'json',
+                data: "{'ResetID':'" + id1 + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+                   
+
+
+                    //alert("Accepted");
+
+       
+
+ 
+
+                },
+                error: function (error) {
+                    console.log(error);
+                    $('#spandataloading').hide();
+                }
+            });
+
+
+        }
+
+
+        
+         
+    </script>
+
+    
+</body>
+</html>

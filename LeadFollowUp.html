@@ -1,0 +1,597 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment">Lead Folow up</div>
+                    
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend Mywidth  pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Select Lead</span>
+                        </div>
+                        <select id="SelectLeads" class="form-control " style="font-family:'fontAwesome',Arial;" onchange="GetLeadsFollowUpByAssignedLead(this.value)">
+                        </select>
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend Mywidth  pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Status</span>
+                        </div>
+                        <select id="Status" class="form-control " style="font-family:'fontAwesome',Arial;" onchange="OpenEngagedModal(this.value)">
+
+                            <option value="">Select Status</option>
+                            <option value="Engaged">Engaged</option>
+                            <option value="WIN">WIN</option>
+                            <option value="LOSE">LOSE</option>
+
+
+                        </select>
+                    </div>
+
+                    
+
+                    <!--<div class="mt-2">
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="Save();"> <span class="btn-name">Save  </span> </a>
+                        </div>
+                    </div>-->
+                </div>
+
+            </div>
+
+
+
+
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+
+
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <center> <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;"></div></center>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>Firstname</th>
+                                        <th>Lastname</th>
+                                        <th>Address</th>
+                                        <th>Contact</th>
+                                        <th>Email</th>
+                                        <th>Remarks</th>
+                                        <th>OfficeMeeting</th>
+                                        <th>Status</th>
+                                        <!--<th>Contact</th>
+                                        <th>Email</th>
+                                        <th>UnAssigned</th>-->
+
+                                    </tr>
+                                </thead>
+                                <tbody id="AssignedLeads">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <script src="js/Budgetsetting.js"></script>
+</body>
+</html>
+
+<div id="EngagedModal" class="modal fade">
+    <div class="modal-dialog modal-xl" role="document">
+
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-header" style="background-color:#747572;">
+
+                <h4 class="modal-title small text-white"><span id="ModelTitle"></span> Follow up Lead</h4>
+                <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row clearfix" >
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend Mywidth  pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Remarks</span>
+                        </div>
+                        <input id="txtRemarks" type="text" inputmode="numeric" class="form-control" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend Mywidth  pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small">Meeting</span>
+                        </div>
+                        <input id="MeetingScheduleDate" type="datetime-local" inputmode="numeric" class="form-control" />
+                    </div>
+
+
+                    <div class="modal-footer" id="EngagedDesc" style="display:none">
+                        <a id="btnsave" href="#" class="save-btn " onclick="Save();"> <span class="btn-name">Save  </span> </a>
+                    </div>
+
+                    <div class="modal-footer"  id="WinDesc" style="display:none">
+
+                        <a id="btnsave" href="#" class="save-btn " onclick="WinLead();"> <span class="btn-name">Save  </span> </a>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+            </div>
+           
+
+            <!--<div class="modal-footer">
+            <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+            <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                </div>-->
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+
+
+    SubUserView()
+    function SubUserView() {
+
+        var SubUserId = sessionStorage.getItem("SubUserId")
+        if (SubUserId != "") {
+            GetAssignedLeadsBySubUser()
+           
+        }
+        else {
+          GetAssignedLeads()
+        }
+    }
+
+    function OpenEngagedModal(val) {
+
+        if (val == "Engaged") {
+            $("#EngagedModal").modal('show')
+         document.getElementById("EngagedDesc").style.display ='block'
+            document.getElementById("WinDesc").style.display ='none'
+        }
+        else if (val == "WIN") {
+            $("#EngagedModal").modal('show')
+            document.getElementById("WinDesc").style.display = 'block'
+            document.getElementById("EngagedDesc").style.display = 'none'
+        }
+    }
+
+
+    function WinLead() {
+
+        var AssignleadId = document.getElementById("SelectLeads").value;
+        if (confirm("Confirm Lead") == true) {
+            $.ajax({
+                type: 'POST',
+                url: 'Leads.asmx/CreateCustomerFromLead',
+                dataType: 'json',
+                data: "{'AssigndLeadId':'" + AssignleadId + "'}",
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    CreateLeadsFollowUp()
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    }
+
+
+    var save = "ADD";
+    var LeadID = "";
+    function Save() {
+
+        if (save == 'ADD') {
+            CreateLeadsFollowUp()
+        }
+        else {
+            UpdateLeads()
+        }
+    }
+
+
+
+
+    function CreateLeadsFollowUp() {
+
+        var UserID = sessionStorage.getItem("UserID");
+        var AssignleadId =document.getElementById("SelectLeads").value;
+        var txtRemarks =document.getElementById("txtRemarks").value;
+        var MeetingScheduleDate =document.getElementById("MeetingScheduleDate").value;
+        var Status = document.getElementById("Status").value;
+
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/CreateLeadsFollowUp',
+            dataType: 'json',
+            data: "{'AssignedLeadId':'" + AssignleadId + "','Remarks':'" + txtRemarks + "','OfficeMeeting':'" + MeetingScheduleDate + "','Status':'" + Status + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Lead Follow Up Updated")
+                Clear()
+                GetLeadsFollowUp()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+
+    }
+
+    function UpdateLeads() {
+
+        var txtFirstName = document.getElementById("txtFirstName").value;
+        var txtLastName = document.getElementById("txtLastName").value;
+        var txtAddress = document.getElementById("txtAddress").value;
+        var txtCNIC = document.getElementById("txtCNIC").value;
+        var txtContact = document.getElementById("txtContact").value;
+        var txtEmail = document.getElementById("txtEmail").value;
+        var txtPassword = document.getElementById("txtPassword").value;
+        var SelectLead = document.getElementById("SelectLead").value;
+
+        var ProjectId = sessionStorage.getItem("ProjectId")
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/UpdateLeads',
+            dataType: 'json',
+            data: "{'LeadId':'" + LeadID + "','LeadFrom':'" + SelectLead + "','Firstname':'" + txtFirstName + "','Lastname':'" + txtLastName + "','Address':'" + txtAddress + "','Cnic':'" + txtCNIC + "','Email':'" + txtEmail + "','Contact':'" + txtContact + "','ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Lead Has Been Updated")
+                Clear()
+                GetLeads()
+
+                document.getElementById("btnsave").innerHTML = 'Save';
+                save = 'ADD'
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+   // GetLeadsFollowUp()
+    function GetLeadsFollowUp() {
+        var ProjectId = sessionStorage.getItem("ProjectId")
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/GetLeadsFollowUp',
+            dataType: 'json',
+            data: "{'ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+                        dt = dt + " <tr>";
+                        dt = dt + "   <td>" + mRow + ".</td>";
+                        dt = dt + "   <td> " + data.Row[i].Firstname        + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Lastname         + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Address          + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Contact          + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Email            + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Remarks          + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].OfficeMeeting    + "</td>";                       
+
+                    if (data.Row[i].Status == "") {
+                      //  dt = dt + "<td><button type='button' class='btn btn-success' value=" + data.Row[i].LeadsFollowUpId + " onclick=ChangeFollowUpStatus(this.value,'WIN')>Win</button><button type='button' class='btn btn-danger' value=" + data.Row[i].LeadsFollowUpId +" onclick=ChangeFollowUpStatus(this.value,'Lose')>Lose</button></td>";
+                    }
+                    else {
+
+                        if (data.Row[i].Status == "WIN") {
+                            dt = dt + "<td colspan=2><strong><span style='color:green; font-size:24px' >" + data.Row[i].Status + "</span></strong></td>";
+                        }
+                        else if (data.Row[i].Status == "LOSE") {
+                            dt = dt + "<td colspan=2><strong><span style='color:red; font-size:24px' >" + data.Row[i].Status + "</span></strong></td>";
+                        }
+                        else {
+                            dt = dt + "<td colspan=2><strong><span style='color:#338DFF; font-size:24px' >" + data.Row[i].Status + "</span></strong></td>";
+                        }
+                    }                                          
+                        dt = dt + "</tr>";
+                        str = str + dt;
+                        dt = "";
+                }
+                document.getElementById("AssignedLeads").innerHTML = str;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    function GetLeadsFollowUpByAssignedLead(AssignedLeadId) {
+        var ProjectId = sessionStorage.getItem("ProjectId")
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/GetLeadsFollowUpByAssignedLead',
+            dataType: 'json',
+            data: "{'AssignedLeadId':'" + AssignedLeadId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+                        dt = dt + " <tr>";
+                        dt = dt + "   <td>" + mRow + ".</td>";
+                        dt = dt + "   <td> " + data.Row[i].Firstname        + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Lastname         + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Address          + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Contact          + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Email            + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Remarks          + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].OfficeMeeting    + "</td>";                       
+
+                    if (data.Row[i].Status == "") {
+                      //  dt = dt + "<td><button type='button' class='btn btn-success' value=" + data.Row[i].LeadsFollowUpId + " onclick=ChangeFollowUpStatus(this.value,'WIN')>Win</button><button type='button' class='btn btn-danger' value=" + data.Row[i].LeadsFollowUpId +" onclick=ChangeFollowUpStatus(this.value,'Lose')>Lose</button></td>";
+                    }
+                    else {
+
+                        if (data.Row[i].Status == "WIN") {
+                            dt = dt + "<td colspan=2><strong><span style='color:green; font-size:24px' >" + data.Row[i].Status + "</span></strong></td>";
+                        }
+                        else if (data.Row[i].Status == "LOSE") {
+                            dt = dt + "<td colspan=2><strong><span style='color:red; font-size:24px' >" + data.Row[i].Status + "</span></strong></td>";
+                        }
+                        else {
+                            dt = dt + "<td colspan=2><strong><span style='color:#338DFF; font-size:24px' >" + data.Row[i].Status + "</span></strong></td>";
+                        }
+                    }                                          
+                        dt = dt + "</tr>";
+                        str = str + dt;
+                        dt = "";
+                }
+                document.getElementById("AssignedLeads").innerHTML = str;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    function ChangeFollowUpStatus(LeadsFollowUpId,Status) {
+
+        if (confirm("Confirm Lead") == true) {
+            $.ajax({
+                type: 'POST',
+                url: 'Leads.asmx/ChangeLeadsFollowUpStatus',
+                dataType: 'json',
+                data: "{'LeadsFollowUpId':'" + LeadsFollowUpId + "','Status':'" + Status + "'}",
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    alert("Lead Status Has Been Updated")
+                    GetLeadsFollowUp()
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        
+    }
+
+   
+    function GetAssignedLeads() {
+        var ProjectId = sessionStorage.getItem("ProjectId")      
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/GetAssignedLeads',
+            dataType: 'json',
+            data: "{'ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                dt = dt +"<option value=''>Select Leads</option>"
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+
+                    dt = dt + "   <option value=" + data.Row[i].AssigndLeadId + "> " + data.Row[i].Firstname + "  " + data.Row[i].Lastname + "(" + data.Row[i].Contact +")</option>";
+                                         
+                }
+                document.getElementById("SelectLeads").innerHTML = dt;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    function GetAssignedLeadsBySubUser() {
+        var SubUserId = sessionStorage.getItem("SubUserId")
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/GetAssignedLeadsBySubUser',
+            dataType: 'json',
+            data: "{'SubUserId':'" + SubUserId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                dt = dt +"<option value=''>Select Leads</option>"
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+
+                    dt = dt + "   <option value=" + data.Row[i].AssigndLeadId + "> " + data.Row[i].Firstname + "  " + data.Row[i].Lastname + "(" + data.Row[i].Contact +")</option>";
+                                         
+                }
+                document.getElementById("SelectLeads").innerHTML = dt;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    function EditLead(LeadId) {
+
+        LeadID = LeadId
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/GetLeadsById',
+            dataType: 'json',
+            data: "{'LeadId':'" + LeadId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                document.getElementById("txtFirstName").value = data.Row[0].Firstname
+                document.getElementById("txtLastName").value = data.Row[0].Lastname
+                document.getElementById("txtAddress").value = data.Row[0].Address
+                document.getElementById("txtCNIC").value = data.Row[0].Cnic
+                document.getElementById("txtContact").value = data.Row[0].Contact
+                document.getElementById("txtEmail").value = data.Row[0].Email
+                document.getElementById("SelectLead").value = data.Row[0].LeadFrom
+                document.getElementById("btnsave").innerHTML = 'Update';
+                save = 'update'
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function DeleteLead(LeadId) {
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/DeleteLead',
+            dataType: 'json',
+            data: "{'LeadId':'" + LeadId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Lead Has Been Deleted")
+                GetLeads()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    GetSubUsers()
+    function GetSubUsers() {
+        var UserID = sessionStorage.getItem("UserID");
+        $.ajax({
+            type: 'POST',
+            url: 'SubUsers.asmx/GetSubUsers',
+            dataType: 'json',
+            data: "{'UserId':'" + UserID + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                dt = dt +"<option value=''>Select User</option>"
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;                    
+                    dt = dt + "   <option value='" + data.Row[i].SubUserId +"'> " + data.Row[i].SubUserName + "  (" + data.Row[i].Email +")</option>";                 
+                }
+                document.getElementById("SelectSubUsers").innerHTML = dt;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+
+    function Clear() {
+
+
+        document.getElementById("SelectLeads").value ='';
+        document.getElementById("txtRemarks").value='';
+        document.getElementById("MeetingScheduleDate").value='';
+        document.getElementById("Status").value='';
+
+
+
+        document.getElementById("btnsave").innerHTML = 'Save';
+        save = 'ADD'
+    }
+
+</script>

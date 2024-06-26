@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BTG Account Solutions</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="Indexassets/css/style.css" rel="stylesheet">
+    <link href="Indexassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="Indexassets/css/animate.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-sm bg-dark1 navbar-dark">
+        <div class="container">
+
+            <a class="navbar-brand" href="#">
+                <img src="Indexassets/images/BTG-logo.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill"> BTG Account Solutions
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse  justify-content-end" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Multi Voucher</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Payment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Receipt</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Moveaccount</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Report</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <section id="hero">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-sm-6 animate__animated animate__bounceIn" style="margin: auto;">
+                    <h1 class="white-heading">
+                        We Provide Best<br>
+                        Account Solution For <br>
+                        Your Business
+                    </h1>
+                    <button type="button" class="btn btn-getstarted">Get Stared</button>
+                    <button type="button" class="btn btn-outline-getstarted">Primary</button>
+                </div>
+                <div class="col-sm-6 animate__animated animate__bounceIn">
+                    <img class="img-fluid" src="Indexassets/images/Header-pic.png" alt="account soluiton">
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </section>
+
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-sm-8 animate__animated animate__backInLeft">
+                <h1>
+                    Smart, simple online <br>
+                    accounting software for<br>
+                    small business
+                </h1>
+                <p>Manage your personal and business accounts with the friendliest system ever built. Bring in discipline in your financial matters by signing in with BTG Accounts Solution. BTG Accounts Solution as a personal accounting system</p>
+            </div>
+            <div class="col-sm-4 animate__animated animate__backInRight">
+                <h3>Login</h3>
+                <p>Create new account</p>
+                <div action="/action_page.php">
+                    <div class="mb-3 mt-3">
+                        <!--  <label for="email" class="form-label">Email:</label> -->
+                        <input type="email" class="form-control" id="UserName" placeholder="Enter email" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <!--  <label for="pwd" class="form-label">Password:</label> -->
+                        <input type="password" class="form-control" id="Password" placeholder="Enter password" name="pswd">
+                    </div>
+                    <div class="form-check mb-3">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                        </label>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-outline-submit btn-block" onclick="login()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <section id="deshboard-section">
+        <div class="container">
+
+            <div class="row">
+                <h1 class="white-heading text-center animate__animated animate__pulse">Deshboard</h1>
+                <p class="white-paragraph  text-center animate__animated animate__pulse">Manage your personal and business accounts </p>
+
+
+                <div class="col-md-6  mb-4 animate__animated animate__backInLeft">
+                    <div class="card">
+                        <img class="pic" src="Indexassets/images/expense.png" alt="Income" width="100px" height="100px">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Expense</h4>
+                            <p class="card-text text-center">Some example text some example text.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6  mb-4 animate__animated animate__backInRight">
+                    <div class="card">
+                        <img class="pic" src="Indexassets/images/income.png" alt="Income" width="100px" height="100px">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Income</h4>
+                            <p class="card-text text-center">Some example text some example text.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6  mb-4 animate__animated animate__backInLeft">
+                    <div class="card">
+                        <img class="pic" src="Indexassets/images/payment.png" alt="Income" width="100px" height="100px">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Payment</h4>
+                            <p class="card-text text-center">Some example text some example text.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6  mb-4 animate__animated animate__backInRight">
+                    <div class="card">
+                        <img class="pic" src="Indexassets/images/Receipt.png" alt="Income" width="100px" height="100px">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Receipt</h4>
+                            <p class="card-text text-center">Some example text some example text.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section>
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-sm-6 col-md-6 animate__animated animate__backInLeft" style="margin: auto;">
+                    <h1>Multi Vouchers</h1>
+                    <p>Ipsum in aspernatur ut possimus sint. Quia omnis est occaecati possimus ea. Quas molestiae perspiciatis occaecati qui rerum. Deleniti quod porro sed quisquam saepe. Numquam mollitia recusandae non ad at et a.</p>
+                </div>
+                <div class="col-sm-6 col-md-6 animate__animated animate__backInLeft">
+                    <img class="pic img-fluid" src="Indexassets/images/Multivoucher.png" alt="Income" width="512px" height="450px">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-6 animate__animated animate__backInRight">
+                    <img class="pic img-fluid" src="Indexassets/images/payment-image.png" alt="Income" width="512px" height="450px">
+                </div>
+                <div class="col-sm-6 col-md-6 animate__animated animate__backInRight" style="margin: auto;">
+                    <h1>Payments</h1>
+                    <p>Ipsum in aspernatur ut possimus sint. Quia omnis est occaecati possimus ea. Quas molestiae perspiciatis occaecati qui rerum. Deleniti quod porro sed quisquam saepe. Numquam mollitia recusandae non ad at et a.</p>
+
+                    <ul>
+                        <li>Cash</li>
+                        <li>Cheaque</li>
+                        <li>Online</li>
+                        <li>Highlighter</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-6 animate__animated animate__backInLeft" style="margin: auto;">
+                    <h1>Receipt</h1>
+                    <p>Ipsum in aspernatur ut possimus sint. Quia omnis est occaecati possimus ea. Quas molestiae perspiciatis occaecati qui rerum. Deleniti quod porro sed quisquam saepe. Numquam mollitia recusandae non ad at et a.</p>
+                </div>
+                <div class="col-sm-6 col-md-6 animate__animated animate__backInLeft">
+                    <img class="pic img-fluid" src="Indexassets/images/Receipt-image.png" alt="Income" width="512px" height="450px">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-6 animate__animated animate__backInRight">
+                    <img class="pic img-fluid" src="Indexassets/images/payment-image.png" alt="Income" width="512px" height="450px">
+                </div>
+
+                <div class="col-sm-6 col-md-6 animate__animated animate__backInRight" style="margin: auto;">
+                    <h1>Move Accounts</h1>
+                    <p>Ipsum in aspernatur ut possimus sint. Quia omnis est occaecati possimus ea. Quas molestiae perspiciatis occaecati qui rerum. Deleniti quod porro sed quisquam saepe. Numquam mollitia recusandae non ad at et a.</p>
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+    </section>
+
+    <section id="report-section">
+        <div class="container">
+
+            <div class="row">
+                <h1 class="white-heading text-center">Reports</h1>
+                <p class="white-paragraph  text-center">Manage your personal and business accounts </p>
+                <div class="col-sm-6 col-md-6 animate__animated animate__backInRight" style="margin: auto;">
+
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            &nbsp;
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <ul class="bulletlinkimage">
+                                <li class="bulletlink">Group Ledger</li>
+                                <li class="bulletlink">Shared Ledger</li>
+                                <li class="bulletlink">Shared  Transection</li>
+                                <li class="bulletlink">Net worth</li>
+                                <li class="bulletlink">Full Statement</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <ul class="bulletlinkimage">
+                                <li class="bulletlink">Cash</li>
+                                <li class="bulletlink">Cheaque</li>
+                                <li class="bulletlink">Online</li>
+                                <li class="bulletlink">Highlighter</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="col-sm-6 col-md-6 animate__animated animate__backInRight">
+                    <img class="pic img-fluid" src="Indexassets/images/Report.png" alt="Income" width="635px" height="422px">
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <footer class="pt-3 ">
+        <p class="text-center">
+            Designed & Developed - <a href="#">BTG Technologies.</a><br>
+            Copyright © 2023. All right are reserved
+        </p>
+    </footer>
+
+
+
+    <script src="js/login2.js?11"></script>
+    <script src="js/User.js"></script>
+
+    <script src="Indexassets/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+
+

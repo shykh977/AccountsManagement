@@ -1,0 +1,619 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Assign Leads</div>
+                    
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+
+
+                    <div class="input-group small mt-2 " id="UserSelection">
+                        <div class="input-group-prepend Mywidth  pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Select User</span>
+                        </div>
+                        <select id="SelectSubUsers" class="form-control " style="font-family:'fontAwesome',Arial;">
+                        </select>
+                    </div>
+
+                    <div class="input-group small mt-2 " id="DLeadDate">
+                        <div class="input-group-prepend Mywidth  pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Lead Date</span>
+                        </div>
+                        <input id="LeadDate" type="date" inputmode="numeric" class="form-control" onchange="GetLeadsByDate(this.value)" />
+                    </div>
+
+                    <div class="mt-2" id="ActionsButtons">
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="Save();"> <span class="btn-name">Assign Lead  </span> </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class=" col-gl-12 " id="UnassignedLead">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <center> <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;"><h2> UN-ASSIGNED LEADS </h2></div></center>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>Lead From</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Address</th>
+                                        <th>CNIC</th>
+                                        <th>Contact</th>
+                                        <th>Email</th>
+                                        <!--<th>Password</th>-->
+                                        <th>Select Leads</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody id="CustomerList">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+
+
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <center> <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;"><h2> ASSIGNED LEADS </h2></div></center>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>Username</th>
+                                        <th>User Email</th>
+                                        <th>Lead From</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Address</th>
+                                        <th>CNIC</th>
+                                        <th>Contact</th>
+                                        <th>Email</th>
+                                        <th id="UAL">UnAssigned</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="AssignedLeads">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal -->
+    <div id="myAddExpes" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="ModelTitle"></span> Assign Project To User</h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+
+                    <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                        <div class=" col-gl-12 col-md-12 col-sm-12">
+                            <div class="d-flex w-100 "></div>
+
+
+
+                            <div class="input-group small mt-2 ">
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Projects </span>
+                                    </div>
+
+                                    <select id="Projects" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                                    <!--<a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>-->
+                                    <a id="" href="#" class="save-btn " onclick="AssignProjectsToSubUsers();"> <span class="btn-name">Save  </span> </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                            <div class=" col-gl-12 ">
+                                <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                                    
+                                    <div class="col-lg-12  " style="padding:15px;">
+                                        <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                            <thead>
+                                                <tr style="border-bottom:solid 1px #747572">
+                                                    <th>S.No.</th>
+                                                    <th>Username</th>
+                                                    <th>Project Name</th>
+                                                    
+                                                    <th>Delete</th>
+                                                    
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ProjectAssignedList">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/Budgetsetting.js"></script>
+</body>
+</html>
+
+
+<script>
+
+
+
+    var save = "ADD";
+    var LeadID = "";
+    function Save() {
+
+        if (save == 'ADD') {
+            AssignedLeads()
+        }
+        else {
+            UpdateLeads()
+        }
+    }
+
+    SubUserView()
+    function SubUserView() {
+
+        var SubUserId = sessionStorage.getItem("SubUserId")
+        if (SubUserId != "") {
+            GetAssignedLeadsBySubUser()
+
+            
+            document.getElementById("DLeadDate").style.display ='none'
+               document.getElementById("UnassignedLead").style.display ='none'
+               document.getElementById("ActionsButtons").style.display ='none'
+               document.getElementById("UserSelection" ).style.display ='none'
+            document.getElementById("UAL" ).style.display ='none'
+        }
+        else {
+            GetAssignedLeads()
+        }
+    }
+
+    function CreateLeads() {
+
+        var UserID = sessionStorage.getItem("UserID");
+
+
+        var txtFirstName =  document.getElementById("txtFirstName").value;
+        var txtLastName =   document.getElementById("txtLastName").value;
+        var txtAddress =    document.getElementById("txtAddress").value;
+        var txtCNIC =       document.getElementById("txtCNIC").value;
+        var txtContact =    document.getElementById("txtContact").value;
+        var txtEmail =      document.getElementById("txtEmail").value;
+        var txtPassword =   document.getElementById("txtPassword").value;
+        var SelectLead =    document.getElementById("SelectLead").value;
+
+        var ProjectId = sessionStorage.getItem("ProjectId")
+
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/CreateLeads',
+            dataType: 'json',
+            data: "{'LeadFrom':'" + SelectLead + "','Firstname':'" + txtFirstName + "','Lastname':'" + txtLastName + "','Address':'" + txtAddress + "','Cnic':'" + txtCNIC + "','Email':'" + txtEmail + "','Contact':'" + txtContact + "','ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Lead Has Been Generated")
+                GetLeads()
+                Clear()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+
+    }
+
+    function UpdateLeads() {
+
+        var txtFirstName = document.getElementById("txtFirstName").value;
+        var txtLastName = document.getElementById("txtLastName").value;
+        var txtAddress = document.getElementById("txtAddress").value;
+        var txtCNIC = document.getElementById("txtCNIC").value;
+        var txtContact = document.getElementById("txtContact").value;
+        var txtEmail = document.getElementById("txtEmail").value;
+        var txtPassword = document.getElementById("txtPassword").value;
+        var SelectLead = document.getElementById("SelectLead").value;
+
+        var ProjectId = sessionStorage.getItem("ProjectId")
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/UpdateLeads',
+            dataType: 'json',
+            data: "{'LeadId':'" + LeadID + "','LeadFrom':'" + SelectLead + "','Firstname':'" + txtFirstName + "','Lastname':'" + txtLastName + "','Address':'" + txtAddress + "','Cnic':'" + txtCNIC + "','Email':'" + txtEmail + "','Contact':'" + txtContact + "','ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Lead Has Been Updated")
+                Clear()
+                GetLeads()
+
+                document.getElementById("btnsave").innerHTML = 'Save';
+                save = 'ADD'
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+   
+    function GetLeadsByDate(date) {
+
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/GetLeadsByDate',
+            dataType: 'json',
+            data: "{'Date':'" + date + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+
+
+                    if (data.Row[i].IsAssigned == 0) {
+
+
+                        dt = dt + " <tr>";
+                        dt = dt + "   <td>" + mRow + ".</td>";
+                        dt = dt + "   <td> " + data.Row[i].LeadFrom + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Firstname + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Lastname + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Address + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Cnic + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Contact + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Email + "</td>";
+
+                        //dt = dt + " <td><a href='#'  onclick=AssignProjects('" + data.Row[i].SubUserId + "');> Assign Project</a></td>";
+                        // dt = dt + " <td><a href='#'   onclick=EditLead('" + data.Row[i].LeadId + "');><i class='fa fa-edit'></i> &nbsp;</a></td>";
+                        dt = dt + " <td align='center'><input type='checkbox' class='leadId' value=" + data.Row[i].LeadId + "></td>";
+                    }
+
+                        dt = dt + "</tr>";
+                        str = str + dt;
+                        dt = "";
+                   
+                }
+                document.getElementById("CustomerList").innerHTML = str;
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    
+    function GetAssignedLeads() {
+
+
+        var ProjectId = sessionStorage.getItem("ProjectId")
+
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/GetAssignedLeads',
+            dataType: 'json',
+            data: "{'ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+
+                        dt = dt + " <tr>";
+                        dt = dt + "   <td>" + mRow + ".</td>";
+                        dt = dt + "   <td> " + data.Row[i].SubUserName + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].UserEmail + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].LeadFrom + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Firstname + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Lastname + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Address + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Cnic + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Contact + "</td>";
+                        dt = dt + "   <td> " + data.Row[i].Email + "</td>";
+                        dt = dt + "<td><button type='button' class='btn btn-info'onclick=UnAssignLead('" + data.Row[i].LeadId + "')>Unassigned</button></td>";
+                        dt = dt + "</tr>";
+                        str = str + dt;
+                        dt = "";                   
+                }
+                document.getElementById("AssignedLeads").innerHTML = str;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function GetAssignedLeadsBySubUser() {
+
+
+        var SubUserId = sessionStorage.getItem("SubUserId")
+
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/GetAssignedLeadsBySubUser',
+            dataType: 'json',
+            data: "{'SubUserId':'" + SubUserId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+
+                    dt = dt + " <tr>";
+                    dt = dt + "   <td>" + mRow + ".</td>";
+                    dt = dt + "   <td> " + data.Row[i].SubUserName + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].UserEmail + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].LeadFrom + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Firstname + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Lastname + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Address + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Cnic + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Contact + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Email + "</td>";
+                   // dt = dt + "<td><button type='button' class='btn btn-info'onclick=UnAssignLead('" + data.Row[i].LeadId + "')>Unassigned</button></td>";
+                    dt = dt + "</tr>";
+                    str = str + dt;
+                    dt = "";
+                }
+                document.getElementById("AssignedLeads").innerHTML = str;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    function UnAssignLead(LeadId) {
+
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/UnAssignLead',
+            dataType: 'json',
+            data: "{'LeadId':'" + LeadId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Lead Has Been Unassigned")
+                GetAssignedLeads()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+
+    function AssignedLeads() {
+      
+        var leadId = document.getElementsByClassName('leadId')
+        var SubUsersId = document.getElementById("SelectSubUsers").value
+        var LeadDate = document.getElementById("LeadDate").value;
+        for (var i = 0; i < leadId.length; i++) {
+            if (leadId[i].checked == true) {
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Leads.asmx/CreateAssigndLeads',
+                    dataType: 'json',
+                    data: "{'LeadId':'" + leadId[i].value + "','SubUserId':'" + SubUsersId + "'}",
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (response) {
+
+                        GetLeadsByDate(LeadDate)
+                        GetAssignedLeads()
+                        //GetLeads()
+                        //Clear()
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+
+
+            }
+        }
+
+       alert("Lead Assigned")
+
+    }
+
+
+    function EditLead(LeadId) {
+
+        LeadID = LeadId
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/GetLeadsById',
+            dataType: 'json',
+            data: "{'LeadId':'" + LeadId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                document.getElementById("txtFirstName").value = data.Row[0].Firstname
+                document.getElementById("txtLastName").value = data.Row[0].Lastname
+                document.getElementById("txtAddress").value = data.Row[0].Address
+                document.getElementById("txtCNIC").value = data.Row[0].Cnic
+                document.getElementById("txtContact").value = data.Row[0].Contact
+                document.getElementById("txtEmail").value = data.Row[0].Email
+                document.getElementById("SelectLead").value = data.Row[0].LeadFrom
+                document.getElementById("btnsave").innerHTML = 'Update';
+                save = 'update'
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function DeleteLead(LeadId) {
+        $.ajax({
+            type: 'POST',
+            url: 'Leads.asmx/DeleteLead',
+            dataType: 'json',
+            data: "{'LeadId':'" + LeadId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Lead Has Been Deleted")
+                GetLeads()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    GetSubUsers()
+    function GetSubUsers() {
+        var UserID = sessionStorage.getItem("UserID");
+        $.ajax({
+            type: 'POST',
+            url: 'SubUsers.asmx/GetSubUsers',
+            dataType: 'json',
+            data: "{'UserId':'" + UserID + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                dt = dt +"<option value=''>Select User</option>"
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+                    
+                    dt = dt + "   <option value='" + data.Row[i].SubUserId +"'> " + data.Row[i].SubUserName + "  (" + data.Row[i].Email +")</option>";
+                   
+
+                }
+                document.getElementById("SelectSubUsers").innerHTML = dt;
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+
+    function Clear() {
+
+
+        document.getElementById("txtFirstName").value = '';
+        document.getElementById("txtLastName").value = '';
+        document.getElementById("txtAddress").value = '';
+        document.getElementById("txtCNIC").value = '';
+        document.getElementById("txtContact").value = '';
+        document.getElementById("txtEmail").value = '';
+        document.getElementById("txtPassword").value = '';
+        document.getElementById("SelectLead").value = '';
+
+        document.getElementById("btnsave").innerHTML = 'Save';
+        save = 'ADD'
+    }
+
+</script>

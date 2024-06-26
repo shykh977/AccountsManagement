@@ -1,0 +1,1334 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>
+
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="../lib/jspdf/jspdf.min.js"></script>
+    <script src="../lib/html2canvas/html2canvas.min.js"></script>
+    <script src="../lib/html2pdf.js/html2pdf.bundle.min.js"></script>
+    <link href="../css/jquery-confirm.min.css" rel="stylesheet" />
+    <script src="../js/jquery-confirm.min.js"></script>
+    <script src="MyTools/DatabaseAjax.js"></script>
+    <link href="css/loader.css" rel="stylesheet" />
+    <link href="lib/select2/css/select2.min.css?123457" rel="stylesheet" />
+
+
+
+    <script src="lib/select2/js/select2.min.js"></script>
+    <script src="lib/moment.js/moment.min.js"></script>
+   
+
+    <script>
+         
+        var BackFile = sessionStorage.getItem("LastPage");
+        function CallBackFile() {
+            LoadFile(BackFile);
+        }
+    </script>
+
+    <script>
+        $(function () {
+
+            $("#includedContent").load("navbar.html");
+
+        });
+    </script>
+
+    <style>
+        input
+        {
+            position: relative;
+            width: 88px;
+            height: 20px;
+            color: white;
+        }
+
+            input:before
+            {
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                content: attr(data-date);
+                display: inline-block;
+                color: black;
+            }
+
+            input::-webkit-datetime-edit, input::-webkit-inner-spin-button, input::-webkit-clear-button
+            {
+                display: none;
+            }
+
+            input::-webkit-calendar-picker-indicator
+            {
+                position: absolute;
+                top: 3px;
+                right: 0;
+                color: black;
+                opacity: 1;
+            }
+        #MyDiv
+        {
+            display: none;
+        }
+
+        #Printable
+        {
+            display: block;
+        }
+
+        .disabled
+        {
+            color: grey;
+            cursor: default;
+        }
+
+        .center1
+        {
+            left: 50% !important;
+            right: auto !important;
+            text-align: center !important;
+            transform: translate(-50%, 0) !important;
+        }
+
+        .myamount
+        {
+            text-align: right !important;
+            
+        }
+
+        i.fa.fa-trash
+        {
+            color: #f10d0d;
+        }
+
+        .search-ledger
+        {
+            float: left;
+        }
+
+        .serch-bar-btn
+        {
+            margin-left: 0px;
+            margin-top: 2px;
+            float: left;
+            position: absolute;
+            left: 14px;
+        }
+
+        span.pagename
+        {
+            width: 121px;
+        }
+
+        @media screen and (max-width: 1023px)
+        {
+
+            .search-ledger
+            {
+                float: left;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+                .search-ledger input#SearchString
+                {
+                    width: 100%;
+                    border: solid 1px #737373;
+                    padding: 6px 6px 6px 26px;
+                }
+
+            .search-account-ledger
+            {
+                padding: 0;
+            }
+        }
+
+        @media screen and (max-width: 1496px)
+        {
+
+
+            .serch-bar-btn
+            {
+                margin-left: 0px;
+                margin-top: 2px;
+                float: left;
+                position: absolute;
+                left: 14px;
+            }
+
+
+            .note-edit-serach
+            {
+                clear: both;
+                padding: 0px 10px 5px 10px;
+            }
+
+            a.edit-leger img
+            {
+                width: 14px;
+            }
+
+            span.note-ledger
+            {
+                padding: 4px 3px 0px 9px;
+                display: inline-block;
+                line-height: normal;
+                text-align: left;
+                float: left;
+                width: calc(100% - 50px);
+                font-size: 12px;
+                /* white-space: nowrap; */
+                overflow: hidden;
+                text-align: justify;
+                text-overflow: ellipsis;
+            }
+
+            .date-d span
+            {
+                display: block;
+                background: #fff;
+                height: 22px;
+                position: relative;
+                left: -4px;
+                width: 45px;
+                top: 3px;
+            }
+
+            .note-edit-serach a img
+            {
+                width: 16px;
+            }
+
+            .date-d span a img
+            {
+                width: 14px;
+                height: 14px;
+            }
+
+
+            .note-edit-serach .edit-leger
+            {
+                background: #EEE;
+                padding: 2px 3px 0px 3px;
+                display: inline-block;
+                width: 46px;
+                line-height: 1;
+                text-align: center;
+                height: 22px;
+                float: left;
+                margin-bottom: 10px;
+            }
+
+
+            #MyDiv
+            {
+                display: block;
+            }
+
+            #Printable
+            {
+                display: none;
+            }
+
+            .account-ledger-box
+            {
+                text-transform: capitalize;
+                position: relative;
+                background: #ffffff;
+                margin-bottom: 12px;
+                width: 100%;
+                padding: 0px 0px;
+                border: solid 1px #a8aab6;
+                text-align: left;
+            }
+
+            .date-d a
+            {
+                color: #fff;
+            }
+
+            .account-ledger-box .grocery-items .box-header
+            {
+                padding: 0px 0px 0px 10px;
+            }
+
+                .account-ledger-box .grocery-items .box-header .box-tools
+                {
+                    right: 14px;
+                    text-transform: uppercase;
+                    top: 7px;
+                    font-size: 12px;
+                    position: absolute;
+                }
+
+            .account-ledger-box .grocery-items .box-body.table-responsive table.table.table-hover tr td.text-r
+            {
+                font-weight: bold;
+            }
+
+            .account-ledger-box .grocery-items .box-body.table-responsive
+            {
+                padding: 0px 0px 0px 10px;
+                font-size: 11px;
+                text-transform: uppercase;
+                line-height: normal;
+                margin: 0;
+                width: calc(100% - 50px);
+                float: left;
+            }
+
+                .account-ledger-box .grocery-items .box-body.table-responsive table.table.table-hover tr
+                {
+                    border-bottom: solid 1px #adb5b9;
+                }
+
+                    .account-ledger-box .grocery-items .box-body.table-responsive table.table.table-hover tr td
+                    {
+                        padding: 0px 0px;
+                        border: 0;
+                        font-size: 12px;
+                        color: #5b6d74;
+                        line-height: 1.5em;
+                    }
+
+            .account-ledger-box .grocery-items
+            {
+                padding: 10px 10px 5px 10px;
+                width: 100%;
+            }
+
+                .account-ledger-box .grocery-items .box-body.table-responsive table.table.table-hover tr th
+                {
+                    padding: 0;
+                    border: 0;
+                    font-size: 11px;
+                    text-align: justify;
+                }
+
+                .account-ledger-box .grocery-items .box-header h3.box-title
+                {
+                    font-size: 12px;
+                    font-weight: bold;
+                    width: 84%;
+                    float: left;
+                }
+
+                .account-ledger-box .grocery-items .box-body.table-responsive table.table.table-hover
+                {
+                    margin-bottom: 0px;
+                }
+
+            .account-ledger-box .box-header h3.box-title
+            {
+                font-size: 14px !important;
+                text-align: center;
+                color: #000000;
+                font-weight: bold;
+            }
+
+            .account-ledger-box .box-header
+            {
+                background: #f5f7d9;
+                /* height: 29px; */
+                padding: 7px 0;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <section class="content-header breadcrumb-header">
+        <h1>
+            <ol class="breadcrumb">
+                <li><a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></li>
+
+                <li><span  class="pagenameb"> FULL STATEMENT</span></li>
+            </ol>
+
+        </h1>
+
+        <!--<div href="#" class="otherpagenext-arrow">
+
+            <a href="#" class="callback" onclick='PageFarward();'><img src="img/forword-arrow.png" /></a>
+        </div>-->
+
+    </section>
+
+    <section class="content-inr expense">
+        <div id="includedContent"></div>
+        <div id="loader" class="loader" style="margin:0;display:none;"></div>
+        <div class="row" style="display:none;">
+
+            <div class="input-group col-lg-5 " style="padding-left:0px !important; padding-right:0px !important">
+                <div class="input-group-prepend col-lg-4 pr-0">
+                    <span class="input-group-text w-100" style="font-size:small">From </span>
+                </div>
+               
+                <div class="input-group-append">
+                    <span class="input-group-text" style="cursor:pointer;" id="cal21"><i class="fa fa-calendar fa-fw"></i></span>
+                </div>
+            </div>
+            <div class="input-group col-lg-5 pl-0 pr-0 " style="">
+                <div class="input-group-prepend col-lg-4 pr-0 pl-0">
+                    <span class="input-group-text w-100" style="font-size:small">To </span>
+                </div>
+
+                <input id="txtDate2" readonly class="form-control date" type="text" placeholder="Select date" required />
+                <div class="input-group-append">
+                    <span class="input-group-text" style="cursor:pointer;" id="cal22"><i class="fa fa-calendar fa-fw"></i></span>
+                </div>
+            </div>
+            <div class="input-group col-lg-2 pl-0 " style="">
+
+                <button class="btn btn-primary w-100" onclick="getAccountOpening();"><i class="fa fa-refresh"></i></button>
+
+            </div>
+
+        </div>
+        <script>
+
+            //var doc = new jsPDF('p','pt','a4');
+            //var specialElementHandlers = {
+            //    '#editor': function (element, renderer) {
+            //        return true;
+            //    }
+            //};
+
+            //function PDFFile() {
+
+            //    doc.fromHTML(document.getElementById("Printable").innerHTML, 15, 15, {
+
+            //    });
+            //    doc.save('sample-file.pdf');
+            //}
+            //}
+            
+
+            function getMyDate(d) {
+                var date = d;
+                // alert(d);
+                var mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                var day = date.getDate();
+                var month = date.getMonth();
+                var year = date.getFullYear();
+
+                //if (month < 10) month = "0" + month;
+                if (day < 10) day = "0" + day;
+
+                var today = day + " " + mon[month] + " " + year;
+
+
+                return today;
+            }
+
+            function toTitleCase(str) {
+                return str.replace(
+                    /\w\S*/g,
+                    function (txt) {
+                        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                    }
+                );
+            }
+
+        </script>
+
+
+        <div class=" bg-white p-3 mt-0">
+            <div class="search-account-ledger col-lg-12 col-md-12 col-sm-12 text-right pb-2 pr-0 pl-0 pt-2">
+
+                <!--<div class="search-ledger"><input type="search" name="s" id="SearchString" oninput="SearchValue()" placeholder="Search"><div class="serch-bar-btn" onclick="SearchValue()"><i class="fa fa-search"></i></a></div></div>
+                <div class="" style=" cursor: pointer;width: 16px;margin-left:5px; float:left;margin-top:-2px;" onclick="LedgerFilterShowPopup('Ledger Filter');"><img style="filter: grayscale(100%);width: 20px;padding-top: 3px;" src="MunshiImagesMain/Calendar3.png"></div>-->
+                <div style=" float:right; padding-bottom:15px;padding-top:10px;">
+
+                    <a href="#" onclick="PrintElem('Printable');" style="text-align:right;color:#757472;"> <i class="fa fa-print fa-print">&nbsp;&nbsp;&nbsp;&nbsp;   </i></a>
+                    <a href="#" onclick="PDFFile()" style="text-align:right;color:#757472;"><i class="fa fa-print fa-file-pdf-o">&nbsp;&nbsp;&nbsp;&nbsp; </i></a>
+                    <!--<a href="#" onclick="CheckSharedAccount()" style="text-align:right;color:#757472;">   <i class="fa fa-share-alt">&nbsp;&nbsp;&nbsp;&nbsp; </i></a>-->
+                    <span class="" style="font-size:12px; ">
+                        <input type="date" id="txtdate" data-date="" data-date-format="YYYY-MM-DD" value="" style="width:88px;" />
+                        <div style="font-size:16px;float:right;padding-top:2px;padding-left:3px;padding-right:10px;"><a href="#" onclick="getLedger('ALL');"><i class="fa fa-refresh"></i></a></div>
+                    </span>
+                    <!--<a href="#" onclick="CallBackFile();" style="text-align:right;color:#757472;">   <i class="fa fa-arrow-left"> </i></a>-->
+                </div>
+            </div>
+
+        </div>
+        <div id="Printable" style="display:block;padding:15px;  background-color:white; ">
+            <br />
+
+            <style>
+
+                .level1
+                {
+                    font-size: 16px;
+                    font-weight: bold;
+                    padding: 10px 20px 10px 20px;
+                    background-color: white;
+                    border:0;
+                    color: black;
+                }
+
+                .level2
+                {
+                    font-size: 11px;
+                    font-weight: bold;
+                    padding: 3px 20px 3px 20px;
+                    background-color: #989595;
+                    border: 0;
+                    color: white;
+                }
+
+                .level3
+                {
+                    font-size: 10px;
+                    font-weight: normal;
+                    padding: 3px 5px 3px 0px;
+                    background-color: white;
+                    border-bottom: 1px solid lightgrey;
+                    color: black;
+                }
+                td
+                {
+                    font-family: Arial;
+                    font-size: 9px;
+                    margin: 0;
+                    padding: 2px;
+                    border-bottom: 1px solid lightgrey;
+                }
+
+                .activity
+                {
+                    font-size: 14pt
+                }
+
+                .HeadImage
+                {
+                    width: 80px;
+                }
+
+                .Head1
+                {
+                    font-size: 9pt;
+                }
+
+                .BoxHeader
+                {
+                    width: 100%;
+                    line-height: 15px;
+                    padding-top: 6px !important;
+                    font-size: 8pt;
+                    background-color: #dbdcde !important;
+                    text-align: center;
+                    padding-top: 3px;
+                    border: solid 1px #dbdcde;
+                }
+
+                .BoxBody
+                {
+                    width: 100%;
+                    line-height: 20px;
+                    font-size: 9pt;
+                    font-weight: 600;
+                    border: solid 1px #dadbdc !important;
+                    text-align: center;
+                    padding-top: 4px;
+                }
+
+                .LeftBox
+                {
+                    width: 157px;
+                    padding-left: 4px;
+                    padding-right: 4px;
+                }
+
+                .RightBox
+                {
+                    width: 118px;
+                }
+
+                .Gap1
+                {
+                    margin-right: 3px;
+                }
+
+                .Acctd
+                {
+                    background-color: #dadbdc !important;
+                    border-right: solid 1px white;
+                    border-left: solid 1px #dadbdc;
+                    border-top: solid 1px #dadbdc;
+                    border-bottom: solid 1px white;
+                    padding-left: 3px;
+                    padding-right: 3px;
+                    height: 21px;
+                    padding-top: 5px;
+                    text-align: center;
+                }
+
+                .select2-results
+                {
+                    font-size: 12px;
+                    line-height: normal;
+                }
+
+                .select2-search__field
+                {
+                    font-size: 12px;
+                    line-height: normal;
+                }
+
+                .selection__rendered
+                {
+                    line-height: 38px !important;
+                }
+
+                .select2-container .select2-selection--single
+                {
+                    border: 0px;
+                    width: 100% !important
+                }
+            </style>
+            <style media="print" type="text/css">
+                body
+                {
+                    -webkit-print-color-adjust: exact !important;
+                    font-family: Arial;
+                }
+                .level1
+                {
+                    font-size: 16px;
+                    font-weight: bold;
+                    padding: 10px 20px 10px 20px;
+                    background-color: white;
+                    border:0;
+                    color: black;
+                }
+
+                .level2
+                {
+                    font-size: 13px;
+                    font-weight: bold;
+                    padding: 3px 20px 3px 20px;
+                    background-color: #989595;
+                    border: 0;
+                    color: white;
+                }
+
+                .level3
+                {
+                    font-size: 10px;
+                    font-weight: normal;
+                    padding: 3px 5px 3px 0px;
+                    background-color: white;
+                    border-bottom: 1px solid lightgrey;
+                    color: black;
+                }
+                .Gap1
+                {
+                    margin-right: 5px;
+                }
+
+                a a:hover, a:visited, a:link, a:active
+                {
+                    text-decoration: none !important;
+                    -webkit-box-shadow: none !important;
+                    box-shadow: none !important;
+                }
+
+                .myamount
+                {
+                    text-align: right !important;
+                    
+                }
+
+                .Erasable
+                {
+                    display: none;
+                }
+
+                td
+                {
+                    font-family: Arial;
+                    font-size: 9px;
+                    margin: 0;
+                    padding: 2px;
+                    border-bottom: 1px solid lightgrey;
+                }
+
+                .activity
+                {
+                    font-size: 14pt
+                }
+
+                .HeadImage
+                {
+                    width: 80px;
+                }
+
+                .Head1
+                {
+                    font-size: 9pt;
+                }
+
+                .BoxHeader
+                {
+                    width: 100%;
+                    line-height: 15px;
+                    padding-top: 6px !important;
+                    font-size: 8pt;
+                    background-color: #dbdcde !important;
+                    border: solid 1px #dadbdc !important;
+                    text-align: center;
+                    padding-top: 3px;
+                }
+
+                .BoxBody
+                {
+                    width: 100%;
+                    line-height: 20px;
+                    font-size: 9pt;
+                    font-weight: 600;
+                    border: solid 1px #dadbdc !important;
+                    text-align: center;
+                    padding-top: 4px;
+                }
+
+                .LeftBox
+                {
+                    width: 157px;
+                    padding-left: 4px;
+                    padding-right: 4px;
+                }
+
+                .RightBox
+                {
+                    width: 118px;
+                }
+
+                .Acctd
+                {
+                    background-color: #dadbdc !important;
+                    border-right: solid 1px white;
+                    text-align: center;
+                    padding-left: 3px;
+                    padding-right: 3px;
+                    height: 21px;
+                    padding-top: 5px;
+                    border-bottom: solid 1px #ffffff !important;
+                }
+            </style>
+            <div class="" style="margin-top:10px;width:100%;">
+                <div style="width:50%;float:left;">
+                    <div id="logo"><img class="HeadImage" src="MunshiImagesMain/bottom_logo.png" /></div>
+                    <div id="nametext" class="Head1" style="padding-top:4px;"><div style="line-height:18px;font-weight:bold;"><span id="UserNameLedger"></span></div><div style="line-height:14px;font-weight:normal;"><span id="MobileLedger"></span><br /><span id="EmailLedger"></span></div></div>
+                </div>
+                <div class="" style="width:50%;float:right;">
+                    <div id="printdate" class="Head1" style="float:right;">Print Date:&nbsp;<span id="PrintDate" style="font-weight:600;">29 January 2019</span></div>
+                    <br />
+                    <div id="" class="Head1" style="float:right; margin-top: -2px;">Currency:&nbsp;<span id="CurrencyName" style="font-weight:600;">PKR</span></div>
+                </div>
+            </div>
+            <div class="" style="width:100%; padding-top:20px;clear:both;margin-top:25px; margin-bottom:10px;">
+                <div class="" style="width:100%">
+                    <span class="activity" style="">NET WORTH</span>
+                </div>
+            </div>
+
+
+
+            <div style="clear:both;"></div>
+            <div class="" style="display:flex; flex-wrap:wrap; width:100%; clear:both;">
+                <div class="" style="overflow: auto;width:100%">
+                    <table style="width:100%;border-collapse:collapse;margin-bottom:10px;">
+                        <tr style="border-collapse:separate;line-height:15px;">
+
+                            <td class="LeftBox BoxHeader">AMOUNT</td>
+                            <td style=" border-bottom:0;">             </td>
+
+                            <td class="RightBox BoxHeader ">TILL DATE</td>
+                        </tr>
+                        <tr style="border-collapse:separate;line-height:20px;">
+
+                            <td class="LeftBox BoxBody"><span id="MyWorth"></span></td>
+                            <td style="border-bottom:0;">             </td>
+
+                            <td class="RightBox BoxBody "><span id="EndDateLedger"></span></td>
+                        </tr>
+                    </table>
+                    <table id="TableLedger" style="width:100%;border-collapse:collapse;">
+                        <thead class=" small font-weight-bold" style="display: table-header-group;padding-bottom:3px; ">
+                            <tr style="border-collapse:separate;">
+
+
+                                <td class="Acctd" style="width:70%;padding-bottom:5px;padding-top:5px;font-size:12px;font-weight:bold">DESCRIPTION</td>
+
+                                <td colspan="2" class='Acctd' style="width:30%;padding-bottom:5px;padding-top:5px;font-size:12px;font-weight:bold">BALANCE</td>
+
+                                <!--<td>Balance</td>-->
+                                <!--<td><i class="fa fa-search"></i></td>-->
+
+                            </tr>
+
+
+                        </thead>
+                        <tbody id="ledger" class="small"></tbody>
+                        <tfoot class=" small font-weight-bold" style="display: table-footer-group; ">
+
+                            <tr>
+                                <td colspan="9" style="border:0px;"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="border:0px; padding:0px;">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td style="background-color:#f5b21f;height:13px;border:0;width:100px;"></td>
+                                            <td style="width:100px;border:0;"><span>BTG Accounts Solution</span></td>
+                                            <td style="background-color:#162e42;height:13px;padding:4px;border:0"></td>
+                                        </tr>
+                                    </table>
+                                </td>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="clear"></div>
+        <div id="MyDiv" class="w-100 pt-2" style=" height:calc(100vh - 150px);     margin-top: 2px;"></div>
+    </section>
+
+    <script>
+        $("#CurrencyName").html(SettingValues.CurrencyCode);
+        function PrintElem(elem) {
+            var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+            mywindow.document.write('<html><head>');
+
+            mywindow.document.write('</head><body >');
+            mywindow.document.write('');
+
+
+            //document.getElementById(elem).innerHTML.replace("TableLedger", "TableLedgerPrint");
+
+            mywindow.document.write(document.getElementById(elem).innerHTML);
+            mywindow.document.write('</body></html>');
+
+            mywindow.document.close(); // necessary for IE >= 10
+            mywindow.focus(); // necessary for IE >= 10*/
+
+            mywindow.print();
+            mywindow.close();
+
+            return true;
+        }
+        function exportTwo() {
+            var canvasShiftImg = function (img, shiftAmt, scale, pageHeight, pageWidth) {
+                var c = document.createElement('canvas'),
+                    ctx = c.getContext('2d'),
+                    shifter = Number(shiftAmt || 0),
+                    scaledImgHeight = img.height * scale,
+                    scaledImgWidth = img.width * scale;
+
+                ctx.canvas.height = pageHeight;
+                ctx.canvas.width = pageWidth;
+                ctx.drawImage(img, 0, shifter, scaledImgWidth, scaledImgHeight)
+
+                return c;
+            };
+
+            var canvasToImg = function (canvas, loaded, error) {
+                var dataURL = canvas.toDataURL('image/png'),
+                    img = new Image();
+                img.onload = loaded;
+                img.onerror = error;
+                img.src = dataURL;
+            };
+
+            var imageToPdf = function () {
+                // can't pass any parameters or else "this" won't be the img element
+                var img = this,
+                    pdf = new jsPDF('l', 'px'),
+                    pdfInternals = pdf.internal,
+                    pdfPageSize = pdfInternals.pageSize,
+                    pdfScaleFactor = pdfInternals.scaleFactor,
+                    pdfPageWidth = pdfPageSize.width,
+                    pdfPageHeight = pdfPageSize.height,
+                    pdfPageWidthPx = pdfPageWidth * pdfScaleFactor,
+                    pdfPageHeightPx = pdfPageHeight * pdfScaleFactor,
+
+                    imgScaleFactor = Math.min(pdfPageWidthPx / img.width, 1),
+                    imgScaledHeight = img.height * imgScaleFactor,
+
+                    shiftAmt = 0,
+                    done = false;
+
+                while (!done) {
+                    var newCanvas = canvasShiftImg(img, shiftAmt, imgScaleFactor, pdfPageHeightPx, pdfPageWidthPx);
+                    pdf.addImage(newCanvas, 'png', 0, 0, pdfPageWidth, 0, null, 'SLOW');
+
+                    shiftAmt -= pdfPageHeightPx;
+
+                    if (-1 * shiftAmt < imgScaledHeight) {
+                        pdf.addPage();
+                    } else {
+                        done = true;
+                    }
+                }
+
+                pdf.save('test.pdf');
+            };
+            var imageLoadError = function () {
+               // alert('there was an image load error :(');
+                $.alert({ title: 'Alert!:', content: 'there was an image load error ', });
+            };
+
+
+            html2canvas($('#PrinttoPrinter')[0], {
+                onrendered: function (canvas) {
+                    // params: canvas, onload, onerror
+                    canvasToImg(canvas, imageToPdf, imageLoadError);
+                }
+            });
+        }
+        function PDFFile() {
+            document.getElementById("PrinttoPrinter").style.display = "block";
+            document.getElementById("PrinttoPrinter").innerHTML = document.getElementById("Printable").innerHTML;
+            var element = document.getElementById("PrinttoPrinter");
+            var opt = {
+                margin: 0.25,
+                filename: 'Munshi.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf(element, opt).then(function (pdf) {
+                //pdf is null when I log this...
+                document.getElementById("PrinttoPrinter").style.display = "none";
+            });
+
+            //html2canvas($("#PrinttoPrinter"), {
+            //    onrendered: function (canvas) {
+            //        theCanvas = canvas;
+            //        document.body.appendChild(canvas);
+
+            //        // Convert and download as image
+            //        canvas.toBlob(function (blob) {
+            //            saveAs(blob, "AccountLedger.png");
+            //        });
+            //        $("#img-out").append(canvas);
+            //        alert(canvas.height);
+            //        // Clean up
+            //        //document.body.removeChild(canvas);
+            //    }
+            //});
+
+
+            //let doc = new jsPDF();
+            //doc.internal.scaleFactor = 6;
+            //document.getElementById("PrinttoPrinter").style.display = "block";
+            //document.getElementById("PrinttoPrinter").innerHTML = document.getElementById("Printable").innerHTML;
+            //doc.addHTML(document.getElementById("PrinttoPrinter"), 2, 2, {
+            //    pagesplit: true
+            //}, function () {
+            //    doc.save('AccountLedger' + getMyDate(new Date()) + '.pdf');
+            //});
+
+        }
+    </script>
+    <div id="PrinttoPrinter" style="width:800px;padding-left:1.1cm; padding-right:1.1cm;background-color:white;"></div>
+
+    <div id="img-out"></div>
+
+
+    <script>
+        
+        var myid = window.location.href.split("=");
+        //var accTitle = sessionStorage.getItem("AccountTitle");
+        //document.getElementById("AccTitle").innerHTML = "<strong style='color:darkblue;'> " + accTitle + "</strong>";
+        //var ddd = new Date();
+
+        document.getElementById("PrintDate").innerHTML = getMyDate(new Date())
+        document.getElementById("UserNameLedger").innerHTML = toTitleCase(sessionStorage.getItem("UserTitle").toString());
+        document.getElementById("MobileLedger").innerHTML = sessionStorage.getItem("CellNo").toString();
+        document.getElementById("EmailLedger").innerHTML = sessionStorage.getItem("email").toString();
+
+
+
+
+
+
+
+    </script>
+
+    <script>
+        var dateto = new Date();
+        var Sdate = dateto.getFullYear() + "-" + (dateto.getMonth() < 10 ? "0" + (dateto.getMonth() + 1) : (dateto.getMonth() + 1)) + "-" + (dateto.getDate() < 10 ? "0" + dateto.getDate() : dateto.getDate()); //document.getElementById("txtDate1").value;
+        $("#txtdate").val(Sdate);
+        $("#txtdate").attr("data-date-format", SettingValues.dateFormat1)
+        $("input").on("change", function () {
+            this.setAttribute(
+                "data-date",
+                moment(this.value, "YYYY-MM-DD")
+                    .format(this.getAttribute("data-date-format"))
+            )
+        }).trigger("change");
+        var ledgerobj = [];
+        var level1 = [];
+        var level2 = [];
+        var level3 = [];
+        var catBalance = 0;
+        var subcatBalance = 0;
+        var accountBalance = 0;
+        var ASSETS = 0;
+        var LIABILITIES = 0
+        //document.getElementById("txtDate1").value = window.sessionStorage.getItem("StartDate");
+        //document.getElementById("txtDate2").value = window.sessionStorage.getItem("EndDate");
+        getLedger("ALL");
+        function getLedger(param) {
+            ledgerobj = [];
+            level1 = [];
+            level2 = [];
+            level3 = [];
+            catBalance = 0;
+            subcatBalance = 0;
+            accountBalance = 0;
+            ASSETS = 0;
+            LIABILITIES = 0
+            //$('#loadI').attr('class', 'fa fa-refresh fa-spin');
+            //loading script
+            param = window.sessionStorage.getItem("DateParam");
+            //alert(param)
+            var userid = sessionStorage.getItem("UserID");
+            var Sdate = document.getElementById("txtdate").value;
+            //EndDateLedger
+            var sd1 = Sdate.split("-");
+            //alert(sd1);
+            var sddd = new Date(sd1[0], parseInt(sd1[1]) - 1, sd1[2]);
+            document.getElementById("EndDateLedger").innerHTML = getMyDate(sddd);
+            //alert(getMyDate(sddd));
+            //var Edate = document.getElementById("txtDate2").value;
+            //alert(param + "--" + Sdate + "--" + Edate);
+            //alert(Sdate + "....." + Edate);
+            var url = "";
+            var paramdata = "";
+
+            url = 'Accounts.asmx/getWorth'
+            paramdata = "{'UserID':'" + userid + "','StartDate':'" + Sdate + "'}";
+
+            // alert(param+ "--"+ url + "---" + paramdata)
+            $('#loader').show();
+ 
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: 'json',
+                data: paramdata,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                  
+
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+                    ledgerobj = [];
+
+                    //if (data.Row.length > 0) {
+                    //    var Dvalues = {
+                    //        Icon: data.Row[i].Icon
+                    //        , Color: data.Row[i].Color
+                    //        , AccountID: data.Row[i].AccountID
+                    //        , AccountTitle: data.Row[i].AccountTitle
+                    //        , Balance: data.Row[i].Balance
+                    //        , CatID: data.Row[i].CatID
+                    //        , CatName: data.Row[i].CatName
+                    //        , CatColor: data.Row[i].CatColor
+                    //        , CatIcon: data.Row[i].CatIcon
+                    //        , SubCatID: data.Row[i].SubCatID
+                    //        , SubCatName: data.Row[i].SubCatName
+                    //        , SubColor: data.Row[i].SubColor
+                    //        , SubIcon: data.Row[i].SubIcon
+
+
+
+                    //    };
+                    //    level1.push(Dvalues);
+                    //    level2.push(Dvalues);
+                    //    level3.push(Dvalues);
+                    //}
+                    var Ilevel1 = "";
+                    var Ilevel2 = "";
+                    var Ilevel3 = "";
+                    for (var i = 0; i < data.Row.length; i++) {
+                        //e.nature, e.catid, e.category, e.color catcolor, e.icon catIcon, s.subcatid, s.SubCatTitle, s.Color subcolor
+                        var Dvalues = {
+                            Icon: data.Row[i].Icon
+                            , Color: data.Row[i].Color
+                            , AccountID: data.Row[i].AccountID
+                            , AccountTitle: data.Row[i].AccountTitle
+                            , Balance: data.Row[i].Balance
+                            , CatID: data.Row[i].CatID
+                            , CatName: data.Row[i].CatName
+                            , CatColor: data.Row[i].CatColor
+                            , CatIcon: data.Row[i].CatIcon
+                            , SubCatID: data.Row[i].SubCatID
+                            , SubCatName: data.Row[i].SubCatName
+                            , SubColor: data.Row[i].SubColor
+                            , SubIcon: data.Row[i].SubIcon
+                            , Nature: data.Row[i].Nature
+
+
+
+                        };
+                        if (Ilevel1 != data.Row[i].CatID) {
+                            Ilevel1 = data.Row[i].CatID;
+                            level1.push(Dvalues);
+                            //Dvalues.Balance = catBalance + catBalance;
+                            //cat.push(Dvalues);
+                        }
+                        if (Ilevel2 != data.Row[i].SubCatID) {
+                            Ilevel2 = data.Row[i].SubCatID;
+                            level2.push(Dvalues);
+                            //subcat.push(Dvalues);
+                        }
+
+                        if (Ilevel3 != data.Row[i].AccountID) {
+                            Ilevel3 = data.Row[i].AccountID;
+                            level3.push(Dvalues);
+
+
+                        }
+
+
+                        //level1 = data.Row[i].CatID;
+                        //level2 = data.Row[i].SubCatID;
+                        //level3 = data.Row[i].AccountID
+
+                        ledgerobj.push(Dvalues)
+
+                    }
+
+
+
+                    FillTable(ledgerobj);
+                    $('#loader').hide();
+                    // drawchartsingle("doughnut");
+
+
+                    // alert(catidarray);
+
+
+
+
+                    //drawChart();
+                    // google.charts.load('current', { 'packages': ['corechart'], "callback": drawChart });
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+
+           
+        }
+
+        function SearchValueLevel2(DataArray, searchvalue) {
+            //var RetArray = [];
+            var sv = searchvalue.toUpperCase();
+            //alert(sv);
+            if (sv == "" || sv == 'NaN') {
+                return DataArray;
+            }
+            else {
+                var newArray = [];
+                DataArray.forEach(function (k) {
+                    //alert(k.Narration);
+                    var data1 = (" " + k.CatID.toUpperCase() + " ");
+
+                    if (data1.match(sv) == sv) {
+                        //alert(JSON.stringify(k) + "----" + data1);
+                        newArray.push(k)
+                    };
+                });
+
+                return newArray;
+            }
+        }
+        function SearchValueLevel3(DataArray, searchvalue) {
+            //var RetArray = [];
+            var sv = searchvalue.toUpperCase();
+            //alert(sv);
+            if (sv == "" || sv == 'NaN') {
+                return DataArray;
+            }
+            else {
+                var newArray = [];
+                DataArray.forEach(function (k) {
+                    //alert(k.Narration);
+                    var data1 = (k.SubCatID).toUpperCase();
+                    if (data1.includes(sv) == true) {
+
+                        newArray.push(k)
+                    };
+                });
+
+                return newArray;
+            }
+        }
+
+        function FillTable(Mdata) {
+            document.getElementById("ledger").innerHTML = "";
+            for (var i = 0; i < level1.length; i++) {
+                var Sdata = setCategory(level1[i].CatName, level1[i].CatID, level1[i].CatColor, level1[i].CatIcon);
+                // alert(catBalance);
+                Sdata = Sdata.replace("AA" + level1[i].CatID, parseFloat(catBalance).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                document.getElementById("ledger").innerHTML = document.getElementById("ledger").innerHTML + Sdata
+                //document.getElementById("A" + level1[i].CatID).innerHTML = catBalance;
+                catBalance = 0;
+            }
+            document.getElementById("MyWorth").innerHTML = SettingValues.CurrencyCode + " " + parseFloat(parseInt(ASSETS, 10) + parseInt(LIABILITIES, 10)).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            CalculateBudget(Mdata);
+            //
+            //document.getElementById("MyWorth2").innerHTML = parseFloat(parseInt(ASSETS, 10) + parseInt(LIABILITIES, 10)).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            //document.getElementById("Assets").innerHTML = parseFloat(parseInt(ASSETS, 10)).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            //document.getElementById("Liabilities").innerHTML = parseFloat(parseInt(LIABILITIES, 10)).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+        }
+
+        function setCategory(name, id, color, icon) {
+            var str = "";
+            //str = str + '<tr><td class="level1">';
+            //str = str + '          <span  >' + name + '</span> ';
+            //str = str + '</td><td class="myamount level1" >';
+            //str = str + '                    <span id="A' + id + '">AA' + id + '</span>';
+            //str = str + '</td></tr><tr><td colspan="2" style="border:0;"> <table style="width:100%;border:0;">'
+            var dataLevel2 = SearchValueLevel2(level2, id);
+            for (var ii = 0; ii < dataLevel2.length; ii++) {
+                //alert(JSON.stringify(dataLevel2))
+                str = str + callSubCat(dataLevel2[ii].SubCatName, dataLevel2[ii].SubCatID, dataLevel2[ii].SubColor, dataLevel2[ii].SubIcon)
+                str = str.replace("AA" + dataLevel2[ii].SubCatID, parseFloat(subcatBalance).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                //document.getElementById("A" + dataLevel2[i].SubCatID).innerHTML = subcatBalance;
+                subcatBalance = 0;
+            }
+            //str = str + callSubCat(sname, sid, scolor, sicon);
+            str = str + '</table></td></tr>';
+            return str;
+        }
+        function callSubCat(sname, sid, scolor, sicon) {
+            var str = "";
+            //str = str + '<tr><td class="level2" style="width:80%">';
+            //str = str + '                <span >';
+            //str = str + sname;
+            //str = str + '                            </span>';
+            //str = str + '</td><td style="width:20%" class="myamount level2">';
+            //str = str + '                    <span  id="">AA' + sid + '</span>';
+            //str = str + '</td>';
+            //str = str + '</tr>';
+            //str = str + '<tr><td colspan="2" style="padding-left:30px; padding-right:30px;border:0;"><table style="width:100%;border:0;">';
+            var dataLevel3 = SearchValueLevel3(level3, sid);
+            for (var iii = 0; iii < dataLevel3.length; iii++) {
+                str = str + CallAccountTtitle(dataLevel3[iii].AccountTitle, dataLevel3[iii].AccountID, dataLevel3[iii].Color, dataLevel3[iii].Icon, parseFloat(dataLevel3[iii].Balance).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
+                //str = str.replace("AA" + dataLevel2[i].AccountID, subcatBalance);
+                //document.getElementById("A" + dataLevel2[i].SubCatID).innerHTML = subcatBalance;
+                //alert(dataLevel3[iii].Balance);
+                subcatBalance = subcatBalance + parseInt(dataLevel3[iii].Balance, 10);
+                catBalance = catBalance + parseInt(dataLevel3[iii].Balance, 10);
+                //Liabilities
+                if (dataLevel3[iii].Nature.toUpperCase() == "Assets".toUpperCase()) {
+                    ASSETS = ASSETS + parseInt(dataLevel3[iii].Balance, 10);
+
+                }
+                if (dataLevel3[iii].Nature.toUpperCase() == "Liabilities".toUpperCase()) {
+                    LIABILITIES = LIABILITIES + parseInt(dataLevel3[iii].Balance, 10);
+
+                }
+            }
+
+
+            str = str + ' </table></td></tr>';
+            return str;
+        }
+        function CallAccountTtitle(Aname, AID, Acolor, Aicon, bal) {
+            
+
+            var str = "";
+            str = str + '<div class="colorset" style="color:' + Acolor + '">';
+            str = str + '<table style="width:100%"><tr>';
+            str = str + '<td style="width:50%">' + Aname + '</td>'
+            str = str + '<td  id = "budget' + AID + '" style = "padding-left:5px;padding-right:5px;width:25%;background-color:#ffffff;height:15px; " ></td>';
+            str = str + '<td style = "width:25%;text-align:right;" > <span class="c-name" id="nw-amount" style="display:block !important;">' + bal + '</span></td> ';
+            str = str + '</tr></table>';
+            //str = str + '          <span class="pull-right"><span class="c-name" id="nw-amount">' + bal + '</span></span>';
+            str = str + '</div>';
+
+            return str;
+        }
+
+
+        function CalculateBudget(a) {
+            var Cdate = new Date();
+            var data1 = a;
+            var dd = ""
+            if ((Cdate.getMonth() + 1) < 10) dd = "0" + (Cdate.getMonth() + 1); else dd = (Cdate.getMonth() + 1);
+            var Sdate = Cdate.getFullYear() + "-" + dd + "-" + Cdate.getDate();
+            //alert(JSON.stringify(data1));
+            for (var i = 0; i < data1.length; i++) {
+                var url = 'Accounts.asmx/BudgetAmountTillDate';
+                var data11 = data1[i];
+                var paramdata = "{'AccountID':'" + data11.AccountID + "','StartDate':'" + Sdate + "'}"
+                CallBudgetAJAX(paramdata, url, data11);
+            }
+        }
+        function CallBudgetAJAX(paramdata, url, data11) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: 'json',
+                data: paramdata,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+                    var dt = "";
+                    //alert(JSON.stringify(data11));
+                    if (data.Row.length > 0) {
+                        if (parseFloat(data.Row[0].BudgetAmount) > 0) {
+                            var percent = Math.abs(parseFloat(data.Row[0].Balance) / parseFloat(data.Row[0].BudgetAmount) * 100)
+                            dt = dt + '<div data-toggle="tooltip" title="Remaining:' + (parseFloat(data.Row[0].Balance) - parseFloat(data.Row[0].BudgetAmount)) + "/" + parseFloat(data.Row[0].BudgetAmount) + '" id="' + data11.AccountID + ':' + data11.AccountTitle + '" style="width:100%;background-color:#e6dfdf;height:15px; cursor:pointer;" onclick="EntryGraph(this.id)" ><div data-toggle="tooltip" title="Spent:' + parseFloat(data.Row[0].Balance) + "/" + parseFloat(data.Row[0].BudgetAmount) + '" style="width:' + percent + '%;max-width: 100%;height:100%;background-color:red"></div></div>';
+                            document.getElementById("budget" + data11.AccountID).innerHTML = dt;
+                        }
+
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+    </script>
+
+
+
+    <script>
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+</html>

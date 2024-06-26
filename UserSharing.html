@@ -1,0 +1,80 @@
+﻿<link href="css/MB-B4.css" rel="stylesheet" />
+
+<script>
+    $(function () {
+
+        $("#includedContent").load("navbar.html");
+
+    });
+</script>
+
+
+<link href="css/UserSharing.css" rel="stylesheet" />
+
+<section class="content-header breadcrumb-header">
+    <h1>
+        <ol class="breadcrumb">
+            <li><a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></li>
+
+            <li><span id="MainHeading" class="pagenameb">User Sharing Account </span></li>
+        </ol>
+
+    </h1>
+
+
+</section>
+<section class="content-inr expense">
+    <div class="">
+        <div id="includedContent"></div>
+        <center>
+
+            <div class="bg-white search-account">
+                <div class="d-flex w-100 "></div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6 p-3 pl-4 text-left">
+                    <div style="font-weight:bold;">SEARCH ACCOUNT</div>
+                    <div style="font-size:10px;">Search string must be greater then 4(four) characters</div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6 p-3 pr-4">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="txtSearch" placeholder="Serach By Name / Email / Cell Number" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <span class="input-group-append bg-dark">
+                            <button class="btn  bg-dark p-0 m-0" type="button" onclick="Searchfn();" style="border-bottom-left-radius:0px; border-top-left-radius:0px;font-size:150%; width:40px; "><span class="fa fa-search  " style="color:whitesmoke; "></span></button>
+                        </span>
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </center>
+        <div class="">
+            <div id="clientAreaSharing" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="overflow-y:auto;overflow-x:hidden;">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="SearchResult" style="display:none; ">
+                    <h6 class="text-left text-white p-2 mt-3 ">Search Result found ( <span id="SearchCount"></span> )</h6>
+                    <div id="divData" style="background-color:#E5E4E7;">
+
+                    </div>
+                </div>
+
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="ResultListF" style="">
+                    <h6 class="text-left text-white p-2  mt-3">Friends/Partners list ( <span id="ResultCountF"></span> )</h6>
+                    <div id="FirendsList">
+
+                    </div>
+                </div>
+
+
+
+                <div class="clear"></div>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+    <div class="clear"></div>
+    <script src="js/UserSharing.js"></script>
+</section>
+<!-- Modal -->

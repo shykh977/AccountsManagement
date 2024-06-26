@@ -1,0 +1,53 @@
+﻿.loader {
+    border: 16px solid #21262a;
+    border-radius: 50%;
+    border-top: 16px solid #6c8086;
+    border-right: 16px solid #f49f21;
+    border-bottom: 16px solid #e5e4e7;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    position: fixed;
+   
+    z-index: 1000;
+    height: 100px;
+    width: 100px;
+   
+    /*background: url('/Images/sistech.jpg') 2% 2% no-repeat linear-gradient() ;*/
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+div#loader {
+    background-image: url(http://beta.munshibaba.com/assets/img/logo-png.png);
+    position: fixed;
+    background-repeat: no-repeat;
+    left: 46.2%;
+    top: 38%;
+    z-index: 1000;
+    height: 86px;
+    width: 90px;
+    background-size: 70px;
+    background-position: 15px 24px;
+}

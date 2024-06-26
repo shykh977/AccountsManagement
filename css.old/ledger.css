@@ -1,0 +1,202 @@
+
+        .Mytable td {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+        }
+
+        .myamount
+        {
+            text-align: right;
+        }
+
+i.fa.fa-search {
+   color: #278ce5;
+    cursor: pointer;}
+        h2
+        {
+            color: #747572;
+            font-size: 24px;
+            line-height: 1.25;
+            font-family: "Roboto Slab", serif;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            line-height: 1.66667;
+        }
+
+
+        .tab-slider--nav
+        {
+            width: 100%;
+            float: left;
+            margin-bottom: 5px;
+            margin-top: 10px;
+            line-height: 1.66667;
+        }
+
+        .tab-slider--tabs
+        {
+            display: block;
+            float: left;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            position: relative;
+            /*border-radius: 35px;*/
+            overflow: hidden;
+            background: #eee;
+            height: 35px;
+            user-select: none;
+            line-height: 1.66667;
+        }
+
+            .tab-slider--tabs.slide:after
+            {
+                left: 50%;
+            }
+
+            .tab-slider--tabs:after
+            {
+                content: "";
+                width: 50%;
+                background: #747572;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                transition: all 250ms ease-in-out;
+                /*border-radius: 35px;*/
+            }
+
+        .tab-slider--trigger {
+    font-size: 12px;
+    line-height: 1;
+    font-weight: bold;
+    color: #747572;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 11px 0px 11px 0px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 250ms ease-in-out;
+    user-select: none;
+    width: 150px;
+}
+            .tab-slider--trigger.active
+            {
+                color: #ddd;
+            }
+
+        .tab-slider--body
+        {
+            margin-bottom: 20px;
+        }
+
+        .maincontents
+        {
+            background-color: white !important;
+        }
+        section.content-inr {
+            padding: 20px 0 20px 0;
+        }
+        @media screen and (max-width: 768px)        {
+            
+
+            .g-box {
+                text-transform: capitalize;
+                position: relative;
+                background: #ffffff;
+                margin-bottom: 12px;
+                width: 100%;
+                padding: 0px 0px 10px 0px;
+                border: solid 1px #a8aab6;
+                text-align: left;
+            }
+
+            div#localledger select#sortoption {
+                height: 30px;
+                width: 14.1em !important;
+            }
+
+            .tab-slider--trigger {
+                
+                width: 150px;
+            }
+            div#localledger select#sortoption2 {
+                height: 30px;
+                width: 12.1em !important;
+            }
+            .date-d
+            {
+                background: #ef181f;
+                padding: 4px;
+                font-size: 14px;
+                color: #FFF;
+                display: inline-block;
+                height: 58px;
+                width: 45px;
+                text-align: center;
+                font-weight: bold;
+                line-height: normal;
+                float: left;
+            }
+
+                .date-d a
+                {
+                    color: #fff;
+                }
+
+            .grocery-items .box-header
+            {
+                padding: 0px 0px 0px 10px;
+            }
+
+                .grocery-items .box-header .box-tools
+                {
+                    right: 0;
+                    text-transform: uppercase;
+                    top: 0;
+                    font-size: 14px;
+                }
+
+            .grocery-items .box-body.table-responsive
+            {
+                padding: 12px 0px 0px 14px;
+                font-size: 11px;
+                text-transform: uppercase;
+                line-height: normal;
+                margin: 0;
+            }
+
+                .grocery-items .box-body.table-responsive table.table.table-hover tr td
+                {
+                    text-align: center;
+                    padding: 0;
+                }
+
+            .grocery-items
+            {
+                padding: 0px 0px 0px 10px;
+                float: left;
+                width: 83%;
+            }
+
+                .grocery-items .box-body.table-responsive table.table.table-hover tr th
+                {
+                    text-align: center;
+                    padding: 0;
+                }
+
+                .grocery-items .box-header h3.box-title
+                {
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+        }
+        span.pagename {
+            width: 121px;
+        }
+

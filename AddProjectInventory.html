@@ -1,0 +1,604 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Add Inventory</div>
+
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+
+                    <div class="input-group small mt-6 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id=""> Project  Location</span>
+                        </div>
+                        <select id="projectlocation" type="text" inputmode="numeric" class="form-control" placeholder="Enter Project Name"></select>
+                        <div class="input-group-append"><span class="input-group-text" data-toggle="modal" data-target="#StProjectLocationModal" style="cursor: pointer;">+</span></div>
+                    </div>
+
+
+                    <div class="input-group small mt-2 " style="display:none">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Select Project</span>
+                        </div>
+                        <select id="selectProject" type="text" inputmode="numeric" class="form-control" placeholder="Enter Name"></select>
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Project Phase </span>
+                        </div>
+                        <select id="projectphase" type="text" inputmode="numeric" class="form-control" placeholder="Enter Designation" onchange="GetPhaseBlocksByPhases()"></select>
+                        <div class="input-group-append"><span class="input-group-text" data-toggle="modal" data-target="#StphaseblockModal" style="cursor: pointer;">+</span></div>
+                    </div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id=""> Phase Block </span>
+                        </div>
+                        <select id="phaseblock" type="text" inputmode="numeric" class="form-control" placeholder="Enter Designation" onchange="GetPhaseBlockTypeByBlock()"></select>
+                        <div class="input-group-append"><span class="input-group-text" data-toggle="modal" data-target="#StPhaseBlock" style="cursor: pointer;">+</span></div>
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id=""> Block Type </span>
+                        </div>
+                        <select id="Blocktype" type="text" inputmode="numeric" class="form-control" placeholder="Enter sizetype" onchange="GetBlockTypeCategoryByBlockType()"></select>
+                        <div class="input-group-append"><span class="input-group-text" data-toggle="modal" data-target="#StPhaseBlockType" style="cursor: pointer;">+</span></div>
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id=""> Block Category </span>
+                        </div>
+                        <select id="BlockCategory" type="text" inputmode="numeric" class="form-control" placeholder="Enter sizetype" onchange="GetCategorySizeByCategory()"></select>
+                        <div class="input-group-append"><span class="input-group-text" data-toggle="modal" data-target="#StBlockCategory" style="cursor: pointer;">+</span></div>
+                    </div>
+                     
+                    
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">  Category Size </span>
+                        </div>
+                        <select id="CategorySize" type="text" inputmode="numeric" class="form-control" placeholder="Enter sizetype"></select>
+                        <div class="input-group-append"><span class="input-group-text" data-toggle="modal" data-target="#StCategorySize" style="cursor: pointer;">+</span></div>
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Sale Price</span>
+                        </div>
+                        <input id="saleprice" type="text" inputmode="numeric" class="form-control" placeholder="Enter Sale Price" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Inventory Name </span>
+                        </div>
+                        <input id="inventoryname" type="text" inputmode="numeric" class="form-control" placeholder="Enter Inventory Name" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Inventory Count</span>
+                        </div>
+                        <input id="inventorycount" type="text" inputmode="numeric" class="form-control" placeholder="Enter Inventory Count" />
+
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Note No</span>
+                        </div>
+                        <input id="noteno" type="text" inputmode="numeric" class="form-control" placeholder="Enter Note No" />
+
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Character</span>
+                        </div>
+                        <input id="character" type="text" inputmode="numeric" class="form-control" placeholder="Enter Character" />
+
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Inventory Detail</span>
+                        </div>
+                        <input id="inventorydetail" type="text" inputmode="numeric" class="form-control" placeholder="Enter Inventory Detail" />
+
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                        <div>
+                            <input id="imgfile" class="form-control" onchange="MyFile();" type="file" name="image" accept="application/pdf, image/*" />
+                            <a id="btnReset" href="#" class="attach-btn " onclick="AddAttchement();"> <span class="btn-name">Attachment </span> </a><br /><span style="font-size:12px;"> (Maximum two attachments allowed)</span>
+
+                            <div id="AttachmentData" style="max-height:100px;overflow:auto;">
+                                <br />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="CreateProjectInventory();"> <span class="btn-name">Save  </span> </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">Users</div>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>Sale Price</th>
+                                        <th>Inventory Name</th>
+                                        <th>Inventiry Count</th>
+                                        <th>Note No</th>
+                                        <th>Character</th>
+                                        <th>Inventory Detail</th>
+                                        <th>Add File Information</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="InventoryList">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--.......... Project Phase ...........-->
+
+    <div class="modal fade" id="StphaseblockModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Project Phase</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 col-sm-12 col-md-12 p-all">
+
+
+
+                        <div class="form-group" style="display:none">
+                            <label class="control-label" for="catname">Select Project Name:</label>
+                            <select class="form-control" id="projectname" placeholder="Enter Store Name Here"><i id="caticon"></i></select>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Phase Name:</label>
+                            <input class="form-control" id="phasename" placeholder="Enter Phase Name"><i id="caticon"></i>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+
+
+                        <div>
+
+                            <table id="user-table" class="table table-striped mb-0">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>S/No</th>
+                                        <th>Project Name</th>
+                                        <th>Phase Name</th>
+
+                                        <th>EDIT</th>
+                                        <th>DELETE</th>
+                                    </tr>
+                                <tbody id="TblProjectPhase">
+                                    <!--<tr>
+
+                                        <td><i class='fa fa-edit'></i></td>
+                                        <td><i class='fa fa-trash' style='color:red'></i></td>
+                                    </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" onclick="CreateProjectPhases()" id="btnSave">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="UpdateStoreLocation()" id="btnSave">UPDATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--.......... Project Location...........-->
+
+    <div class="modal fade" id="StProjectLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Project Location</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 col-sm-12 col-md-12 p-all">
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Size Type Description:</label>
+                            <input class="form-control" id="ProjectLocation" placeholder="Enter Project Location"><i id="caticon"></i>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+
+
+                        <div>
+
+                            <table id="user-table" class="table table-striped mb-0">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>S/No</th>
+                                        <th>Phase Name</th>
+                                        <th>EDIT</th>
+                                        <th>DELETE</th>
+                                    </tr>
+                                <tbody id="TblProjectLocation">
+                                    <!--<tr>
+
+                                        <td><i class='fa fa-edit'></i></td>
+                                        <td><i class='fa fa-trash' style='color:red'></i></td>
+                                    </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" onclick="CreateProjectLocation()" id="btnSave">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="UpdateStoreLocation()" id="btnSave">UPDATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--.......... Phase Block...........-->
+
+    <div class="modal fade" id="StPhaseBlock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Phase Block</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 col-sm-12 col-md-12 p-all">
+
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Block Name:</label>
+                            <input class="form-control" id="BlockName" placeholder="Enter Phase Name"><i id="caticon"></i>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+
+
+                        <div>
+
+                            <table id="user-table" class="table table-striped mb-0">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>S/No</th>
+                                        <th>Block Name</th>
+
+                                        <th>EDIT</th>
+                                        <th>DELETE</th>
+                                    </tr>
+                                <tbody id="TblBlockName">
+                                    <!--<tr>
+
+                                        <td><i class='fa fa-edit'></i></td>
+                                        <td><i class='fa fa-trash' style='color:red'></i></td>
+                                    </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" onclick="CreatePhaseBlocks()" id="btnSave">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="UpdateStoreLocation()" id="btnSave">UPDATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--..........  Block Type...........-->
+
+    <div class="modal fade" id="StPhaseBlockType" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Phase Block Type</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 col-sm-12 col-md-12 p-all">
+
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Block Name Tyoe:</label>
+                            <input class="form-control" id="txtBlockType" placeholder="Enter Phase Name"><i id="caticon"></i>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+
+
+                        <div>
+
+                            <table id="user-table" class="table table-striped mb-0">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>S/No</th>
+                                        <th>Block Name</th>
+
+                                        <th>EDIT</th>
+                                        <th>DELETE</th>
+                                    </tr>
+                                <tbody id="TblBlockTypeName">
+                                    <!--<tr>
+
+                                        <td><i class='fa fa-edit'></i></td>
+                                        <td><i class='fa fa-trash' style='color:red'></i></td>
+                                    </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" onclick="CreatePhaseBlockType()" id="btnSave">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="UpdateStoreLocation()" id="btnSave">UPDATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--..........  Block Type Category...........-->
+
+    <div class="modal fade" id="StBlockCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Block Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 col-sm-12 col-md-12 p-all">
+
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Block Category:</label>
+                            <input class="form-control" id="txtBlockCategory" placeholder="Enter Block Category"><i id="caticon"></i>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+
+
+                        <div>
+
+                            <table id="user-table" class="table table-striped mb-0">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>S/No</th>
+                                        <th>Block Category</th>
+                                        <th>EDIT</th>
+                                        <th>DELETE</th>
+                                    </tr>
+                                <tbody id="TblBlockCategory">
+                                    <!--<tr>
+
+                                        <td><i class='fa fa-edit'></i></td>
+                                        <td><i class='fa fa-trash' style='color:red'></i></td>
+                                    </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" onclick="CreateBlockTypeCategory()" id="btnSave">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="UpdateStoreLocation()" id="btnSave">UPDATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--..........   Category Size...........-->
+
+    <div class="modal fade" id="StCategorySize" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Category Size</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 col-sm-12 col-md-12 p-all">
+
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Category Size</label>
+                            <input class="form-control" id="txtCategorySize" placeholder="Enter Category Size"><i id="caticon"></i>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+
+
+                        <div>
+
+                            <table id="user-table" class="table table-striped mb-0">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>S/No</th>
+                                        <th>Category Size</th>
+                                        <th>EDIT</th>
+                                        <th>DELETE</th>
+                                    </tr>
+                                <tbody id="TblCategorySize">
+                                    <!--<tr>
+
+                                        <td><i class='fa fa-edit'></i></td>
+                                        <td><i class='fa fa-trash' style='color:red'></i></td>
+                                    </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" onclick="CreateBlockTypeCategorySize()" id="btnSave">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="UpdateStoreLocation()" id="btnSave">UPDATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="js/Budgetsetting.js"></script>
+    <script src="BuilderScripts/InventoryService.js"></script>
+</body>
+</html>
+
+
+<script>
+    GetProjectInventory()
+    GetProjectPhase()
+    GetProjectLocation()
+   
+
+</script>
+
+<script>
+    function AddAttchement() {
+
+        $('#imgfile').click();
+
+
+    }
+
+    var file2;
+    $('#imgfile').hide();
+    var filename1 = [];
+
+
+
+    function Click() {
+
+        FilterShowPopup();
+    }
+
+
+    fillColor();
+
+    function fillColor() {
+        document.getElementById("FillDiv").style.display = "none";
+
+
+        var colorArray = ['FFFFFF', 'DA5353', 'FFFF00', '7FFFD4', 'F0FFFF', 'F5F5DC', 'FFE4C4', 'FFEBCD', 'DEB887', '7FFF00',
+            'FF7F50', '6495ED', 'FFF8DC', '00FFFF', 'BDB76B', 'FF8C00',
+            'E9967A', '8FBC8F', '00CED1'];
+        var elem = document.getElementById("FillDiv");
+
+        for (var a = 0; a < colorArray.length; a++) {
+            var str = "";
+            str = "<div onclick=ColorClicked('" + colorArray[a] + "') class='ColorFill' style='background-color:#" + colorArray[a] + ";' > </div>";
+            elem.innerHTML = elem.innerHTML + str;
+
+        }
+    }
+
+
+    function ColorClicked(a) {
+        //alert(a);
+        document.getElementById("divColor").style.backgroundColor = "#" + a;
+
+        $('#FillDiv').hide();
+    }
+
+
+</script>

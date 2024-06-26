@@ -1,0 +1,1384 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>munshibaba</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/media-query.css">
+    <link rel="stylesheet" href="assets/css/menu.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/modal.css">
+    <link href="assets/css/select2.css" rel="stylesheet" />
+</head>
+
+<body style="font-family:Roboto, sans-serif;">
+    <style>
+        ::-webkit-input-placeholder {
+            color: peachpuff;
+            font-size: 13px;
+        }
+        .modal-backdrop.fade.show {
+            display: none;
+            background: transparent;
+        }
+
+        div#conform {
+            background: #00000038;
+            opacity: 1;
+        }
+        ::-moz-placeholder {
+            color: peachpuff;
+            font-size: 13px;
+        }
+
+        :-ms-input-placeholder {
+            color: peachpuff;
+            font-size: 13px;
+        }
+
+        ::placeholder {
+            color: peachpuff;
+            font-size: 13px;
+        }
+
+        .top-menu.stickyHead {
+        }
+
+        #Div2 {
+            display: none;
+        }
+
+        #Div1 {
+            display: none;
+        }
+
+        .sticky {
+            background: #121e30;
+            height: 64px;
+            position: fixed;
+            width: 100%;
+            max-width: none;
+            z-index: 2;
+            top: 0;
+        }
+
+            .sticky + .content {
+                padding-top: 102px;
+            }
+
+        nav.navbar.navbar-expand-lg.sticky-top.navbar-light {
+            background: #121e30;
+            padding: 0px 8px;
+            margin: 0 auto;
+            max-width: 1366px;
+        }
+
+        .top-main-menu {
+            background: #121e30;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+        }
+
+        span.navbar-text a {
+            color: white !important;
+            padding: 0px 10px 0px 7px;
+            display: inline-block;
+            text-decoration: none !important;
+            text-transform: uppercase;
+            font-size: 12px;
+            border-right: solid 1px #fff;
+        }
+
+        .navbar-light .navbar-toggler {
+            color: #fff !important;
+            border-color: #fff !important;
+            background-color: #ffffff;
+            padding: 1px 4px;
+        }
+
+        .navbar-light .navbar-text a:focus, .navbar-light .navbar-text a:hover {
+            color: rgba(0,0,0,.9);
+            color: #e2881f !important;
+            background-color: #efefef;
+        }
+
+        .navbar-toggler-icon {
+            width: 1.2em;
+            height: 1.2em;
+        }
+    </style>
+
+    <script>
+        function closeMenu() {
+            document.getElementById("mbnav").style(display) = "none";
+        }
+        function openMenu() {
+            document.getElementById("mbnav").style.height = "100%";
+        }
+        function hidemenu() {
+            var element = document.getElementById("navbarText");
+            element.classList.remove("show");
+        }
+    </script>
+    <div class="top-main-menu">
+        <nav class="navbar navbar-expand-lg sticky-top navbar-light">
+            <button class="navbar-toggler float-left" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="logo" href="#box-1"> BTG Accounts<span style="color:#f7931d;"> Solution</span> </a>
+
+
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto"></ul>
+                <span class="navbar-text">
+                    <a href="#box-1" onclick="hidemenu()">Home</a>
+                    <a href="#box-2" onclick="hidemenu()">About us</a>
+                    <a href="#box-3" onclick="hidemenu()">Features</a>
+                    <a href="#box-4" onclick="hidemenu()">Easy Sharing</a>
+                    <a href="#box-5" onclick="hidemenu()">Pricing</a>
+                    <a style="border-right:none;" href="#box-6" onclick="hidemenu()">Contact</a>
+                </span>
+            </div>
+            <div style="clear:both;"></div>
+        </nav>
+    </div>
+
+
+    <div id="box-1">
+        <div class="container container1">
+            <div class="row ">
+
+                <div class="col align-self-center login-text-col head-txt" style="padding-right:0px; margin-right:0;">
+                    <div class="head-textbox">
+                        <h1 data-aos="fade-left" data-aos-duration="750" data-aos-delay="800" class="login-head"><br><strong>Your&nbsp;</strong><span style="font-weight:bold;color:#fdaf53;">Accounting</span><strong>&nbsp;&amp; &nbsp;</strong><br><strong>Management Solution</strong><br><br></h1>
+                        <p data-aos="fade-left" data-aos-duration="750"
+                           data-aos-delay="1000" style="color:rgb(255,255,255);font-size:19px;">
+                            Manage your personal and business accounts with the friendliest system ever built. Bring in discipline in your financial matters by signing in with&nbsp;<span class="span1">munshi<span class="span2">baba</span>.com</span>&nbsp;<br>
+                            <span class="span1">munshi<span class="span2">baba</span>.com</span>&nbsp;as a personal accounting systems is the most economical solution for your accounting issues. <br>Just try it……and you’ll be more than happy.<br><br>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 align-self-center text-center" style="padding-right:6px;">
+                    <div data-aos="zoom-in-up" data-aos-duration="750" data-aos-delay="100" class="login-box float-right">
+                        <img src="assets/img/logo-png.png">
+                        <p class="text-center" style="font-size:27px; color:#fff;">Login</p>
+                        <div class="text-left">
+                            <p class="login-p1">Don't have an account ?</p><a href="#box-5" class="login-p2">Create New Account</a>
+                        </div>
+                        <hr>
+                        <form>
+                            <fieldset>
+                                <input id="UserName" class="form-control login-f1" placeholder="Email address / cell number" type="text">
+                                <input id="Password" class="form-control login-f1" placeholder="Password" type="password">
+                                <div toggle="#Password" class="fa fa-fw fa-eye field-icon toggle-password"></div>
+                            </fieldset>
+                            <div class="box-tools checkbox icheck col-lg-12 col-md-12 col-sm-12 col-sx-12 w-100 ">
+                                <input type="checkbox" id="remember" name="checkbox" value="1" checked="checked"><label for="radio1"> &nbsp; Remember Me</label>
+                                <a href="Forgotpassword.html" class="login-forgot float-right" style="margin-right: -14px;margin-top: -4px;">Forgot Password ?</a>
+
+                            </div>
+                        </form>
+                        <button id="btnSignin" onclick="login()" class="btn btn-primary float-left"
+                                type="button" style="margin-top: 25px;">
+                            Login
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+
+
+
+    <div id="box-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 align-self-center about-col-1">
+                    <div>
+                        <h3 data-aos="fade-up" data-aos-duration="700" data-aos-delay="650">INTRODUCTION</h3>
+                        <h2 data-aos="fade-up" data-aos-duration="700" data-aos-delay="750">What is munshi<span style="color:#f7931d;">baba</span>.com</h2>
+                        <p data-aos="fade-up" data-aos-duration="700" data-aos-delay="850">
+                            <span style="color:rgb(0,0,0);">munshi<span style="color:#f7931d;">baba</span>.com</span>&nbsp;is an accounting and management software. It is a cloud based application that runs on desktops, tablets, ipad’s, as well as on all
+                            platforms of mobile devices like Android & iOS. It Keeps track of your accounting and business issues 24/7. <br> <br>Easy Share feature provides you a choice of sharing your accounts with your family and or
+                            business partners. Easy Share relieves you from any possible misunderstanding that occurs between the partners and any one with whom you have any financial dealing. <br> <br>If your accounts are in order, your life is in
+                            order and&nbsp;<span style="color:rgb(0,0,0);">munshi<span style="color:#f7931d;">baba</span>.com</span>&nbsp;is here to bring in that order in your life.&nbsp;<span style="color:rgb(0,0,0);">munshi<span style="color:#f7931d;">baba</span>.com</span>
+                            will never delete your account. Your data is always safe and secure at our storage.<br>
+                        </p>
+                        <hr data-aos="fade-up" data-aos-duration="700" data-aos-delay="800" class="end-line text-left">
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+                <div class="col-md-6 align-self-center text-center">
+                    <img src="assets/img/about-2.jpg" data-aos="fade-left" data-aos-duration="700" data-aos-delay="300" class="about-img img-fluid">
+                </div>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+
+
+    <div id="box-3">
+        <div class="container">
+            <div class="head-getready">
+                <h2 data-aos="fade-left" data-aos-duration="600" style="text-align: center;">Main Features  </h2>
+                <hr data-aos="fade-left" data-aos-delay="700" class="end-line-center">
+                <h3 data-aos="fade-left" data-aos-duration="800" data-aos-delay="100" style="color:rgb(247, 147, 29); text-align: center;">SIMPLE, POWERFULL & COMPLETE</h3>
+
+            </div>
+
+
+            <div class="tabs-animated">
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active show" id="tab1">
+
+
+
+                        <div id="carouselExampleIndicators" data-ride="carousel" class="carousel slide ">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">DESIGNED</li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1">EASY TO USE</li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2">EASY SHARING</li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="3">MULTI LEVEL</li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="4">TRANSACTIONS</li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="5">BUDGET</li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="6">MULTILINGUAL</li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="7">MULTI CURRENCY</li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="8">REPORTS</li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="9">DATA DOWN LOAD</li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="10">NEXT TO KIN</li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="11">MAKE MONEY</li>
+
+                            </ol>
+                            <div class="carousel-inner" role="listbox">
+                                <!-- Slide One - Set the background image for this slide in the line below -->
+                                <div class="carousel-item active">
+
+
+                                    <div class="carousel-caption d-none d-md-block float-left">
+                                        <h2 class="display-4">DESIGNED FOR EVERY ONE</h2>
+                                        <ul class="text-s">
+
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> HEAD OF FAMILY.</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> HOUSE WIVES</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> STUDENTS</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> INDIVIDUALS</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> BUSINESS INDIVIDUALS</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> PROFESSIONALS</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> SMALL, MEDIUM OR LARGE SCALE BUSINESS ORGANIZATIONS</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> GROUPS, CLUBS OR SOCIETIES</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> AND EVERY ONE</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="Float-Right">
+                                        <img class="img-fluid aos-init aos-animate" src="img/feature_design.jpg" />
+                                    </div>
+
+
+
+                                </div>
+                                <!-- Slide Two - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                    <div class="carousel-caption d-none d-md-block float-left">
+                                        <h2 class="display-4">EASY TO USE & DYNAMIC DASHBOARD</h2>
+                                        <ul class="text-s">
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text double"> BUILT IN BANK, CASH, INCOME, EXPENSE & LIABILITIES CATEGORIES </span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> ADD NEW CATEGORY OR EDIT EXISTING </span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text double"> GRAPHICAL REPRESENTATION THROUGH PIE CHART, BAR GRAPH & GRID FORM </span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> DATE FILTER </span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> NOTIFICATION CENTRE </span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> PANEL WITH ALL MAJOR OPTIONS AT DASHBOARD </span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="Float-Right">
+                                        <img class="img-fluid aos-init aos-animate" src="img/feature_ Easy to use.jpg" />
+
+                                    </div>
+                                </div>
+
+                                <!-- Slide 3 - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                    <div class="carousel-caption d-none d-md-block float-left">
+                                        <h2 class="display-4">EASY SHARING FEATURE</h2>
+                                        <ul class="text-s">
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text double"> SHARE YOUR TRANSACTIONS, ACCOUNT STATEMENTS OR COMPLETE ACCOUNT WITH ANY ONE</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> KEEP YOUR PARTNER ON LOOP WHILE PERFORMING ANY ACTIVITY</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text double"> ACCOUNT SHARING ENABLES USERS TO SEND OR RECEIVE NOTIFICATIONS AFTER ANY TRANSACTION AND ACCEPT OR REJECT THAT TRANSACTION </span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> SINGLE ACCOUNT MAY BE USED BY MULTIPLE USERS</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text double"> SAVE EACH OTHER FROM ANY MIS UNDERSTANDING THROUGH EASY SHARING FEATURE</span></li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="Float-Right">
+
+                                        <img class="img-fluid aos-init aos-animate" src="img/feature_Sharing.jpg" />
+                                    </div>
+                                </div>
+
+                                <!-- Slide 4 - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                    <div class="carousel-caption d-none d-md-block float-left">
+                                        <h2 class="display-4">MULTI LEVEL ACCOUNTING SYSTEM</h2>
+                                        <ul class="text-s">
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text double"> AVAILABLE IN SINGLE LEVEL, TWO LEVEL AND THREE LEVEL ACCOUNTING SYSTEM</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> BEGINNERS MAY BEGIN WITH SINGLE LEVEL ACCOUNTING SYSTEM</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text double"> INTERMEDIATE USERS MAY PROCEED WITH TWO LEVEL ACCOUNTING SYSTEM</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> ADVANCED USERS MUST BENEFIT FROM THREE ACCOUNTING SYSTEM</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> CHOICE OF SWITCHING BETWEEN SYSTEMS IS ALWAYS AVAILABLE</span></li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="Float-Right">
+
+                                        <img class="img-fluid aos-init aos-animate" src="img/feature_multi level.jpg" />
+                                    </div>
+                                </div>
+
+
+                                <!-- Slide 5 - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                    <div class="carousel-caption d-none d-md-block float-left">
+                                        <h2 class="display-4">ADEQUATE TRANSACTIONS</h2>
+                                        <ul class="text-s">
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text double"> PERFORM 200,000 TRANSACTIONS IN A MONTH WITH OUT ATTACHMENTS</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> 1000 TRANSACTIONS WITH SINGLE ATTACHMENT</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> 500 TRANSACTIONS WITH TWO (02) ATTACHMENTS IN A MONTH</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text double"> TWO (02) RECEIPT ATTACHMENTS AT PAYMENT & RECEIPT VOUCHER ALLOWED</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="Float-Right">
+                                        <img class="img-fluid aos-init aos-animate" src="img/feature-3 Transaction pic.jpg" />
+
+                                    </div>
+                                </div>
+
+                                <!-- Slide 6 - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                    <div class="carousel-caption d-none d-md-block float-left">
+                                        <h2 class="display-4">CREATE BUDGET & MANAGE SPENDING</h2>
+                                        <ul class="text-s">
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> ACTIVATE BUDGET SPENDING LIMITS </span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> MANAGE SPENDING </span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> KEEP TRACK OF ALL SPENDING’S </span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> SCHEDULE PAYMENTS & RECEIPTS </span></li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="Float-Right">
+                                        <img class="img-fluid aos-init aos-animate" src="img/feature-3 budget pic.jpg" />
+
+                                    </div>
+                                </div>
+
+                                <!-- Slide 7 - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                    <div class="carousel-caption d-none d-md-block float-left">
+                                        <h2 class="display-4">MULTILINGUAL ADMIN & CLIENT PANEL</h2>
+                                        <ul class="text-s">
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> BUILT IN LANGUAGE SELECTION </span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> USE IT IN LANGUAGE OF YOUR CHOICE</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> ALL FORMS & REPORTS IN YOUR OWN LANGUAGE</span></li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="Float-Right">
+                                        <img class="img-fluid aos-init aos-animate" src="img/feature-3 Multi Lanaguage pic.jpg" />
+
+                                    </div>
+                                </div>
+
+                                <!-- Slide 8 - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                    <div class="carousel-caption d-none d-md-block float-left">
+                                        <h2 class="display-4">MULTI CURRENCY OPERATOR</h2>
+                                        <ul class="text-s">
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> PERFORM TRANSACTIONS IN MULTIPLE CURRENCIES</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> AUTO FOREIGN EXCHANGE RATE OPTION AVAILABLE</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> CALCULATES LOSS & PROFIT DUE TO CURRENCY RATE FLUCTUATIONS</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single">  CREATE & MAINTAIN ACCOUNTS IN MULTIPLE CURRENCIES</span></li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="Float-Right">
+                                        <img class="img-fluid aos-init aos-animate" src="img/feature-3 currency pic.jpg" />
+
+                                    </div>
+                                </div>
+
+
+                                <!-- Slide 9 - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                    <div class="carousel-caption d-none d-md-block float-left">
+                                        <h2 class="display-4">BUILT IN MOST USEFUL REPORTS</h2>
+                                        <ul class="text-s">
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> GROUP LEDGER</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> SHARED LEDGER</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> NET WORTH</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> FULL STATEMENT</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> BALANCE SHEET</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> ACCOUNT STATEMENTS</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="Float-Right">
+                                        <img class="img-fluid aos-init aos-animate" src="img/feature-3 report pic.jpg" />
+
+                                    </div>
+                                </div>
+
+                                <!-- Slide 10 - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                    <div class="carousel-caption d-none d-md-block float-left">
+                                        <h2 class="display-4">DOWN LOAD OR DELETE DATA</h2>
+                                        <ul class="text-s">
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> DOWN LOAD DATA IN EXCEL FORM</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> DELETE COMPLETE DATA OPTION AVAILABLE</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> DELETE ACCOUNT OPTION AVAILABLE</span></li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="Float-Right">
+                                        <img class="img-fluid aos-init aos-animate" src="img/feature-3 data pic.jpg" />
+
+                                    </div>
+                                </div>
+
+
+                                <!-- Slide 11 - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                    <div class="carousel-caption d-none d-md-block float-left">
+                                        <h2 class="display-4">NEXT TO KIN</h2>
+                                        <ul class="text-s">
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> DECLARE NEXT TO KIN IN CASE OF EMERGENCIES</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> ACCESS TO COMPLETE ACCOUNT FOR NEXT TO KIN</span></li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="Float-Right">
+                                        <img class="img-fluid aos-init aos-animate" src="img/feature_ Easy to use.jpg" />
+
+                                    </div>
+                                </div>
+
+
+                                <!-- Slide 12 - Set the background image for this slide in the line below -->
+                                <div class="carousel-item">
+                                    <div class="carousel-caption d-none d-md-block float-left">
+                                        <h2 class="display-4">MAKE MONEY</h2>
+                                        <ul class="text-s">
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> REFER SOME ONE & GET PAID</span></li>
+                                            <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg"></span> <span class="share-text single"> MAKE ALMOST 25% OF ANY PAYMENT BY YOUR REFERRED MEMBER</span></li>
+
+
+                                        </ul>
+                                    </div>
+                                    <div class="Float-Right">
+                                        <img class="img-fluid aos-init aos-animate" src="img/feature_ Easy to use.jpg" />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+
+
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+        <div style="clear:both"></div>
+    </div>
+
+
+
+    <div id="box-4">
+        <div class="container">
+
+            <div class="row">
+                <div class="col align-self-center share-col-1">
+                    <div>
+                        <h3 data-aos="slide-left" data-aos-duration="800">EASY SHARING</h3>
+                        <h2 data-aos="slide-left" data-aos-duration="800" data-aos-delay="100">Easy Sharing Features</h2>
+                        <p data-aos="slide-left" data-aos-duration="800" data-aos-delay="200">
+                            <span style="color:rgb(0,0,0);">munshi<span style="color:#f7931d;">baba</span>.com</span>
+                            has a unique and usefull feature to share account ledgers. This enables sharing of accounts of one person to another person or to many persons
+                            and with one business partner to an other partner. Every can be connected by this easy and unique sharing feature at any time.
+                        </p>
+                        <hr data-aos="fade-up" data-aos-delay="700" class="end-line text-left">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="1000" class="card">
+                        <div class="front" style="background-color:#f1790e;">
+                            <img src="assets/img/share-img1.png">
+                            <p class="front-head">One to One Sharing</p>
+                        </div>
+                        <div class="back  One-to-One">
+                            <div class="back-content text-left">
+                                <h2 style="font-size:32px;">One to One Sharing<br></h2>
+                                <hr class="hr-2">
+
+                                <ul>
+
+                                    <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text"> SHARE ACCOUNT WITH FAMILY, FRIENDS OR BUSINESS PARTNER.</span></li>
+                                    <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text" style="MARGIN: 4px 0px 5px 0px;">  THAT’S ALWAYS ONE TO ONE.</span></li>
+                                    <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  GET NOTIFIED, WHENEVER ANY TRANSACTION IS MADE IN THE SHARED ACCOUNT.</span></li>
+                                    <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text" style="MARGIN: 4px 0px 5px 0px;">  ACCEPT OR REJECT ANY TRANSACTION.</span></li>
+                                    <li class="sharing"><span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  VIEW PENDING TRANSACTIONS IN THE LEDGER REPORT. </span></li>
+
+                                </ul>
+                                <br /><br />    <!--<a href="#">Read More</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="1100" class="card">
+                        <div class="front" style="background-color:#4370c2;">
+                            <img src="assets/img/share-img2.png">
+                            <p class="front-head one-to-many">One to Many Sharing</p>
+                        </div>
+                        <div class="back One-to-many">
+                            <div class="back-content text-left">
+                                <h2 style="font-size:32px;">One to Many Sharing<br></h2>
+                                <hr class="hr-2">
+                                <ul>
+
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  BEST FOR GROUP LEADERS, PROJECT MANAGERS, FAMILY HEAD AND ANY ONE WHO WANTS TO SHARE ANY SINGLE ACCOUNT LEDGER WITH MORE THAN ONE PERSON. </span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  SHARE ANY ACTIVITY WITH GROUP OF FRIENDS, MEMBERS OF CLUB, OFFICE BEARERS & KEEP THEM ON LOOP IN CASE OF ANY FINANCIAL TRANSACTION.</span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  NOTIFICATION IS SENT TO ALL GROUP MEMBERS AT ANY ACTIVITY.</span></li>
+
+                                </ul>
+
+                                <br /><br />    <!--<a href="#">Read More</a>-->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="1200" class="card">
+                        <div class="front" style="background-color:#229d70;">
+                            <img src="assets/img/share-img3.png">
+                            <p class="front-head">Many to One Sharing</p>
+                        </div>
+                        <div class="back many-to-One">
+                            <div class="back-content text-left">
+                                <h2 style="font-size:32px;">Many to One Sharing<br></h2>
+                                <hr class="hr-2">
+                                <ul>
+
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  FOR GROUP MEMBERS REPORTING TO THEIR BOSS, MANAGER OR ADMIN.</span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  ONE ACCOUNT LEDGER CREATED IS SHARED BY MORE THAN ONE MEMBERS AND REPORTED TO ONE BOSS, MANAGER OR ADMIN.</span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  BOSS CAN ACCEPT OR REJECT ANY TRANSACTION.</span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  MANY MEMBERS SHARE THEIR ACTIVITIES ON THE ACCOUNT ASSIGNED TO THEM WITH THEIR BOSS OR HEAD OF GROUP.</span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  BOSS IS ALWAYS ON LOOP, ANY EXPENSE MADE; COULD BE REPORTED ALONG WITH THE RECEIPT ATTACHMENT TO THE BOSS RIGHT AWAY.</span></li>
+
+                                </ul>
+                                <br /><br />    <!--<a href="#">Read More</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="1300" class="card">
+                        <div class="front" style="background-color:#9846b0;">
+                            <img src="assets/img/share-img4.png">
+                            <p class="front-head">Business to Business</p>
+                        </div>
+                        <div class="back bussiness-to-bussiness">
+                            <div class="back-content text-left">
+                                <h2 style="font-size:30px;">Bussiness to Bussiness Sharing<br></h2>
+                                <hr class="hr-2">
+                                <ul>
+
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  BEST FOR RETAILERS, JUST TO MAINTAIN DAILY SALES, INCOME & EXPENSES.</span></span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  CREATE MULTIPLE ACCOUNT LEDGERS OF UN LIMITED CUSTOMERS.</span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  MAINTAIN RECORD OF CUSTOMERS ON CREDIT.</span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  CREATE MULTIPLE ACCOUNT LEDGERS OF UN LIMITED VENDORS.</span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  ATTACH RECEIPT OF PURCHASES IN PAYMENT VOUCHER & KEEP ALL RECORDS INTACT.</span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  AVOID CONFUSION WHILE MAKING PAYMENTS TO THE VENDORS.</span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  SHARE ANY ACTIVITY WITH SUPPLIERS & KEEP THEM ON LOOP IN CASE OF ANY FINANCIAL TRANSACTION.</span></li>
+                                    <li class="sharing"> <span class="icon-share"><img src="assets/img/Tick mark.svg" /></span> <span class="share-text">  CREATE LEDGER FO DAILY SALES & PURCHASES.</span></li>
+
+                                </ul>
+                                <br /><br />    <!--<a href="#">Read More</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+
+
+
+    <div id="box-5">
+
+        <div class="container">
+            <!--Level System-->
+            <div id="Div3" class="row mtop-20">
+
+                <div class="head-getready">
+                    <h3 data-aos="fade-left" data-aos-duration="600" style="text-align: center;">Choose Your Package  </h3>
+                    <h2 data-aos="fade-left" data-aos-duration="800" data-aos-delay="100" style="color:rgb(255,255,255); text-align: center;">
+                        Single User & Group Package
+                    </h2>
+                    <hr data-aos="fade-left" data-aos-delay="700"
+                        class="end-line-center">
+                </div>
+                <div class="pricing-table">
+                    <div class="pricing-title">
+                        <h3> Single User</h3>
+                        <h5>( For Single user only )</h5>
+                    </div>
+                    <div class="pricing-title2">
+                        <h3> JUST <span class="amount-price"> <span class="no">1</span> <span class="amount-p">$  USD</span></span> PER MONTH</h3>
+                        <h3> OR <span class="amount-price"> <span class="no">10</span> <span class="amount-p">$  USD</span></span> YEARLY</h3>
+                        <h3>                      </h3>
+                        <h5>( Save 2 $ on Annual Subscription )</h5>
+                    </div>
+                    <ul class="table-list">
+                        <li>Multi-Level Accounting System. <button tooltip="Single Level, Two Level &amp; Three Level System. Depending on your ease of use.  Option of switching between systemsis available."><img src="assets/img/tip.png"></button></li>
+                        <li>200,000 Transactions in a Month.  <button tooltip="  ‣ 200,000 transactions without attachments. ‣ 1000 transactions with 1 attachment.  ‣ transactions with 2 attachments."><img src="assets/img/tip.png"></button></li>
+                        <li>Receipt Attachments Allowed.<button tooltip="Maximum 2 Attachments Allowed at any Payment or Receipt Voucher."><img src="assets/img/tip.png"></button></li>
+                        <li>Create Un Limited Accounts. </li>
+                        <li>Built in Most Useful Reports.<button tooltip=" &#8227; Group Ledger   &#8227;  Shared Ledger   &#8227; Shared Transactions   &#8227; Net Worth   &#8227; Full Statement   &#8227; Balance Sheet   &#8227;Account Statemen"><img src="assets/img/tip.png"></button></li>
+                        <li>Easy Sharing of Accounts.<button tooltip="Share your accounts with any one or multiples persons. Invite them to use munshibaba.com and partner with you in every transaction that you make.  Or simply send them the account statement, through email or any messaging service."><img src="assets/img/tip.png"></button> </li>
+                        <li>Multi Language Features.</li>
+                        <li>Multi-Currency Operator. <button tooltip="Allows you to operate accounts in multiple currencies and calculates profit / loss due to currency fluctuation."><img src="assets/img/tip.png"></button></li>
+                        <li>Download Data Option.</li>
+                        <li>Create Budget & Manage Spending.</li>
+                        <li>Schedule Payments & Receipts.</li>
+                        <li>Next to kin. <button tooltip="Nominate anyone to have an access to your account in case of any emergency with you."><img src="assets/img/tip.png"></button></li>
+                        <li>Get paid.  <button tooltip="Invite someone to use munshibaba.com and get paid against every payment, that is received from your referred member."><img src="assets/img/tip.png"></button>  </li>
+
+                    </ul>
+
+
+                    <div class="table-buy">
+                        <a onclick="sessionStorage.setItem('buy','Single User');switchVisible(); myFunction3();" href="#Div1" class="pricing-action2">BUY</a>
+
+                    </div>
+                </div>
+                <div class="pricing-table">
+                    <div class="pricing-title">
+                        <h3> Group Package</h3>
+                        <h5>( FOR UP TO 6 MEMBERS )</h5>
+                    </div>
+                    <div class="pricing-title2">
+                        <h3> JUST <span class="amount-price"> <span class="no">3</span> <span class="amount-p">$  USD</span></span>            PER MONTH</h3>
+                        <h3> OR <span class="amount-price"> <span class="no">30</span> <span class="amount-p">$  USD</span></span>            YEARLY</h3>
+                        <h3>                      </h3>
+                        <h5>( Save  6 $ on Annual Subscription )</h5>
+                    </div>
+
+
+
+
+
+
+                    <ul class="table-list">
+                        <li>Multi-Level Accounting System. <button tooltip="Single Level, Two Level &amp; Three Level System. Depending on your ease of use.  Option of switching between systemsis available."><img src="assets/img/tip.png"></button></li>
+                        <li>200,000 Transactions in a Month.  <button tooltip="  ‣ 200,000 transactions without attachments. ‣ 1000 transactions with 1 attachment.  ‣ transactions with 2 attachments."><img src="assets/img/tip.png"></button></li>
+                        <li>Receipt Attachments Allowed.<button tooltip="Maximum 2 Attachments Allowed at any Payment or Receipt Voucher."><img src="assets/img/tip.png"></button></li>
+                        <li>Create Un Limited Accounts. </li>
+                        <li>Built in Most Useful Reports.<button tooltip=" &#8227; Group Ledger   &#8227;  Shared Ledger   &#8227; Shared Transactions   &#8227; Net Worth   &#8227; Full Statement   &#8227; Balance Sheet   &#8227;Account Statemen"><img src="assets/img/tip.png"></button></li>
+                        <li>Easy Sharing of Accounts.<button tooltip="Share your accounts with any one or multiples persons. Invite them to use munshibaba.com and partner with you in every transaction that you make.  Or simply send them the account statement, through email or any messaging service."><img src="assets/img/tip.png"></button> </li>
+                        <li>Multi Language Features.</li>
+                        <li>Multi-Currency Operator. <button tooltip="Allows you to operate accounts in multiple currencies and calculates profit / loss due to currency fluctuation."><img src="assets/img/tip.png"></button></li>
+                        <li>Download Data Option.</li>
+                        <li>Create Budget & Manage Spending.</li>
+                        <li>Schedule Payments & Receipts.</li>
+                        <li>Next to kin. <button tooltip="Nominate anyone to have an access to your account in case of any emergency with you."><img src="assets/img/tip.png"></button></li>
+                        <li>Get paid.  <button tooltip="Invite someone to use munshibaba.com and get paid against every payment, that is received from your referred member."><img src="assets/img/tip.png"></button>  </li>
+
+                    </ul>
+
+
+                    <div class="table-buy">
+                        <a onclick=" sessionStorage.setItem('buy','Group Package');switchVisible();  myFunction3();" href="#Div1" class="pricing-action2">BUY</a>
+
+                    </div>
+                </div>
+
+                <div style="clear:both"></div>
+            </div>
+
+            <div id="Div2" class="row mtop-20">
+
+                <div class="head-getready">
+                    <h3 data-aos="fade-left" data-aos-duration="600" style="text-align: center;">Register with <span id="RegisterTop"></span></h3>
+                    <h2 data-aos="fade-left" data-aos-duration="800" data-aos-delay="100" style="color:rgb(255,255,255); text-align: center;">User Registration </h2>
+                    <hr data-aos="fade-left" data-aos-delay="700"
+                        class="end-line-center">
+                </div>
+                <div class="m-login-section vcenter flipInY">
+                    <form id="form1" class="login-box animate">
+
+                        <div class="float-left">
+                            <h2 class="login-box-msg">  Create Account </h2>
+                            <div class="input-group small mt-2">
+
+
+                                <input id="txtFullName" type="text" inputmode="text" class="form-control" placeholder="Enter Full Name" required="">
+
+                            </div>
+
+                            <div class="input-group small mt-2">
+
+
+                                <input id="txtemail" class="check-input" type="text" onblur="callemailout();" placeholder="Enter Email">
+                                <span id="chkEmail" class="check-field col-2 text-center" style="font-size:small;padding-left :0px; padding-right:0px;">--</span>
+                            </div>
+                            <div class="select-country input-group  mt-2">
+                                <select id="CountryData" class="select2 form-control select2-hidden-accessible" type="text" tabindex="-1" aria-hidden="true"></select>
+                            </div>
+
+                            <div class="input-group small mt-2 country-code-select">
+
+                                <!--<div class="country-code">
+                                    <div id="country-code" class="select"> code </div>
+                                    <div id="country-code-drop" class="dropdown">
+
+                                        <ul id="countryData">
+                                            <li><img sizes="12" src="../css/flags.png" /><span class="country-code-name">(+93) </span></li>
+
+                                        </ul>
+                                    </div>
+
+                                </div>-->
+
+                                <input id="txtCell" class="form-control" type="number" onblur="callcelllout();" inputmode="numeric" placeholder="Enter Cell #">
+
+                            </div>
+                            <!--<div class="input-group small mt-2">
+
+                                <input id="txtUser" type="text" inputmode="text" disabled class="check-input " placeholder="Enter User Name" required />
+                                <select id="UserNameChoise" class="check-field col-2 text-center " onchange="ChangeChoise(this);" style="font-size:small;padding:1px 0px 0px; line-height: 28px;     font-size: 10px;">
+                                    <option value="email" selected>As Email</option>
+                                    <option value="cell">As Cell</option>
+                                    <option value="0">Input</option>
+
+                                </select>
+                            </div>-->
+
+
+                            <div class="input-group small mt-2">
+
+                                <input id="txtpassword" type="password" inputmode="passsword" onkeyup="checkStrength(this.value, getElementById('STpassord'), getElementById('STpassord'));" class="check-input pass_show" placeholder="Enter Paswword" required="">
+                                <span id="STpassord" class="check-field   col-2 text-center" style="font-size:11px;padding-left :0px; padding-right:0px;padding-top:11px;">--</span>
+
+                            </div>
+                            <div class="input-group small mt-2">
+
+                                <input id="txtpassword2" type="password" inputmode="password" onkeyup="Passmatch(this.value);" class="check-input pass_show" placeholder="Confirm Password" required="">
+                                <span id="STCpassord" class="check-field  col-2 text-center" style="font-size:small;padding-left :0px; padding-right:0px;">--</span>
+
+                            </div>
+                            <!--<div class="input-group small mt-2 ">
+
+                                <span class="input-group-textb w-100" style="font-size:small">D.O.B </span>
+
+
+                                <input id="txtDOB" class="form-control" type="date" placeholder="Select Date of Birth" required />
+
+                            </div>-->
+                            <div id="fileupload" class="input-group small mt-2 " style="display:none;">
+                                <div class="input-group-prepend col-3 pr-0">
+                                    <span class="input-group-textb w-100" style="font-size:small">Photo </span>
+                                </div>
+                                <input id="imgfile" placeholder="Photo" class="" onchange="MyFile();" type="file" name="image" accept="image/*">
+                            </div>
+                            <div class="input-group small mt-2" style="display:none;">
+                                <div class="input-group-prepend col-3 pr-0">
+                                    <span class="input-group-textb w-100" style="font-size:small">Status </span>
+                                </div>
+                                <select id="txtActive" class="form-control">
+                                    <option value="1">Active</option>
+                                    <option value="0">In-Active</option>
+
+                                </select>
+                            </div>
+                            <!--<div class="input-group small mt-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-sticky-note">&nbsp;</i></span>
+                                </div>
+                                <textarea class="form-control" rows="3" placeholder="Enter note here"></textarea>
+                            </div>-->
+                            <!--<div class="row mt-2">
+                                <div class="col-12">
+
+                                    <button class="form-control bg-success" onclick="window.location.href='itemslist.html'"><i class="fa fa-edit"></i> Bill Details/Items</button>
+                                </div>
+
+                            </div>-->
+                            <!--<div class="form-group">
+                                <div class="country">
+                                    <div id="country" class="select">Select Country </div>
+                                    <div id="country-drop" class="dropdown">
+
+                                        <ul>
+                                            <li><img sizes="12" src="../css/flags.png" /><span class="country-name">Afghanistan (+93) </span></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>-->
+
+
+
+                            <div class="mt-2">
+                                <!--<div class="col-6">
+                                    <button class="form-control bg-primary"><i class="fa fa-eraser"></i> New</button>
+                                </div>-->
+
+                                <div class="reg-footer clear">
+
+                                    <div class="meta">Have an account ? &nbsp; &nbsp;<a href="#box-1"><strong>Login</strong></a></div>
+                                </div>
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+                        <div class="Float-Right">
+                            <div class="login-logo Reg-logo ">
+                                <img id="Rpic"><a class="uploadme" style="cursor:pointer;"> Upload Picture</a>
+                            </div>
+                            <div class="mt-2">
+
+                                <div class="reg-footer clear">
+                                    <button  class="Submit-btn btn btn-primary" onclick=" CallSaveUser(); return false;">Register</button>
+                                    <button id="refresh" class="Submit-btn btn btn-primary" onclick="duv2and3();">cancel</button>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div style="clear:both"></div>
+                    </form>
+
+
+                </div>
+
+
+                <div style="clear:both"></div>
+            </div>
+            <div id="Div1" class="row mtop-20">
+                <div class="head-getready">
+                    <h3 data-aos="fade-left" data-aos-duration="600" style="text-align: center;"><span id="levelTop"></span></h3>
+                    <h2 data-aos="fade-left" data-aos-duration="800" data-aos-delay="100" style="color:rgb(255,255,255); text-align: center;">Choose Accounting System </h2>
+                    <hr data-aos="fade-left" data-aos-delay="700"
+                        class="end-line-center">
+                </div>
+
+
+                <div class="col-md-4">
+                    <!--1 Level -->
+                    <div data-aos="fade-left" data-aos-duration="1200" class="reg-col">
+                        <p class="reg-head">1<span class="reg-sub-head">Level System </span> </p>
+                        <img class="img-fluid" src="assets/img/1level.png">
+                        <p>
+                            Single level system is ideal for beginners. For those who do not want to get into complexeties of typical...
+                            <br>
+                            <a href="#" class="reg-readmore" data-toggle="modal" data-target="#reg-1level" style="display:block;"> Read More </a>
+                        </p>
+                        <div class="text-center" style="margin:25px;">
+                            <a onclick="sessionStorage.setItem('Level', '1');duv2and3()" href="#box-5" class="register-btn" style="display:block;"> Register </a>
+                            <a onclick="switchVisible(); myFunction4(); " href="#Div3" class="pricing-action">Back</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <!--2 Level -->
+                    <div data-aos="fade-top" data-aos-duration="1200" class="reg-col">
+                        <p class="reg-head">2<span class="reg-sub-head" style="margin-left:10px;">Level System </span> </p>
+                        <img class="img-fluid" src="assets/img/2level.png">
+                        <p>
+                            2 Level System facilitates users to create categories and create accounts in those corresponding categories...
+                            <br>
+                            <a href="#" class="reg-readmore" data-toggle="modal" data-target="#reg-2level" style="display:block;"> Read More </a>
+                        </p>
+                        <div class="text-center" style="margin:25px;">
+                            <a onclick="sessionStorage.setItem('Level', '2');duv2and3()" href="#box-5" class="register-btn" style="display:block;"> Register </a>
+                            <a onclick="switchVisible();  myFunction4();" href="#Div3" class="pricing-action">Back</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <!--3 Level -->
+                    <div data-aos="fade-right" data-aos-duration="1200" class="reg-col">
+                        <p class="reg-head">3<span class="reg-sub-head" style="margin-left:10px;">Level System </span> </p>
+                        <img class="img-fluid" src="assets/img/3level.png">
+                        <p>
+                            3 Level System is ultimate choice for those who want most organied manner of doing things. This system...
+                            <br>
+                            <a href="#" class="reg-readmore" data-toggle="modal" data-target="#reg-3level" style="display:block;"> Read More </a>
+                        </p>
+                        <div class="text-center" style="margin:25px;">
+                            <a onclick="sessionStorage.setItem('Level', '3');duv2and3()" href="#box-5" class="register-btn" style="display:block;"> Register </a>
+                            <a onclick="switchVisible();  myFunction4();" href="#Div3" class="pricing-action">Back</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!--row-->
+
+        </div> <!--container-->
+        <div style="clear:both"></div>
+    </div>
+    <!-- The Modal -->
+    <div class="modal fade" id="conform">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+               
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <img src="assets/img/logo-png.png">
+
+                    <h1 style="color:forestgreen;">Account Registration Successful</h1>
+                    <p>munshibaba.com offers you to use the system free for <span style="color:red;">30 days</span></p>
+                    <p>We will ask you to continue using services after <span style="color:red;">30 days</span> <br /> or cancel the registration  </p>
+
+                    <p>if you choose to discontinue, you will not be charged</p>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <a  href="#box-1" onclick="removepopup()" class="btn btn-success scrollLink">CONTINUE</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+   
+    
+    
+    <script>
+
+        $("a[href^='#']").click(function (e) {
+            e.preventDefault();
+
+            var position = $($(this).attr("href")).offset().top;
+
+            
+        });
+
+        function removepopup() {
+            var element = document.getElementById("conform");
+            element.classList.remove("modal");
+        }
+
+        function myFunction3() {
+            document.getElementById("box-5").style.backgroundImage = "url('../assets/img/price-bg4.jpg')";
+            document.getElementById("levelTop").innerHTML = sessionStorage.getItem("buy");
+        }
+        function myFunction4() {
+            document.getElementById("box-5").style.backgroundImage = "url('../assets/img/popup_bg1.jpg')";
+        }
+
+        function switchVisible() {
+            if (document.getElementById('Div3')) {
+
+                if (document.getElementById('Div3').style.display == 'none') {
+                    document.getElementById('Div3').style.display = 'block';
+                    document.getElementById('Div1').style.display = 'none';
+
+                }
+                else {
+                    document.getElementById('Div3').style.display = 'none';
+                    document.getElementById('Div1').style.display = 'flex';
+                }
+            }
+        }
+    </script>
+    <script>
+
+        function duv2and3() {
+            document.getElementById('RegisterTop').innerHTML = sessionStorage.getItem("buy") + " License <br/>" + sessionStorage.getItem("Level") + " Level Accounting System";
+
+            if (ur1.indexOf("id=X") > 0) { }
+            else {
+            document.getElementById('txtFullName').value = '';
+            document.getElementById('txtemail').value = '';
+            document.getElementById('txtCell').value = '';
+            document.getElementById('txtpassword').value = '';
+            document.getElementById('txtpassword2').value = '';
+            }
+            if (document.getElementById('Div1')) {
+
+                if (document.getElementById('Div1').style.display == 'none') {
+                    document.getElementById('Div1').style.display = 'flex';
+                    document.getElementById('Div2').style.display = 'none';
+
+
+                }
+                else {
+                    document.getElementById('Div1').style.display = 'none';
+                    document.getElementById('Div2').style.display = 'block';
+                }
+            }
+        }
+    </script>
+    <div id="box-6">
+        <div class="container container1">
+            <div class="row">
+                <div class="col align-self-center form-col-1" style="margin-top:50px; margin-bottom:70px;">
+                    <div>
+                        <h3 data-aos="fade-left" data-aos-duration="700" data-aos-delay="100">CONTACT US<br></h3>
+                        <h2 data-aos="fade-left" data-aos-duration="700" data-aos-delay="250" style="margin-top:11px;margin-bottom:11px;">We'd love to hear from you<br></h2>
+                        <p data-aos="fade-left" data-aos-duration="700" data-aos-delay="400" style="margin-bottom:20px;color:rgb(0,0,0);">Drop us few lines, your question and comments are important to us. Reach us, we have got everything covered for your needs.<br></p>
+                        <hr data-aos="fade-left" data-aos-duration="700" data-aos-delay="550" class="end-line text-left"
+                            style="margin-top:-1px;">
+                    </div>
+                    <div data-aos="fade-up" data-aos-duration="700" data-aos-delay="700" style="margin-top:86px;">
+                        <form>
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="email" placeholder="Your email address">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="tel" placeholder="Your phone number">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="5" placeholder="Type your message here"></textarea>
+                            </div>
+                            <!-- <button class="btn btn-primary btn-block btn-sm" type="submit">SEND</button>  -->
+                            <a href="#" class="contact-btn"> Send </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div id="Footer-left" class="align-self-center footer-center">
+
+                    <div class="foot-left" style="margin-right:10px;">
+                        <img src="assets/img/logo3.png">
+                    </div>
+                    <div class="foot-left">
+                        <div class="foot-brand" style="padding-top:0;">
+                            <p style="margin-top:12px;margin-bottom:6px;">munshi<span style="color:#ff6c00;">baba</span>.com <br></p>
+                        </div>
+                        <div>
+                            <p class="foot-copy">© Copy rights munshibaba.com 2019<br></p>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 align-self-center text-lg-right" id="Footer-left" style="display:none;">
+                    <div class="Float-Right">
+                        <p style="margin-top:7px;margin-right:15px;">
+                            Follow us:
+                            <a href="#" style="display:inline-block;"><i class="fa fa-facebook"></i></a>
+                            <a href="#" style="display:inline-block;"><i class="fa fa-twitter"></i></a>
+                        </p>
+                    </div>
+
+
+                </div>
+            </div> <div style="clear:both;"></div>
+        </div>
+    </footer>
+
+
+
+
+    <!----- MODALS ----->
+    <!-- 1 Level -->
+    <div class="modal fade modal-md" id="reg-1level" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="mod-title" id="modalLabel">1 Level System</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="tree-level-img">
+                    <img class="img-fluid" src="assets/img/tree-level1.png" />
+
+                </div>
+                <div class="modal-body">
+                    Single level system is ideal for beginners. For those who do not want to get into complexeties of typical accounting. Single level system enables you to maintain ledgers of all accounts, you have the privilige of creating un limited accounts for un limited purposes and people.
+                    <br><br>
+                    You can also share your accounts with any one and maintain a proper discipline in your financial dealings.
+                    This system provides you all basic features except that, it is a single level system, where all accounts created are placed at single level. So all accounts created by you are placed at one place.
+                    <br><br>
+                    Best for simple businesses or home accounting, students and house wives. Simple account maintenance and is very easy to share accounts with family, friends and or business partners. Besides, when you are comfortable using the single level system, you can easily switch to 2 level or 3 level system and vice versa. munshibaba.com provides you ease of switching from one system to another and that too very easily.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary level-btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>  <!-- End 1 level -->
+    <!-- 2 Level -->
+    <div class="modal fade" id="reg-2level" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="mod-title" id="modalLabel">2 Level System</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="tree-level-img">
+                    <img class="img-fluid" src="assets/img/tree-level2.png" />
+
+                </div>
+                <div class="modal-body">
+                    2 Level System facilitates users to create categories and create accounts in those corresponding categories. In single level system, users can only create accounts at 1st level, where as in 2 level system a category is created and then account in that category is created. For example if main category is Bank, then in Bank users can create multiple accounts. In 2 level system accounts are categorised for more organised way of maintaining the accounts. This system is good for any one and is very easy to use. Besides it categorises the major accounting heads. The system comes with already created major categories like Bank, Cash, Income, Expense. Users can edit, delete or create more categories of their choice and create un limited number of accounts in these categories.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary level-btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>  <!-- End 2 level -->
+    <!-- 3 Level -->
+    <div class="modal fade" id="reg-3level" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="mod-title" id="modalLabel">3 Level System</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="tree-level-img">
+                    <img class="img-fluid" src="assets/img/tree-level3.png" />
+
+                </div>
+                <div class="modal-body">
+                    3 Level System is ultimate choice for those, who always want to do things in most organised manner. This system enables users to create a major category at the 1st level, then the head of account at the 2nd level and then particular account in that head at the 3rd level. For example if major category is Bank, then in bank there may be any particular Bank and in that particular bank user can create one or multiple accounts.
+                    Accounting was never so easy before munshibaba.com. Users always have the facility of switching between the system, like from 3 level system to 2 level system or 1 level.
+                    Besides, 3 level system organises your accounting in most simple way, than no other system can. The system comes with the most useful reports and easy sharing facility.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary level-btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>  <!-- End 3 level -->
+    <!--<div id="nav-3">
+        <ul>
+            <li>  <a id="box-1a" href="#box-1"> <span></span> </a> </li>
+            <li>  <a id="box-2a" href="#box-2"> </a> </li>
+            <li>  <a id="box-3a" href="#box-3"> </a> </li>
+            <li>  <a id="box-4a" href="#box-4"> </a> </li>
+            <li>  <a id="box-5a" href="#box-5"> </a> </li>
+            <li>  <a id="box-6a" href="#box-6"> </a></li>
+        </ul>
+
+    </div>-->
+
+
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-animation.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <link href="../css/jquery-confirm.min.css" rel="stylesheet" />
+    <script src="../js/jquery-confirm.min.js"></script>
+    <script src="lib/select2/js/select2.min.js"></script>
+    <script src="lib/jquery-cookie/jquery.cookie.js"></script>
+    <script src="js/DatabaseAjax.js"></script>
+    <script src="help-js.js"></script>
+    <script src="js/login2.js"></script>
+    <script src="js/User.js"></script>
+    <script>
+        $(".toggle-password").click(function () {
+
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    </script>
+    <style>
+        .field-icon {
+            float: right;
+            margin-left: -25px;
+            margin-top: -31px;
+            margin-right: 2px;
+            position: relative;
+            cursor: pointer;
+            z-index: 2;
+        }
+    </style>
+
+
+
+
+    <script>
+
+        var StatusValue = "";
+
+        var ur1 = window.location.href;
+        
+
+            if (ur1.indexOf("id=X") > 0) {
+                // $('#loader').show();
+
+                var id1 = ur1.split("id=X");
+                var str = id1[1];
+                var res = str.substr(0, 36);
+
+
+                CheckSharedAccount(res);
+            }
+            else {
+               
+                $('#spandataloading').hide();
+                $('#loader').hide();
+            }
+
+
+     
+
+        function CheckSharedAccount(SharedID) {
+            //alert(SharedID);
+
+ 
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    url: "Users.asmx/GetSharedAccountDetail",
+                    data: "{'ShareID':'" + SharedID + "' }",
+                    success: function (Record) {
+ 
+
+
+                        var txt = '{"Row": ' + Record.d + '}';
+                        var data = JSON.parse(txt);
+                        //alert(Record.d);
+                        if (data.Row[0].AccountID == "Not Found") {
+                           
+                            window.location.href = "http://munshibaba.com/index3.html";
+                        }
+                        else if (data.Row[0].AccountID == "Updated") {
+                            //alert("Accounts Updated");
+                            $.alert({ title: 'Alert!:', content: 'Accounts Updated', });
+                            $('#spandataloading').hide();
+                            $('#loader').hide();
+                        }
+                        else {
+                           
+                            if (data.Row[0].Status == "No Response") {
+                               // alert(data.Row[0].UserName);
+                                //var str = '<input id="txtAccept" class="form-control bg-success" type="text" inputmode="numeric" readonly value="Accepted by you" />'
+                               // document.getElementById('txtActive').outerHTML = str;
+                                document.getElementById('txtFullName').value = data.Row[0].UserName;
+                                document.getElementById('txtemail').value = data.Row[0].Email;
+                                document.getElementById('txtCell').value = data.Row[0].CellNo;
+                                document.getElementById('txtpassword').value = "";
+                                document.getElementById('txtpassword2').value = "";
+                               
+                                StatusValue = 2;
+
+
+
+                                $('#spandataloading').hide();
+                                $('#loader').hide();
+
+                            }
+                            else if (data.Row[0].Status == "Active") {
+                                
+
+                                $.alert({ title: 'Alert!:', content: 'You are already registred; Please Login', });
+                                window.location.href = "http://munshibaba.com/index3.html";
+                            }
+
+                            $('#spandataloading').hide();
+                            $('#loader').hide();
+
+                        }
+
+                       
+                    },
+                    Error: function (textMsg) {
+
+                        Messege = "Error";
+                        // $('#Result').text("Error: " + Error);
+
+                    }
+
+
+                });
+
+
+
+          
+
+
+
+
+        }
+
+
+
+
+      
+
+    </script>
+</body>
+
+</html>

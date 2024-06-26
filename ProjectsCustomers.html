@@ -1,0 +1,563 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Add Customers</div>
+
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">First Name</span>
+                        </div>
+                        <input id="txtFirstName" type="text" inputmode="numeric" class="form-control" placeholder="Enter First Name" />
+                    </div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Last Name</span>
+                        </div>
+                        <input id="txtLastName" type="text" inputmode="numeric" class="form-control" placeholder="Enter Last Name" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Father/Husband Name:</span>
+                        </div>
+                        <input id="HusbandName" type="text" inputmode="numeric" class="form-control" placeholder="Enter Father or Husband Name:" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">CNIC</span>
+                        </div>
+                        <input id="txtCNIC" type="text" inputmode="numeric" class="form-control" placeholder="Enter CNIC" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Occupation:</span>
+                        </div>
+                        <select id="txtOccupation" type="text" inputmode="numeric" class="form-control" placeholder="Enter Occupation:">
+                            <option value="select">select</option>
+                            <option value="SelfEmployeed">Self Employeed</option>
+                            <option value="Employed">Employed</option>
+                            <option value="Retired">Retired</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Date Of Birth</span>
+                        </div>
+                        <input id="DOB" type="date" inputmode="numeric" class="form-control" placeholder="Enter Date" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Contact</span>
+                        </div>
+                        <input id="txtContact" type="text" inputmode="numeric" class="form-control" placeholder="Enter Contact" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Email Address:</span>
+                        </div>
+                        <input id="txtEmail" type="text" inputmode="numeric" class="form-control" placeholder="Enter Email" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Customer Address</span>
+                        </div>
+                        <input id="txtAddress" type="text" inputmode="numeric" class="form-control" placeholder="Enter Address" />
+                    </div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Password</span>
+                        </div>
+                        <input id="txtPassword" type="text" inputmode="numeric" class="form-control" placeholder="Enter Password" />
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                        <div>
+                            <!--<input id="imgfile" class="form-control" onchange="MyFile();" type="file" name="image" accept="application/pdf, image/*" />-->
+
+                            <!--<a id="btnReset" href="#" class="attach-btn " onclick="SaleAppModal()"> <span class="btn-name">Add Nominee</span> </a><br /><span style="font-size:12px;"></span>-->
+                            <div class="input-group-append"><span class="input-group-text" data-toggle="modal" data-target="#StsizeModal" onclick="SaleAppModal()" style="cursor: pointer; font-size: 16px;">Add Nominee</span></div>
+
+                            <div id="AttachmentData" style="max-height:100px;overflow:auto;">
+                                <br />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="mt-2">
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="Save();"> <span class="btn-name">Save  </span> </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">Users</div>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Address</th>
+                                        <th>CNIC</th>
+                                        <th>Contact</th>
+                                        <th>Email</th>
+                                        <th>Password</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="CustomerList">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <div class="modal fade" id="StsizeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Nominee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 col-sm-12 col-md-12 p-all">
+
+
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">First Name:</label>
+                            <input class="form-control" id="firstname" placeholder="Enter First Name"><i id="caticon" />
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Last Name:</label>
+                            <input class="form-control" id="LastName" placeholder="Enter Last Name"><i id="caticon"></i>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">CNIC:</label>
+                            <input class="form-control" id="cnic" placeholder="Enter CNIC"><i id="caticon"></i>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Contact:</label>
+                            <input class="form-control" id="contact" placeholder="Enter Contact"><i id="caticon"></i>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Relation:</label>
+                            <input class="form-control" id="Relation" placeholder="Enter Relation"><i id="caticon"></i>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Age:</label>
+                            <input class="form-control" id="Age" type="number" placeholder="Enter Age:"><i id="caticon"></i>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">S/O_D/O:</label>
+                            <input class="form-control" id="sonof"  placeholder="Enter Son Of / Daughter Of:"><i id="caticon"></i>
+                            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="LoadIcons()">Select Icon</button>-->
+                        </div>
+
+                        <div>
+
+                            <table id="user-table" class="table table-striped mb-0">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>S/No</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>CNIC</th>
+                                        <th>Contact</th>
+                                        <th>Relation</th>
+                                        <th>Age</th>
+                                        <th>S/O_D/O</th>
+
+                                        <th>EDIT</th>
+                                        <th>DELETE</th>
+                                    </tr>
+                                <tbody id="TblStoreLocationModal">
+                                    <!--<tr>
+
+                    <td><i class='fa fa-edit'></i></td>
+                    <td><i class='fa fa-trash' style='color:red'></i></td>
+                </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" onclick="CreateStoreLocation()" id="btnSave">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="UpdateStoreLocation()" id="btnSave">UPDATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div id="myAddExpes" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="ModelTitle"></span> Assign Project To User</h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+
+                    <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                        <div class=" col-gl-12 col-md-12 col-sm-12">
+                            <div class="d-flex w-100 "></div>
+
+
+
+                            <div class="input-group small mt-2 ">
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Projects </span>
+                                    </div>
+
+                                    <select id="Projects" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                                    <!--<a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>-->
+                                    <a id="" href="#" class="save-btn " onclick="AssignProjectsToSubUsers();"> <span class="btn-name">Save  </span> </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                            <div class=" col-gl-12 ">
+                                <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+
+                                    <div class="col-lg-12  " style="padding:15px;">
+                                        <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                            <thead>
+                                                <tr style="border-bottom:solid 1px #747572">
+                                                    <th>S.No.</th>
+                                                    <th>Username</th>
+                                                    <th>Project Name</th>
+
+                                                    <th>Delete</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ProjectAssignedList">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/Budgetsetting.js"></script>
+</body>
+</html>
+
+
+<script>
+
+
+
+    var save = "ADD";
+    var CustomerID = "";
+    function Save() {
+
+        if (save == 'ADD') {
+            CreateProjectCustomers()
+        }
+        else {
+            UpdateProjectCustomers()
+        }
+    }
+
+
+
+
+    function CreateProjectCustomers() {
+
+        var UserID = sessionStorage.getItem("UserID");
+
+
+        var txtFirstName =  document.getElementById("txtFirstName").value;
+        var txtLastName =   document.getElementById("txtLastName").value;
+        var txtAddress =    document.getElementById("txtAddress").value;
+        var txtCNIC =       document.getElementById("txtCNIC").value;
+        var txtContact =    document.getElementById("txtContact").value;
+        var txtEmail =      document.getElementById("txtEmail").value;
+        var txtPassword =   document.getElementById("txtPassword").value;
+
+        var ProjectId = sessionStorage.getItem("ProjectId")
+
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/CreateProjectCustomers',
+            dataType: 'json',
+            data: "{'Firstname':'" + txtFirstName + "','Lastname':'" + txtLastName + "','Address':'" + txtAddress + "','Cnic':'" + txtCNIC + "','Email':'" + txtEmail + "','Contact':'" + txtContact + "','Password':'" + txtPassword + "','ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Customer Has Been Added")
+                GetProjectCustomers()
+                Clear()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function UpdateProjectCustomers() {
+
+        var txtFirstName = document.getElementById("txtFirstName").value;
+        var txtLastName = document.getElementById("txtLastName").value;
+        var txtAddress = document.getElementById("txtAddress").value;
+        var txtCNIC = document.getElementById("txtCNIC").value;
+        var txtContact = document.getElementById("txtContact").value;
+        var txtEmail = document.getElementById("txtEmail").value;
+        var txtPassword = document.getElementById("txtPassword").value;
+        var ProjectId = sessionStorage.getItem("ProjectId")
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/UpdateProjectCustomers',
+            dataType: 'json',
+            data: "{'CustomerId':'" + CustomerID + "','Firstname':'" + txtFirstName + "','Lastname':'" + txtLastName + "','Address':'" + txtAddress + "','Cnic':'" + txtCNIC + "','Email':'" + txtEmail + "','Contact':'" + txtContact + "','Password':'" + txtPassword + "','ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("User Has Been Updated")
+                Clear()
+                GetProjectCustomers()
+
+                document.getElementById("btnsave").innerHTML = 'Save';
+                save = 'ADD'
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+
+
+    GetProjectCustomers()
+    function GetProjectCustomers() {
+        var ProjectId = sessionStorage.getItem("ProjectId")
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/GetProjectCustomers',
+            dataType: 'json',
+            data: "{'ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+                    dt = dt + " <tr>";
+                    dt = dt + "   <td>" + mRow + ".</td>";
+                    dt = dt + "   <td> " + data.Row[i].Firstname + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Lastname + "</td>";                                                   
+                    dt = dt + "   <td> " + data.Row[i].Address + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Cnic + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Contact + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Email + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Password + "</td>";
+
+
+
+                    //dt = dt + " <td><a href='#'  onclick=AssignProjects('" + data.Row[i].SubUserId + "');> Assign Project</a></td>";
+                    dt = dt + " <td><a href='#'  onclick=EditCustomer('" + data.Row[i].CustomerId + "');><i class='fa fa-edit'></i> &nbsp;</a></td>";
+                    dt = dt + " <td><a href='#'  onclick=DeleteCustomer('" + data.Row[i].CustomerId + "');>  <i class='fa fa-trash' style='color:red'></i> &nbsp;</a></td>";
+                   
+
+
+                    dt = dt + "</tr>";
+                    str = str + dt;
+                    dt = "";
+                }
+                document.getElementById("CustomerList").innerHTML = str;
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    
+
+    function EditCustomer(CustomerId) {
+
+        CustomerID = CustomerId
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/GetProjectCustomersById',
+            dataType: 'json',
+            data: "{'CustomerId':'" + CustomerId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+
+                document.getElementById("txtFirstName").value = data.Row[0].Firstname;
+                document.getElementById("txtLastName").value = data.Row[0].Lastname;
+                document.getElementById("txtAddress").value = data.Row[0].Address;
+                document.getElementById("txtCNIC").value = data.Row[0].Cnic;
+                document.getElementById("txtContact").value = data.Row[0].Contact;
+                document.getElementById("txtEmail").value = data.Row[0].Email;
+                document.getElementById("txtPassword").value = data.Row[0].Password;
+
+
+                document.getElementById("btnsave").innerHTML = 'Update';
+
+                save = 'update'
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function DeleteCustomer(CustomerId) {
+        $.ajax({
+            type: 'POST',
+            url: 'ProjectCustomers.asmx/DeleteProjectCustomers',
+            dataType: 'json',
+            data: "{'CustomerId':'" + CustomerId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Customer Has Been Deleted")
+                GetProjectCustomers()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+
+
+
+
+    function Clear() {
+        document.getElementById("txtFirstName").value ='';
+        document.getElementById("txtLastName").value ='';
+        document.getElementById("txtAddress").value ='';
+        document.getElementById("txtCNIC").value ='';
+        document.getElementById("txtContact").value ='';
+        document.getElementById("txtEmail").value='';
+        document.getElementById("txtPassword").value = '';
+
+        document.getElementById("btnsave").innerHTML = 'Save';
+        save = 'ADD'
+    }
+
+</script>

@@ -1,0 +1,713 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Settings</title>
+
+    <link rel="stylesheet" href="css/dycalendar.min.css" />
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="lib/moment.js/moment.min.js"></script>
+    <link href="css/loader.css" rel="stylesheet" />
+    <link href="css/seating.css" rel="stylesheet" />
+    <script>$(function () { $("#includedContent").load("navbar.html"); });</script>
+    <style>
+
+        .amount-nw-full
+        {
+            padding: 7px 5px 5px 0px;
+            display: inline-block;
+        }
+
+        .networth .amount-nw-full
+        {
+            font-size: 28px;
+            padding-top: 0px;
+        }
+
+        
+        .panel-group
+        {
+            margin-bottom: 5px;
+        }
+
+      .panel{
+          
+      }
+    </style>
+
+</head>
+
+
+<body class="bg-white">
+
+    <div id="includedContent"></div>
+
+    <div style="display:none;">
+        <input id="txtDate1" readonly class="form-control date" type="text" placeholder="Select date" required />
+        <input id="txtDate2" readonly class="form-control date" type="text" placeholder="Select date" required />
+    </div>
+    <style>
+        input
+        {
+            position: relative;
+            width: 88px;
+            height: 20px;
+            color: white;
+        }
+
+            input[type="date"]:before
+            {
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                content: attr(data-date);
+                display: inline-block;
+                color: black;
+            }
+
+            input::-webkit-datetime-edit, input::-webkit-inner-spin-button, input::-webkit-clear-button
+            {
+                display: none;
+            }
+
+            input::-webkit-calendar-picker-indicator
+            {
+                position: absolute;
+                top: 3px;
+                right: 0;
+                color: black;
+                opacity: 1;
+            }
+    </style>
+    <section class="content-header breadcrumb-header">
+        <h1>
+            <ol class="breadcrumb">
+                <li><a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></li>
+
+                <li><span id="MainHeading" class="pagename">  Net Worth </span></li>
+            </ol>
+
+        </h1>
+        
+    </section>
+
+    <section class="content-inr expense networth">
+
+
+
+        <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+        <div class="seating-munshi panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" style="">
+                        <span class="seat-tittle" ><b style="font-size:17px;">MY NET WORTH</b></span>
+                        <span class="pull-right" style="font-size:12px; ">
+                            <input type="date" id="txtdate" data-date="" data-date-format="YYYY-MM-DD" value="" style="width:88px;" />
+                            <div style="font-size:16px;float:right;padding-top:2px;padding-left:3px;"><a href="#" onclick="getLedger('ALL');"><i class="fa fa-refresh"></i></a></div>
+                        </span>
+
+                    </h4>
+                </div>
+
+                <div class="panel-body" style="background-color:white;">
+                    <span class="amount-nw-full"><b style="font-size:20px;"><span id="MyWorth"></span></b></span>
+                    <span class="pull-right" style="padding-top:2px;"> <button data-toggle="modal" data-target="#detailpopup" type="button" class="save-btn">Details</button> </span>
+                    <div class="" style="text-align:right;padding-right:13px;"><label class="checkbox-inline" style="padding:0;font-size:12px;line-height: 20px;">Show all in black &nbsp;&nbsp;<input id="colorchk" type="checkbox" onchange="UpdateColor(this.checked)" style="margin-left:unset;" /></label></div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" id="divData" style="background-color:white;padding:15px;border:0;">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"> <img class="home" src="img/seating/Setting_Language1.svg" style="width:40px;">  <span class="seat-tittle">Bank</span> </a>
+                        <span class="pull-right">
+                            <span class="seating-right-side">
+                                <span class="c-name" id="nw-amount">56,41239875</span>
+                            </span>
+                        </span>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                        <div class="panel-group" id="accordion2">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseThreeOne" aria-expanded="false" class="collapsed">
+                                            Collapsible Group Item #3.1
+                                        </a>
+                                        <span class="pull-right">
+                                            <span class="c-name" id="nw-amount">56,41239875</span>
+                                        </span>
+                                    </h4>
+                                </div>
+                                <div id="collapseThreeOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                    <div class="panel-body">
+
+
+                                        <b>Panel 3.1</b>
+                                        <span class="pull-right"><span class="c-name" id="nw-amount">56,41239875</span></span>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+    </section>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="detailpopup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Worth Detail</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <table class="networth-tab">
+                        <tr>
+                            <td class="box-nw-m-full">
+                                <span class="box-nw">
+
+                                    <b>My Worth</b>
+                                    <span class="amount-nw" id="MyWorth2"></span>
+
+                                </span>
+
+
+                            </td>
+                            <td class="box-nw-space-full"><span class="space">=</span></td>
+
+                            <td class="box-nw-m">
+                                <span class="box-nw">
+
+                                    <b>Assets</b>
+                                    <span class="amount-nw" id="Assets"></span>
+
+                                </span>
+
+
+                            </td>
+                            <td class="box-nw-space"><span class="space">-</span></td>
+                            <td class="box-nw-m">
+                                <span class="box-nw">
+
+                                    <b> Liablities</b>
+                                    <span class="amount-nw" id="Liabilities"></span>
+
+                                </span>
+
+
+                            </td>
+                        </tr>
+                        <!--<tr>
+                            <td class="box-nw-m-full">
+                                <span class="box-nw">
+
+                                    <b>Assets</b>
+                                    <span class="amount-nw">123456789012</span>
+
+                                </span>
+
+
+                            </td>
+                            <td class="box-nw-space-full"><span class="space">=</span></td>
+
+                            <td class="box-nw-m">
+                                <span class="box-nw">
+
+                                    <b>Liabilities</b>
+                                    <span class="amount-nw">123456789012</span>
+
+                                </span>
+
+
+                            </td>
+                            <td class="box-nw-space"><span class="space">-</span></td>
+                            <td class="box-nw-m">
+                                <span class="box-nw">
+
+                                    <b> Equity</b>
+                                    <span class="amount-nw">123456789012</span>
+
+                                </span>
+
+
+                            </td>
+                        </tr>-->
+
+
+                    </table>
+
+
+
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <style>
+        .blackcolor{
+            color:#000000 !important;
+            font-size:13px !important;
+        }
+    </style>
+    <script>
+
+        function UpdateColor(a) {
+            //alert(a);
+            if (a == true) {
+               // alert("m true");
+                $(".colorset").addClass("blackcolor")
+            }
+            else
+                $(".colorset").removeClass("blackcolor");
+            
+        }
+        var dateto = new Date();
+        try {
+            var Sdate = dateto.getFullYear() + "-" + (dateto.getMonth() < 10 ? "0" + (dateto.getMonth() + 1) : (dateto.getMonth() + 1)) + "-" + (dateto.getDate() < 10 ? "0" + dateto.getDate() : dateto.getDate()); //document.getElementById("txtDate1").value;
+            $("#txtdate").val(Sdate);
+            $("#txtdate").attr("data-date-format", SettingValues.dateFormat1)
+            $("input").on("change", function () {
+                this.setAttribute(
+                    "data-date",
+                    moment(this.value, "YYYY-MM-DD")
+                        .format(this.getAttribute("data-date-format"))
+                )
+            }).trigger("change");
+        }
+        catch{
+
+        }
+        var ledgerobj = [];
+        var level1 = [];
+        var level2 = [];
+        var level3 = [];
+        var catBalance = 0;
+        var subcatBalance = 0;
+        var accountBalance = 0;
+        var ASSETS = 0;
+        var LIABILITIES = 0
+        document.getElementById("txtDate1").value = window.sessionStorage.getItem("StartDate");
+        document.getElementById("txtDate2").value = window.sessionStorage.getItem("EndDate");
+        getLedger("ALL");
+        function getLedger(param) {
+             ledgerobj = [];
+             level1 = [];
+             level2 = [];
+             level3 = [];
+             catBalance = 0;
+             subcatBalance = 0;
+             accountBalance = 0;
+             ASSETS = 0;
+             LIABILITIES = 0
+            //$('#loadI').attr('class', 'fa fa-refresh fa-spin');
+            //loading script
+            param = window.sessionStorage.getItem("DateParam");
+            //alert(param)
+            var userid = sessionStorage.getItem("UserID");
+            var Sdate =  document.getElementById("txtdate").value;
+            //var Edate = document.getElementById("txtDate2").value;
+            //alert(param + "--" + Sdate + "--" + Edate);
+            //alert(Sdate + "....." + Edate);
+            var url = "";
+            var paramdata = "";
+
+            url = 'Accounts.asmx/getWorth'
+            paramdata = "{'UserID':'" + userid + "','StartDate':'" + Sdate + "'}";
+
+            // alert(param+ "--"+ url + "---" + paramdata)
+            $('#loader').show();
+
+      
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: 'json',
+                data: paramdata,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+                    
+
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+                    ledgerobj = [];
+
+                    //if (data.Row.length > 0) {
+                    //    var Dvalues = {
+                    //        Icon: data.Row[i].Icon
+                    //        , Color: data.Row[i].Color
+                    //        , AccountID: data.Row[i].AccountID
+                    //        , AccountTitle: data.Row[i].AccountTitle
+                    //        , Balance: data.Row[i].Balance
+                    //        , CatID: data.Row[i].CatID
+                    //        , CatName: data.Row[i].CatName
+                    //        , CatColor: data.Row[i].CatColor
+                    //        , CatIcon: data.Row[i].CatIcon
+                    //        , SubCatID: data.Row[i].SubCatID
+                    //        , SubCatName: data.Row[i].SubCatName
+                    //        , SubColor: data.Row[i].SubColor
+                    //        , SubIcon: data.Row[i].SubIcon
+
+
+
+                    //    };
+                    //    level1.push(Dvalues);
+                    //    level2.push(Dvalues);
+                    //    level3.push(Dvalues);
+                    //}
+                    var Ilevel1 = "";
+                    var Ilevel2 = "";
+                    var Ilevel3 = "";
+                    for (var i = 0; i < data.Row.length; i++) {
+                        //e.nature, e.catid, e.category, e.color catcolor, e.icon catIcon, s.subcatid, s.SubCatTitle, s.Color subcolor
+                        var Dvalues = {
+                            Icon: data.Row[i].Icon
+                            , Color: data.Row[i].Color
+                            , AccountID: data.Row[i].AccountID
+                            , AccountTitle: data.Row[i].AccountTitle
+                            , Balance: data.Row[i].Balance
+                            , CatID: data.Row[i].CatID
+                            , CatName: data.Row[i].CatName
+                            , CatColor: data.Row[i].CatColor
+                            , CatIcon: data.Row[i].CatIcon
+                            , SubCatID: data.Row[i].SubCatID
+                            , SubCatName: data.Row[i].SubCatName
+                            , SubColor: data.Row[i].SubColor
+                            , SubIcon: data.Row[i].SubIcon
+                            , Nature: data.Row[i].Nature
+
+
+
+                        };
+                        if (Ilevel1 != data.Row[i].CatID) {
+                            Ilevel1 = data.Row[i].CatID;
+                            level1.push(Dvalues);
+                            //Dvalues.Balance = catBalance + catBalance;
+                            //cat.push(Dvalues);
+                        }
+                        if (Ilevel2 != data.Row[i].SubCatID) {
+                            Ilevel2 = data.Row[i].SubCatID;
+                            level2.push(Dvalues);
+                            //subcat.push(Dvalues);
+                        }
+
+                        if (Ilevel3 != data.Row[i].AccountID) {
+                            Ilevel3 = data.Row[i].AccountID;
+                            level3.push(Dvalues);
+
+
+                        }
+
+
+                        //level1 = data.Row[i].CatID;
+                        //level2 = data.Row[i].SubCatID;
+                        //level3 = data.Row[i].AccountID
+
+                        ledgerobj.push(Dvalues)
+
+                    }
+
+
+
+                    FillTable(ledgerobj);
+                    $('#loader').hide();
+                    // drawchartsingle("doughnut");
+
+                    
+                    // alert(catidarray);
+
+
+
+
+                    //drawChart();
+                    // google.charts.load('current', { 'packages': ['corechart'], "callback": drawChart });
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+
+       
+
+        }
+
+        function SearchValueLevel2(DataArray, searchvalue) {
+            //var RetArray = [];
+            var sv = searchvalue.toUpperCase();
+            //alert(sv);
+            if (sv == "" || sv == 'NaN') {
+                return DataArray;
+            }
+            else {
+                var newArray = [];
+                DataArray.forEach(function (k) {
+                    //alert(k.Narration);
+                    var data1 = (" " + k.CatID.toUpperCase() + " ");
+
+                    if (data1.match(sv) == sv) {
+                        //alert(JSON.stringify(k) + "----" + data1);
+                        newArray.push(k)
+                    };
+                });
+
+                return newArray;
+            }
+        }
+        function SearchValueLevel3(DataArray, searchvalue) {
+            //var RetArray = [];
+            var sv = searchvalue.toUpperCase();
+            //alert(sv);
+            if (sv == "" || sv == 'NaN') {
+                return DataArray;
+            }
+            else {
+                var newArray = [];
+                DataArray.forEach(function (k) {
+                    //alert(k.Narration);
+                    var data1 = (k.SubCatID).toUpperCase();
+                    if (data1.includes(sv) == true) {
+
+                        newArray.push(k)
+                    };
+                });
+
+                return newArray;
+            }
+        }
+        function compareValues(key, order = 'asc') {
+            return function (a, b) {
+                if (!a.hasOwnProperty(key) ||
+                    !b.hasOwnProperty(key)) {
+                    return 0;
+                }
+
+                const varA = (typeof a[key] === 'string') ?
+                    a[key].toUpperCase() : a[key];
+                const varB = (typeof b[key] === 'string') ?
+                    b[key].toUpperCase() : b[key];
+
+                let comparison = 0;
+                if (varA > varB) {
+                    comparison = 1;
+                } else if (varA < varB) {
+                    comparison = -1;
+                }
+                return (
+                    (order == 'desc') ?
+                        (comparison * -1) : comparison
+                );
+            };
+        }
+        function FillTable(Mdata) {
+            var datalevel3 = level3.sort(compareValues('AccountTitle', 'asc'))
+            document.getElementById("divData").innerHTML = "";
+            for (var i = 0; i < level3.length; i++) {
+                //alert(level3[i].AccountTitle);
+                var Sdata = CallAccountTtitle(datalevel3[i].AccountTitle, datalevel3[i].AccountID, datalevel3[i].Color, datalevel3[i].Icon, parseFloat(datalevel3[i].Balance).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
+                // alert(catBalance);
+                //Sdata = Sdata.replace("AA" + level2[i].SubCatID, parseFloat(subcatBalance).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                document.getElementById("divData").innerHTML = document.getElementById("divData").innerHTML + Sdata
+                //document.getElementById("A" + level1[i].CatID).innerHTML = catBalance;
+                subcatBalance = subcatBalance + parseInt(datalevel3[i].Balance, 10);
+                catBalance = catBalance + parseInt(datalevel3[i].Balance, 10);
+                //Liabilities
+                if (datalevel3[i].Nature.toUpperCase() == "Assets".toUpperCase()) {
+                    ASSETS = ASSETS + parseInt(datalevel3[i].Balance, 10);
+
+                }
+                if (datalevel3[i].Nature.toUpperCase() == "Liabilities".toUpperCase()) {
+                    LIABILITIES = LIABILITIES + parseInt(datalevel3[i].Balance, 10);
+
+                }
+            }
+            document.getElementById("MyWorth").innerHTML = SettingValues.CurrencyCode + " " + parseFloat(parseInt(ASSETS, 10) + parseInt(LIABILITIES, 10)).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            //
+            document.getElementById("MyWorth2").innerHTML = parseFloat(parseInt(ASSETS, 10) + parseInt(LIABILITIES, 10)).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            document.getElementById("Assets").innerHTML = parseFloat(parseInt(ASSETS, 10)).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            document.getElementById("Liabilities").innerHTML = parseFloat(parseInt(LIABILITIES, 10)).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            CalculateBudget(Mdata);
+
+
+        }
+
+        function setCategory(name, id, color, icon) {
+            var str = "";
+            str = str + '<div class="panel-heading">';
+            str = str + '    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#' + id + '">';
+            str = str + '        <a data-toggle="collapse" data-parent="#accordion" href="#' + id + '"> <i class="home ' + icon + '"  style="width:40px;font-size:25px;color:' + color + '"></i>  <span class="seat-tittle">' + name + '</span> </a>';
+            str = str + '            <span class="pull-right">';
+            str = str + '                <span class="seating-right-side">';
+            str = str + '                    <span class="c-name" id="A' + id + '">AA' + id + '</span>';
+            str = str + '                </span>';
+            str = str + '            </span>';
+            str = str + '        </h4>';
+            str = str + '    </div>';
+            str = str + '<div id="' + id + '" class="panel-collapse collapse"> <div class="panel-body">';
+            var dataLevel2 = SearchValueLevel2(level2, id);
+            for (var ii = 0; ii < dataLevel2.length; ii++) {
+                //alert(JSON.stringify(dataLevel2))
+                str = str + callSubCat(dataLevel2[ii].SubCatName, dataLevel2[ii].SubCatID, dataLevel2[ii].SubColor, dataLevel2[ii].SubIcon)
+                str = str.replace("AA" + dataLevel2[ii].SubCatID, parseFloat(subcatBalance).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                //document.getElementById("A" + dataLevel2[i].SubCatID).innerHTML = subcatBalance;
+                subcatBalance = 0;
+            }
+            //str = str + callSubCat(sname, sid, scolor, sicon);
+            str = str + '</div></div>';
+            return str;
+        }
+        function callSubCat(sname, sid, scolor, sicon) {
+            var str = "";
+            str = str + '<div class="panel-group" id="accordion2">';
+            str = str + '    <div class="panel panel-default">';
+            str = str + '        <div class="panel-heading">';
+            str = str + '            <h4 class="panel-title">';
+            str = str + '                <a data-toggle="collapse" data-parent="#accordion2" href="#' + sid + '" aria-expanded="false" class="collapsed">';
+            str = str + sname;
+            str = str + '                            </a>';
+            str = str + '                <span class="pull-right">';
+            str = str + '                    <span class="c-name" id="nw-amount">AA' + sid + '</span>';
+            str = str + '                </span>';
+            str = str + '            </h4>';
+            str = str + '        </div>';
+            str = str + '  <div id="' + sid + '" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">';
+            str = str + '      <div class="panel-body">';
+            var dataLevel3 = SearchValueLevel3(level3, sid);
+            for (var iii = 0; iii < dataLevel3.length; iii++) {
+                str = str + CallAccountTtitle(dataLevel3[iii].AccountTitle, dataLevel3[iii].AccountID, dataLevel3[iii].Color, dataLevel3[iii].Icon, parseFloat(dataLevel3[iii].Balance).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"))
+                //str = str.replace("AA" + dataLevel2[i].AccountID, subcatBalance);
+                //document.getElementById("A" + dataLevel2[i].SubCatID).innerHTML = subcatBalance;
+                //alert(dataLevel3[iii].Balance);
+                subcatBalance = subcatBalance + parseInt(dataLevel3[iii].Balance, 10);
+                catBalance = catBalance + parseInt(dataLevel3[iii].Balance, 10);
+                //Liabilities
+                if (dataLevel3[iii].Nature.toUpperCase() == "Assets".toUpperCase()) {
+                    ASSETS = ASSETS + parseInt(dataLevel3[iii].Balance, 10);
+
+                }
+                if (dataLevel3[iii].Nature.toUpperCase() == "Liabilities".toUpperCase()) {
+                    LIABILITIES = LIABILITIES + parseInt(dataLevel3[iii].Balance, 10);
+
+                }
+            }
+
+
+            str = str + '      </div>';
+            str = str + '  </div>';
+            str = str + '    </div>';
+            str = str + '</div>';
+            return str;
+        }
+        function CallAccountTtitle(Aname, AID, Acolor, Aicon, bal) {
+            //var str = "";
+            //str = str + '<div class="colorset" style="color:' + Acolor + '">';
+            //str = str + '<div style="float:left;">' + Aname + '</div><div  id="budget' + AID + '" style="padding-left:15px;float:left;width:80%;background-color:#ffffff;height:15px; margin-left:auto;margin-right:auto;;margin-bottom:10px;"  ></div><div style="float:right"><span class="c-name" id="nw-amount">' + bal + '</span></div>';
+            ////str = str + '          <span class="pull-right"><span class="c-name" id="nw-amount">' + bal + '</span></span>';
+            //str = str + '</div>';
+            
+            //return str;
+
+
+            var str = "";
+            str = str + '<div class="colorset" style="color:' + Acolor + '">';
+            str = str + '<table style="width:100%"><tr>';
+            str = str + '<td style="width:50%">' + Aname + '</td>'
+            str = str + '<td  id = "budget' + AID + '" style = "padding-left:5px;padding-right:5px;width:25%;background-color:#ffffff;height:15px; " ></td>';
+            str = str + '<td style = "width:25%;text-align:right;" > <span class="c-name" id="nw-amount" style="display:block !important;">' + bal + '</span></td> ';
+            str = str + '</tr></table>';
+            //str = str + '          <span class="pull-right"><span class="c-name" id="nw-amount">' + bal + '</span></span>';
+            str = str + '</div>';
+
+            return str;
+        }
+
+
+
+        function CalculateBudget(a) {
+            var Cdate = new Date();
+            var data1 = a;
+            var dd = ""
+            if ((Cdate.getMonth() + 1) < 10) dd = "0" + (Cdate.getMonth() + 1); else dd = (Cdate.getMonth() + 1);
+            var Sdate = Cdate.getFullYear() + "-" + dd + "-" + Cdate.getDate();
+            //alert(JSON.stringify(data1));
+            for (var i = 0; i < data1.length; i++) {
+                var url = 'Accounts.asmx/BudgetAmountTillDate';
+                var data11 = data1[i];
+                var paramdata = "{'AccountID':'" + data11.AccountID + "','StartDate':'" + Sdate + "'}"
+                CallBudgetAJAX(paramdata, url, data11);
+            }
+        }
+        function CallBudgetAJAX(paramdata, url, data11) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: 'json',
+                data: paramdata,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+                    var dt = "";
+                    //alert(JSON.stringify(data11));
+                    if (data.Row.length > 0) {
+                        if (parseFloat(data.Row[0].BudgetAmount) > 0) {
+                            var percent = Math.abs(parseFloat(data.Row[0].Balance) / parseFloat(data.Row[0].BudgetAmount) * 100)
+                            dt = dt + '<div data-toggle="tooltip" title="Remaining:' + (parseFloat(data.Row[0].Balance) - parseFloat(data.Row[0].BudgetAmount)) + "/" + parseFloat(data.Row[0].BudgetAmount) + '" id="' + data11.AccountID + ':' + data11.AccountTitle + '" style="width:100%;background-color:#e6dfdf;height:15px; margin-left:auto;margin-right:auto;;margin-bottom:10px;cursor:pointer;" onclick="EntryGraph(this.id)" ><div data-toggle="tooltip" title="Spent:' + parseFloat(data.Row[0].Balance) + "/" + parseFloat(data.Row[0].BudgetAmount) + '" style="width:' + percent + '%;max-width: 100%;height:100%;background-color:red"></div></div>';
+                            document.getElementById("budget" + data11.AccountID).innerHTML = dt;
+                        }
+
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+
+    </script>
+
+  
+
+
+</body>
+
+</html>

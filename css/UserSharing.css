@@ -1,0 +1,111 @@
+
+    .border1 {
+        border: solid 2px red;
+    }
+    .dbhead
+    {
+        border-radius: 5px;
+        padding: 5px;
+        font-size: 9px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: whitesmoke;
+        margin: 3px;
+    }
+input#txtSearch {
+    font-size: 12px;
+}
+    .input-group-append button {
+        font-size: 150%;
+        width: 40px;
+        position: absolute;
+        z-index: 3;
+        margin: 1px -40px;
+        height: 33px;
+    }
+
+    #Accordin section p
+    {
+        display: none;
+        text-align: center;
+    }
+
+    #Accordin section a
+    {
+        text-align: center;
+        color: black;
+        text-decoration: none;
+    }
+
+        #Accordin section a:hover
+        {
+            text-decoration: underline;
+        }
+
+    #Accordin section:target p
+    {
+        display: block;
+    }
+
+    label
+    {
+        border: 1px solid #ccc;
+        padding: 5px;
+        margin: 0px;
+        display: block;
+        text-align: left;
+    }
+
+        label:hover
+        {
+            background: #eee;
+            cursor: pointer;
+        }
+
+    .navbar-custom-menu > .navbar-nav > li > .dropdown-menu.user-menu-dropdown {
+        margin-top: 7px;
+        background: #162e47;
+        border: solid 1px #162e47;
+    }
+
+.CardStyleSharing {
+    min-width: 350px;
+    width: 49%;
+    margin-bottom: 10px;
+    height: fit-content;
+}
+    .bg-white.search-account
+    {
+        padding: 12px 0px 0px 0px;
+    }
+
+h6.text-left.text-white.p-2.mt-3 {
+    vertical-align: middle;
+    background-color: #162e470d;
+    padding: 10px;
+    margin: 0 0 12px 0;
+    color: #000 !important;
+    font-weight: bold;
+}
+div#ResultListF {
+    padding: 0;
+}
+div#SearchResult {
+    padding: 0;
+}
+div#clientAreaSharing {
+    padding: 0;
+}
+    span.pagename {
+      
+        width: auto;
+       
+    }
+    .user-image {
+        margin: 8px;
+        border: solid 1px grey;
+        min-width: 30px !important;
+        max-width: 60px;
+        width: 100%;
+        border-radius: 1000px !important;
+        height: 58px;
+    }

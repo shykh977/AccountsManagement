@@ -1,0 +1,1794 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BTG Accounts Solution</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="date=no">
+    <meta name="format-detection" content="address=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="./css/bootstrap/css/bootstrap.min.css">
+    <!-- Munshibaba css -->
+    <link rel="stylesheet" href="./css/mb.css">
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/help.css" rel="stylesheet" />
+    <script src="./js/jquery.min.js"></script>
+    <script src="./css/bootstrap/js/bootstrap.js"></script>
+    <!--other pages css and js start-->
+
+    <link href="../css/jquery-confirm.min.css" rel="stylesheet" />
+    <script src="../js/jquery-confirm.min.js"></script>
+    <link href="lib/select2/css/select2.min.css?123457" rel="stylesheet" />
+    <script src="lib/select2/js/select2.min.js"></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+    <!--other pages css and js end-->
+
+    <link rel="apple-touch-icon" sizes="57x57" href="img/logo-png.png.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/logo-png.png.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/logo-png.png.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/logo-png.png.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/logo-png.png.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/logo-png.png.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="img/logo-png.png.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/logo-png.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/logo-png.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/logo-png.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/logo-png.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="img/logo-png.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logo-png.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="css/loader.css" rel="stylesheet" />
+</head>
+
+<body class="hold-transition  sidebar-mini">
+    <script>
+        //var a = window.location.href.split("=");
+        //alert(a);
+        //if (a[1] == "2") {
+        //    sessionStorage.setItem("CurrentPage","setting2.html")
+        //}
+        function imgerror(e) {
+            e.src = "userpic/userError.png";
+
+        }
+    </script>
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('#Rpic').click(function (e) {
+
+                e.preventDefault(); // stops link from making page jump to the top
+                e.stopPropagation(); // when you click the button, it stops the page from seeing it as clicking the body too
+                $('#contentpopup').toggle();
+
+            });
+
+            $('#contentpopup').click(function (e) {
+
+                e.stopPropagation(); // when you click within the content area, it stops the page from seeing it as clicking the body too
+
+            });
+
+            $('body').click(function () {
+
+                $('#contentpopup').hide();
+
+            });
+
+        });
+
+    </script>
+   
+   
+
+    <div class="wrapper">
+        <div id="loader" class="" style="margin: 0px;display: none;"><span class="loader"></span></div>
+        <header class="main-header">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a href="#" class="logo">
+
+                <span class="logo-lg" onclick="openInNewTab('MainPage.html');">Accounts<span style="color:#f49f21;">Solution</span>  </span>
+            </a>
+
+            <nav class="navbar navbar-static-top">
+
+                <span class="page-name">PERSONAL ACCOUNTING  SYSTEM<br /><span id="Acclevel"></span> LEVEL SYSTEM</span>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                                <img id="Rpic" class="user-image" src="" onerror="imgerror(this)">
+                                <!--<welcome>Welcome</welcome>-->
+                                <span id="UserTitle" class="hidden-xs"></span>
+                            </a>
+                            <ul id="contentpopup" class="dropdown-menu user-menu-dropdown">
+                                <li class="user-header">
+
+
+                                    <img id="Rpic2" class="img-circle" alt="User Image" src="" onerror="imgerror(this)">
+
+                                    <p>
+
+                                        <span id="UserTitle2"></span>
+                                    </p>
+                                </li>
+
+
+
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <!--<a href="#" class="btn btn-default btn-flat" onclick="LoadFile('Profile.html');">My Account</a>-->
+
+                                        <a href="#" class="btn btn-default btn-flat" onclick="openInNewTab('MainPage.html');">My Dashboard</a>
+
+
+                                        <script>
+                                            function openInNewTab(url) {
+
+
+                                                var ChartLevel = window.sessionStorage.getItem("ChartLevel", ChartLevel);
+
+
+                                                if (ChartLevel == '1') { var CurrentPage = "DashboardLevel3Login.html"; }
+                                                else if (ChartLevel == '2') { var CurrentPage = "DashboardLevel2Login.html"; }
+                                                else { var CurrentPage = "Dashboard.html"; }
+
+                                                window.sessionStorage.setItem("CurrentPage", CurrentPage);
+
+                                                var win = window.open(url, '_parent');
+                                                win.focus();
+                                            }
+                                        </script>
+
+
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="#" class="btn btn-default btn-flat" onclick="Logout()">Sign out</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--<li class="dropdown notifications-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+                                    <img src="img/menu-app.png" />
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <ul class="menu">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-users text-aqua"></i> <span>Hotel Management</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="footer"><a href="#">View all</a></li>
+                                </ul>
+                            </li>-->
+                        <li class="dropdown tasks-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="img/notification-bell-icon.png" alt="income">
+                                <span id="num1" class="label label-danger"></span>
+                            </a>
+
+                            <ul id="notifications" class="dropdown-menu keep-open">
+
+                                <li>
+                                    <ul class="menu">
+                                        <li>
+                                            <div class="right-sideb ">
+
+
+                                                <div class="notification-d box">
+
+                                                    <div class="box-header box-headera">
+                                                        <h3 class="box-title">Notification</h3>
+
+                                                        <div class="box-tools box-tools ">
+                                                            <a href="#" class="red">      <img src="img/bell.png" alt=""> <span id="num2"></span> </a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="box-header">
+
+
+
+                                                        <style>
+
+
+                                                            /* Style the tab */
+                                                            .tab {
+                                                                overflow: hidden;
+                                                                border: 1px solid #ccc;
+                                                                background-color: #f1f1f1;
+                                                            }
+
+                                                                /* Style the buttons inside the tab */
+                                                                .tab button {
+                                                                    background-color: inherit;
+                                                                    float: left;
+                                                                    border: none;
+                                                                    outline: none;
+                                                                    cursor: pointer;
+                                                                    padding: 4px 3.6px;
+                                                                    transition: 0.3s;
+                                                                    font-size: 14px;
+                                                                }
+
+                                                                    /* Change background color of buttons on hover */
+                                                                    .tab button:hover {
+                                                                        background-color: #ddd;
+                                                                    }
+
+                                                                    /* Create an active/current tablink class */
+                                                                    .tab button.active {
+                                                                        background-color: #ccc;
+                                                                    }
+
+                                                            /* Style the tab content */
+                                                            .tabcontent {
+                                                                display: none;
+                                                                padding: 6px 12px;
+                                                                border: 1px solid #ccc;
+                                                                border-top: none;
+                                                            }
+                                                        </style>
+
+
+
+                                                        <div class="tab">
+                                                            <button class="tablinks active" onclick="openNoti(event, 'Transaction')">TRANSACTIONS <span id="TransactionNotiCount" class="label label-danger">0</span></button>
+                                                            <button class="tablinks" onclick="openNoti(event, 'Sharing')">ACTIVITY <span id="SharingNotiCount" class="label label-danger">0</span></button>
+
+                                                        </div>
+
+                                                        <div id="Sharing" class="tabcontent">
+                                                            <div id="Noti" class="box-body no-padding">
+                                                                <table class="table dashboard-table orange" onclick="notifications()">
+                                                                    <tbody>
+
+                                                                        <tr>
+                                                                            <td>UserID:</td>
+                                                                            <td>AQM</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Date:</td>
+                                                                            <td>11-12-2018</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Time:</td>
+                                                                            <td>5:00 pm</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">Message: </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">
+                                                                                Share a new account from friends to a shop, Shared a
+                                                                                new account from fiends to a shop. Shared a new
+                                                                                account from friends to a shop.
+
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2" class="line-beark"></td>
+                                                                        </tr>
+
+                                                                    </tbody>
+
+                                                                </table>
+                                                                <table class="table dashboard-table">
+                                                                    <tbody>
+
+                                                                        <tr>
+                                                                            <td>UserID:</td>
+                                                                            <td>XYZ</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Date:</td>
+                                                                            <td>11-12-2018</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Time:</td>
+                                                                            <td>5:00 pm</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">Message: </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">
+                                                                                Share a new account from Shoping mall fro sale.
+
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2" class="line-beark"></td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+
+                                                                <table class="table dashboard-table">
+                                                                    <tbody>
+
+                                                                        <tr>
+                                                                            <td>UserID:</td>
+                                                                            <td>XYZ</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Date:</td>
+                                                                            <td>11-12-2018</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Time:</td>
+                                                                            <td>5:00 pm</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">Message: </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">
+                                                                                Share a new account from Shoping mall fro sale.
+
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2" class="line-beark"></td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="Transaction" class="tabcontent">
+                                                            <div id="Noti2" class="box-body no-padding" onclick="notifications()">
+                                                                <table class="table dashboard-table orange">
+                                                                    <tbody>
+
+                                                                        <tr>
+                                                                            <td>UserID:</td>
+                                                                            <td>AQM</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Date:</td>
+                                                                            <td>11-12-2018</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Time:</td>
+                                                                            <td>5:00 pm</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">Message: </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">
+                                                                                Share a new account from friends to a shop, Shared a
+                                                                                new account from fiends to a shop. Shared a new
+                                                                                account from friends to a shop.
+
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2" class="line-beark"></td>
+                                                                        </tr>
+
+                                                                    </tbody>
+
+                                                                </table>
+                                                                <table class="table dashboard-table">
+                                                                    <tbody>
+
+                                                                        <tr>
+                                                                            <td>UserID:</td>
+                                                                            <td>XYZ</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Date:</td>
+                                                                            <td>11-12-2018</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Time:</td>
+                                                                            <td>5:00 pm</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">Message: </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">
+                                                                                Share a new account from Shoping mall fro sale.
+
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2" class="line-beark"></td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+
+                                                                <table class="table dashboard-table">
+                                                                    <tbody>
+
+                                                                        <tr>
+                                                                            <td>UserID:</td>
+                                                                            <td>XYZ</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Date:</td>
+                                                                            <td>11-12-2018</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Time:</td>
+                                                                            <td>5:00 pm</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">Message: </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2">
+                                                                                Share a new account from Shoping mall fro sale.
+
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="2" class="line-beark"></td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    </div>
+
+
+
+                                                    <script>
+                                                        document.getElementById('Transaction').style.display = "block";
+
+                                                        function openNoti(evt, NotiName) {
+
+                                                            var i, tabcontent, tablinks;
+                                                            tabcontent = document.getElementsByClassName("tabcontent");
+                                                            for (i = 0; i < tabcontent.length; i++) {
+                                                                tabcontent[i].style.display = "none";
+                                                            }
+                                                            tablinks = document.getElementsByClassName("tablinks");
+                                                            for (i = 0; i < tablinks.length; i++) {
+                                                                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                                                            }
+                                                            document.getElementById(NotiName).style.display = "block";
+                                                            evt.currentTarget.className += " active";
+
+
+                                                            $(document).ready(function () {
+                                                                $('.dropdown-toggle').dropdown();
+                                                            });
+
+                                                        }
+                                                    </script>
+
+
+                                                    <!-- /.box-header -->
+                                                    <!-- /.box-body -->
+                                                </div>
+
+                                                <!-- <div class="box summary">
+                                                                                                <div class="box-header">
+                                                                                                    <h3 class="box-title">Summary</h3>
+
+                                                                                                    <div class="box-tools">
+                                                                                                        <img src="img/calender.png" alt="">
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                <div class="box-body no-padding">
+                                                    <div class="income-express">
+                                                        <a class="income" href="#"><img src="img/greenicon.png" alt="INCOME"> INCOME</a>
+                                                        <a class="express" href="#"><img src="img/redicon.png" alt="EXPRESS"> EXPRESS</a>
+                                                    </div>
+                                                    <img src="img/summaryg.png" width="220" height="111" alt="">
+                                                </div>
+
+                                                                                           </div>-->
+
+
+
+
+                                            </div>
+                                        </li>
+
+
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <div class="timedate">
+                    <div class="info">
+                        <img src="img/time-date.svg" alt="" />
+                        <p id="TimedT" class="time-date">10:30am</p>
+                        <p id="TimedD" class="time-date">Monday 11-12-2019</p>
+                    </div>
+                </div>
+
+
+                <ul class="sidebar-menu tree menu-header-left" data-widget="tree">
+
+                    <li class="treeview menu-open">
+                        <a href="#" class="profile-icon sidebar-icon  sidebar-links" onclick=" $('body').removeClass('sidebar-open'); LoadFile('Profile.html');"> <span>Profile</span> </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#" class="data-usage-icon sidebar-icon  sidebar-links" onclick="sessionStorage.setItem('InputOption', 'New'); $('body').removeClass('sidebar-open'); LoadFile('Data-Usage.html');"><span>Data Usage</span></a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#" class="receipt-icon sidebar-icon  sidebar-links" onclick="sessionStorage.setItem('InputOption', 'New'); $('body').removeClass('sidebar-open'); LoadFile('Billing-info.html');"><span>Billing Info</span></a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#" class="invitation-ion sidebar-icon  sidebar-links" onclick="$('body').removeClass('sidebar-open'); LoadFile('Invitation-friends.html');"> <span> Invitations<br /> & Friends</span> </a>
+                    </li>
+
+                    <!--<li class="treeview">
+                        <a data-toggle="modal" href="#help" class="helpdu-icon  sidebar-icon  sidebar-links" onclick="$('body').removeClass('sidebar-open');">
+                            <span>Help</span>
+                        </a>
+                    </li>-->
+                    <!--<li class="treeview">
+                            <a href="#" class="reports-icon sidebar-icon">
+                                <span>reports</span>
+                            </a>
+                            <ul class="treeview-menu" style="display: none;">
+                                <li>
+                                    <a class="sidebar-links" href="#" onclick="$('body').removeClass('sidebar-open'); sessionStorage.setItem('GroupActive', '0');LoadFile('ledger.html');"><i class="fa fa-angle-right"></i>Group Ledger</a>
+                                </li>
+                                <li>
+                                    <a class="sidebar-links" href="#" onclick="$('body').removeClass('sidebar-open');sessionStorage.setItem('GroupActive', '1'); LoadFile('ledger.html');"><i class="fa fa-angle-right"></i>Shared Ledger</a>
+                                </li>
+
+                                <li>
+                                    <a class="sidebar-links" href="#" onclick="$('body').removeClass('sidebar-open'); LoadFile('AccountSharedList.html')"><i class="fa fa-angle-right"></i>Shared Transactions</a>
+                                </li>
+                                <li>
+                                    <a class="sidebar-links" href="#" onclick="$('body').removeClass('sidebar-open'); LoadFile(sessionStorage.getItem('NetWorth'))"><i class="fa fa-angle-right"></i>Net Worth </a>
+                                </li>
+
+                                <li>
+            <a class="sidebar-links" href="#" onclick="$('body').removeClass('sidebar-open'); LoadFile('IncomeSummary.html')"><i class="fa fa-angle-right"></i>Income Summary </a>
+        </li>
+                    <li>
+                        <a class="sidebar-links" href="#" onclick="$('body').removeClass('sidebar-open'); LoadFile('NETWORTHSTATEMENT.html')"><i class="fa fa-angle-right"></i>Full Statement </a>
+                    </li>
+                    <li>
+                        <a class="sidebar-links" href="#" onclick="$('body').removeClass('sidebar-open'); LoadFile('BalanceSheet.html')"><i class="fa fa-angle-right"></i>Balance Sheet </a>
+                    </li>
+
+                </ul>
+                </li>-->
+                </ul>
+
+
+                <ul class="sidebar-menu tree footer-menu-left" data-widget="tree">
+                    <li class="treeview header footer-menu munshibaba-logo">
+                        <img src="./img/munshibaba.png" class="sidebar-icon baba">
+                    </li>
+
+
+
+                    <li class="treeview header">
+                        <a href="#" class="sidebar-links invitation sidebar-icona" onclick="$('body').removeClass('sidebar-open'); LoadFile('userinvitation.html');">
+                            <span>send invitation</span>
+                        </a>
+                    </li>
+
+
+
+                    <li class="treeview header">
+                        <a href="#" class="sidebar-links sharedaccount sidebar-icona" onclick="$('body').removeClass('sidebar-open'); LoadFile('UserSharing.html');">
+                            <span> share account</span>
+                        </a>
+                    </li>
+                </ul>
+
+
+
+
+                <div class="clear"></div>
+            </section>
+
+
+        </aside>
+
+        <div class="content-wrapper">
+            <!-- <section class="content-header">
+              <h1>
+                <ol class="breadcrumb">
+               <li><a href="#">A</a></li>
+                <li class="active">B</li>
+              </ol>
+              </h1>
+
+            </section>-->
+            <!-- Main content -->
+            <section id="maincontents" class="content dashboard"></section>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        <!--<a data-toggle="modal" href="#help" id="HelpmeEanable" class="helpme"><span class="need-help">Need Help</span> <img class="rotateInDownRight" src="./img/logo-png.png"> </a>-->
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+
+            </div>
+            <strong>Copyright &copy; 2022 <a href="#">BTG Accounts Solution</a></strong>
+        </footer>
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+
+
+
+
+
+
+    <!--//////////////////////////  WELCOME ALERT   ////////////////////////////////-->
+
+
+
+    <div class="modal fade" id="WelcomeAlert">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <!-- Modal body -->
+                <div class="img-minshi"><img src="assets/img/logo-png.png"></div>
+                <div class="modal-body">
+
+
+                    <div id="level1Msg" style="display:none;">
+                        <h1>Welcome to munshibaba.com</h1>
+                        <p>We have created some accounts for your convenience.</p>
+                        <p>You can rename these accounts, change the color and icon, or even delete them and create your own, by clicking on the edit button.</p>
+                    </div>
+
+                    <div id="level2Msg" style="display:none;">
+                        <h1>Welcome to munshibaba.com</h1>
+                        <p>We have created some caregories & accounts in those caregories for your convenience.</p>
+                        <p>You can rename these categories & accounts, change the color and icon, or even delete them and create your own, by clicking on the edit button.</p>
+                    </div>
+
+                    <div id="level3Msg" style="display:none;">
+                        <h1>Welcome to munshibaba.com</h1>
+                        <p>We have created some categories, sub caregories & accounts in those caregories for your convenience.</p>
+                        <p>You can rename these categories, sub categories & accounts, change the color and icon, or even delete them and create your own, by clicking on the edit button.</p>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <span style="float:left;"> <input type="checkbox" id="WelcomeAlertCheck"> Never repeat again.<br> </span>
+                    <span style="float:right;"> <a href="#" data-dismiss="modal" onclick="UpdateWelcomeAlert();" class="btn btn-success">CONTINUE</a> </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--/////////////////////////  WELCOME ALERT   /////////////////////////////////-->
+
+
+
+    <script src="./js/fastclick.js"></script>
+    <script src="./js/mb.min.js"></script>
+
+
+
+
+    <script>
+
+
+        var UserID = sessionStorage.getItem("UserID");
+        if (UserID == null || UserID == "") { window.location.href = "./"; }
+
+
+
+
+
+
+        var WelcomeAlert = window.sessionStorage.getItem("WelcomeAlert", WelcomeAlert);
+
+
+        if (WelcomeAlert == "1") {
+           // $('#WelcomeAlert').modal();
+        }
+
+        function UpdateWelcomeAlert() {
+
+            var chk = document.getElementById("WelcomeAlertCheck");
+
+            if (chk.checked == true) {
+
+                var UserID = sessionStorage.getItem("UserID");
+                $.ajax({
+                    type: 'POST',
+                    url: "Users.asmx/UpdateWelcomeAlert",
+                    dataType: 'json',
+                    data: "{'UserID':'" + UserID + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+                        // alert(response.d);
+                        window.sessionStorage.setItem("WelcomeAlert", "0");
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+        }
+
+
+
+
+
+
+        callTimer();
+        var auto_refresh = setInterval(
+            function () {
+
+                callTimer();
+            }, 3000);
+
+        function callTimer() {
+            GetSharedTransactions();
+            getSharingNotification();
+            var num2 = document.getElementById("num1").innerText == "" ? "0" : document.getElementById("num1").innerText;
+            if (num2 == "0") {
+                $("#num1").hide();
+                $("#num2").hide();
+
+            }
+            else {
+                $("#num1").show();
+                $("#num2").show();
+            }
+            var notiCountActivity = document.getElementById("SharingNotiCount").innerText;
+            var notiCountTransaction = document.getElementById("TransactionNotiCount").innerText;
+            var TotalnotiCount = parseInt(notiCountActivity) + parseInt(notiCountTransaction);
+
+            document.getElementById("num1").innerText = TotalnotiCount;
+            document.getElementById("num2").innerText = TotalnotiCount;
+        }
+
+
+        //var notiCountActivity = document.getElementById("SharingNotiCount").innerText;
+        //var notiCountTransaction = document.getElementById("TransactionNotiCount").innerText;
+        //var TotalnotiCount = notiCountActivity + notiCountTransaction;
+
+        //document.getElementById("num1").innerText = TotalnotiCount;
+        //document.getElementById("num2").innerText = TotalnotiCount;
+
+
+
+        MoveAccountSetting();
+        function MoveAccountSetting() {
+
+            var ChartLevel = window.sessionStorage.getItem("ChartLevel", ChartLevel);
+
+            //document.getElementById("Acclevel").innerHTML = ChartLevel;
+
+            if (ChartLevel == '1') {
+                document.getElementById("Acclevel").innerHTML = "SINGLE";
+                document.getElementById("MoveAccountOption").style.display = "none";
+                document.getElementById("FSLevel1").style.display = "block";
+                document.getElementById("FSLevel2").style.display = "none";
+                document.getElementById("FSLevel3").style.display = "none";
+                document.getElementById("BSLevel1").style.display = "block";
+                document.getElementById("BSLevel2").style.display = "none";
+                document.getElementById("BSLevel3").style.display = "none";
+                document.getElementById("level1Msg").style.display = "block";
+                document.getElementById("level2Msg").style.display = "none";
+                document.getElementById("level3Msg").style.display = "none";
+            }
+            else if (ChartLevel == '2') {
+                document.getElementById("Acclevel").innerHTML = "TWO";
+                document.getElementById("MoveAccountOption").style.display = "block";
+                document.getElementById("FSLevel1").style.display = "none";
+                document.getElementById("FSLevel2").style.display = "block";
+                document.getElementById("FSLevel3").style.display = "none";
+                document.getElementById("BSLevel1").style.display = "none";
+                document.getElementById("BSLevel2").style.display = "block";
+                document.getElementById("BSLevel3").style.display = "none";
+                document.getElementById("level1Msg").style.display = "none";
+                document.getElementById("level2Msg").style.display = "block";
+                document.getElementById("level3Msg").style.display = "none";
+            }
+            else if (ChartLevel == '3') {
+                document.getElementById("Acclevel").innerHTML = "THREE";
+                document.getElementById("MoveAccountOption").style.display = "block";
+                document.getElementById("FSLevel1").style.display = "none";
+                document.getElementById("FSLevel2").style.display = "none";
+                document.getElementById("FSLevel3").style.display = "block";
+                document.getElementById("BSLevel1").style.display = "none";
+                document.getElementById("BSLevel2").style.display = "none";
+                document.getElementById("BSLevel3").style.display = "block";
+                document.getElementById("level1Msg").style.display = "none";
+                document.getElementById("level2Msg").style.display = "none";
+                document.getElementById("level3Msg").style.display = "block";
+            }
+
+
+        }
+
+
+
+        var num = 0;
+        function returnFormatedDate(datevalue, spliter) {
+
+            var dtd2 = datevalue.split(spliter);
+            var dformat = SettingValues.dateFormat1.split("-");
+            var ddArray = { "DD": dtd2[2], "MM": dtd2[1], "YYYY": dtd2[0], "YY": (dtd2[0]).toString().substring(2, 4) };
+            var tdate = ddArray[dformat[0]] + "-" + ddArray[dformat[1]] + "-" + ddArray[dformat[2]];
+            return tdate;
+        }
+
+
+        function getSharingNotification() {
+            var UserID = sessionStorage.getItem("UserID");
+            var email = sessionStorage.getItem("email");
+            var varusername = sessionStorage.getItem("UserTitle");
+            var num2 = 0;
+            num2 = num;
+            // alert(num);
+            if (UserID != "null") {
+                // $('#loader').show();
+ 
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Users.asmx/getSharingNotification',
+                        dataType: 'json',
+                        data: "{'UserID':'" + UserID + "','Email':'" + email + "'}",
+                        contentType: 'application/json; charset=utf-8',
+
+                        success: function (response) {
+
+                           
+
+
+
+                            var txt = '{"Row": ' + response.d + '}';
+                            var data = JSON.parse(txt);
+
+
+                            var str = "";
+                            var dt = "";
+                            var mvalue;
+                            var mRow
+                            //var tpay;
+                            //var trec;
+                            var bal;
+                            var mTotal;
+
+                            //document.getElementById("num1").innerText = "0";
+                            //document.getElementById("num2").innerText = "0";
+                            //document.getElementById("SharingNotiCount").innerText = "0";
+                            //document.getElementById("TransactionNotiCount").innerText = "0";
+                            if (data.Row != null) {
+                                // document.getElementById("num1").innerText = num2 + data.Row.length;
+                                num2 = num2 + data.Row.length;
+                                document.getElementById("SharingNotiCount").innerText = data.Row.length;
+                                // alert(num2);
+                                for (var i = 0; i < data.Row.length; i++) {
+                                    //  alert(data.Row[i].Category);
+                                    var dtd = data.Row[i].TDate.split(" ");
+                                    var dtd2 = dtd[0].split("-");
+                                    var dformat = SettingValues.dateFormat1.split("-");
+                                    var ddArray = { "DD": dtd2[0], "MM": dtd2[1], "YYYY": dtd2[2], "YY": (dtd2[2]).toString().substring(2, 4) };
+                                    var tdate = ddArray[dformat[0]] + "-" + ddArray[dformat[1]] + "-" + ddArray[dformat[2]];
+                                    var tm = dtd[1].split(":");
+                                    var slab = "";
+                                    if (SettingValues.timeformat == "12") {
+                                        if (parseInt(tm[0]) > 11) { tm[0] = "00" + parseInt(tm[0]) % 12; slab = " PM"; }
+                                        else {
+                                            slab = " AM";
+                                        }
+                                    }
+                                    var time2 = tm[0] + ":" + tm[1] + ":" + tm[2] + slab;
+
+                                    var Action = "";
+
+                                    if (data.Row[i].NotistatusD == "1") {
+                                        Action = "Accepted";
+                                    }
+                                    if (data.Row[i].NotistatusD == "-1") {
+                                        Action = "Decline";
+                                    }
+
+                                    if (data.Row[i].NotistatusD == "0") {
+                                        Action = "Request";
+                                    }
+
+                                    var DisplayName = "";
+                                    if (data.Row[i].UserName == varusername) {
+                                        DisplayName = data.Row[i].FullName2;
+                                    }
+                                    else {
+                                        DisplayName = data.Row[i].UserName;
+                                    }
+
+                                    dt = dt + '<table class="table dashboard-table NumRow notification-data" id="R' + data.Row[i].Lid + '" ><tbody id="' + data.Row[i].Lid + ':' + data.Row[i].NotistatusD + '" onclick="ReadNoti(this,1);">';
+                                    dt = dt + '<tr>       <td > User Name:</td><td > ' + DisplayName + ' </td> </tr>';
+                                    dt = dt + ' <tr>      <td > Account(s):</td><td > ' + data.Row[i].AccTitle + ' </td></tr> ';
+
+
+                                    dt = dt + '  <tr>     <td > Date:</td><td > ' + tdate + '</td></tr> ';
+                                    dt = dt + '   <tr>    <td > Time:</td><td > ' + time2 + '</td></tr> ';
+                                    dt = dt + '   <tr>    <td > Action:</td><td > ' + Action + ' Account Sharing</td></tr> ';
+                                    dt = dt + '<tr> <td class="line-beark" colspan="2"></td></tr>'
+                                    dt = dt + '  </tbody> </table> ';
+                                    // dt = dt + '  <div class="col-1 m-0 p-0 text-center">  <a href="#" id="' + data.Row[i].Lid + '" onclick="ReadNoti(this,0);" class="  Invite " style="font-size:17px; color:green;"><i class="fa fa-check-circle"></i></a></div>';
+                                    //dt = dt + '  </div>';
+                                    str = str + dt;
+                                    dt = "";
+
+
+
+
+
+                                }
+                                //str = str + "<tr><td colspan='3' style='font-weight:bold;text-align:center'>Total:</td><td colspan='5' style=font-weight:bold;text-aligh:left;'>" + mTotal + "</td> </tr>";
+
+                                //alert(str);
+                                document.getElementById("Noti").innerHTML = str;
+                                mTotal = 0;
+                            }
+                            // document.getElementById("ledger").innerHTML = str;
+                            //alert(num);
+                            //if (num2 == 0) {
+                            //    //$("#num1").hide();
+                            //    $("#num2").hide();
+                            //    if (num > 0) $("#num1").show();
+                            //}
+                            //else {
+                            //   if(num>0) $("#num1").show();
+                            //    $("#num2").show();
+                            //}
+
+                            // document.getElementById("num1").innerText = num2;
+                            //document.getElementById("num2").innerText = num2;
+                            $('#spandataloading').hide();
+                            $('#loader').hide();
+                            //$('#loadI').attr('class', 'fa fa-gear');
+
+
+                        },
+                        error: function (error) {
+                            //document.getElementById("num1").innerText = num2;
+                            //document.getElementById("num2").innerText = num2;
+                            console.log(error);
+                        }
+                    });
+
+ 
+            }
+        }
+
+        function GetSharedTransactions() {
+
+            var UserID = sessionStorage.getItem("UserID");
+            // alert(UserID);
+            if (UserID != "null") {
+                // $('#loader').show();
+ 
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Users.asmx/getSharedTransactionbyID',
+                        dataType: 'json',
+                        data: "{'UserID':'" + UserID + "'}",
+                        contentType: 'application/json; charset=utf-8',
+
+                        success: function (response) {
+
+
+                         
+
+
+                            var txt = '{"Row": ' + response.d + '}';
+                            // alert(response.d);
+                            var data = JSON.parse(txt);
+
+                            //alert(txt);
+                            var str = "";
+                            var dt = "";
+                            var mvalue;
+                            var mRow
+                            //var tpay;
+                            //var trec;
+                            var bal;
+                            var mTotal;
+                            // document.getElementById("num1").innerText = "0";
+                            //document.getElementById("num2").innerText = "0";
+                            //document.getElementById("SharingNotiCount").innerText = "0";
+                            //document.getElementById("TransactionNotiCount").innerText = "0";
+                            if (data.Row != null) {
+                                // document.getElementById("num1").innerText = data.Row.length;
+                                // document.getElementById("num2").innerText = data.Row.length;
+                                num = data.Row.length;
+                                document.getElementById("TransactionNotiCount").innerText = data.Row.length;
+                                // alert(num);
+
+                                for (var i = 0; i < data.Row.length; i++) {
+                                    //  alert(data.Row[i].Category);
+                                    var dtd = data.Row[i].TDate.split(" ");
+                                    var dtd2 = dtd[0].split("-");
+                                    var dformat = SettingValues.dateFormat1.split("-");
+                                    var ddArray = { "DD": dtd2[0], "MM": dtd2[1], "YYYY": dtd2[2], "YY": (dtd2[2]).toString().substring(2, 4) };
+                                    var tdate = ddArray[dformat[0]] + "-" + ddArray[dformat[1]] + "-" + ddArray[dformat[2]];
+                                    var tm = dtd[1].split(":");
+                                    var slab = "";
+                                    if (SettingValues.timeformat == "12") {
+                                        if (parseInt(tm[0]) > 11) { tm[0] = "00" + parseInt(tm[0]) % 12; slab = " PM"; }
+                                        else {
+                                            slab = " AM";
+                                        }
+                                    }
+                                    var time2 = tm[0] + ":" + tm[1] + ":" + tm[2] + slab;
+
+                                    dt = dt + '<table class="table dashboard-table NumRow notification-data" id="R' + data.Row[i].Lid + '" ><tbody  id="' + data.Row[i].Lid + '" onclick="ReadTrans(this,1);" >';
+                                    dt = dt + '<tr>       <td> User Name:</td><td> ' + data.Row[i].UserName + ' </td></tr> ';
+                                    dt = dt + '<tr>        <td> Account(s):</td><td> ' + data.Row[i].AccTitle + ' </td></tr> ';
+                                    dt = dt + '<tr>        <td> Amount:</td><td> ' + data.Row[i].TotalAmount + ' </td></tr> ';
+                                    dt = dt + '<tr>        <td> Date:</td><td> ' + tdate + '</td></tr> ';
+                                    dt = dt + '<tr>        <td> Time:</td><td> ' + time2 + '</td></tr> ';
+                                    dt = dt + '<tr>        <td> Narration:</td><td> </td></tr> ';
+                                    //dt = dt + '<tr>        <td> Status:</td><td> ' + data.Row[i].Remarks + '</td></tr> ';
+                                    //dt = dt + '<tr>        <td colspan="2"> Message:</td></tr>';
+                                    //dt = dt + '<tr>   <td colspan = "2" > ' + data.Row[i].Remarks + ' </td></tr> ';
+                                    dt = dt + '<tr> <td class="line-beark" colspan="2"><td></tr>'
+                                    dt = dt + '  </tbody> </table> ';
+                                    // dt = dt + '  <div class="col-1 m-0 p-0 text-center">  <a href="#" id="' + data.Row[i].Lid + '" onclick="ReadNoti(this,0);" class="  Invite " style="font-size:17px; color:green;"><i class="fa fa-check-circle"></i></a></div>';
+                                    //dt = dt + '  </div>';
+
+
+                                    //dt = dt + '<div class="row NumRow" id="R' + data.Row[i].Lid + '"><div class="col-11 small m-0 p-0 " style="font-size:11px;"><a href="#" id="' + data.Row[i].Lid + '" onclick="ReadTrans(this,1);" ><i class="fa fa-question-circle-o" >';
+                                    //dt = dt + '       </i> Mr.' + data.Row[i].UserName + ' make transaction in ' + data.Row[i].AccTitle + ' of Rs.' + data.Row[i].TotalAmount + ' on ' + data.Row[i].TDate + '(' + data.Row[i].Remarks + ')' + '</a> </div > ';
+                                    //dt = dt + '  ';
+                                    //dt = dt + '  <div class="col-1 m-0 p-0 text-center">  <a href="#" id="' + data.Row[i].Lid + '" onclick="ReadTrans(this,0);" class="  Invite " style="font-size:17px; color:green;"><i class="fa fa-check-circle"></i></a></div>';
+                                    //dt = dt + '  </div>';
+                                    str = str + dt;
+                                    dt = "";
+
+
+
+
+
+                                }
+                                //str = str + "<tr><td colspan='3' style='font-weight:bold;text-align:center'>Total:</td><td colspan='5' style=font-weight:bold;text-aligh:left;'>" + mTotal + "</td> </tr>";
+                                document.getElementById("Noti2").innerHTML = str;
+                                mTotal = 0;
+                            }
+
+                            // document.getElementById("ledger").innerHTML = str;
+                            //if (num == 0) {
+                            //    $("#num1").hide();
+                            //    $("#num2").hide()
+                            //}
+                            //else {
+                            //    $("#num1").show();
+                            //    $("#num2").show();
+                            //}
+
+                            $('#spandataloading').hide();
+                            $('#loader').hide();
+
+
+                            //getSharingNotification();
+
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+
+
+               
+
+            }
+        }
+
+
+
+        function ReadTrans(lid, st) {
+            var id = lid.id;
+            //string UserID, string LID, string status, string description
+            var uid = window.sessionStorage.getItem("UserID");
+            //ReadTranscation LID
+
+          
+                $.ajax({
+                    type: 'POST',
+                    url: 'Users.asmx/ReadTranscation',
+                    dataType: 'json',
+                    data: "{'UserID':'" + uid + "','LID':'" + id + "','status':'" + "1" + "','description':'" + "First Read" + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+ 
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        var elem = document.getElementById("R" + id);
+                        elem.outerHTML = "";
+                        var arr = document.getElementsByClassName("NumRow");
+                        document.getElementById("num1").innerText = arr.length;
+                        document.getElementById("num2").innerText = arr.length;
+                        $('#spandataloading').hide();
+                        $('#loader').hide();
+                        //$('#loadI').attr('class', 'fa fa-gear');
+                        //alert(id);
+                        if (st == 1) {
+                            sessionStorage.setItem("TransID", id);
+                            LoadFile("viewTransaction.html");
+
+                        }
+
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+
+
+         
+
+        }
+        function ReadNoti(lid, st) {
+            var id = lid.id.split(":");
+            //string UserID, string LID, string status, string description
+            var uid = window.sessionStorage.getItem("UserID");
+            if (id[1] == "0") {
+                //http://munshibaba.com/invitation-share.html?id=XE76D80D3-3FE0-4AFA-A881-743A860BE17C
+                sessionStorage.setItem("FromMainpage", "mainpage.html");
+                window.location.href = "../invitation-share.html?id=X" + id[0];
+            }
+            else {
+                //ReadTranscation LID
+
+             
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Users.asmx/ReadNoti_New',
+                        dataType: 'json',
+                        data: "{'UserID':'" + uid + "','SharedID':'" + id[0] + "'}",
+                        contentType: 'application/json; charset=utf-8',
+
+                        success: function (response) {
+
+                          
+
+                            var txt = '{"Row": ' + response.d + '}';
+                            var data = JSON.parse(txt);
+                            //alert(txt);
+                            var elem = document.getElementById("R" + id[0]);
+                            elem.outerHTML = "";
+                            var arr = document.getElementsByClassName("NumRow");
+                            document.getElementById("num1").innerText = arr.length;
+                            document.getElementById("num2").innerText = arr.length;
+                            $('#spandataloading').hide();
+                            $('#loader').hide();
+                            //$('#loadI').attr('class', 'fa fa-gear');
+                            if (st == 1) {
+
+                                //sessionStorage.setItem("TransID", id);
+                                //sessionStorage.setItem("GroupActive", "1");
+                                LoadFile("LedgerMyShared.html");
+
+                            }
+
+
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+
+          
+
+
+            }
+
+        }
+
+
+
+
+    </script>
+    <script>
+        var SettingValues;
+        loadUserSettings();
+
+        document.getElementById("Noti").innerHTML = "";
+
+        function TimeSetting1() {
+            var dd = new Date();
+            var mm11 = dd.getMonth() + 1;
+            var dd11 = "00" + dd.getDate();
+            var mm22 = "00" + mm11;
+            var mm23 = "00" + dd.getMinutes();
+            var ss23 = "00" + dd.getSeconds();
+            var hh23 = "00" + dd.getHours();
+            var slab = "";
+            if (SettingValues.timeformat == "12") {
+                if (dd.getHours() > 11) { hh23 = "00" + dd.getHours() % 12; slab = " PM"; }
+                else {
+                    slab = " AM";
+                }
+            }
+            // console.log(JSON.stringify(SettingValues));
+            var dformat = SettingValues.dateFormat1.split("-");
+            var ddArray = { "DD": dd11.substr(dd11.length - 2, 2), "MM": (mm22.substr(mm22.length - 2, 2)), "YYYY": dd.getFullYear(), "YY": (dd.getFullYear()).toString().substring(2, 4) };
+            //console.log(ddArray[dformat[0]]);
+            //alert(JSON.stringify(ddArray));
+            var time1 = hh23.substr(hh23.length - 2, 2) + ":" + mm23.substr(mm23.length - 2, 2) + ":" + ss23.substr(ss23.length - 2, 2) + slab;
+
+            document.getElementById("TimedT").innerHTML = time1;
+            //document.getElementById("TimedD").innerHTML = dd11.substr(dd11.length - 2, 2) + "-" + (mm22.substr(mm22.length - 2, 2)) + "-" + dd.getFullYear();
+            document.getElementById("TimedD").innerHTML = ddArray[dformat[0]] + "-" + ddArray[dformat[1]] + "-" + ddArray[dformat[2]];
+
+
+            // Timed
+        }
+        function loadUserSettings() {
+
+            var userid = sessionStorage.getItem("UserID");
+
+            // alert("{'UserID':'" + userid + "'}");
+            SettingValues = JSON.parse(sessionStorage.getItem("SettingValues"));
+            if (SettingValues.Help == "1") {
+                $("#HelpmeEanable").show();
+            } else {
+                $("#HelpmeEanable").hide();
+            }
+            TimeSetting1();
+
+            //GetSharedTransactions();
+
+
+
+
+        }
+        if (sessionStorage.getItem("CurrentPage") != "Dashboard.html") {
+            RefreshFile(sessionStorage.getItem("CurrentPage"));
+        }
+        if (sessionStorage.getItem("CurrentPage") == "Dashboard.html") {
+            LoadFile(sessionStorage.getItem("CurrentPage"));
+        }
+
+        function Logout() {
+
+            window.sessionStorage.removeItem("UserID");
+            window.sessionStorage.removeItem("UserName");
+            window.sessionStorage.removeItem("UserTitle");
+            window.sessionStorage.removeItem("email");
+            window.sessionStorage.removeItem("CellNo");
+            window.sessionStorage.removeItem("DateofCreation");
+            window.sessionStorage.removeItem("ActiveStatus");
+
+            /////////////////////////////////////////////////////
+
+            window.sessionStorage.removeItem("CurrentPage");
+            window.sessionStorage.removeItem("StartDate");
+            window.sessionStorage.removeItem("NetWorth");
+            window.sessionStorage.removeItem("AccountData");
+            window.sessionStorage.removeItem("LastPage");
+            window.sessionStorage.removeItem("DashBoard");
+            window.sessionStorage.removeItem("EndDate");
+            window.sessionStorage.removeItem("SettingValues");
+            window.sessionStorage.removeItem("InputOption");
+            window.sessionStorage.removeItem("CatID");
+            window.sessionStorage.removeItem("SubCatID");
+            window.sessionStorage.removeItem("CatNature");
+            window.sessionStorage.removeItem("BackPage");
+            window.sessionStorage.removeItem("subCatTitle");
+            window.sessionStorage.removeItem("UserIDShared");
+            window.sessionStorage.removeItem("subCatID");
+            window.sessionStorage.removeItem("CatTitle");
+            window.sessionStorage.removeItem("WelcomeAlert");
+
+
+            location.href = "./";
+        }
+        function PageFarward() {
+            var pages = [];
+            pages = JSON.parse(sessionStorage.getItem("PreviousPage"));
+            var page = pages.pop();
+            if (page == "") {
+
+            }
+            else {
+
+                LoadFile(page);
+            }
+        }
+        var loadfromback = 0;
+        function PageBackward() {
+            var pages = [];
+
+            pages = JSON.parse(sessionStorage.getItem("BackPage"));
+            //console.log(sessionStorage.getItem("BackPage"));
+            if (sessionStorage.getItem("BackPage") != null) {
+
+                if (pages.length > 1) {
+                    var page = pages.pop();
+                    sessionStorage.setItem("BackPage", JSON.stringify(pages))
+                    //console.log("if--" + sessionStorage.getItem("BackPage"))
+                    if (page == "none") {
+                        pages.push(page);
+                    }
+                    else {
+                        // var pages = ['none'];
+                        //var backpage = sessionStorage.getItem("BackPage");
+
+                        //if (backpage != null)
+                        //    if (backpage !== ""){ pages = JSON.parse(backpage); }
+                        //if (pages[pages.length - 1] != sessionStorage.getItem("CurrentPage"))
+                        //pages.push(sessionStorage.getItem("CurrentPage"));
+                        //sessionStorage.setItem("PreviousPage", JSON.stringify(pages))
+                        loadfromback = 1;
+                        LoadFile(page);
+                    }
+                }
+            }
+        }
+        var random = Math.random() * 1000;
+        function LoadFile(a) {
+
+            var pages = ['none'];
+            var backpage = sessionStorage.getItem("BackPage");
+            //alert(backpage);
+            //console.log("File---"+backpage);
+            if (backpage != null)
+                if (backpage !== "") { pages = JSON.parse(backpage); }
+
+            if (pages[pages.length - 1] != sessionStorage.getItem("CurrentPage"))
+                if (loadfromback == 0) pages.push(sessionStorage.getItem("CurrentPage"));
+
+            loadfromback = 0
+            sessionStorage.setItem("BackPage", JSON.stringify(pages))
+            sessionStorage.setItem("LastPage", sessionStorage.getItem("CurrentPage"));
+            sessionStorage.setItem("CurrentPage", a);
+            $('#loader').show();
+            a = a + "?" + random;
+            $.ajax({
+                url: a,
+                cache: false,
+                dataType: "html",
+                success: function (data) {
+                    $("#maincontents").html(data);
+                    $('#loader').hide();
+
+                    //alert(sessionStorage.getItem("LastPage"));
+                    return false;
+
+                },
+                error: function (error) {
+                    //alert("Issues with loading data !");
+
+                    $.alert({ title: 'Alert!:', content: 'Issues with loading data !', });
+
+                    $('#loader').hide();
+                }
+            });
+
+
+        }
+
+        function RefreshFile(a) {
+
+
+            //sessionStorage.setItem("LastPage", sessionStorage.getItem("CurrentPage"));
+            sessionStorage.setItem("CurrentPage", a);
+            $('#loader').show();
+            $.ajax({
+                url: a,
+                cache: false,
+                dataType: "html",
+                success: function (data) {
+                    $("#maincontents").html(data);
+                    $('#loader').hide();
+
+                    //alert(sessionStorage.getItem("LastPage"));
+                    return false;
+
+
+                },
+                error: function (error) {
+                    //alert("Issues with loading data !");
+
+                    $.alert({ title: 'Alert!:', content: 'Issues with loading data !', });
+                    $('#loader').hide();
+                }
+            });
+
+
+        }
+
+        var userid = sessionStorage.getItem("UserID");
+        if (userid == null) {
+            location.href = "login2.html";
+        }
+        var usertitle = sessionStorage.getItem("UserTitle");
+        document.getElementById("UserTitle").innerText = usertitle;
+        document.getElementById("UserTitle2").innerText = usertitle;
+
+
+        document.getElementById("Rpic").src = '/userpic/' + userid + '.jpg?' + random;
+        document.getElementById("Rpic2").src = '/userpic/' + userid + '.jpg?' + random;
+
+
+
+    </script>
+    <script>
+
+        setInterval(function () {
+            TimeSetting1();
+        }, 1000);
+    </script>
+
+
+    <div id="help" class="modal modal-wide fade">
+        <help id="helpsticky">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <script>
+                            $(help).scroll(function () {
+                                var yourTop = $('#helpsticky').position().top;
+                                if ($(this).scrollTop() > yourTop) {
+                                    $(".modal-header").addClass("stickyHead");
+
+                                }
+                                else if ($(this).scrollTop() < yourTop) {
+                                    $(".modal-header").removeClass("stickyHead");
+
+                                }
+                            });
+
+
+                        </script>
+                        <script>
+
+
+                            $('backtop').on("click", function () {
+                                $(help).scrollTop(0);
+                            });
+
+
+                        </script>
+
+                        <div id="helpmenu" class="modal-header">
+
+
+
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <nav class="navbar navbar-inverse navbar-no-bg bg-white" role="navigation">
+                                <div class="container login-header">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+
+                                    </div>
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse" id="top-navbar-1">
+                                        <ul class="nav navbar-nav navbar-right">
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" href="#top"> Home</a>
+                                            </li>
+
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" href="#dashboardb"> Dashboard </a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" href="#lv1">Level-1</a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" href="#lv2">Level-2</a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" href="#lv3">Level-3</a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" href="#edit2">Edit</a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" href="#paymentH">Payment</a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" href="#move2">Move</a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" href="#report2">Report</a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" href="#seting2">Setting</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+
+                        </div>
+                        <div class="contentb">
+                            <div id="top" class="container d-flex">
+                                <div class="col-md-10 col-lg-10" style="padding-left:0px;">
+                                    <div class="logo-smal img-fluid dflx">
+                                        <img src="./img/logo-png.png">
+                                    </div>
+                                    <div class="img-how">
+                                        <img class="img-responsive" src="./img/help1.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-xl-3 right-col " style="padding-top:0px;max-width:20%;text-align:center">
+                                    <div class="">
+                                        <img src="./img/logo-png.png" style="width:111%">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="help" class="container d-flex">
+                                <div class="col-sm-12 col-md-10 col-lg-10 col-xl-10 help-col">
+                                    <p>
+                                        munshibaba.com has three (03) level accounting system. At the main dashboard, four (04) basic accounting heads have been provided for the convenience of the users. User can create unlimited number of main/basic heads even at the level.
+                                        <br>
+                                        <br>It is better to make a chart of accounts first on paper before creating sub-categories / sub-heads and then create further accounts in those sub heads. For instance, in Bank, user can create different banks, and then in those banks
+                                        user can create multiple accounts.&nbsp;
+                                        <br>
+                                    </p>
+
+                                    <h4 class="smal-h4 levels">
+                                        3 LEVEL ACCOUNTING SYSTEM
+                                        <br>
+                                    </h4>
+                                    <img class="img-responsive img-help2" src="./img/help2.png">
+
+                                    <div id="dashboardb" class="slideInUp">
+                                        <h4 class="smal-h4">
+                                            DASHBOARD VIEW
+                                            <br>
+                                        </h4>
+                                        <img class="img-responsive img-help3" src="./img/help3.png">
+                                        <p>
+                                            1. &nbsp; Account Title
+                                            <br>2. &nbsp; Current Time and Date
+                                            <br>3. &nbsp; Menu Options
+                                            <br>4. &nbsp; Munshibaba Logo
+                                            <br>5. &nbsp; For inviting friends and others to use munshibaba.com
+                                            <br>6. &nbsp; Share accounts with others
+                                            <br>7. &nbsp;
+                                            The Pie Chart at level 1
+                                            <br>8. &nbsp; Category or Basic accounting head
+                                            <br>9. &nbsp; Notifications - Click to View Notifications
+                                            <br>10. User Icon - Click it for User Options
+                                            <br>11. Graph Display Types
+                                            <br>12. Date Selection
+                                        </p>
+                                    </div>
+
+                                    <div id="lv1" class="slideInUp">
+                                        <h4 class="smal-h4">
+                                            LEVEL 1
+                                            <br>
+                                        </h4>
+                                        <img class="img-responsive img-level1" src="./img/level 1.png">
+                                        <p>
+                                            1. This Level depicts basic accounting heads
+                                            <br>2. Change Graph Type any time by selecting any graph option icon
+                                            <br>3. Click Add/Delete Account Button to Create New Sub-Category and Edit or Delete any head
+                                            <br>4. Search any Category
+                                            through Search Bar
+                                            <br>5. Click any category or head to proceed to Level 2
+                                            <br>
+                                            <br>Example: To go inside Bank Category click Bank at its icon.
+                                        </p>
+                                    </div>
+
+                                    <div id="lv2" class="slideInUp">
+                                        <h4 class="smal-h4 ">
+                                            LEVEL 2
+                                            <br>
+                                        </h4>
+                                        <img class="img-responsive img-level2" src="./img/level 2.png">
+                                    </div>
+
+                                    <div id="lv3" class="slideInUp">
+                                        <h4 class="smal-h4">
+                                            LEVEL 3
+                                            <br>
+                                        </h4>
+                                        <img class="img-responsive img-level3" src="./img/level 3.png">
+                                    </div>
+                                    <div id="edit2" class="slideInUp">
+                                        <h4 class="smal-h4">
+                                            EID CATEGORY
+                                            <br>
+                                        </h4>
+                                        <img class="img-responsive img-edit" src="./img/edit_category.png">
+                                        <p>
+                                            1. &nbsp; Here you can create or change any Category’s Name, Color &amp; Icon
+                                            <br>2. &nbsp; Click Delete button to delete this Category or head
+                                            <br>3. &nbsp; Click on Apply to effects changes on category
+                                            <br>4. &nbsp; Cancel it by clicking
+                                            Cancel Button
+                                        </p>
+                                    </div>
+                                    <div id="paymentH" class="slideInUp">
+                                        <h4 class="smal-h4">
+                                            PAYMENT
+                                            <br>
+                                        </h4>
+                                        <img class="img-responsive img-payment" src="./img/payment.png">
+                                        <p>To make any payment or receipt just fill the form and click on save button.</p>
+                                    </div>
+
+                                    <div id="move2" class="slideInUp">
+                                        <h4 class="smal-h4">
+                                            MOVE ACCOUNT
+                                            <br>
+                                        </h4>
+                                        <img class="img-responsive img-move" src="./img/move_account.png">
+                                    </div>
+
+                                    <div id="report2" class="slideInUp">
+                                        <h4 class="smal-h4">
+                                            REPORT
+                                            <br>
+                                        </h4>
+                                        <img class="img-responsive img-report" src="./img/Report.png">
+                                    </div>
+
+                                    <div id="seting2" class="slideInUp">
+                                        <h4 class="smal-h4">
+                                            SETTING
+                                            <br>
+                                        </h4>
+                                        <img class="img-responsive img-setting" src="./img/setting.png">
+                                        <p>To change Setting of Category, Language, Currency, Date Format, Share Accounts, Move Accounts or Backup &amp; Restore.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-lg-3 col-xl-3 right-col" style="background-color:#cfd0d1;padding-top:21px;max-width:20.4%;">
+                                    <h4 class="levels">
+                                        3 LEVEL
+                                        <br> ACCOUNTING
+                                        <br>SYSTEM
+                                        <br>
+                                    </h4>
+                                    <h4 class="dashboardb">
+                                        DASHBOARD
+                                        <br> VIEW
+                                        <br>
+                                    </h4>
+                                    <h4 class="level1"> LEVEL 1</h4>
+                                    <h4 class="level2"> LEVEL 2</h4>
+                                    <h4 class="level3"> LEVEL 3</h4>
+                                    <h4 class="edit">
+                                        EDIT&nbsp;
+                                        <br>CATEGORY
+                                        <br>
+                                        <br>
+                                    </h4>
+                                    <h4 class="paymentH">
+                                        PAYMENT
+                                        <br>
+                                    </h4>
+                                    <h4 class="move">
+                                        MOVE&nbsp;
+                                        <br>ACCOUNT
+                                        <br>
+                                    </h4>
+                                    <h4 class="report"> REPORT</h4>
+                                    <h4 class="setting"> SETTING</h4>
+                                </div>
+                            </div>
+
+
+                            <div class="clear"></div>
+                        </div>
+
+                    </div>
+                    <div class="clear"></div>
+
+
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </help>
+        <a id="backtop" href="#top"><img class="top-arrow" src="./img/arrow-up-m.png"></a>
+    </div><!-- /.modal -->
+
+
+    <script>
+        function notifications() {
+            document.getElementById("notifications").style.display = "none";
+        }
+    </script>
+    <script>
+
+
+        jQuery('.dropdown-toggle').on('click', function (e) {
+            $(this).next().toggle();
+        });
+        jQuery('.dropdown-menu.keep-open').on('click', function (e) {
+            e.stopPropagation();
+        });
+
+        if (1) {
+            $('body').attr('tabindex', '0');
+        }
+        else {
+            alertify.confirm().set({ 'reverseButtons': true });
+            alertify.prompt().set({ 'reverseButtons': true });
+        }
+
+
+
+
+
+    </script>
+
+
+
+
+</body>
+</html>

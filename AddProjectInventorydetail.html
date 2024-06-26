@@ -1,0 +1,489 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Inventory Detail</div>
+
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+
+                    <div class="input-group small mt-6 " style="display:none">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id=""> Select Project</span>
+                        </div>
+                        <select id="selectproject" type="text" inputmode="numeric" class="form-control" placeholder="Enter Project Name"></select>
+                    </div>
+
+
+                    <div class="input-group small mt-2 " style="display:none">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Select Project Location</span>
+                        </div>
+                        <select id="selectProjectlocation" type="text" inputmode="numeric" class="form-control" placeholder="Enter Name"></select>
+                    </div>
+
+                    <div class="input-group small mt-2 " style="display:none">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Select Customer</span>
+                        </div>
+                        <select id="customer" type="text" inputmode="numeric" class="form-control" placeholder="Enter Designation"></select>
+                        <div class="input-group-append"><span class="input-group-text" data-toggle="modal" data-target="#StcustomerModal" onclick="SaleAppModal()" style="cursor: pointer;">+</span></div>
+                    </div>
+
+                    <div class="input-group small mt-2 " style="display:none">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Select Inventory Unit </span>
+                        </div>
+                        <select id="inventoryunit" type="text" inputmode="numeric" class="form-control" placeholder="Enter sizetype"></select>
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">File No</span>
+                        </div>
+                        <input id="fileno" type="text" inputmode="numeric" class="form-control" placeholder="Enter File No" />
+                    </div>
+
+                    <div class="input-group small mt-2 " style="display:none">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0" style="display:none">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">File No To </span>
+                        </div>
+                        <input id="filenoto" type="text" inputmode="numeric" class="form-control" placeholder="Enter File No To" />
+                    </div>
+
+                    <div class="input-group small mt-2 " style="display:none">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">File No From</span>
+                        </div>
+                        <input id="filenofrom" type="text" inputmode="numeric" class="form-control" placeholder="Enter File No From" />
+
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Status</span>
+                        </div>
+                        <select id="FileStatus" type="text" inputmode="numeric" class="form-control" placeholder="Enter sizetype">
+                            <option value=''>Select File Status</option>
+                            <option value='Closed'>Closed</option>
+                            <option value='Cancelled'>Cancelled</option>
+                            <option value='Marge'>Marge</option>
+                            <option value='Open'>Open</option>
+                        </select>
+
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Note No</span>
+                        </div>
+                        <input id="Noteno" type="text" inputmode="numeric" class="form-control" placeholder="Enter Note No" />
+
+                    </div>
+
+                    <div class="input-group small mt-2 " style="display:none">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Investor</span>
+                        </div>
+                        <input id="investor" type="text" inputmode="numeric" class="form-control" placeholder="Enter Investor" />
+
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Printed</span>
+                        </div>
+                        <select id="Printed" type="text" inputmode="numeric" class="form-control" placeholder="Enter sizetype">
+                            <option value=''>Select Printer</option>
+                            <option value='Yes'>Yes</option>
+                            <option value='No'>No</option>
+                        </select>
+
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Type</span>
+                        </div>
+                        <select id="Type" type="text" inputmode="numeric" class="form-control" placeholder="Enter sizetype">
+                            <option value=''>Select Type</option>
+                            <option value='Acutal'>Acutal</option>
+                            <option value='Rebet'>Rebet</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group small mt-2 " style="display:none">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Parent Agent</span>
+                        </div>
+                        <input id="parentagent" type="text" inputmode="numeric" class="form-control" placeholder="Enter Parent Agent" />
+
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                        <div>
+                            <input id="imgfile" class="form-control" onchange="MyFile();" type="file" name="image" accept="application/pdf, image/*" />
+                            <a id="btnReset" href="#" class="attach-btn " onclick="AddAttchement();"> <span class="btn-name">Attachment </span> </a><br /><span style="font-size:12px;"> (Maximum two attachments allowed)</span>
+
+                            <div id="AttachmentData" style="max-height:100px;overflow:auto;">
+                                <br />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="CreateInventoryDetail();"> <span class="btn-name">Save  </span> </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">Users</div>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>File No.</th>
+                                        <th>Status</th>
+                                        <th>Note No </th>
+                                        <th>Printed</th>
+                                        <th>Type</th>
+                                        <th>Allocate </th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="InventoryDetail">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--.......... File Allocate ...........-->
+
+    <div class="modal fade" id="StFileAllocateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Allocate File</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 col-sm-12 col-md-12 p-all">
+
+                        <!--InventoryAllocationId
+                        ProjectInventoryDetailId
+                        AllocatedTo
+                        AllocatedToType /// nvarchar
+                        InventoryNumber
+                        AllocationDate
+                        TotalPrice
+                        PaidAmount-->
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Allocated To</label>
+                            <select class="form-control" id="AllocatedTo" placeholder="Enter Store Name Here" onchange="GetAllocatedToName(this.value)">
+
+                                <option value="">Allocated To</option>
+                                <option value="Customer">Customer</option>
+                                <option value="Agent">Agent</option>
+                                <option value="Investor">Investor</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Allocated To Name</label>
+                            <select class="form-control" id="AllocatedToName" placeholder="Enter Store Name Here"> </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Allocation Date</label>
+                            <input id="AllocationDate" type="date" inputmode="numeric" class="form-control" placeholder="Enter Investor" />
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Total Amount</label>
+                            <input id="TotalAmount" type="number" inputmode="numeric" class="form-control" placeholder="Total Amount" />
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Paid Amount</label>
+                            <input id="PaidAmount" type="text" inputmode="numeric" class="form-control" placeholder="Paid Amount " />
+
+                        </div>
+
+
+
+                        <div>
+
+                            <table id="user-table" class="table table-striped mb-0">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>S/No</th>
+                                        <th>Project Name</th>
+                                        <th>Phase Name</th>
+                                        <th>EDIT</th>
+                                        <th>DELETE</th>
+                                    </tr>
+                                <tbody id="TblProjectPhase">
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" onclick="CreateInventoryAllocation()" id="btnSave">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="UpdateStoreLocation()" id="btnSave">UPDATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--.......... File Transfer ...........-->
+
+    <div class="modal fade" id="StFileTransferModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Transfer File</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 col-sm-12 col-md-12 p-all">
+
+
+                        <div>
+
+                            <table id="user-table" class="table table-striped mb-0">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>S/No</th>
+                                        <th>Allocated To</th>
+                                        <th>Allocated To Name</th>
+                                        <th>Allocation Date</th>
+                                        <th>TotalPrice</th>
+                                        <th>PaidAmount</th>
+                                       
+                                    </tr>
+                                <tbody id="InventoryAllocation">
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Transfer To</label>
+                            <select class="form-control" id="TransferTo" placeholder="Enter Store Name Here" onchange="GetTransferTo(this.value)">
+                                <option value="">Transfer To</option>
+                                <option value="Customer">Customer</option>
+                                <option value="Agent">Agent</option>
+                                <option value="Investor">Investor</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Transfer To Name</label>
+                            <select class="form-control" id="TransferToName" placeholder="Enter Store Name Here"> </select>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Transfer Fee</label>
+                            <input id="TransferFee" type="number" inputmode="numeric" class="form-control" placeholder="Transfer Fee" />
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="catname">Deduction</label>
+                            <input id="Deduction" type="number" inputmode="numeric" class="form-control" placeholder="Deduction" />
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" onclick="CreateInventoryTransfer()" id="btnSave">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="UpdateStoreLocation()" id="btnSave">UPDATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="js/Budgetsetting.js"></script>
+    <script src="BuilderScripts/InventoryService.js"></script>
+    <script src="BuilderScripts/AgentAndInvestorService.js"></script>
+    <script src="BuilderScripts/TransferService.js"></script>
+</body>
+</html>
+
+
+<script>
+    GetProjectInventoryDetail()
+    function GetAllocatedToName(val) {
+
+        if (val == "Customer") {
+            GetProjectCustomers()
+        }
+        else if (val == "Agent") {
+            GetAgentsList()
+        }
+        else if (val == "Investor") {
+            GetInvestorsList()
+        }
+        else {}
+    }
+</script>
+
+<script>
+    
+    function GetTransferFrom(val) {
+
+        if (val == "Customer") {
+           
+            GetProjectCustomersFrom()
+        }
+        else if (val == "Agent") {          
+            GetAgentsListFrom()
+        }
+        else if (val == "Investor") {
+            GetInvestorsListFrom()
+        }
+        else {}
+    }
+
+
+    function GetTransferTo(val) {
+
+        if (val == "Customer") {
+           
+            GetProjectCustomersTo()
+        }
+        else if (val == "Agent") {          
+            GetAgentsListTo()
+        }
+        else if (val == "Investor") {
+            GetInvestorsListTo()
+        }
+        else {}
+    }
+
+
+
+
+
+
+</script>
+
+
+<script>
+    function AddAttchement() {
+
+        $('#imgfile').click();
+
+
+    }
+
+    var file2;
+    $('#imgfile').hide();
+    var filename1 = [];
+
+
+
+    function Click() {
+
+        FilterShowPopup();
+    }
+
+
+    fillColor();
+
+    function fillColor() {
+        document.getElementById("FillDiv").style.display = "none";
+
+
+        var colorArray = ['FFFFFF', 'DA5353', 'FFFF00', '7FFFD4', 'F0FFFF', 'F5F5DC', 'FFE4C4', 'FFEBCD', 'DEB887', '7FFF00',
+            'FF7F50', '6495ED', 'FFF8DC', '00FFFF', 'BDB76B', 'FF8C00',
+            'E9967A', '8FBC8F', '00CED1'];
+        var elem = document.getElementById("FillDiv");
+
+        for (var a = 0; a < colorArray.length; a++) {
+            var str = "";
+            str = "<div onclick=ColorClicked('" + colorArray[a] + "') class='ColorFill' style='background-color:#" + colorArray[a] + ";' > </div>";
+            elem.innerHTML = elem.innerHTML + str;
+
+        }
+    }
+
+
+    function ColorClicked(a) {
+        //alert(a);
+        document.getElementById("divColor").style.backgroundColor = "#" + a;
+
+        $('#FillDiv').hide();
+    }
+
+
+</script>

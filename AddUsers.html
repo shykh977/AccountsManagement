@@ -1,0 +1,502 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Add New User</div>
+                    
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Username</span>
+                        </div>
+                        <input id="txtUsername" type="text" inputmode="numeric" class="form-control" placeholder="Enter Username" />
+                    </div> 
+                    
+                    
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Email</span>
+                        </div>
+                        <input id="txtEmail" type="text" inputmode="numeric" class="form-control" placeholder="Enter Email" />
+                    </div>  
+                    
+                    
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Contact</span>
+                        </div>
+                        <input id="txtContact" type="text" inputmode="numeric" class="form-control" placeholder="Enter Contact" />
+                    </div> 
+                    
+                    
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Password</span>
+                        </div>
+                        <input id="txtPassword" type="text" inputmode="numeric" class="form-control" placeholder="Enter Password" />
+                    </div>
+
+                  
+
+                    <div class="mt-2">                
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="Save();"> <span class="btn-name">Save  </span> </a>                            
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">Users</div>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Contact</th>
+                                        <th>Password</th>
+                                        <th>Assign Projects</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody id="UsersList">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal -->
+    <div id="myAddExpes" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="ModelTitle"></span> Assign Project To User</h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+
+                    <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                        <div class=" col-gl-12 col-md-12 col-sm-12">
+                            <div class="d-flex w-100 "></div>
+
+
+
+                            <div class="input-group small mt-2 ">
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Projects </span>
+                                    </div>
+
+                                    <select id="Projects" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                                    <!--<a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>-->
+                                    <a id="" href="#" class="save-btn " onclick="AssignProjectsToSubUsers();"> <span class="btn-name">Save  </span> </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                            <div class=" col-gl-12 ">
+                                <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                                    
+                                    <div class="col-lg-12  " style="padding:15px;">
+                                        <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                            <thead>
+                                                <tr style="border-bottom:solid 1px #747572">
+                                                    <th>S.No.</th>
+                                                    <th>Username</th>
+                                                    <th>Project Name</th>
+                                                    
+                                                    <th>Delete</th>
+                                                    
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ProjectAssignedList">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/Budgetsetting.js"></script>
+</body>
+</html>
+
+
+<script>
+
+
+
+    var save = "ADD";
+    var SubUserId = "";
+    function Save() {
+
+        if (save == 'ADD') {
+            CreateSubUsers()
+        }
+        else {
+            UpdateSubUsers()
+        }
+    }
+
+
+
+
+    function CreateSubUsers() {
+
+        var UserID = sessionStorage.getItem("UserID");
+        var txtUsername = document.getElementById("txtUsername").value;
+        var txtPassword = document.getElementById("txtPassword").value;
+        var txtEmail = document.getElementById("txtEmail").value;
+        var txtContact = document.getElementById("txtContact").value;
+        $.ajax({
+            type: 'POST',
+            url: 'SubUsers.asmx/CreateSubUsers',
+            dataType: 'json',
+            data: "{'SubUserId':'" + SubUserId + "','UserId':'" + UserID + "','SubUserName':'" + txtUsername + "','Password':'" + txtPassword + "','Email':'" + txtEmail + "','Contact':'" + txtContact + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("User Has Been Added")
+                Clear()
+                GetSubUsers()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function UpdateSubUsers() {
+
+        var UserID = sessionStorage.getItem("UserID");
+        var txtUsername = document.getElementById("txtUsername").value;
+        var txtPassword = document.getElementById("txtPassword").value;
+
+        var txtEmail = document.getElementById("txtEmail").value;
+        var txtContact = document.getElementById("txtContact").value;
+        $.ajax({
+            type: 'POST',
+            url: 'SubUsers.asmx/UpdateSubUsers',
+            dataType: 'json',
+            data: "{'SubUserId':'" + SubUserId + "','UserId':'" + UserID + "','SubUserName':'" + txtUsername + "','Password':'" + txtPassword + "','Email':'" + txtEmail + "','Contact':'" + txtContact + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("User Has Been Updated")
+                Clear()
+                GetSubUsers()
+
+                document.getElementById("btnsave").innerHTML = 'Save';
+
+                save = 'ADD'
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+
+
+    GetSubUsers()
+    function GetSubUsers() {
+        var UserID = sessionStorage.getItem("UserID");     
+        $.ajax({
+            type: 'POST',
+            url: 'SubUsers.asmx/GetSubUsers',
+            dataType: 'json',
+            data: "{'UserId':'" + UserID + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+                    dt = dt + " <tr>";
+                    dt = dt + "   <td>" + mRow + ".</td>";
+                    dt = dt + "   <td> " + data.Row[i].SubUserName + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Email + "</td>";
+                                  
+                  
+                    dt = dt + "   <td> " + data.Row[i].Contact + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].Password + "</td>";
+                    dt = dt + " <td><a href='#'  onclick=AssignProjects('" + data.Row[i].SubUserId + "');> Assign Project</a></td>";
+                    dt = dt + " <td><a href='#'  onclick=EditSubUser('" + data.Row[i].SubUserId + "');><i class='fa fa-edit'></i> &nbsp;</a></td>";
+                    dt = dt + " <td><a href='#'  onclick=DeleteSubUsers('" + data.Row[i].SubUserId + "');>  <i class='fa fa-trash' style='color:red'></i> &nbsp;</a></td>";
+                   
+
+
+                    dt = dt + "</tr>";
+                    str = str + dt;
+                    dt = "";
+                }
+                document.getElementById("UsersList").innerHTML = str;
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    var SubUserIdForAssigned = "";
+
+    function AssignProjects(SubUserId) {
+        SubUserIdForAssigned = SubUserId;
+
+        var UserID = sessionStorage.getItem("UserID");
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/GetProjects',
+            dataType: 'json',
+            data: "{'UserId':'" + UserID + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);             
+                var option = "";
+                option = option + "   <option value=''>Select Projects</option>";
+                for (var i = 0; i < data.Row.length; i++) {             
+                    option = option + "   <option value='" + data.Row[i].ProjectID +"'>" + data.Row[i].ProjectName + "</option>";
+                }
+                document.getElementById("Projects").innerHTML = option;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+
+
+
+
+
+
+        GetAssignedProject(SubUserId)
+        $("#myAddExpes").modal('show')
+
+    }
+
+
+    function AssignProjectsToSubUsers() {
+
+
+        var Projects = document.getElementById("Projects").value;
+
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/AssignedProject',
+            dataType: 'json',
+            data: "{'SubUserId':'" + SubUserIdForAssigned + "','ProjectId':'" + Projects + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Project Has Been Assigned ")
+                GetAssignedProject(SubUserIdForAssigned)
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    function GetAssignedProject(SubUserId) {
+
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/GetAssignedProject',
+            dataType: 'json',
+            data: "{'SubUserId':'" + SubUserId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+                    dt = dt + " <tr>";
+                    dt = dt + "   <td>" + mRow + ".</td>";
+                    dt = dt + "   <td> " + data.Row[i].SubUserName + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].ProjectName + "</td>";             
+                  //  dt = dt + " <td><a href='#'  onclick=EditSubUser('" + data.Row[i].AssignedProjectId + "');><i class='fa fa-edit'></i> &nbsp;</a></td>";
+                    dt = dt + " <td><a href='#'  onclick=DeleteAssignedProject('" + data.Row[i].AssignedProjectId + "');>  <i class='fa fa-trash' style='color:red'></i> &nbsp;</a></td>";
+
+
+
+                    dt = dt + "</tr>";
+                    str = str + dt;
+                    dt = "";
+                }
+                document.getElementById("ProjectAssignedList").innerHTML = str;
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function DeleteAssignedProject(AssignedProjectId) {
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/DeleteAssignedProject',
+            dataType: 'json',
+            data: "{'AssignedProjectId':'" + AssignedProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Assigned Project Has Been Deleted")
+                GetAssignedProject(SubUserIdForAssigned)
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    function EditSubUser(SubUserID) {
+
+        SubUserId = SubUserID
+        $.ajax({
+            type: 'POST',
+            url: 'SubUsers.asmx/GetSubUsersById',
+            dataType: 'json',
+            data: "{'SubUserId':'" + SubUserID + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+          
+                document.getElementById("txtUsername").value =  data.Row[0].SubUserName
+                document.getElementById("txtPassword").value = data.Row[0].Password
+
+
+                document.getElementById("txtEmail").value = data.Row[0].Email
+                document.getElementById("txtContact").value = data.Row[0].Contact
+
+                document.getElementById("btnsave").innerHTML = 'Update';
+
+                save ='update'
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function DeleteSubUsers(SubUserId) {
+        $.ajax({
+            type: 'POST',
+            url: 'SubUsers.asmx/DeleteSubUsers',
+            dataType: 'json',
+            data: "{'SubUserId':'" + SubUserId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("User Has Been Deleted")
+                GetSubUsers()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+    
+
+    function Clear() {
+        document.getElementById("txtUsername").value ='';
+        document.getElementById("txtPassword").value = '';
+        document.getElementById("txtEmail").value = '';
+        document.getElementById("txtContact").value = '';
+    }
+
+</script>

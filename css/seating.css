@@ -1,0 +1,191 @@
+
+        .select2-results
+        {
+            font-size: 12px;
+            line-height: normal;
+        }
+
+        .select2-search__field
+        {
+            font-size: 15px !important;
+            line-height: normal;
+        }
+
+        .selection__rendered
+        {
+            line-height: 38px !important;
+        }
+
+        .select2-container .select2-selection--single
+        {
+            border: 0px;
+            width: 100% !important
+        }
+
+        @media (max-width: 768px)
+        {
+            span.pull-right.switch-set {
+                position: relative;
+                top: -22px !important;
+            }
+            span.btn-group.btn-group-toggle .btn {
+                margin: 0px 10px 8px 0px !important;
+                font-size: 12px;
+                width: 100%;
+            }
+            .btn-group, .btn-group-vertical {
+                position: relative;
+                display: block;
+                vertical-align: middle;
+            }
+            section.content.dashboard
+            {
+                padding-bottom: 0px;
+                min-height: 742px;
+            }
+        }
+		
+        .select2-dropdown {
+            
+            border: 1px solid #aaa0 !important;
+            
+        }
+        span.btn-group.btn-group-toggle .btn {
+            margin: 0px 10px 0px 0px;
+        }
+        .btn-primary {
+           
+           
+            border-radius: 0px !important;
+        }
+        .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+            color: #fff;
+            background-color: #f99d1c;
+            background-image: none;
+            border-color: #FF9800;
+            border-radius: 0px !important;
+        }
+            .btn-primary:active:hover, .btn-primary.active:hover, .open > .dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open > .dropdown-toggle.btn-primary.focus {
+                color: #fff;
+                background-color: #f99d1c;
+                border-color: #FF9800;
+            }
+        .panel-title {
+            
+            cursor: pointer;
+        }
+        span.pull-right.switch-set {
+            position: relative;
+            top: -32px;
+        }
+   
+        .seating-munshi .box-body ul.products-list .product-info {
+            padding-top: 16px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+
+        @media (max-width: 768px) {
+            .seating-right-side {
+                position: relative;
+                top: 3px;
+            }
+
+                .seating-right-side c {
+                    font-size: 12px;
+                    top: 1px;
+                }
+
+            .c-name {
+                display: none;
+            }
+            section.content-inr.networth .seating-munshi .pull-right .c-name {
+                display: block;
+            }
+
+            .seating-munshi .panel.panel-default .panel-heading h4.panel-title a img {
+                width: 20px !important;
+                margin-right: 6px;
+            }
+
+            .seating-munshi .panel.panel-default .panel-heading h4 a.collapsed {
+                font-size: 12px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .seating-munshi .panel.panel-default .panel-heading h4.panel-title {
+                font-size: 12px;
+            }
+
+            .switch {
+                width: 49px;
+                height: 23px;
+            }
+
+            .slider:before {
+                height: 20px;
+                width: 20px;
+                left: 2px;
+                bottom: 2px;
+            }
+        }

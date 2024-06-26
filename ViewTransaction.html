@@ -1,0 +1,321 @@
+﻿
+<link href="../css/jquery-confirm.min.css" rel="stylesheet" />
+<script src="../js/jquery-confirm.min.js"></script>
+<link href="css/loader.css" rel="stylesheet" />
+<script>
+    var mValFrom, mValTo;
+    $(function () {
+
+        $("#includedContent").load("navbar.html");
+
+    });
+    var TType = "New";
+    var LID1 = "None";
+</script>
+<style>
+    .Mywidth
+    {
+        width: 68px;
+    }
+
+    #payment
+    {
+        color: #fff;
+        background: #747572;
+        border: solid 1px #5c5d5b;
+        border-bottom: 0;
+    }
+
+    div#receipt
+    {
+        color: #747572;
+        background: #eaeaee;
+    }
+
+    .payment, .receipt
+    {
+        border: solid 1px #747572;
+        width: 110px;
+        height: 30px;
+        padding: 4px 2px;
+        border-bottom: 0;
+        cursor: pointer;
+    }
+
+    .Itext
+    {
+        border-radius: 0px !important;
+        background-color: #747572 !important;
+        color: whitesmoke;
+        border: solid 1px #747572;
+        width: 100%;
+    }
+</style>
+
+<section class="content-inr expense" style="padding-top: 0px;">
+    <div id="includedContent"></div>
+    <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+    <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+        <div class="d-flex w-100">
+            <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+            <div id="payment" class="payment"> Payment</div>
+            <div id="receipt" class="receipt" onclick="LoadFile('AddIncome.html')"> Receipt</div>
+        </div>
+    </div>
+    <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+        <div class="input-group small mt-2">
+            <div class="input-group-prepend Mywidth ">
+                <span class="input-group-text Itext" style="font-size:small">Rs.</span>
+            </div>
+            <input id="txtAmount" readonly type="text" inputmode="numeric" class="form-control" placeholder="Enter Amount" />
+        </div>
+
+        <div class="input-group small mt-2">
+            <div class="input-group-prepend Mywidth">
+                <span class="input-group-text Itext" style="font-size:small">From:</span>
+            </div>
+            <input id="txtFrom" readonly type="text" inputmode="numeric" class="form-control" placeholder="Enter Amount" />
+        </div>
+
+        <div class="input-group small mt-2">
+            <div class="input-group-prepend Mywidth">
+                <span class="input-group-text Itext" style="font-size:small">To:</span>
+            </div>
+            <input id="txtTo" readonly type="text" inputmode="numeric" class="form-control" placeholder="Enter Amount" />
+        </div>
+
+        <div class="input-group small mt-2">
+            <div class="input-group-prepend Mywidth">
+                <span class="input-group-text Itext" style="font-size:small"><i class="fa fa-calendar">&nbsp;&nbsp;</i></span>
+            </div>
+            <input id="txtDate" readonly class="form-control" type="date" placeholder="Select date" />
+        </div>
+
+
+
+        <div class="input-group small mt-2">
+            <div class="input-group-prepend Mywidth">
+                <span class="input-group-text Itext">Notes</span>
+            </div>
+            <textarea id="txtNarration" readonly class="form-control" rows="3" placeholder="Enter note here"></textarea>
+        </div>
+        <div class="input-group small mt-2">
+            <div class="input-group-prepend Mywidth">
+                <span class="input-group-text Itext">Remarks</i></span>
+            </div>
+            <textarea id="txtRemarks" class="form-control" rows="3" placeholder="Remarks to approve or reject"></textarea>
+        </div>
+
+
+
+        <div class=" mt-2">
+            <!--<div class="col-2">
+                <button onclick="Sharing()" class="form-control bg-success" style="color:white"><i class="fa fa-share"></i> Sharing</button>
+            </div>-->
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <button id="btnapprove" onclick="Approve(3)" class="form-control bg-success "><i class="fa fa-check"></i> Approve</button>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <button id="btnsave" onclick="Approve(2)" class="form-control bg-warning "> <i id="iSave" class="fa fa-window-close"></i> Reject</button>
+                <button id="btnResend" onclick="Approve(0)" class="form-control bg-warning " style="display:none;"> <i id="iSave" class="fa fa-paper-plane"></i> Resend</button>
+            </div>
+        </div>
+        <div class="row mt-2 text-center">
+            <div class="col-lg-12">
+                <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+<script>
+    // document.getElementById("spandataloading").style.display = "block";
+
+    //getDate();
+    //loadPAccounts();
+    //loadCashBank();
+    // document.getElementById("spandataloading").style.display = "none";
+
+    //function getDate()
+    //{
+    //    var date = new Date();
+
+    //    var day = date.getDate();
+    //    var month = date.getMonth() + 1;
+    //    var year = date.getFullYear();
+
+    //    if (month < 10) month = "0" + month;
+    //    if (day < 10) day = "0" + day;
+
+    //    var today = year + "-" + month + "-" + day;
+
+
+    //    document.getElementById('txtDate').value = today;
+    //}
+
+
+
+
+    function Approve(status) {
+        // document.getElementById('myform').reset();
+        // document.getElementById("spandataloading").style.display = "block";
+        var uid = window.sessionStorage.getItem("UserID");
+        var id = sessionStorage.getItem("TransID");
+        var rem = document.getElementById("txtRemarks").value;
+        var STat = [];
+        STat[1] = "Seen";
+        STat[2] = "Rejected";
+        STat[3] = "Approved";
+        STat[0] = "Resend";
+        if (rem.length == "" && status == 2) {
+            rem = "Rejected";
+        }
+        if (rem.length == "" && status == 0) {
+            rem = "Resend";
+        }
+        if (rem.length == "" && status == 3) {
+            rem = "Approved";
+        }
+        $('#spandataloading').show();
+        $(':input').val('');
+        $('#iSave').attr('class', 'fa fa-save');
+
+        
+
+        $.ajax({
+            type: 'POST',
+            url: 'Users.asmx/ReadTranscation',
+            dataType: 'json',
+            data: "{'UserID':'" + uid + "','LID':'" + id + "','status':'" + status + "','description':'" + rem + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+
+              
+
+
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                //var elem = document.getElementById("R" + id);
+                //elem.outerHTML = "";
+                var arr = document.getElementsByClassName("NumRow");
+                document.getElementById("num1").innerText = arr.length;
+                $('#spandataloading').hide();
+                $('#loader').hide();
+                //$('#loadI').attr('class', 'fa fa-gear');
+
+                sessionStorage.setItem("TransID", "");
+                $.alert({ title: 'Alert!', content: 'Transaction ' + STat[status], });
+                PageBackward();
+
+
+
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+ 
+
+
+        //   document.getElementById("spandataloading").style.display = "none";
+        $('#spandataloading').hide();
+    }
+    function Reject() {
+
+    }
+
+    function LoadTransaction() {
+
+        var TransID = sessionStorage.getItem("TransID");
+        var uid = window.sessionStorage.getItem("UserID");
+ 
+
+        $.ajax({
+            type: 'POST',
+            url: 'Accounts.asmx/LoadTransaction',
+            dataType: 'json',
+            data: "{'TransID':'" + TransID + "', 'TType':'P','UserID':'" + uid + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+
+                
+
+                 
+
+
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                //alert(data.Row[0]);
+                //  alert(data.Row[0].District);
+                // yaha loop lage ga na
+                var str = "";
+                var dt = "";
+                var mvalue;
+                //dt = "<option> Select Account </option>";
+                //for (var i = 0; i < data.Row.length; i++) {
+                //    //  alert(data.Row[i].Category);
+                //    dt = dt + "<option value=" + data.Row[i].AccID + ">" + data.Row[i].Title + "</option > "
+                //}
+                var payment1 = document.getElementById("paymentsID");
+                var cash1 = document.getElementById("cashID");
+                document.getElementById("txtTo").value = data.Row[0].AccId_PaymentT;
+                document.getElementById("txtFrom").value = data.Row[0].AccId_CashT;
+
+                //setValue(payment1);
+                //setValeCash(cash1);
+                document.getElementById("txtAmount").value = data.Row[0].Amount;
+                var nar = data.Row[0].Narration.split("[");
+                document.getElementById("txtNarration").value = nar[0];
+                document.getElementById("txtDate").value = data.Row[0].TDate;
+                var sha = data.Row[0].Sharing;
+               // alert(sha);
+                if (sha == 2) {
+
+                    $("#txtRemarks").attr("placeholder", "Remarks to Resend");
+                    document.getElementById("btnResend").style.display = "block";
+                    document.getElementById("btnsave").style.display = "none";
+                    document.getElementById("btnapprove").style.display = "none";
+
+
+                }
+                else if (sha == 3) {
+                    document.getElementById("btnResend").style.display = "none";
+                    document.getElementById("btnsave").style.display = "none";
+                    document.getElementById("btnapprove").style.display = "none";
+                }
+                else {
+
+                    document.getElementById("btnResend").style.display = "none";
+                    document.getElementById("btnsave").style.display = "block";
+                    document.getElementById("btnapprove").style.display = "block";
+                }
+
+                // alert(data.Row[0]);
+                $('#spandataloading').hide();
+
+                //$('#loadI').attr('class', 'fa fa-gear');
+
+
+            },
+            error: function (error) {
+                //alert("err111");
+                console.log(error);
+            }
+        });
+
+    
+
+    }
+    var edit1 = window.location.href.split("?id=");
+    //alert(edit1[1]);
+    //if (edit1[1] == "Edit") {
+    LoadTransaction();
+    TType = "Edit";
+    LID1 = sessionStorage.getItem("TransID");
+            //}
+</script>

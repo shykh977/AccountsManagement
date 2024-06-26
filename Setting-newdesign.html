@@ -1,0 +1,1448 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Settings</title>
+
+    <link rel="stylesheet" href="css/dycalendar.min.css" />
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <link href="css/seating.css" rel="stylesheet" />
+    <script>$(function () { $("#includedContent").load("navbar.html"); });</script>
+
+</head>
+
+
+<body class="bg-white">
+
+    <div id="includedContent"></div>
+    <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+
+    <section class="content-header breadcrumb-header">
+        <h1>
+            <ol class="breadcrumb">
+                <li><a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></li>
+
+                <li><span id="MainHeading" class="pagename"> Settings</span></li>
+            </ol>
+
+        </h1>
+
+    </section>
+
+    <section class="content-inr expense">
+
+
+
+
+
+        <div class="seating-munshi panel-group" id="accordion">
+            <!--<div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"> <img src="img/seating/Setting_category1.svg" style="width:40px;">  <span class="seat-tittle">ACCOUNTS CATEGORIES</span></a>
+                <span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+                xyz
+            </div>
+        </div>
+    </div>-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"> <img class="home" src="img/seating/Setting_Language1.svg" style="width:40px;">  <span class="seat-tittle">LANGUAGE</span> </a>
+                        <span class="pull-right">
+
+                            <span class="seating-right-side"><img id="LanguageFlag" src="../lib/Flags100/US.png"> <c> <span class="c-name" id="LanguageName">USA (ENGLISH) </span></c></span>
+
+
+
+                        </span>
+
+
+
+
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <select id="LanguageData" class="select2 form-control  " type="text"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"> <img src="img/seating/Setting_currency1.svg" style="width:40px;">  <span class="seat-tittle">CURRENCY</span> </a>
+                        <span class="pull-right">
+                            <span class="seating-right-side"><img id="CurrencyFlag" src="../lib/Flags100/US.png"> <c> <span class="c-name" id="CurrencyName">USA</span>  </c></span>
+                        </span>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <select id="CurrencyData" class="select2 form-control  " type="text"></select>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"> <img src="img/seating/Setting_currency-3a.svg" style="width:40px;">  <span class="seat-tittle">CURRENCY FORMAT</span> </a>
+                <span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>
+            </h4>
+        </div>
+        <div id="collapse4" class="panel-collapse collapse">
+            <div class="panel-body">
+                <select id="CountryData" class="select2 form-control  " type="text"></select>
+            </div>
+        </div>
+    </div>-->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5"> <img src="img/seating/date.png" style="width:40px;">  <span class="seat-tittle">DATE FORMAT</span> </a>
+                        <span class="pull-right"><span id="DateName"></span> </span>
+
+                    </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
+                    <div class="panel-body date-format">
+                        <div class="d-heading">
+                            <h5><b>Use 24 Hours Format</b></h5>
+                            <i class="fa fa-clock-o"></i>
+
+                            <span id="TimeSettings" style="font-size:13px;color:#777777;"> 1:00 PM</span>
+                            <span class="pull-right"><label class="switch"> <input type="checkbox" id="timecheck" onchange="CallTimeSetting(this.checked)"><span class="slider round"></span> </label> </span>
+                        </div>
+
+                        <div class="date-format-contant">
+
+
+                            <h6>Select Date Format </h6>
+
+                            <span class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-primary active" id="DD-MM-YYYY" value="DD-MM-YYYY" onclick="callDateSettings(this.id);">
+                                    <input type="radio" name="Dateoptions" id="" value="DD-MM-YYYY" autocomplete="off" onclick="callDateSettings(this);"> DD-MM-YYYY
+                                </label>
+                                <label class="btn btn-primary" id="MM-DD-YYYY" value="MM-DD-YYYY" onclick="callDateSettings(this.id);">
+                                    <input type="radio" name="Dateoptions" id="" value="MM-DD-YYYY" autocomplete="off" onclick="callDateSettings(this);"> MM-DD-YYYY
+                                </label>
+                                <label class="btn btn-primary" id="YYYY-MM-DD" value="YYYY-MM-DD" onclick="callDateSettings(this.id);">
+                                    <input type="radio" name="Dateoptions" id="" value="YYYY-MM-DD" autocomplete="off" onclick="callDateSettings(this);"> YYYY-MM-DD
+                                </label>
+                            </span>
+
+                            <span class="pull-right"> </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddProjectAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('AddProjectInventorydetail.html');"> <img src="img/seating/projects.png" style="width:40px;">  <span class="seat-tittle">ADD PROJECT INVENTORY DETAIL</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddProjectAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('AddProjectInventory.html');"> <img src="img/seating/projects.png" style="width:40px;">  <span class="seat-tittle">ADD PROJECT INVENTORY</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddProjectAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('AddStaff.html');"> <img src="img/seating/projects.png" style="width:40px;">  <span class="seat-tittle">ADD PROJECT STAFF</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddProjectAccordion">
+
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('AddProject.html');"> <img src="img/seating/projects.png" style="width:40px;">  <span class="seat-tittle">ADD PROJECT</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddProjectAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('ProjectBookingPlan.html');"> <img src="img/seating/projects.png" style="width:40px;">  <span class="seat-tittle"> PROJECT BOOKING PLAN</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddProjectAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('Leads.html');"> <img src="img/seating/projects.png" style="width:40px;">  <span class="seat-tittle"> LEADS</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddProjectAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('AssignLeads.html');"> <img src="img/seating/projects.png" style="width:40px;">  <span class="seat-tittle"> ASSIGN LEADS</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddProjectAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('LeadFollowUp.html');"> <img src="img/seating/projects.png" style="width:40px;">  <span class="seat-tittle">  LEADS  FOLLOW UP</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddUserAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('AddQuotation.html');"> <img src="userpic/userError.png" style="width:40px;">  <span class="seat-tittle">ADD QUOTATION</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddUserAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('AddService.html');"> <img src="userpic/userError.png" style="width:40px;">  <span class="seat-tittle">ADD SERVICE</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddUserAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('AddSupplier.html');"> <img src="userpic/userError.png" style="width:40px;">  <span class="seat-tittle">ADD SUPPLIER</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddUserAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('AddAgent.html');"> <img src="userpic/userError.png" style="width:40px;">  <span class="seat-tittle">ADD AGENTS</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddUserAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('AddInvestor.html');"> <img src="userpic/userError.png" style="width:40px;">  <span class="seat-tittle">ADD INVESTOR</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddUserAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('AddUsers.html');"> <img src="userpic/userError.png" style="width:40px;">  <span class="seat-tittle">ADD USERS</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddUserAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('ProjectsCustomers.html');"> <img src="userpic/userError.png" style="width:40px;">  <span class="seat-tittle">ADD CUSTOMERS</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddUserAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('AddServices.html');"> <img src="userpic/userError.png" style="width:40px;">  <span class="seat-tittle">ADD SERVICES</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#AddUserAccordion">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('CustomerBookingPlan.html');"> <img src="img/seating/projects.png" style="width:40px;">  <span class="seat-tittle">ADD CUSTOMERS BOOKING PLAN</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6" onclick="LoadFile('UserSharing.html');"> <img src="img/seating/Setting_share1.svg" style="width:30px;"> <span class="seat-tittle">SHARED ACCOUNTS</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+                <!--<div id="collapse6" class="panel-collapse collapse">
+            <div class="panel-body">
+                xyz
+            </div>
+        </div>-->
+            </div>
+
+            <div class="panel panel-default" id="MoveAccount" style="display:none;">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('MoveAccount.html');"> <img src="img/seating/Setting_Transfer1.svg" style="width:40px;">  <span class="seat-tittle">MOVE ACCOUNTS</span> </a>
+                    </h4>
+                </div>
+
+            </div>
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse10">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse10"> <img src="img/seating/Struct1.svg" style="width:40px;">  <span class="seat-tittle">SWITCH ACCOUNTING LEVEL </span> </a>
+
+                    </h4>
+                </div>
+                <div id="collapse10" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <span class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-primary active" id="Level1" value="1" onclick="SelectLevel(this.id);">
+                                <input type="radio" name="Leveloptions" id="" value="1" autocomplete="off" onclick="SelectLevel(this);"> 1 LEVEL SYSTEM
+                            </label>
+                            <label class="btn btn-primary" id="Level2" value="2" onclick="SelectLevel(this.id);">
+                                <input type="radio" name="Leveloptions" id="" value="2" autocomplete="off" onclick="SelectLevel(this);"> 2 LEVEL SYSTEM
+                            </label>
+                            <label class="btn btn-primary" id="Level3" value="3" onclick="SelectLevel(this.id);">
+                                <input type="radio" name="Leveloptions" id="" value="3" autocomplete="off" onclick="SelectLevel(this);"> 3 LEVEL SYSTEM
+                            </label>
+                            <label class="btn btn-primary" id="Level4" value="4" onclick="SelectLevel(this.id);">
+                                <input type="radio" name="Leveloptions" id="" value="4" autocomplete="off" onclick="SelectLevel(this);"> 4 LEVEL SYSTEM
+                            </label>
+                            <label class="btn btn-primary" id="Level5" value="5" onclick="SelectLevel(this.id);">
+                                <input type="radio" name="Leveloptions" id="" value="5" autocomplete="off" onclick="SelectLevel(this);"> 5 LEVEL SYSTEM
+                            </label>
+                        </span>
+                        <!--<select id="SelectLevel" class="form-control" style="float: left; width: 200px;">
+                    <option value="0">Select Chart of Account</option>
+                    <option value="1">Chart of Account Level 1</option>
+                    <option value="2">Chart of Account Level 2</option>
+                    <option value="3">Chart of Account Level 3</option>
+                </select>-->
+
+                        <button class="btn btn-success" style="float: right;" onclick="SwitchLevel();">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" onclick="LoadFile('BudgetSetting.html');"> <img src="img/seating/budget1a.svg" style="width:40px;">  <span class="seat-tittle">SET BUDGET OF ACCOUNT</span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+                <!--<div id="collapse7" class="panel-collapse collapse">
+            <div class="panel-body">
+                xyz
+            </div>
+        </div>-->
+            </div>
+
+            <!--<div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse8">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse8"> <img src="img/seating/Setting_data1.svg" style="width:40px;">  <span class="seat-tittle">BACKUP & RESTORE</span> </a>
+                <span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>
+            </h4>
+        </div>
+        <div id="collapse8" class="panel-collapse collapse">
+            <div class="panel-body">
+                xyz
+            </div>
+        </div>
+    </div>-->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse17">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse17"> <img src="img/seating/download1a.svg" style="width:40px;">  <span class="seat-tittle">DOWNLOAD DATA </span> </a>
+                        <!--<span class="pull-right"> <label class="switch"> <input type="checkbox"><span class="slider round"></span> </label> </span>-->
+                    </h4>
+                </div>
+                <div id="collapse17" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <button class="btn btn-success" style="margin-bottom: 10px;width: 124px;" onclick="ExportToExcel();">Excel</button>
+                        <br />
+                        <button class="btn btn-danger" id="export" style="float: left;width: 124px;margin-right: 10px;">CSV</button>
+                        <select id="SelectCSVData" class="form-control" style="width: 200px;margin-left: 25px; ">
+                            <option value="0">Select Data</option>
+                            <option value="1">Accounts</option>
+                            <option value="2">Group Ledger</option>
+                            <option value="3">Accounts Activity</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--<div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse8">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse8" onclick="LoadFile('GroupLicense.html');"> <img src="img/seating/groupicon.png" style="width:40px;">  <span class="seat-tittle">GROUP LICENSE</span> </a>
+            </h4>
+        </div>
+
+    </div>-->
+            <!--<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse9">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse9"> <img src="img/help.png" style="width:40px;">  <span class="seat-tittle">HELP ASSISTANT ENABLE</span> </a>
+
+        </h4>
+        <span class="pull-right switch-set">  <label class="switch"> <input id="HelpAssistant" type="checkbox" onchange="CallHelpSetting(this.checked)">><span class="slider round"></span> </label> </span>
+    </div>-->
+            <!--<div id="collapse7" class="panel-collapse collapse">
+        <div class="panel-body">
+            xyz
+        </div>
+    </div>-->
+            <!--</div>-->
+            <!--<div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse11">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse11"> <img src="img/seating/reset.png" style="width:40px;">  <span class="seat-tittle">RESET ACCOUNT</span> </a>
+
+            </h4>
+        </div>
+        <div id="collapse11" class="panel-collapse collapse">
+            <div class="panel-body">
+
+
+
+                <button class="btn btn-danger" onclick="ResetAccount();">Reset</button>
+            </div>
+        </div>
+    </div>-->
+
+            <button type="button" class="save-btn" onclick="SaveSettings();" style="    background: #fff;    border-radius: 0px; margin-top: 15px;">Save Settings</button>
+        </div>
+
+
+
+        <div id="DivExcel">
+            <table id="Accounts" style="width:100%;border-collapse:collapse; display:none">
+                <thead class=" small font-weight-bold" style="display: table-header-group;padding-bottom:3px; ">
+                    <tr style="border-collapse:separate;">
+
+                        <td class="Acctd">S.NO</td>
+                        <td class="Acctd">Account Title</td>
+                        <td class="Acctd">Category</td>
+                        <td class="Acctd">Sub Category Title</td>
+                        <td class="Acctd">Opening Debit</td>
+                        <td class="Acctd">Opening Credit</td>
+                        <td class="Acctd">Pay Source</td>
+                        <td class="Acctd">Budget Amount</td>
+                        <td class="Acctd">Trans</td>
+                        <td class="Acctd">Ledger</td>
+                        <td class="Acctd">NetWorth</td>
+                        <td class="Acctd">Full Statement</td>
+                        <td class="Acctd">Balance Sheet</td>
+                        <td class="Acctd">Budget Type</td>
+
+
+
+                    </tr>
+
+
+                </thead>
+                <tbody id="AllAccounts" class="small"></tbody>
+
+            </table>
+            <br /><br /><br />
+
+            <table id="AccountsDetails" style="width:100%;border-collapse:collapse; display:none">
+                <thead class=" small font-weight-bold" style="display: table-header-group;padding-bottom:3px; ">
+                    <tr style="border-collapse:separate;">
+
+                        <td class="Acctd">S.NO</td>
+                        <td class="Acctd">Account Title</td>
+                        <td class="Acctd">Payments</td>
+                        <td class="Acctd">Receipts</td>
+                        <td class="Acctd">Opening Debit</td>
+                        <td class="Acctd">Opening Credit</td>
+                        <td class="Acctd">Account Holder</td>
+
+                    </tr>
+
+
+                </thead>
+                <tbody id="AllAccountsDetails" class="small"></tbody>
+
+            </table>
+
+            <br /><br /><br />
+
+            <table id="LedgerDetail" style="width:100%;border-collapse:collapse; display:none">
+                <thead class=" small font-weight-bold" style="display: table-header-group;padding-bottom:3px; ">
+                    <tr style="border-collapse:separate;">
+
+                        <td class="Acctd">S.NO</td>
+                        <td class="Acctd">Account Title</td>
+                        <td class="Acctd">Date</td>
+                        <td class="Acctd">Narration</td>
+                        <td class="Acctd">Payments</td>
+                        <td class="Acctd">Receipts</td>
+                        <td class="Acctd">Account</td>
+
+                    </tr>
+
+
+                </thead>
+                <tbody id="AllLedgerDetail" class="small"></tbody>
+
+            </table>
+
+
+        </div>
+
+    </section>
+
+    <script src="js/seating.js"></script>
+
+
+
+    <script>
+        var LevelVar = sessionStorage.getItem("ChartLevel");
+        var UserTitle = sessionStorage.getItem("UserTitle");
+
+
+
+        MoveAccount();
+        function MoveAccount() {
+
+            var ChartLevel = window.sessionStorage.getItem("ChartLevel", ChartLevel);
+
+            if (ChartLevel == '1') { document.getElementById("MoveAccount").style.display = "none"; }
+            else if (ChartLevel == '2') { document.getElementById("MoveAccount").style.display = "block"; }
+            else if (ChartLevel == '3') { document.getElementById("MoveAccount").style.display = "block"; }
+            else if (ChartLevel == '4') { document.getElementById("MoveAccount").style.display = "block"; }
+            else if (ChartLevel == '5') { document.getElementById("MoveAccount").style.display = "block"; }
+
+        }
+
+
+
+
+
+        function ExportToExcel() {
+
+
+
+            ExportExcelAllAccounts_UserWise();
+
+
+        }
+
+        function ExportExcelAllAccounts_UserWise() {
+
+            var UserID = sessionStorage.getItem("UserID");
+
+
+            $('#loader').show();
+
+
+
+         
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Settings.asmx/ExportExcelAllAccounts_UserWise',
+                    dataType: 'json',
+                    data: "{'UserID':'" + UserID + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+                       
+
+
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        var str = "";
+
+                        var dt = "";
+
+                        var mRow = 0;
+
+
+                        for (var i = 0; i < data.Row.length; i++) {
+
+
+                            mRow = mRow + 1;
+                            dt = dt + " <tr>";
+
+                            dt = dt + "   <td>" + mRow + ".</td>";
+                            dt = dt + "   <td> " + data.Row[i].AccountTitle + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Category + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].SubCatTitle + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].OpeningDebit + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].OpeningCredit + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].PaySource + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].BudgetAmount + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].InTrans + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].InLedger + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].InNetWorth + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].InFullStatement + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].InBalanceSheet + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].BudgetType + "</td>";
+
+                            dt = dt + "</tr>";
+
+                            str = str + dt;
+                            dt = "";
+                        }
+
+
+                        document.getElementById("AllAccounts").innerHTML = str;
+
+
+
+
+                        $('#loader').hide()
+
+                        ExportExcelLedger_UserWise();
+
+
+
+
+                        ;
+                    },
+
+
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+ 
+
+
+        }
+
+        function ExportExcelLedger_UserWise() {
+
+            var UserID = sessionStorage.getItem("UserID");
+
+            $('#loader').show();
+
+
+
+          
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Settings.asmx/ExportExcelLedger_UserWise',
+                    dataType: 'json',
+                    data: "{'UserID':'" + UserID + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+ 
+
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        var str = "";
+
+                        var dt = "";
+
+                        var mRow = 0;
+
+                        for (var i = 0; i < data.Row.length; i++) {
+
+
+                            mRow = mRow + 1;
+                            dt = dt + " <tr>";
+
+                            dt = dt + "   <td>" + mRow + ".</td>";
+                            dt = dt + "   <td> " + data.Row[i].AccountTitle + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Payments + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Receipts + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].OpeningDebit + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].OpeningCredit + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].AccountHolders + "</td>";
+
+                            dt = dt + "</tr>";
+
+                            str = str + dt;
+                            dt = "";
+                        }
+
+
+                        document.getElementById("AllAccountsDetails").innerHTML = str;
+
+
+
+
+
+                        $('#loader').hide()
+
+
+                        ExportExcelAllLedger_UserWise();
+
+                    },
+
+
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+ 
+
+
+        }
+
+        function ExportExcelAllLedger_UserWise() {
+
+            var UserID = sessionStorage.getItem("UserID");
+            var UserTitle = sessionStorage.getItem("UserTitle");
+
+
+
+            $('#loader').show();
+
+ 
+                $.ajax({
+                    type: 'POST',
+                    url: 'Settings.asmx/ExportExcelAllLedger_UserWise',
+                    dataType: 'json',
+                    data: "{'UserID':'" + UserID + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+ 
+
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        var str = "";
+
+                        var dt = "";
+
+                        var mRow = 0;
+
+                        for (var i = 0; i < data.Row.length; i++) {
+
+
+                            mRow = mRow + 1;
+                            dt = dt + " <tr>";
+
+                            dt = dt + "   <td>" + mRow + ".</td>";
+                            dt = dt + "   <td> " + data.Row[i].AccountTitle + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Date + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Narration + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Payments + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Receipts + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Account + "</td>";
+
+                            dt = dt + "</tr>";
+
+                            str = str + dt;
+                            dt = "";
+                        }
+
+
+                        document.getElementById("AllLedgerDetail").innerHTML = str;
+
+
+
+                        $('#loader').hide()
+
+
+                        //tableToExcel('DivExcel', 'Accounts Data');
+                        tablesToExcel(['Accounts', 'AccountsDetails', 'LedgerDetail'], ['Accounts', 'Group Ledger', 'Account Activity'], UserTitle + '.xls', 'Excel');
+                    },
+
+
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+ 
+
+
+        }
+
+
+
+
+
+        function ExportCSVAllAccounts_UserWise() {
+
+            var UserID = sessionStorage.getItem("UserID");
+
+
+            $('#loader').show();
+
+
+
+          
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Settings.asmx/ExportExcelAllAccounts_UserWise',
+                    dataType: 'json',
+                    data: "{'UserID':'" + UserID + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+                       
+
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        var str = "";
+
+                        var dt = "";
+
+                        var mRow = 0;
+
+                        dt = dt + " <thead>";
+                        dt = dt + " <tr>";
+
+
+                        dt = dt + "    <td class='Acctd'>S.NO</td>                         ";
+                        dt = dt + "    <td class='Acctd'>Account Title</td>                ";
+                        dt = dt + "    <td class='Acctd'>Category</td>                     ";
+                        dt = dt + "    <td class='Acctd'>Sub Category Title</td>           ";
+                        dt = dt + "    <td class='Acctd'>Opening Debit</td>                ";
+                        dt = dt + "    <td class='Acctd'>Opening Credit</td>               ";
+                        dt = dt + "    <td class='Acctd'>Pay Source</td>                   ";
+                        dt = dt + "    <td class='Acctd'>Budget Amount</td>                ";
+                        dt = dt + "    <td class='Acctd'>Trans</td>                        ";
+                        dt = dt + "    <td class='Acctd'>Ledger</td>                       ";
+                        dt = dt + "    <td class='Acctd'>NetWorth</td>                     ";
+                        dt = dt + "    <td class='Acctd'>Full Statement</td>               ";
+                        dt = dt + "    <td class='Acctd'>Balance Sheet</td>                ";
+                        dt = dt + "    <td class='Acctd'>Budget Type</td>                  ";
+
+
+
+                        dt = dt + " </tr>";
+                        dt = dt + " </thead>";
+                        for (var i = 0; i < data.Row.length; i++) {
+
+
+                            mRow = mRow + 1;
+                            dt = dt + " <tr>";
+
+                            dt = dt + "   <td>" + mRow + ".</td>";
+                            dt = dt + "   <td> " + data.Row[i].AccountTitle + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Category + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].SubCatTitle + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].OpeningDebit + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].OpeningCredit + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].PaySource + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].BudgetAmount + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].InTrans + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].InLedger + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].InNetWorth + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].InFullStatement + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].InBalanceSheet + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].BudgetType + "</td>";
+
+                            dt = dt + "</tr>";
+
+                            str = str + dt;
+                            dt = "";
+                        }
+
+
+                        document.getElementById("AllAccounts").innerHTML = str;
+
+
+
+
+
+
+
+
+                        //$('#Accounts').tableToCsv();
+                        $('#Accounts').tableToCsv({
+                            fileName: "Accounts"
+                        });
+
+                        $('#loader').hide()
+                            ;
+                    },
+
+
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+ 
+
+
+        }
+
+        function ExportCSVLedger_UserWise() {
+
+            var UserID = sessionStorage.getItem("UserID");
+
+            $('#loader').show();
+
+
+ 
+                $.ajax({
+                    type: 'POST',
+                    url: 'Settings.asmx/ExportExcelLedger_UserWise',
+                    dataType: 'json',
+                    data: "{'UserID':'" + UserID + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+ 
+
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        var str = "";
+
+                        var dt = "";
+
+                        var mRow = 0;
+
+
+                        dt = dt + "       <thead>                                         ";
+                        dt = dt + "           <tr>                                        ";
+                        dt = dt + "           <td class='Acctd'>S.NO</td>                 ";
+                        dt = dt + "           <td class='Acctd'>Account Title</td>        ";
+                        dt = dt + "           <td class='Acctd'>Payments</td>             ";
+                        dt = dt + "           <td class='Acctd'>Receipts</td>             ";
+                        dt = dt + "           <td class='Acctd'>Opening Debit</td>        ";
+                        dt = dt + "           <td class='Acctd'>Opening Credit</td>       ";
+                        dt = dt + "           <td class='Acctd'>Account Holder</td>       ";
+                        dt = dt + "           </tr>                                       ";
+                        dt = dt + "       </thead>                                        ";
+
+
+                        for (var i = 0; i < data.Row.length; i++) {
+
+
+                            mRow = mRow + 1;
+                            dt = dt + " <tr>";
+
+                            dt = dt + "   <td>" + mRow + ".</td>";
+                            dt = dt + "   <td> " + data.Row[i].AccountTitle + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Payments + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Receipts + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].OpeningDebit + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].OpeningCredit + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].AccountHolders + "</td>";
+
+                            dt = dt + "</tr>";
+
+                            str = str + dt;
+                            dt = "";
+                        }
+
+
+                        document.getElementById("AllAccountsDetails").innerHTML = str;
+
+
+                       
+                        $('#AccountsDetails').tableToCsv({
+                            fileName: "Group Ledger"
+                        });
+
+
+                        $('#loader').hide()
+
+
+
+
+                    },
+
+
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+ 
+
+
+        }
+
+        function ExportCSVAllLedger_UserWise() {
+
+            var UserID = sessionStorage.getItem("UserID");
+            var UserTitle = sessionStorage.getItem("UserTitle");
+
+
+
+            $('#loader').show();
+
+ 
+                $.ajax({
+                    type: 'POST',
+                    url: 'Settings.asmx/ExportExcelAllLedger_UserWise',
+                    dataType: 'json',
+                    data: "{'UserID':'" + UserID + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+                   
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        var str = "";
+
+                        var dt = "";
+
+                        var mRow = 0;
+
+
+                        dt = dt + "  <thead>                                               ";
+                        dt = dt + "      <tr>                                              ";
+                        dt = dt + "                                                        ";
+                        dt = dt + "          <td>S.NO</td>                   ";
+                        dt = dt + "          <td>Account Title</td>          ";
+                        dt = dt + "          <td>Date</td>                   ";
+                        dt = dt + "          <td>Narration</td>              ";
+                        dt = dt + "          <td>Payments</td>               ";
+                        dt = dt + "          <td>Receipts</td>               ";
+                        dt = dt + "          <td>Account</td>                ";
+                        dt = dt + "                                                        ";
+                        dt = dt + "      </tr>                                             ";
+                        dt = dt + "                                                        ";
+                        dt = dt + "                                                        ";
+                        dt = dt + "  </thead>                                              ";
+
+
+
+
+
+
+
+
+                        for (var i = 0; i < data.Row.length; i++) {
+
+
+                            mRow = mRow + 1;
+                            dt = dt + " <tr>";
+
+                            dt = dt + "   <td>" + mRow + ".</td>";
+                            dt = dt + "   <td> " + data.Row[i].AccountTitle + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Date + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Narration + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Payments + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Receipts + "</td>";
+                            dt = dt + "   <td> " + data.Row[i].Account + "</td>";
+
+                            dt = dt + "</tr>";
+
+                            str = str + dt;
+                            dt = "";
+                        }
+
+
+                        document.getElementById("AllLedgerDetail").innerHTML = str;
+
+                        $('#LedgerDetail').tableToCsv({
+                            fileName: "Account Activity"
+                        });
+
+                        $('#loader').hide()
+
+
+
+                    },
+
+
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+
+          
+
+
+        }
+
+    </script>
+
+
+    <script type="text/javascript">
+
+        //var tableToExcel = (function () {
+
+        //    var uri = 'data:application/vnd.ms-excel;base64,'
+        //        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+        //        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+        //        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        //    return function (table, name) {
+        //        if (!table.nodeType) table = document.getElementById(table)
+
+        //        var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+
+        //        window.location.href = uri + base64(format(template, ctx))
+        //    }
+        //})()
+
+
+
+
+
+        var tablesToExcel = (function () {
+
+
+            $('#loader').show();
+
+
+
+
+
+            var uri = 'data:application/vnd.ms-excel;base64,'
+                , tmplWorkbookXML = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'
+                    + '<DocumentProperties xmlns="urn:schemas-microsoft-com:office:office"><Author>Axel Richter</Author><Created>{created}</Created></DocumentProperties>'
+                    + '<Styles>'
+                    + '<Style ss:ID="Currency"><NumberFormat ss:Format="Currency"></NumberFormat></Style>'
+                    + '<Style ss:ID="Date"><NumberFormat ss:Format="Medium Date"></NumberFormat></Style>'
+                    + '</Styles>'
+                    + '{worksheets}</Workbook>'
+                , tmplWorksheetXML = '<Worksheet ss:Name="{nameWS}"><Table>{rows}</Table></Worksheet>'
+                , tmplCellXML = '<Cell{attributeStyleID}{attributeFormula}><Data ss:Type="{nameType}">{data}</Data></Cell>'
+                , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+                , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+            return function (tables, wsnames, wbname, appname) {
+                var ctx = "";
+                var workbookXML = "";
+                var worksheetsXML = "";
+                var rowsXML = "";
+
+                for (var i = 0; i < tables.length; i++) {
+                    if (!tables[i].nodeType) tables[i] = document.getElementById(tables[i]);
+                    for (var j = 0; j < tables[i].rows.length; j++) {
+                        rowsXML += '<Row>'
+                        for (var k = 0; k < tables[i].rows[j].cells.length; k++) {
+                            var dataType = tables[i].rows[j].cells[k].getAttribute("data-type");
+                            var dataStyle = tables[i].rows[j].cells[k].getAttribute("data-style");
+                            var dataValue = tables[i].rows[j].cells[k].getAttribute("data-value");
+                            dataValue = (dataValue) ? dataValue : tables[i].rows[j].cells[k].innerHTML;
+                            var dataFormula = tables[i].rows[j].cells[k].getAttribute("data-formula");
+                            dataFormula = (dataFormula) ? dataFormula : (appname == 'Calc' && dataType == 'DateTime') ? dataValue : null;
+                            ctx = {
+                                attributeStyleID: (dataStyle == 'Currency' || dataStyle == 'Date') ? ' ss:StyleID="' + dataStyle + '"' : ''
+                                , nameType: (dataType == 'Number' || dataType == 'DateTime' || dataType == 'Boolean' || dataType == 'Error') ? dataType : 'String'
+                                , data: (dataFormula) ? '' : dataValue
+                                , attributeFormula: (dataFormula) ? ' ss:Formula="' + dataFormula + '"' : ''
+                            };
+                            rowsXML += format(tmplCellXML, ctx);
+                        }
+                        rowsXML += '</Row>'
+                    }
+                    ctx = { rows: rowsXML, nameWS: wsnames[i] || 'Sheet' + i };
+                    worksheetsXML += format(tmplWorksheetXML, ctx);
+                    rowsXML = "";
+                }
+
+                ctx = { created: (new Date()).getTime(), worksheets: worksheetsXML };
+                workbookXML = format(tmplWorkbookXML, ctx);
+
+                console.log(workbookXML);
+
+                var link = document.createElement("A");
+                link.href = uri + base64(workbookXML);
+                link.download = wbname || 'Workbook.xls';
+                link.target = '_blank';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
+
+
+
+
+            $('#loader').hide()
+        })();
+
+
+        //$(document).ready(
+        //    function () {
+        //        var pagebytes = $('html').html().length;
+        //        var kbytes = pagebytes / 1024;
+        //        var MB = kbytes / 1024;
+        //        alert(pagebytes + "pagebytes");
+        //        alert(kbytes + "kbytes");
+        //        alert(MB + "MB");
+        //    }
+        //);
+        
+        function SwitchLevel() {
+            var SelectLevel = LevelVar;
+
+            //if (SelectLevel == "0") { alert("Please Select Level to Switch") }
+            //if (SelectLevel == "1") { alert("1") }
+            //if (SelectLevel == "2") { alert("2") }
+            //if (SelectLevel == "3") { alert("3") }
+
+
+            if (SelectLevel == "0") {
+                //alert("Please Select Level to Switch")
+                $.alert({ title: 'Alert!:', content: 'Please Select Level to Switch', });
+            }
+            else{
+
+               
+                var UserID = sessionStorage.getItem("UserID");
+                
+                var LevelSwitchFrom = sessionStorage.getItem("ChartLevel");
+                var Email = sessionStorage.getItem("email");
+
+ 
+                        $.ajax({
+                            type: 'POST',
+                            url: 'Settings.asmx/AddSwitchLevel',
+                            dataType: 'json',
+                            data: "{'UserID':'" + UserID + "','LevelSwitchFrom':'" + LevelSwitchFrom + "','LevelSwitchTo':'" + SelectLevel + "','Email':'" + Email + "'}",
+                            contentType: 'application/json; charset=utf-8',
+
+                            success: function (response) {
+
+                               
+
+                                window.sessionStorage.setItem("SwitchID", response.d);
+                                SendInvite();
+                                $('#loader').hide();
+                            },
+                            error: function (error) {
+
+                                console.log(error);
+                            }
+                        });
+
+
+ 
+
+                }
+
+
+
+            }
+
+
+     
+        function SendInvite() {
+
+            var SwitchID = sessionStorage.getItem("SwitchID");
+            var EmailID = sessionStorage.getItem("email");
+            var varUserName = sessionStorage.getItem("UserTitle");
+
+            $('#loader').show();
+ 
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Settings.asmx/SwitchLevelInvite',
+                    dataType: 'json',
+                    data: "{'SwitchID':'" + SwitchID + "','email':'" + EmailID + "','UserName':'" + varUserName +"'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+
+ 
+
+
+                         
+                        //alert("Email Approval Sent.");
+
+                        $.alert({ title: 'Alert!:', content: 'Email Approval Sent.', });
+
+                        $('#loader').hide();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $('#loader').hide();
+                    }
+                });
+
+
+
+        
+
+
+
+        }
+
+
+        function ResetAccount() {
+
+                var UserID = sessionStorage.getItem("UserID");
+             
+                var Email = sessionStorage.getItem("email");
+
+             
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Settings.asmx/ResetRequest',
+                        dataType: 'json',
+                        data: "{'UserID':'" + UserID + "','Email':'" + Email + "'}",
+                        contentType: 'application/json; charset=utf-8',
+
+                        success: function (response) {
+
+                        
+                            window.sessionStorage.setItem("ResetID", response.d);
+                            SendResetRequest();
+                            $('#loader').hide();
+                        },
+                        error: function (error) {
+
+                            console.log(error);
+                        }
+                    });
+
+
+
+               
+
+        }
+
+
+        function SendResetRequest() {
+
+            var ResetID = sessionStorage.getItem("ResetID");
+            var EmailID = sessionStorage.getItem("email");
+
+
+            $('#loader').show();
+
+        
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Settings.asmx/SendResetRequest',
+                    dataType: 'json',
+                    data: "{'ResetID':'" + ResetID + "','email':'" + EmailID + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+ 
+
+
+
+                        //alert("Email Approval Sent.");
+                        $.alert({ title: 'Alert!:', content: 'Email Approval Sent.', });
+                        $('#loader').hide();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $('#loader').hide();
+                    }
+                });
+
+
+
+           
+
+
+
+        }
+
+
+
+    </script>
+
+
+    <script src="js/jquery.tabletocsv.js"></script>
+    <script>
+        $('#export').on('click', function () {
+
+
+            
+            var SelectCSVData = document.getElementById("SelectCSVData").value;
+
+            if (SelectCSVData == "0") {
+                //alert("Please Select Data")
+                $.alert({ title: 'Alert!:', content: 'Please Select Data', });
+            }
+            else if (SelectCSVData == "1") { ExportCSVAllAccounts_UserWise(); }
+            else if (SelectCSVData == "2") { ExportCSVLedger_UserWise(); }
+            else if (SelectCSVData == "3") { ExportCSVAllLedger_UserWise(); }
+             
+
+            //ExportCSVAllAccounts_UserWise();
+            //ExportCSVLedger_UserWise();
+            //ExportCSVAllLedger_UserWise();
+
+        })
+    </script>
+
+</body>
+</html>

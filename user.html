@@ -1,0 +1,404 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>User Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="./css/bootstrap/css/bootstrap.min.css">
+    <script src="./js/jquery.min.js"></script>
+
+
+    <script src="js/DatabaseAjax.js"></script>
+    <link href="../font/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/jquery-confirm.min.css" rel="stylesheet" />
+    <script src="../js/jquery-confirm.min.js"></script>
+    <link rel="stylesheet" href="./css/mb.css">
+    <link href="lib/select2/css/select2.min.css?123457" rel="stylesheet" />
+
+    <script src="lib/select2/js/select2.min.js"></script>
+    <!--<link href="css/flags.css" rel="stylesheet" />-->
+    <link href="css/loader.css" rel="stylesheet" />
+
+    <style>
+        .select2-results
+        {
+            font-size: 12px;
+            line-height: normal;
+        }
+
+        .select2-search__field
+        {
+            font-size: 12px;
+            line-height: normal;
+        }
+
+        .selection__rendered
+        {
+            line-height: 38px !important;
+        }
+
+        .select2-container .select2-selection--single
+        {
+            border: 0px;
+            width: 100% !important
+        }
+
+        .pass_show
+        {
+            position: relative
+        }
+
+            .pass_show .ptxt
+            {
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                z-index: 1;
+                color: #f36c01;
+                margin-top: -10px;
+                cursor: pointer;
+                transition: .3s ease all;
+            }
+
+                .pass_show .ptxt:hover
+                {
+                    color: #333333;
+                }
+
+        form#form1
+        {
+            max-width: 303px;
+            min-width: 316px;
+        }
+
+        .login-logo .input-group > .custom-file, .input-group > .custom-select, .input-group > .form-control
+        {
+            width: 100%;
+        }
+
+
+        .login-box .check-field
+        {
+            width: 26%;
+            font-size: small;
+            padding-left: 0px;
+            padding-right: 0px;
+            border-radius: 0;
+            box-shadow: none;
+            border-color: #d2d6de;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            float: left;
+            border-left: 0;
+        }
+
+        .check-input
+        {
+            width: 74%;
+            font-size: small;
+            padding-left: 0px;
+            padding-right: 0px;
+            border-radius: 0;
+            box-shadow: none;
+            border-color: #d2d6de;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            float: left;
+        }
+
+
+
+        .input-group-textb
+        {
+            font-size: small;
+            width: 100%;
+            display: block;
+            text-align: left;
+            color: #222222c4;
+        }
+
+        #imgfile
+        {
+            background: white;
+            width: 100%;
+            padding: 5px;
+        }
+
+        form#form1 h2.login-box-msg
+        {
+            font-size: 24px;
+            padding-bottom: 0;
+        }
+
+        #Rpic
+        {
+            border: solid thick #494848;
+            border-radius: 1000px;
+            height: 100px;
+            width: 100px;
+        }
+
+        .login-box button.Submit-btn
+        {
+            background: #e8e8e8;
+            color: #292929;
+            border: solid 1px #292929;
+            font-size: 12px;
+            text-transform: uppercase;
+            line-height: normal;
+            padding: 6px 20px;
+            float: left;
+        }
+
+            .login-box button.Submit-btn:hover
+            {
+                background: #ffffff;
+                color: #292929;
+                border: solid 1px #292929;
+            }
+
+        .login-box .reg-footer.clear
+        {
+            padding: 4px 17px;
+        }
+
+        .login-box .meta
+        {
+            padding-top: 6px;
+            float: right;
+        }
+
+        span.caret
+        {
+            margin-left: 5px;
+            float: right;
+            position: absolute;
+            right: 9px;
+            top: 14px;
+        }
+    </style>
+    <script>
+
+
+
+
+
+
+        $(document).ready(function () {
+            $('.pass_show').append('<span class="ptxt">Show</span>');
+        });
+
+
+        $(document).on('click', '.pass_show .ptxt', function () {
+
+            $(this).text($(this).text() == "Show" ? "Hide" : "Show");
+
+            $(this).prev().attr('type', function (index, attr) { return attr == 'password' ? 'text' : 'password'; });
+
+        });
+
+    </script>
+</head>
+<body class="bg-light login-pagemain">
+    <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
+        <div class="container login-header">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" style="color:rgb(244,159,33);"><img src="assets/img/logo_name2.png" style="margin-top:-6px;"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="top-navbar-1">
+                <ul class="nav navbar-nav navbar-right" style="display: block;">
+                    <li><a class="scroll-link" href="#features">  About    </a></li>
+                    <li><a class="scroll-link" href="#how-it-works"> Features</a></li>
+                    <li><a class="scroll-link" href="#pricing"> Pricing</a></li>
+                    <li><a class="scroll-link" href="#about-us"> How to use</a></li>
+                    <li><a class="scroll-link" href="#testimonials"> Contact</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container login-page">
+        <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+        <div class="vcenter text-login">
+            <div class="col-lg-8 col-md-11 col-sm-12 no-padding">
+                <h1>Your <span style="color:#f49f21;">Accounting</span> &amp; <br>Management Solution<br></h1>
+                <p>
+                    Manage your personal and business accounts with the friendliest system ever built. Bring in discipline in your financial dealings by signing in with munshibaba.com <br>Munshibaba.com as a personal accounting systems is almost free,
+                    <br>Just try it……and you’ll be more than happy.
+                </p>
+            </div>
+        </div>
+
+
+
+        <div class="m-login-section vcenter flipInY">
+            <form id="form1" class="login-box animate">
+                <div class="login-logo Reg-logo ">
+                    <img id="Rpic" /><a href="#" class="uploadme"> Change </a>
+                </div>
+                <h2 class="login-box-msg">  Create Account </h2>
+                <div class="input-group small mt-2">
+
+
+                    <input id="txtFullName" type="text" inputmode="text" class="form-control" placeholder="Enter Full Name" required />
+
+                </div>
+
+                <div class="input-group small mt-2">
+
+
+                    <input id="txtemail" class="check-input" type="text" onblur="callemailout();" placeholder="Enter Email" />
+                    <span id="chkEmail" class="check-field col-2 text-center" style="font-size:small;padding-left :0px; padding-right:0px;">--</span>
+                </div>
+                <div class="select-country input-group  mt-2">
+                    <select id="CountryData" class="select2 form-control  " type="text"></select>
+                </div>
+
+                <div class="input-group small mt-2 country-code-select">
+
+                    <!--<div class="country-code">
+                    <div id="country-code" class="select"> code </div>
+        <div id="country-code-drop" class="dropdown">
+
+            <ul id="countryData">
+                <li><img sizes="12" src="../css/flags.png" /><span class="country-code-name">(+93) </span></li>
+
+            </ul>
+        </div>
+
+                    </div>-->
+
+                    <input id="txtCell" class="form-control" type="text" onblur="callcelllout();" inputmode="numeric" placeholder="Enter Cell #" />
+
+                </div>
+                <!--<div class="input-group small mt-2">
+
+        <input id="txtUser" type="text" inputmode="text" disabled class="check-input " placeholder="Enter User Name" required />
+        <select id="UserNameChoise" class="check-field col-2 text-center " onchange="ChangeChoise(this);" style="font-size:small;padding:1px 0px 0px; line-height: 28px;     font-size: 10px;">
+            <option value="email" selected>As Email</option>
+            <option value="cell">As Cell</option>
+            <option value="0">Input</option>
+
+        </select>
+    </div>-->
+
+
+                <div class="input-group small mt-2">
+
+                    <input id="txtpassword" type="password" inputmode="passsword" onkeyup="checkStrength(this.value, getElementById('STpassord'), getElementById('STpassord'));" class="check-input pass_show" placeholder="Enter Paswword" required />
+                    <span id="STpassord" class="check-field   col-2 text-center" style="font-size:small;padding-left :0px; padding-right:0px;">--</span>
+
+                </div>
+                <div class="input-group small mt-2">
+
+                    <input id="txtpassword2" type="password" inputmode="password" onkeyup="Passmatch(this.value);" class="check-input pass_show" placeholder="Confirm Password" required />
+                    <span id="STCpassord" class="check-field  col-2 text-center" style="font-size:small;padding-left :0px; padding-right:0px;">--</span>
+
+                </div>
+                <div class="input-group small mt-2" style="display:block;">
+                    <!--<div class="input-group-prepend col-3 pr-0">
+                        <span class="input-group-textb w-100" style="font-size:small">Status </span>
+                    </div>-->
+                    <select id="txtLevel" class="form-control">
+                        <option value="3" style="white-space:normal;">3 (three)  Level Chart of Account</option>
+                        <option value="2" style="white-space:normal;">2 (two)    Level Chart of Account</option>
+                        <option value="1" style="white-space:normal;">1 (single) Level Chart of Account</option>
+
+                    </select>
+                </div>
+                <!--<div class="input-group small mt-2 ">
+
+        <span class="input-group-textb w-100" style="font-size:small">D.O.B </span>
+
+
+        <input id="txtDOB" class="form-control" type="date" placeholder="Select Date of Birth" required />
+
+    </div>-->
+                <div id="fileupload" class="input-group small mt-2 " style="display:none;">
+                    <div class="input-group-prepend col-3 pr-0">
+                        <span class="input-group-textb w-100" style="font-size:small">Photo </span>
+                    </div>
+                    <input id="imgfile" placeholder="Photo" class="" onchange="MyFile();" type="file" name="image" accept="image/*" />
+                </div>
+                <div class="input-group small mt-2" style="display:none;">
+                    <div class="input-group-prepend col-3 pr-0">
+                        <span class="input-group-textb w-100" style="font-size:small">Status </span>
+                    </div>
+                    <select id="txtActive" class="form-control">
+                        <option value="1">Active</option>
+                        <option value="0">In-Active</option>
+
+                    </select>
+                </div>
+                <!--<div class="input-group small mt-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-sticky-note">&nbsp;</i></span>
+        </div>
+        <textarea class="form-control" rows="3" placeholder="Enter note here"></textarea>
+    </div>-->
+                <!--<div class="row mt-2">
+        <div class="col-12">
+
+            <button class="form-control bg-success" onclick="window.location.href='itemslist.html'"><i class="fa fa-edit"></i> Bill Details/Items</button>
+        </div>
+
+    </div>-->
+                <!--<div class="form-group">
+        <div class="country">
+            <div id="country" class="select">Select Country </div>
+            <div id="country-drop" class="dropdown">
+
+                <ul>
+                    <li><img sizes="12" src="../css/flags.png" /><span class="country-name">Afghanistan (+93) </span></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>-->
+
+
+
+                <div class="row mt-2">
+                    <!--<div class="col-6">
+            <button class="form-control bg-primary"><i class="fa fa-eraser"></i> New</button>
+        </div>-->
+
+                    <div class="reg-footer clear">
+                        <button class="Submit-btn btn btn-primary" onclick="CallSaveUser(); return false;">Submit</button>
+                        <div class="meta">Have an account ? &nbsp; &nbsp;<a href="login2.html"><strong>Login</strong></a></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script src="js/user.js"></script>
+
+
+
+</body>
+</html>

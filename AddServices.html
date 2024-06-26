@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Add Services</div>
+
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Service Name</span>
+                        </div>
+                        <input id="ServiceName" type="text" inputmode="numeric" class="form-control" placeholder="Enter Service Name" />
+                    </div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Service Charge</span>
+                        </div>
+                        <input id="ServiceCharge" type="text" inputmode="numeric" class="form-control" placeholder="Enter Service Charge" />
+                    </div>
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Service Description </span>
+                        </div>
+                        <input id="ServiceDescription" type="text" inputmode="numeric" class="form-control" placeholder="Enter Service Description" />
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                        <div>
+                            <input id="imgfile" class="form-control" onchange="MyFile();" type="file" name="image" accept="application/pdf, image/*" />
+                            <a id="btnReset" href="#" class="attach-btn " onclick="AddAttchement();"> <span class="btn-name">Attachment </span> </a><br /><span style="font-size:12px;"> (Maximum two attachments allowed)</span>
+
+                            <div id="AttachmentData" style="max-height:100px;overflow:auto;">
+                                <br />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="CreateServicesProvide();"> <span class="btn-name">Save  </span> </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">Users</div>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>Service Name</th>
+                                        <th>Charges</th>
+                                        <th>Description</th>
+                                        <th>Generate Service Invoice</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="ServiceList">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Service Detail -->
+    <div id="ServiceDetail" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Service Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+
+                        <div class="form-group row">
+
+
+                            <div class="col-xs-5">
+                                <label for="ex3">Add Service</label>
+                                <!--<button class="form-control btn btn-success" id="ex3"> + </button>-->
+                            </div>
+
+                            <div class="col-xs-3">
+                                <label for="ex3"></label>
+                                <button class="form-control btn btn-success" id="ex3" onclick="AddField()"> ADD FIELD </button>
+                            </div>
+
+                        </div>
+
+                        <div id="ServiceField">
+
+                            <div class="form-group row">
+                                <div class="col-xs-2">
+                                    <label for="ex1">Service Name</label>
+                                    <input class="form-control ServiceName" id="ex1" type="text">
+                                </div>
+                                <div class="col-xs-1">
+                                    <label for="ex2">Qty</label>
+                                    <input class="form-control Qty" id="ex2" type="text" >
+                                </div>
+                                <div class="col-xs-1">
+                                    <label for="ex3">Charges</label>
+                                    <input class="form-control Charges" id="ex3" type="text" onkeyup="GetTotal()" value="0">
+                                </div>
+                                <div class="col-xs-2">
+                                    <label for="ex3">Shipping Charges</label>
+                                    <input class="form-control ShippingCharges" id="ex3" type="text" onkeyup="GetTotal()" value="0">
+                                </div>
+                                <div class="col-xs-1">
+                                    <label for="ex3">Total</label>
+                                    <input class="form-control Total" id="ex3" type="text" readonly>
+                                </div>
+                                <div class="col-xs-1">
+                                    <label for="ex3">Discount(%)</label>
+                                    <input class="form-control Discount" id="ex3" type="text" onkeyup="GetDiscount()">
+                                </div>
+                                <div class="col-xs-1">
+                                    <label for="ex3">Grand Total</label>
+                                    <input class="form-control GrandTotal" id="ex3" type="text" readonly>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="CreateServicesProvideDetail()">Save </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="js/Budgetsetting.js"></script>
+    <script src="BuilderScripts/PurchaseAndSaleServices.js"></script>
+</body>
+</html>
+
+
+<script>
+    GetServicesProvide()
+
+
+    function AddField() {
+
+        var div = '';
+
+      div = div +'  <div class="form-group row">'
+      div = div +'      <div class="col-xs-2">'
+      div = div +'          <label for="ex1">Service Name</label>'
+        div = div +'          <input class="form-control ServiceName" id="ex1" type="text">'
+      div = div +'      </div>'
+      div = div +'      <div class="col-xs-1">'
+      div = div +'          <label for="ex2">Qty</label>'
+        div = div +'          <input class="form-control Qty" id="ex2" type="text">'
+      div = div +'      </div>'
+      div = div +'      <div class="col-xs-1">'
+      div = div +'          <label for="ex3">Charges</label>'
+        div = div +'          <input class="form-control Charges" id="ex3" type="text" onkeyup="GetTotal()" value="0">'
+      div = div +'      </div>'
+      div = div +'      <div class="col-xs-2">'
+      div = div +'          <label for="ex3">Shipping Charges</label>'
+        div = div +'          <input class="form-control ShippingCharges" id="ex3" type="text" onkeyup="GetTotal()" value="0">'
+      div = div +'      </div>'
+      div = div +'      <div class="col-xs-1">'
+      div = div +'          <label for="ex3">Total</label>'
+        div = div +'          <input class="form-control Total" id="ex3" type="text" readonly>'
+      div = div +'      </div>'
+      div = div +'      <div class="col-xs-1">'
+      div = div +'          <label for="ex3">Discount</label>'
+        div = div + '          <input class="form-control Discount" id="ex3" type="text" onkeyup="GetDiscount()">'
+      div = div +'      </div>'
+      div = div +'      <div class="col-xs-1">'
+      div = div +'          <label for="ex3">Grand Total</label>'
+        div = div +'          <input class="form-control GrandTotal" id="ex3" type="text" readonly>'
+      div = div +'      </div>'
+      div = div +'  </div>'
+
+      
+
+        $("#ServiceField").append(div);
+
+    }
+
+
+
+</script>
+
+<script>
+    function AddAttchement() {
+
+        $('#imgfile').click();
+
+
+    }
+
+    var file2;
+    $('#imgfile').hide();
+    var filename1 = [];
+
+
+
+    function Click() {
+
+        FilterShowPopup();
+    }
+
+
+    fillColor();
+
+    function fillColor() {
+        document.getElementById("FillDiv").style.display = "none";
+
+
+        var colorArray = ['FFFFFF', 'DA5353', 'FFFF00', '7FFFD4', 'F0FFFF', 'F5F5DC', 'FFE4C4', 'FFEBCD', 'DEB887', '7FFF00',
+            'FF7F50', '6495ED', 'FFF8DC', '00FFFF', 'BDB76B', 'FF8C00',
+            'E9967A', '8FBC8F', '00CED1'];
+        var elem = document.getElementById("FillDiv");
+
+        for (var a = 0; a < colorArray.length; a++) {
+            var str = "";
+            str = "<div onclick=ColorClicked('" + colorArray[a] + "') class='ColorFill' style='background-color:#" + colorArray[a] + ";' > </div>";
+            elem.innerHTML = elem.innerHTML + str;
+
+        }
+    }
+
+
+    function ColorClicked(a) {
+        //alert(a);
+        document.getElementById("divColor").style.backgroundColor = "#" + a;
+
+        $('#FillDiv').hide();
+    }
+
+
+</script>

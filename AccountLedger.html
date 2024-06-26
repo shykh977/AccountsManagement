@@ -1,0 +1,3510 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>
+
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="../lib/jspdf/jspdf.min.js"></script>
+    <script src="../lib/html2canvas/html2canvas.min.js"></script>
+    <script src="../lib/html2pdf.js/html2pdf.bundle.min.js"></script>
+    <link href="../css/jquery-confirm.min.css" rel="stylesheet" />
+    <script src="../js/jquery-confirm.min.js"></script>
+    <script src="MyTools/DatabaseAjax.js"></script>
+    <link href="css/loader.css" rel="stylesheet" />
+    <link href="lib/select2/css/select2.min.css?123457" rel="stylesheet" />
+
+
+
+    <script src="lib/select2/js/select2.min.js"></script>
+    <!--<script src="js/jquery-dateformat.min.js"></script>-->
+    <script src="lib/Chart.js/Chart.min.js"></script>
+    <script>
+        /*eslint eqeqeq: ["error", "smart"]*/
+        var accid = sessionStorage.getItem("Accountid");
+        var accTitle = sessionStorage.getItem("AccountTitle");
+        var accOpening = sessionStorage.getItem("AccountOpening");
+        var accop = "";
+        if (accOpening == "") { accop = "0"; accOpening = "0"; }
+        else {
+            accop = accOpening.replace(new RegExp(",", 'g'), "");
+            accop = accop.replace(".00", "");
+        }
+        var BackFile = sessionStorage.getItem("LastPage");
+        function CallBackFile() {
+            LoadFile(BackFile);
+        }
+    </script>
+
+    <script>
+        $(function () {
+
+            $("#includedContent").load("navbar.html");
+
+        });
+    </script>
+
+    <style>
+
+        #MyDiv
+        {
+            display: none;
+        }
+
+        #Printable
+        {
+            display: block;
+        }
+
+        .disabled
+        {
+            color: grey;
+            cursor: default;
+        }
+
+        .center1
+        {
+            left: 50% !important;
+            right: auto !important;
+            text-align: center !important;
+            transform: translate(-50%, 0) !important;
+        }
+
+        .myamount
+        {
+            text-align: right !important;
+            padding-right: 4px !important;
+        }
+
+        i.fa.fa-trash
+        {
+            color: #f10d0d;
+        }
+
+        .search-ledger
+        {
+            float: left;
+        }
+
+        .serch-bar-btn
+        {
+            margin-left: 0px;
+            margin-top: 2px;
+            float: left;
+            position: absolute;
+            left: 14px;
+        }
+
+        span.pagename
+        {
+            width: 121px;
+        }
+
+        @media screen and (max-width: 1023px)
+        {
+
+            .search-ledger
+            {
+                float: left;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+                .search-ledger input#SearchString
+                {
+                    width: 100%;
+                    border: solid 1px #737373;
+                    padding: 6px 6px 6px 26px;
+                }
+
+            .search-account-ledger
+            {
+                padding: 0;
+            }
+        }
+
+        @media screen and (max-width: 1496px)
+        {
+
+
+            .serch-bar-btn
+            {
+                margin-left: 0px;
+                margin-top: 2px;
+                float: left;
+                position: absolute;
+                left: 14px;
+            }
+
+
+            .note-edit-serach
+            {
+                clear: both;
+                padding: 0px 10px 5px 10px;
+            }
+
+            a.edit-leger img
+            {
+                width: 14px;
+            }
+
+            span.note-ledger
+            {
+                padding: 4px 3px 0px 9px;
+                display: inline-block;
+                line-height: normal;
+                text-align: left;
+                float: left;
+                width: calc(100% - 50px);
+                font-size: 12px;
+                /* white-space: nowrap; */
+                overflow: hidden;
+                text-align: justify;
+                text-overflow: ellipsis;
+            }
+
+            .date-d span
+            {
+                display: block;
+                background: #fff;
+                height: 22px;
+                position: relative;
+                left: -4px;
+                width: 45px;
+                top: 3px;
+            }
+
+            .note-edit-serach a img
+            {
+                width: 16px;
+            }
+
+            .date-d span a img
+            {
+                width: 14px;
+                height: 14px;
+            }
+
+
+            .note-edit-serach .edit-leger
+            {
+                background: #EEE;
+                padding: 2px 3px 0px 3px;
+                display: inline-block;
+                width: 46px;
+                line-height: 1;
+                text-align: center;
+                height: 22px;
+                float: left;
+                margin-bottom: 10px;
+            }
+
+
+            #MyDiv
+            {
+                display: block;
+            }
+
+            #Printable
+            {
+                display: none;
+            }
+
+            .account-ledger-box
+            {
+                text-transform: capitalize;
+                position: relative;
+                background: #ffffff;
+                margin-bottom: 12px;
+                width: 100%;
+                padding: 0px 0px;
+                border: solid 1px #a8aab6;
+                text-align: left;
+            }
+
+            .date-d a
+            {
+                color: #fff;
+            }
+
+            .account-ledger-box .grocery-items .box-header
+            {
+                padding: 0px 0px 0px 10px;
+            }
+
+                .account-ledger-box .grocery-items .box-header .box-tools
+                {
+                    right: 14px;
+                    text-transform: uppercase;
+                    top: 7px;
+                    font-size: 12px;
+                    position: absolute;
+                }
+
+            .account-ledger-box .grocery-items .box-body.table-responsive table.table.table-hover tr td.text-r
+            {
+                font-weight: bold;
+            }
+
+            .account-ledger-box .grocery-items .box-body.table-responsive
+            {
+                padding: 0px 0px 0px 10px;
+                font-size: 11px;
+                text-transform: uppercase;
+                line-height: normal;
+                margin: 0;
+                width: calc(100% - 50px);
+                float: left;
+            }
+
+                .account-ledger-box .grocery-items .box-body.table-responsive table.table.table-hover tr
+                {
+                    border-bottom: solid 1px #adb5b9;
+                }
+
+                    .account-ledger-box .grocery-items .box-body.table-responsive table.table.table-hover tr td
+                    {
+                        padding: 0px 0px;
+                        border: 0;
+                        font-size: 12px;
+                        color: #5b6d74;
+                        line-height: 1.5em;
+                    }
+
+            .account-ledger-box .grocery-items
+            {
+                padding: 10px 10px 5px 10px;
+                width: 100%;
+            }
+
+                .account-ledger-box .grocery-items .box-body.table-responsive table.table.table-hover tr th
+                {
+                    padding: 0;
+                    border: 0;
+                    font-size: 11px;
+                    text-align: justify;
+                }
+
+                .account-ledger-box .grocery-items .box-header h3.box-title
+                {
+                    font-size: 12px;
+                    font-weight: bold;
+                    width: 84%;
+                    float: left;
+                }
+
+                .account-ledger-box .grocery-items .box-body.table-responsive table.table.table-hover
+                {
+                    margin-bottom: 0px;
+                }
+
+            .account-ledger-box .box-header h3.box-title
+            {
+                font-size: 14px !important;
+                text-align: center;
+                color: #000000;
+                font-weight: bold;
+            }
+
+            .account-ledger-box .box-header
+            {
+                background: #f5f7d9;
+                /* height: 29px; */
+                padding: 7px 0;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <section class="content-header breadcrumb-header">
+        <h1>
+            <ol class="breadcrumb">
+                <li><a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></li>
+
+                <li><span id="AccTitle" class="pagenameb"> Group Ledger</span></li>
+            </ol>
+
+        </h1>
+
+        <!--<div href="#" class="otherpagenext-arrow">
+
+            <a href="#" class="callback" onclick='PageFarward();'><img src="img/forword-arrow.png" /></a>
+        </div>-->
+
+    </section>
+
+    <section class="content-inr expense">
+        <div id="includedContent"></div>
+        <div id="loader" class="loader" style="margin:0;display:none;"></div>
+        <div class="row" style="display:none;">
+
+            <div class="input-group col-lg-5 " style="padding-left:0px !important; padding-right:0px !important">
+                <div class="input-group-prepend col-lg-4 pr-0">
+                    <span class="input-group-text w-100" style="font-size:small">From </span>
+                </div>
+
+                <input id="txtDate1" readonly class="form-control date" type="text" placeholder="Select date" required />
+                <div class="input-group-append">
+                    <span class="input-group-text" style="cursor:pointer;" id="cal21"><i class="fa fa-calendar fa-fw"></i></span>
+                </div>
+            </div>
+            <div class="input-group col-lg-5 pl-0 pr-0 " style="">
+                <div class="input-group-prepend col-lg-4 pr-0 pl-0">
+                    <span class="input-group-text w-100" style="font-size:small">To </span>
+                </div>
+
+                <input id="txtDate2" readonly class="form-control date" type="text" placeholder="Select date" required />
+                <div class="input-group-append">
+                    <span class="input-group-text" style="cursor:pointer;" id="cal22"><i class="fa fa-calendar fa-fw"></i></span>
+                </div>
+            </div>
+            <div class="input-group col-lg-2 pl-0 " style="">
+
+                <button class="btn btn-primary w-100" onclick="getAccountOpening();"><i class="fa fa-refresh"></i></button>
+
+            </div>
+
+        </div>
+        <script>
+
+            //var doc = new jsPDF('p','pt','a4');
+            //var specialElementHandlers = {
+            //    '#editor': function (element, renderer) {
+            //        return true;
+            //    }
+            //};
+
+            //function PDFFile() {
+
+            //    doc.fromHTML(document.getElementById("Printable").innerHTML, 15, 15, {
+
+            //    });
+            //    doc.save('sample-file.pdf');
+            //}
+            //}
+            function getMyDate(d) {
+                var date = d;
+                // alert(d);
+                var mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                var day = date.getDate();
+                var month = date.getMonth();
+                var year = date.getFullYear();
+
+                //if (month < 10) month = "0" + month;
+                if (day < 10) day = "0" + day;
+
+                var today = day + " " + mon[month] + " " + year;
+
+
+                return today;
+            }
+
+            function toTitleCase(str) {
+                return str.replace(
+                    /\w\S*/g,
+                    function (txt) {
+                        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                    }
+                );
+            }
+
+        </script>
+
+
+        <div class=" bg-white p-3 mt-0">
+            <div class="search-account-ledger col-lg-12 col-md-12 col-sm-12 text-right pb-2 pr-0 pl-0 pt-2">
+
+                <div class="search-ledger"><input type="search" name="s" id="SearchString" oninput="SearchValue()" placeholder="Search"><div class="serch-bar-btn" onclick="SearchValue()"><i class="fa fa-search"></i></a></div></div>
+                <div class="" style=" cursor: pointer;width: 16px;margin-left:5px; float:left;margin-top:-2px;" onclick="LedgerFilterShowPopup('Ledger Filter');"><img style="filter: grayscale(100%);width: 20px;padding-top: 3px;" src="MunshiImagesMain/Calendar3.png"></div>
+                <div style=" float:right">
+                    <a href="#" onclick="tableToExcel('DivExcel', 'Account Ledger')" style="text-align:right;color:#757472;"> <i class="fa fa-print fa-file-excel-o">&nbsp;&nbsp;&nbsp;&nbsp;   </i></a>
+                    <a href="#" onclick="PrintElem('Printable');" style="text-align:right;color:#757472;"> <i class="fa fa-print fa-print">&nbsp;&nbsp;&nbsp;&nbsp;   </i></a>
+                    <a href="#" onclick="PDFFile()" style="text-align:right;color:#757472;"><i class="fa fa-print fa-file-pdf-o">&nbsp;&nbsp;&nbsp;&nbsp; </i></a>
+                    <!--<a href="#" onclick="CheckSharedAccount()" style="text-align:right;color:#757472;">   <i class="fa fa-share-alt">&nbsp;&nbsp;&nbsp;&nbsp; </i></a>-->
+
+                    <!--<a href="#" onclick="CallBackFile();" style="text-align:right;color:#757472;">   <i class="fa fa-arrow-left"> </i></a>-->
+                </div>
+            </div>
+
+        </div>
+        <div id="Printable" style="display:none;padding:15px;  background-color:white; ">
+            <br />
+
+            <style>
+
+                td {
+                    font-family: Arial;
+                    font-size: 9px;
+                    margin: 0;
+                    padding: 2px;
+                    border-bottom: 1px solid lightgrey;
+                }
+
+                .activity {
+                    font-size: 14pt
+                }
+
+                .HeadImage {
+                    width: 80px;
+                }
+
+                .Head1 {
+                    font-size: 9pt;
+                }
+
+                .BoxHeader {
+                    width: 100%;
+                    line-height: 15px;
+                    padding-top: 6px !important;
+                    font-size: 8pt;
+                    background-color: #dbdcde !important;
+                    text-align: center;
+                    padding-top: 3px;
+                    border: solid 1px #dbdcde;
+                }
+
+                .BoxBody {
+                    width: 100%;
+                    line-height: 20px;
+                    font-size: 9pt;
+                    font-weight: 600;
+                    border: solid 1px #dadbdc !important;
+                    text-align: center;
+                    padding-top: 4px;
+                }
+
+                .LeftBox {
+                    width: 157px;
+                    padding-left: 4px;
+                    padding-right: 4px;
+                }
+
+                .RightBox {
+                    width: 118px;
+                }
+
+                .Gap1 {
+                    margin-right: 3px;
+                }
+
+                .Acctd {
+                    background-color: #dadbdc !important;
+                    border-right: solid 1px white;
+                    border-left: solid 1px #dadbdc;
+                    border-top: solid 1px #dadbdc;
+                    border-bottom: solid 1px white;
+                    padding-left: 3px;
+                    padding-right: 3px;
+                    height: 21px;
+                    padding-top: 5px;
+                    text-align: center;
+                }
+
+                .select2-results {
+                    font-size: 12px;
+                    line-height: normal;
+                }
+
+                .select2-search__field {
+                    font-size: 12px;
+                    line-height: normal;
+                }
+
+                .selection__rendered {
+                    line-height: 38px !important;
+                }
+
+                .select2-container .select2-selection--single {
+                    border: 0px;
+                    width: 100% !important
+                }
+            </style>
+            <style media="print" type="text/css">
+                body {
+                    -webkit-print-color-adjust: exact !important;
+                    font-family: Arial;
+                }
+
+                .Gap1 {
+                    margin-right: 5px;
+                }
+
+                a a:hover, a:visited, a:link, a:active {
+                    text-decoration: none !important;
+                    -webkit-box-shadow: none !important;
+                    box-shadow: none !important;
+                }
+
+                .myamount {
+                    text-align: right !important;
+                    padding-right: 4px !important;
+                }
+
+                .Erasable {
+                    display: none;
+                }
+
+                td {
+                    font-family: Arial;
+                    font-size: 9px;
+                    margin: 0;
+                    padding: 2px;
+                    border-bottom: 1px solid lightgrey;
+                }
+
+                .activity {
+                    font-size: 14pt
+                }
+
+                .HeadImage {
+                    width: 80px;
+                }
+
+                .Head1 {
+                    font-size: 9pt;
+                }
+
+                .BoxHeader {
+                    width: 100%;
+                    line-height: 15px;
+                    padding-top: 6px !important;
+                    font-size: 8pt;
+                    background-color: #dbdcde !important;
+                    border: solid 1px #dadbdc !important;
+                    text-align: center;
+                    padding-top: 3px;
+                }
+
+                .BoxBody {
+                    width: 100%;
+                    line-height: 20px;
+                    font-size: 9pt;
+                    font-weight: 600;
+                    border: solid 1px #dadbdc !important;
+                    text-align: center;
+                    padding-top: 4px;
+                }
+
+                .LeftBox {
+                    width: 157px;
+                    padding-left: 4px;
+                    padding-right: 4px;
+                }
+
+                .RightBox {
+                    width: 118px;
+                }
+
+                .Acctd {
+                    background-color: #dadbdc !important;
+                    border-right: solid 1px white;
+                    text-align: center;
+                    padding-left: 3px;
+                    padding-right: 3px;
+                    height: 21px;
+                    padding-top: 5px;
+                    border-bottom: solid 1px #ffffff !important;
+                }
+            </style>
+            <div class="" style="margin-top:10px;width:100%;">
+                <div style="width:50%;float:left;">
+                    <div id="logo"><img class="HeadImage" src="assets/img/ASlogo.png" /></div>
+                    <div id="nametext" class="Head1" style="padding-top:4px;"><div style="line-height:18px;font-weight:bold;"><span id="UserNameLedger"></span></div><div style="line-height:14px;font-weight:normal;"><span id="MobileLedger"></span><br /><span id="EmailLedger"></span></div></div>
+                </div>
+                <div class="" style="width:50%;float:right;">
+                    <div id="printdate" class="Head1" style="float:right;">Print Date:&nbsp;<span id="PrintDate" style="font-weight:600;">29 January 2019</span></div>
+                    <br />
+                    <div id="" class="Head1" style="float:right; margin-top: -2px;">Currency:&nbsp;<span id="CurrencyName" style="font-weight:600;">PKR</span></div>
+                </div>
+            </div>
+            <div class="" style="width:100%; padding-top:20px;clear:both;margin-top:25px; margin-bottom:10px;">
+                <div class="" style="width:100%">
+                    <span class="activity" style="">ACCOUNT ACTIVITY</span>
+
+                </div>
+            </div>
+
+
+
+            <div style="clear:both;"></div>
+            <div class="" style="display:flex; flex-wrap:wrap; width:100%; clear:both;">
+                <div class="" style="overflow: auto;min-width:400px;width:100%">
+                    <div id="DivExcel">
+                        <table style="width:100%;border-collapse:collapse;margin-bottom:10px;">
+                            <tr style="border-collapse:separate;line-height:15px;margin-bottom:10px;">
+                                <td colspan="3" class="" style="height:58px;vertical-align:top;">
+                                    <div id="Budgetvalue" style="width:100%;line-height: 14px; display: list-item;">
+                                    </div>
+                                </td>
+                                <td colspan="4" style="border-bottom:0;"></td>
+
+                            </tr>
+                            <tr style="border-collapse:separate;line-height:15px;">
+                                <td class="LeftBox BoxHeader ">ACCOUNT</td>
+                                <td style="width:2px; border-bottom:0;"></td>
+                                <td class="LeftBox BoxHeader">CURRENT BALANCE</td>
+                                <td style=" border-bottom:0;">             </td>
+                                <td class="RightBox BoxHeader ">FROM</td>
+                                <td style="width:2px; border-bottom:0;"></td>
+                                <td class="RightBox BoxHeader ">TO</td>
+                            </tr>
+                            <tr style="border-collapse:separate;line-height:20px;">
+                                <td class="LeftBox BoxBody ">
+                                    <span id="AccountTitleLedger"></span>
+
+                                </td>
+                                <td style="width:2px; border-bottom:0;"></td>
+                                <td class="LeftBox BoxBody"><span id="BalanceLedger"></span></td>
+                                <td style="border-bottom:0;">             </td>
+                                <td class="RightBox BoxBody "><span id="StartDateLedger"></span></td>
+                                <td style="width:2px; border-bottom:0;"></td>
+                                <td class="RightBox BoxBody "><span id="EndDateLedger"></span></td>
+                            </tr>
+                        </table>
+
+
+                        <table id="TableLedger2" style="width:100%;border-collapse:collapse; display:none">
+                            <thead class=" small font-weight-bold" style="display: table-header-group;padding-bottom:3px; ">
+                                <tr style="border-collapse:separate;">
+
+                                    <td class="Acctd">S.NO</td>
+
+                                    <td class="Acctd" style="min-width:75px;">DATE</td>
+                                    <td class="Acctd">NARRATION</td>
+                                    <td class='Acctd' style="min-width:70px;">PAYMENTS</td>
+                                    <td class='Acctd' style="min-width:70px;">RECIEPTS</td>
+                                    <td class='Acctd' style="min-width:70px;">BALANCE</td>
+                                    <td class="Acctd Erasable" data-html2canvas-ignore='true'>STATUS</td>
+
+
+                                </tr>
+
+
+                            </thead>
+                            <tbody id="ledger2" class="small"></tbody>
+
+                        </table>
+
+
+                    </div>
+
+                    <table id="TableLedger" style="width:100%;border-collapse:collapse;">
+                        <thead class=" small font-weight-bold" style="display: table-header-group;padding-bottom:3px; ">
+                            <tr style="border-collapse:separate;">
+
+                                <td class="Acctd">S.NO</td>
+
+                                <td class="Acctd" style="min-width:75px;">DATE</td>
+                                <td class="Acctd">NARRATION</td>
+                                <td class='Acctd' style="min-width:70px;">PAYMENTS</td>
+                                <td class='Acctd' style="min-width:70px;">RECIEPTS</td>
+                                <td class='Acctd' style="min-width:70px;">BALANCE</td>
+                                <td class="Acctd Erasable" data-html2canvas-ignore='true'>STATUS</td>
+
+                                <td class="Acctd Erasable" data-html2canvas-ignore='true'>EDIT</td>
+                                <td class="Acctd Erasable" data-html2canvas-ignore='true'>ACTION</td>
+                                <td class="Acctd Erasable" data-html2canvas-ignore='true'><img src='MunshiImagesMain/attached.svg' style="margin-bottom:3px;width:12px;" /></td>
+                                <!--<td>Balance</td>-->
+                                <!--<td><i class="fa fa-search"></i></td>-->
+
+                            </tr>
+
+
+                        </thead>
+                        <tbody id="ledger" class="small"></tbody>
+                        <tfoot class=" small font-weight-bold" style="display: table-footer-group; ">
+
+                            <tr>
+                                <td colspan="10" style="border:0px;"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="10" style="border:0px; padding:0px;">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td style="background-color:#f5b21f;height:13px;border:0;width:100px;"></td>
+                                            <td style="width:100px;border:0;"><span>BTG Accounts Solution</span></td>
+                                            <td style="background-color:#162e42;height:13px;padding:4px;border:0"></td>
+                                        </tr>
+                                    </table>
+                                </td>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="clear"></div>
+        <div id="MyDiv" class="w-100 pt-2" style=" height:calc(100vh - 150px);     margin-top: 2px;"></div>
+    </section>
+
+    <script>
+        $("#CurrencyName").html(SettingValues.CurrencyCode);
+        function PrintElem(elem) {
+            var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+            mywindow.document.write('<html><head>');
+
+            mywindow.document.write('</head><body >');
+            mywindow.document.write('');
+
+
+            //document.getElementById(elem).innerHTML.replace("TableLedger", "TableLedgerPrint");
+
+            mywindow.document.write(document.getElementById(elem).innerHTML);
+            mywindow.document.write('</body></html>');
+
+            mywindow.document.close(); // necessary for IE >= 10
+            mywindow.focus(); // necessary for IE >= 10*/
+
+            mywindow.print();
+            mywindow.close();
+
+            return true;
+        }
+        function exportTwo() {
+            var canvasShiftImg = function (img, shiftAmt, scale, pageHeight, pageWidth) {
+                var c = document.createElement('canvas'),
+                    ctx = c.getContext('2d'),
+                    shifter = Number(shiftAmt || 0),
+                    scaledImgHeight = img.height * scale,
+                    scaledImgWidth = img.width * scale;
+
+                ctx.canvas.height = pageHeight;
+                ctx.canvas.width = pageWidth;
+                ctx.drawImage(img, 0, shifter, scaledImgWidth, scaledImgHeight)
+
+                return c;
+            };
+
+            var canvasToImg = function (canvas, loaded, error) {
+                var dataURL = canvas.toDataURL('image/png'),
+                    img = new Image();
+                img.onload = loaded;
+                img.onerror = error;
+                img.src = dataURL;
+            };
+
+            var imageToPdf = function () {
+                // can't pass any parameters or else "this" won't be the img element
+                var img = this,
+                    pdf = new jsPDF('l', 'px'),
+                    pdfInternals = pdf.internal,
+                    pdfPageSize = pdfInternals.pageSize,
+                    pdfScaleFactor = pdfInternals.scaleFactor,
+                    pdfPageWidth = pdfPageSize.width,
+                    pdfPageHeight = pdfPageSize.height,
+                    pdfPageWidthPx = pdfPageWidth * pdfScaleFactor,
+                    pdfPageHeightPx = pdfPageHeight * pdfScaleFactor,
+
+                    imgScaleFactor = Math.min(pdfPageWidthPx / img.width, 1),
+                    imgScaledHeight = img.height * imgScaleFactor,
+
+                    shiftAmt = 0,
+                    done = false;
+
+                while (!done) {
+                    var newCanvas = canvasShiftImg(img, shiftAmt, imgScaleFactor, pdfPageHeightPx, pdfPageWidthPx);
+                    pdf.addImage(newCanvas, 'png', 0, 0, pdfPageWidth, 0, null, 'SLOW');
+
+                    shiftAmt -= pdfPageHeightPx;
+
+                    if (-1 * shiftAmt < imgScaledHeight) {
+                        pdf.addPage();
+                    } else {
+                        done = true;
+                    }
+                }
+
+                pdf.save('test.pdf');
+            };
+            var imageLoadError = function () {
+                //alert('there was an image load error :(');
+                $.alert({ title: 'Alert!:', content: 'there was an image load error', });
+            };
+
+
+            html2canvas($('#PrinttoPrinter')[0], {
+                onrendered: function (canvas) {
+                    // params: canvas, onload, onerror
+                    canvasToImg(canvas, imageToPdf, imageLoadError);
+                }
+            });
+        }
+        function PDFFile() {
+            document.getElementById("PrinttoPrinter").style.display = "block";
+            document.getElementById("PrinttoPrinter").innerHTML = document.getElementById("Printable").innerHTML;
+            var element = document.getElementById("PrinttoPrinter");
+            var opt = {
+                margin: 0.25,
+                filename: 'Munshi.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf(element, opt).then(function (pdf) {
+                //pdf is null when I log this...
+                document.getElementById("PrinttoPrinter").style.display = "none";
+            });
+
+            //html2canvas($("#PrinttoPrinter"), {
+            //    onrendered: function (canvas) {
+            //        theCanvas = canvas;
+            //        document.body.appendChild(canvas);
+
+            //        // Convert and download as image
+            //        canvas.toBlob(function (blob) {
+            //            saveAs(blob, "AccountLedger.png");
+            //        });
+            //        $("#img-out").append(canvas);
+            //        alert(canvas.height);
+            //        // Clean up
+            //        //document.body.removeChild(canvas);
+            //    }
+            //});
+
+
+            //let doc = new jsPDF();
+            //doc.internal.scaleFactor = 6;
+            //document.getElementById("PrinttoPrinter").style.display = "block";
+            //document.getElementById("PrinttoPrinter").innerHTML = document.getElementById("Printable").innerHTML;
+            //doc.addHTML(document.getElementById("PrinttoPrinter"), 2, 2, {
+            //    pagesplit: true
+            //}, function () {
+            //    doc.save('AccountLedger' + getMyDate(new Date()) + '.pdf');
+            //});
+
+        }
+    </script>
+    <div id="PrinttoPrinter" style="width:800px;padding-left:1.1cm; padding-right:1.1cm;background-color:white;"></div>
+
+    <div id="img-out"></div>
+
+
+    <script>
+        function CalculateBudget() {
+            var Cdate = new Date();
+            var accTitle = sessionStorage.getItem("AccountTitle");
+            var accid = sessionStorage.getItem("Accountid");
+
+            var data2 = { AccountID: accid, AccountTitle: accTitle };
+            var data1 = [];
+            data1.push(data2);
+            var dd = ""
+            if ((Cdate.getMonth() + 1) < 10) dd = "0" + (Cdate.getMonth() + 1); else dd = (Cdate.getMonth() + 1);
+            var Sdate = Cdate.getFullYear() + "-" + dd + "-" + Cdate.getDate();
+            //alert(JSON.stringify(data1));
+            for (var i = 0; i < data1.length; i++) {
+                var url = 'Accounts.asmx/BudgetAmountTillDate';
+                var data11 = data1[i];
+                var paramdata = "{'AccountID':'" + data11.AccountID + "','StartDate':'" + Sdate + "'}"
+                CallBudgetAJAX(paramdata, url, data11);
+            }
+        }
+        function CallBudgetAJAX(paramdata, url, data11) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: 'json',
+                data: paramdata,
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+                    var dt = "";
+                    //alert(JSON.stringify(data11));
+                    if (data.Row.length > 0) {
+                        if (parseFloat(data.Row[0].BudgetAmount) > 0) {
+                            var percent = Math.abs(parseFloat(data.Row[0].Balance) / parseFloat(data.Row[0].BudgetAmount) * 100)
+                            dt = dt + '<div data-toggle="tooltip" title="Remaining:' + (parseFloat(data.Row[0].Balance) - parseFloat(data.Row[0].BudgetAmount)) + "/" + parseFloat(data.Row[0].BudgetAmount) + '" id="' + data11.AccountID + ':' + data11.AccountTitle + '" style="width:100%;background-color:#efb6a0;height:15px; margin-left:auto;margin-right:auto;;margin-bottom:10px;cursor:pointer;" onclick="EntryGraph(this.id)" ><div data-toggle="tooltip" title="Spent:' + parseFloat(data.Row[0].Balance) + "/" + parseFloat(data.Row[0].BudgetAmount) + '" style="width:' + percent + '%;max-width: 100%;height:100%;background-color:red"></div></div>';
+                            document.getElementById("Budgetvalue").innerHTML = dt;
+                        }
+
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        var myid = window.location.href.split("=");
+        //var accTitle = sessionStorage.getItem("AccountTitle");
+        document.getElementById("AccTitle").innerHTML = "<strong style='color:darkblue;'> " + accTitle + "</strong>";
+        //var ddd = new Date();
+
+        document.getElementById("PrintDate").innerHTML = getMyDate(new Date())
+        //document.getElementById("UserNameLedger").innerHTML = toTitleCase(sessionStorage.getItem("UserTitle").toString());
+        //document.getElementById("MobileLedger").innerHTML = sessionStorage.getItem("CellNo").toString();
+        //document.getElementById("EmailLedger").innerHTML = sessionStorage.getItem("email").toString();
+
+
+        SessionDate();
+
+        function SessionDate() {
+
+            var StartDate = window.sessionStorage.getItem("StartDate");
+            var EndDate = window.sessionStorage.getItem("EndDate");
+
+            //alert(StartDate); alert(EndDate);
+
+            var SD = StartDate.split(".");
+            var ED = EndDate.split(".");
+
+            StartDate = SD[2] + "/" + SD[1] + "/" + SD[0];
+            EndDate = ED[2] + "/" + ED[1] + "/" + ED[0];
+
+            //alert(StartDate); alert(EndDate);
+
+            document.getElementById("txtDate1").value = StartDate;
+            document.getElementById("txtDate2").value = EndDate;
+        }
+
+
+
+        function getAccountOpening() {
+            accTitle = sessionStorage.getItem("AccountTitle");
+            var userid = sessionStorage.getItem("UserID");
+            var Sdate = document.getElementById("txtDate1").value;
+            var Edate = document.getElementById("txtDate2").value;
+
+            var SD = Sdate.split("/");
+            var ED = Edate.split("/");
+
+            Sdate = SD[2] + "/" + SD[1] + "/" + SD[0];
+            Edate = ED[2] + "/" + ED[1] + "/" + ED[0];
+
+
+            //alert(Sdate); alert(Edate);
+
+            $('#loader').show();
+       
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Accounts.asmx/getOpeningAccountsbyID_forSharing',
+                    dataType: 'json',
+                    data: "{'AccountID':'" + accid + "','StartDate':'" + Sdate + "','EndDate':'" + Edate + "','UserID':'" + userid + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+                      
+
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+
+
+                        var str = "";
+                        var dt = "";
+                        var mvalue;
+                        var mRow
+                        //var tpay;
+                        //var trec;
+                        var bal;
+                        var mTotal;
+
+                        accop = data.Row[0].Balance;
+                        accTitle = data.Row[0].AccountTitle;
+                        sessionStorage.setItem("AccountTitle", data.Row[0].AccountTitle);
+
+                        document.getElementById("AccTitle").innerHTML = "<strong style='color:darkblue;'> " + data.Row[0].AccountTitle + "</strong>"
+                        getLedger();
+                        getOwnerOfAccountsbyID();
+
+                        $('#spandataloading').hide();
+                        $('#loader').hide();
+                        //$('#loadI').attr('class', 'fa fa-gear');
+
+
+                    },
+                    error: function (error) {
+                        getLedger();
+                        getOwnerOfAccountsbyID();
+                        console.log(error);
+                    }
+
+                });
+
+ 
+
+
+
+        }
+
+        function getOwnerOfAccountsbyID() {
+
+
+
+            $('#loader').show();
+
+
+  
+                $.ajax({
+                    type: 'POST',
+                    url: 'Accounts.asmx/getOwnerOfAccountsbyID',
+                    dataType: 'json',
+                    data: "{'AccountID':'" + accid + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+                        if (response.d.length === undefined) { var GetData = 0; }
+                        else { var GetData = response.d.length; }
+
+                       
+
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+
+
+                        var str = "";
+                        var dt = "";
+                        var mvalue;
+                        var mRow
+                        //var tpay;
+                        //var trec;
+                        var bal;
+                        var mTotal;
+
+                        document.getElementById("UserNameLedger").innerHTML = toTitleCase(data.Row[0].FullName);
+                        document.getElementById("MobileLedger").innerHTML = data.Row[0].CellNo;
+                        document.getElementById("EmailLedger").innerHTML = data.Row[0].Email;
+                        document.getElementById("CurrencyName").innerHTML = data.Row[0].Balance2;
+
+
+
+
+                        $('#spandataloading').hide();
+                        $('#loader').hide();
+                        //$('#loadI').attr('class', 'fa fa-gear');
+
+
+                    },
+                    error: function (error) {
+                        getLedger();
+                        console.log(error);
+                    }
+
+                });
+
+
+ 
+
+
+        }
+        // getLedger();
+        var ledgerobj = [];
+        function getLedger() {
+            accOpening = parseFloat(accop).toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            //document.getElementById("AccOpening").innerHTML = "<strong style='color:darkblue;'> " + accOpening + "</strong>";
+            var accTitle = sessionStorage.getItem("AccountTitle");
+            //alert(accop);
+            document.getElementById("BalanceLedger").innerHTML = parseFloat(accop).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            var userid = sessionStorage.getItem("UserID");
+            var Sdate = document.getElementById("txtDate1").value;
+            var Edate = document.getElementById("txtDate2").value;
+
+            var SD = Sdate.split("/");
+            var ED = Edate.split("/");
+            Sdate = SD[2] + "/" + SD[1] + "/" + SD[0];
+            Edate = ED[2] + "/" + ED[1] + "/" + ED[0];
+            document.getElementById("StartDateLedger").innerHTML = getMyDate(new Date(SD[2], parseInt(SD[1]) - 1, SD[0]));
+            document.getElementById("EndDateLedger").innerHTML = getMyDate(new Date(ED[2], parseInt(ED[1]) - 1, ED[0]));
+            var found = 0;
+
+            ledgerobj = [];
+            $('#loader').show();
+
+
+         
+
+                $.ajax({
+                    type: 'POST',
+                    //url: 'Accounts.asmx/getLedgerbyID2',
+                    url: 'Accounts.asmx/getLedgerbyID2_forShareing',
+                    dataType: 'json',
+                    data: "{'AccID':'" + accid + "','UserID':'" + userid + "','StartDate':'" + Sdate + "','EndDate':'" + Edate + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+
+
+                     
+
+
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        for (var i = 0; i < data.Row.length; i++) {
+                            found = 1;
+                            //data.Row[0][0]
+                            //  alert(data.Row[i].Category);
+                            // var values = { Icon: data.Row[i].Icon, Color: data.Row[i].Color, AccId: data.Row[i].AccId, AccTitle: data.Row[i].AccTitle, PaymentAmt: data.Row[i].PaymentAmt, ReceiptAmt: data.Row[i].ReceiptAmt, Balance: data.Row[i].Balance, Sharing: data.Row[i].Sharing, Opening: data.Row[i].Opening, UserID: data.Row[i].UserID, Balance2: Math.abs(parseFloat(data.Row[i].Balance2)), SortDate: parseFloat(data.Row[i].SortDate) }
+                            var datevalue = data.Row[i].TDate.split(".");
+                            var ddArray = { "DD": datevalue[2], "MM": datevalue[1], "YYYY": datevalue[0], "YY": (datevalue[0]).toString().substring(2, 4) };
+                            //console.log(SettingValues.dateformat1);
+                            //console.log(SettingValues.dateformat1);
+                            var dformat = SettingValues.dateFormat1.split("-");
+                            var Tdate = ddArray[dformat[0]] + "-" + ddArray[dformat[1]] + "-" + ddArray[dformat[2]];
+
+                            var values = {
+                                TDate: Tdate, Narration: data.Row[i].Narration, TransType: data.Row[i].TransType,
+                                TotalAmount: data.Row[i].TotalAmount, Total: data.Row[i].Total, PaymentAmt: data.Row[i].PaymentAmt,
+                                ReceiptAmt: data.Row[i].ReceiptAmt, Sharing: data.Row[i].Sharing, Lid: data.Row[i].Lid, Vtype: data.Row[i].Vtype,
+                                UserID: data.Row[i].UserID, SharedRead: data.Row[i].SharedRead, UserName: data.Row[i].UserName,
+                                AccCellNo: data.Row[i].AccCellNo, AccEmail: data.Row[i].AccEmail, Transferable: data.Row[i].Transferable,
+                                TransferStatus: data.Row[i].TransferStatus, EndDate: data.Row[i].EndDate,
+                                Highlighter: data.Row[i].Highlighter, Attachments: data.Row[i].Attachments
+                            }
+                            //alert(values.EndDate);
+                            ledgerobj.push(values);
+                        }
+                        //alert(ledgerobj.length);
+                        Filltable(ledgerobj);
+
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+ 
+
+
+            document.getElementById("AccountTitleLedger").innerHTML = accTitle;
+            //alert(found);
+            if (found == 1) document.getElementById("BalanceLedger").innerHTML = bal2;
+            document.getElementById("StartDateLedger").innerHTML = getMyDate(new Date(SD[2], parseInt(SD[1]) - 1, SD[0]));
+            document.getElementById("EndDateLedger").innerHTML = getMyDate(new Date(ED[2], parseInt(ED[1]) - 1, ED[0]));
+        }
+        function SearchValue() {
+
+            var sv = document.getElementById("SearchString").value.toUpperCase();
+            //alert(sv);
+            if (sv == "" || sv == 'NaN') {
+                Filltable(ledgerobj);
+            }
+            else {
+                var newArray = [];
+                ledgerobj.forEach(function (k) {
+                    //alert(k.Narration);
+                    var data1 = (k.Narration + " - " + k.PaymentAmt + " - " + k.ReceiptAmt + " - " + k.TDate).toUpperCase();
+                    if (data1.includes(sv) == true) {
+
+                        newArray.push(k)
+                    };
+                });
+
+                Filltable(newArray);
+            }
+        }
+        function Filltable(mydata) {
+            var w = window.innerWidth
+                || document.documentElement.clientWidth
+                || document.body.clientWidth;
+            if (w < 768) {
+                document.getElementById("MyDiv").style.display = "block";
+
+                document.getElementById("Printable").style.display = "none";
+
+
+            }
+            else {
+                document.getElementById("MyDiv").style.display = "none";
+
+                document.getElementById("Printable").style.display = "block";
+
+            }
+            document.getElementById("ledger").innerHTML = "";
+            document.getElementById("MyDiv").innerHTML = "";
+            var str = "";
+            var str2 = "";
+            var strPending = "";
+            var strPending2 = "";
+            var dt = "";
+            var mvalue;
+            var mRow = 0;
+            var mRow2 = 0;
+            //var tpay;
+            //var trec;
+            var bal;
+            var dTotal = 0.00;
+            var cTotal = 0.00;
+            //alert("abc0");
+            var op = 0;
+            var data = mydata;
+            if (data.length > 0) {
+                op = parseFloat(accop) + parseFloat(data[0].TotalAmount);
+
+            }
+            var pendingStatus = 0;
+            for (var i = 0; i < data.length; i++) {
+                //  alert(data[i].Category);
+                //if (SharedRead==3)
+                // alert("abc1");
+                //document.getElementById("txtemail").value = data[i].AccEmail;
+                //document.getElementById("txtCell").value = data[i].AccCellNo;
+
+                var dUserID = data[i].UserID;
+                if (dUserID.toLowerCase() == userid.toLowerCase()) {
+                    //alert("abc2");
+                    // alert("1");
+                    mRow = mRow + 1;
+
+                    dt = dt + " <tr style='background-color:" + data[i].Highlighter + "' >";
+                    dt = dt + "   <td style='text-align:center;line-height:20px;'>" + mRow + ".</td>";
+                    dt = dt + "   <td style='text-align:center;'> " + data[i].TDate + "</td>";//<a href='#' onclick='callPage(this);'><i style='color:" + data[i].Color + ";' class='" + data[i].Icon + "' ></i>" + " " + data[i].AccTitle + "</a></td>";
+                    dt = dt + "   <td id='tdNarration'>" + data[i].Narration + "</td>";
+                    // alert('--' + data[i].PaymentAmt + '--' + data[i].ReceiptAmt + '--');
+                    if (data[i].Vtype == "P") {
+                        dt = dt + "   <td class='myamount'>" + (data[i].ReceiptAmt == '.00' ? '' : data[i].ReceiptAmt) + "</td>";
+                        dt = dt + "   <td class='myamount'>" + (data[i].PaymentAmt == '.00' ? '' : data[i].PaymentAmt) + "</td>";
+
+                    }
+                    else {
+                        dt = dt + "   <td class='myamount'>" + (data[i].ReceiptAmt == '.00' ? '' : data[i].ReceiptAmt) + "</td>";
+                        dt = dt + "   <td class='myamount'>" + (data[i].PaymentAmt == '.00' ? '' : data[i].PaymentAmt) + "</td>";
+
+                    }
+                    dt = dt + "   <td class='myamount'>" + parseFloat((cTotal - dTotal) + op).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</td>";
+                    str2 = str2 + ledgerDiv(data[i].Lid, data[i].Narration, data[i].TDate, '', (data[i].PaymentAmt == '.00' ? '' : data[i].PaymentAmt), (data[i].ReceiptAmt == '.00' ? '' : data[i].ReceiptAmt), parseFloat((cTotal - dTotal) + op).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), data[i].Vtype, 1, data[i].Attachments);
+
+
+                    if (data[i].PaymentAmt == "") {
+                        dTotal = dTotal + 0;
+                    }
+                    else { dTotal = dTotal + parseFloat(data[i].PaymentAmt.replace(new RegExp(",", 'g'), "")); }
+                    if (data[i].ReceiptAmt == "") {
+                        cTotal = cTotal + 0;
+                    }
+                    else {
+                        cTotal = cTotal + parseFloat(data[i].ReceiptAmt.replace(new RegExp(",", 'g'), ""));
+                    }
+                    //dt = dt + "   <td>" + data[i].TransType + "</td>";
+
+                    var mfav;
+                    mfav1 = "fa fa-users";
+
+                    var mEdit = "fa fa-edit";
+                    var mDel = "fa fa-trash";
+
+                    dt = dt + "  <td class='Erasable' data-html2canvas-ignore='true' style='text-align:center;' id='P" + data[i].Lid + "'>";
+                    dt = dt + "   </td>";
+                    //dt = dt + "  <td  style='text-align:center;'><a href='#' role='button'  data-toggle='popover'   data-html='true' data-trigger='focus'  ";
+                    //dt = dt + " data-popover-content='#P" + data[i].Lid + "' > <i class= '" + mfav + "'></i></a> </td>";
+
+                    //dt = dt + "  <td  style='text-align:center;'><a id='P'" + data[i].Lid +"' href='#'><i class= '" + mfav + "'></i></a> </td>";
+                    dt = dt + "  <td class='Erasable' data-html2canvas-ignore='true'  id = " + data[i].Lid + ":" + data[i].Vtype + " onclick='loadpageEdit(this)'  style='text-align:center;'> <a href='#'><i class= '" + mEdit + "'></i></a> </td>";
+                    dt = dt + "  <td  class='Erasable' data-html2canvas-ignore='true' id = " + data[i].Lid + " onclick='deleteIT(this)' style='text-align:center;'> <a href='#'><i class= '" + mDel + "'></i></a> </td>";
+
+
+
+
+
+
+
+                    if (data[i].Attachments == 0) { dt = dt + "  <td  class='Erasable' data-html2canvas-ignore='true' style='text-align:center;'> </td>"; }
+                    else {
+
+
+
+                        dt = dt + "  <td  class='Erasable' data-html2canvas-ignore='true' id = " + data[i].Lid + " onclick='Attachment(this)' style='text-align:center;'> <a href='#'><img src='MunshiImagesMain/attached.svg' width='12px'/></a> </td>";
+
+
+                    }
+
+
+
+
+
+
+
+
+                    dt = dt + "</tr>";
+                    //alert("Normal");
+
+                    str = str + dt;
+                    LoadTransactionDetail(data[i].Lid, "Ok");
+                }
+                else {
+                    if (data[i].SharedRead == "3") {
+                        //alert("abc4");
+                        mRow = mRow + 1;
+
+                        dt = dt + " <tr>";
+                        dt = dt + "   <td style='text-align:center;line-height:20px;'>" + mRow + ".</td>";
+                        dt = dt + "   <td style='text-align:center;'> " + data[i].TDate + "</td>";//<a href='#' onclick='callPage(this);'><i style='color:" + data[i].Color + ";' class='" + data[i].Icon + "' ></i>" + " " + data[i].AccTitle + "</a></td>";
+
+                        dt = dt + "   <td id='tdNarration'>" + (data[i].Narration.replace("<a ", "<a disabled class='disabled' ")).replace("onclick=loadpage(this)", "") + " (" + data[i].UserName + ")" + "</td>";
+
+                        //alert('--' + data[i].PaymentAmt + '--' + data[i].ReceiptAmt + '--');
+                        if (data[i].Vtype == "P") {
+                            dt = dt + "   <td class='myamount'>" + (data[i].ReceiptAmt == '.00' ? '' : data[i].ReceiptAmt) + "</td>";
+                            dt = dt + "   <td class='myamount'>" + (data[i].PaymentAmt == '.00' ? '' : data[i].PaymentAmt) + "</td>";
+
+                        }
+                        else {
+                            dt = dt + "   <td class='myamount'>" + (data[i].ReceiptAmt == '.00' ? '' : data[i].ReceiptAmt) + "</td>";
+                            dt = dt + "   <td class='myamount'>" + (data[i].PaymentAmt == '.00' ? '' : data[i].PaymentAmt) + "</td>";
+
+
+                        }
+                        dt = dt + "   <td class='myamount'>" + parseFloat((cTotal - dTotal) + op).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</td>";
+                        var narmobile = (data[i].Narration.replace("<a ", "<a disabled class='disabled' ")).replace("onclick=loadpage(this)", "") + " (" + data[i].UserName + ")";
+                        str2 = str2 + ledgerDiv(data[i].Lid, narmobile, data[i].TDate, '', (data[i].PaymentAmt == '.00' ? '' : data[i].PaymentAmt), (data[i].ReceiptAmt == '.00' ? '' : data[i].ReceiptAmt), parseFloat((cTotal - dTotal) + op).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), data[i].Vtype, 0);
+
+                        //dt = dt + "   <td>" + data[i].TransType + "</td>";
+                        if (data[i].PaymentAmt == "") {
+                            dTotal = dTotal + 0;
+                        }
+                        else { dTotal = dTotal + parseFloat(data[i].PaymentAmt.replace(new RegExp(",", 'g'), "")); }
+                        if (data[i].ReceiptAmt == "") {
+                            cTotal = cTotal + 0;
+                        }
+                        else {
+                            cTotal = cTotal + parseFloat(data[i].ReceiptAmt.replace(new RegExp(",", 'g'), ""));
+                        }
+                        var mfav1 = "fa fa-users";
+
+                        var mEdit1 = "fa fa-edit";
+                        var mTrans = "";
+                        var mdisa = "";
+                        var EventI = "";
+                        if (data[i].Transferable == "1") {
+                            if (data[i].TransferStatus == "0") {
+                                mdisa = "";
+                                mTrans = "fa-exchange";
+                                EventI = "onclick=' transfer(this.parentNode,this.id)'"
+                            }
+                            else {
+                                mdisa = "disabled";
+                                mTrans = "fa-exchange";
+                                EventI = ""
+                            }
+                        }
+                        dt = dt + "  <td class='Erasable' data-html2canvas-ignore='true' style='text-align:center;' id='P" + data[i].Lid + "'>";
+                        dt = dt + "  <i class= '" + mfav1 + "'></i> </td>";
+
+                        dt = dt + "  <td class='Erasable' data-html2canvas-ignore='true'  id = " + data[i].Lid + ":" + data[i].Vtype + "   style='text-align:center;'> <a disabled class='disabled' href='#'><i class= '" + mEdit1 + "'></i></a> </td>";
+                        dt = dt + "  <td class='Erasable' data-html2canvas-ignore='true'  id = '" + data[i].Lid + "' " + EventI + "  style='text-align:center;'> <a " + mdisa + "  class='" + mdisa + "' data-toggle='tooltip' data-placement='top' title='Transfer Amount' href='#'><i class= 'fa " + mTrans + "'></i></a> </td>";
+
+
+                        if (data[i].Attachments == 0) { dt = dt + "  <td  class='Erasable' data-html2canvas-ignore='true' style='text-align:center;'> </td>"; }
+                        else {
+
+
+
+                            dt = dt + "  <td  class='Erasable' data-html2canvas-ignore='true' id = " + data[i].Lid + " onclick='Attachment(this)' style='text-align:center;'> <a href='#'><img src='MunshiImagesMain/attached.svg' width='12px'/></a> </td>";
+
+
+                        }
+
+                        dt = dt + "</tr>";
+                        //alert(cTotal + " APP " + dTotal);
+
+                        str = str + dt;
+                        LoadTransactionDetail(data[i].Lid, "Pending");
+                    }
+                    else {
+                        mRow2 = mRow2 + 1;
+
+                        pendingStatus = 1;
+                        dt = dt + " <tr>";
+                        dt = dt + "   <td style='text-align:center;line-height:20px;'>" + mRow2 + ".</td>";
+                        dt = dt + "   <td style='text-align:center;'> " + data[i].TDate + "</td>";//<a href='#' onclick='callPage(this);'><i style='color:" + data[i].Color + ";' class='" + data[i].Icon + "' ></i>" + " " + data[i].AccTitle + "</a></td>";
+
+                        dt = dt + "   <td id='tdNarration'>" + (data[i].Narration.replace("<a ", "<a disabled class='disabled' ")).replace("onclick=loadpage(this)", "") + " (" + data[i].UserName + ")" + "</td>";
+
+                        //alert('--' + data[i].PaymentAmt + '--' + data[i].ReceiptAmt + '--');
+                        if (data[i].Vtype == "P") {
+                            dt = dt + "   <td class='myamount'>" + (data[i].ReceiptAmt == '.00' ? '' : data[i].ReceiptAmt) + "</td>";
+                            dt = dt + "   <td class='myamount'>" + (data[i].PaymentAmt == '.00' ? '' : data[i].PaymentAmt) + "</td>";
+
+                        }
+                        else {
+                            dt = dt + "   <td class='myamount'>" + (data[i].ReceiptAmt == '.00' ? '' : data[i].ReceiptAmt) + "</td>";
+                            dt = dt + "   <td class='myamount'>" + (data[i].PaymentAmt == '.00' ? '' : data[i].PaymentAmt) + "</td>";
+
+
+                        }
+
+                        // dt = dt + "   <td class='myamount'>" + parseFloat((cTotal - dTotal) + op).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</td>";
+                        dt = dt + "   <td class='myamount'></td>";
+                        var narmobile = (data[i].Narration.replace("<a ", "<a disabled class='disabled' ")).replace("onclick=loadpage(this)", "") + " (" + data[i].UserName + ")";
+                        strPending2 = strPending2 + ledgerDiv(data[i].Lid, narmobile, data[i].TDate, '', (data[i].PaymentAmt == '.00' ? '' : data[i].PaymentAmt), (data[i].ReceiptAmt == '.00' ? '' : data[i].ReceiptAmt), parseFloat((cTotal - dTotal) + op).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"), data[i].Vtype, 0, data[i].Attachments);
+
+                        //dt = dt + "   <td>" + data[i].TransType + "</td>";
+                        if (data[i].PaymentAmt == "") {
+                            dTotal = dTotal + 0;
+                        }
+                        else {
+                            //dTotal = dTotal + parseFloat(data[i].PaymentAmt.replace(new RegExp(",", 'g'), ""));
+                        }
+                        if (data[i].ReceiptAmt == "") {
+                            cTotal = cTotal + 0;
+                        }
+                        else {
+                            // cTotal = cTotal + parseFloat(data[i].ReceiptAmt.replace(new RegExp(",", 'g'), ""));
+                        }
+
+                        var mfav2 = "fa fa-users";
+
+                        var mEdit2 = "fa fa-edit";
+                        var mDel2 = "fa fa-trash";
+
+                        dt = dt + "  <td class='Erasable' data-html2canvas-ignore='true' style='text-align:center;' id='P" + data[i].Lid + "'>";
+                        dt = dt + "  <i class= '" + mfav2 + "'></i> </td>";
+
+                        dt = dt + "  <td class='Erasable' data-html2canvas-ignore='true' id = " + data[i].Lid + ":" + data[i].Vtype + "   style='text-align:center;'> <a disabled class='disabled' href='#'><i class= '" + mEdit2 + "'></i></a> </td>";
+                        dt = dt + "  <td class='Erasable' data-html2canvas-ignore='true' id = " + data[i].Lid + "  onclick='viewtransaction(this)'  style='text-align:center;'> <a  href='#'><i class= 'fa fa-search'></i></a> </td>";
+
+
+                        if (data[i].Attachments == 0) { dt = dt + "  <td  class='Erasable' data-html2canvas-ignore='true' style='text-align:center;'> </td>"; }
+                        else {
+
+
+
+                            dt = dt + "  <td  class='Erasable' data-html2canvas-ignore='true' id = " + data[i].Lid + " onclick='Attachment(this)' style='text-align:center;'> <a href='#'><img src='MunshiImagesMain/attached.svg' width='12px'/></a> </td>";
+
+
+                        }
+
+                        dt = dt + "</tr>";
+
+                        //alert(cTotal + " Pend " + dTotal);
+                        strPending = strPending + dt;
+                        LoadTransactionDetail(data[i].Lid, "Pending");
+                    }
+                }
+                dt = ""; bal = 0; tpay = 0; trec = 0;
+
+
+            }
+
+            //var op = parseFloat(accop);
+            var bal2 = 0;
+            if (dTotal == "NaN") {
+                dTotal = 0;
+            }
+            if (cTotal == "NaN") {
+                cTotal = 0;
+            }
+            //alert(dTotal);
+            if (op == 0)
+                bal2 = cTotal - dTotal;
+            else {
+                //var bal3 = parseFloat(dTotal.replace(new RegExp(",", 'g'), "")) - parseFloat(cTotal.replace(new RegExp(",", 'g'), ""));
+                var bal3 = cTotal - dTotal;
+                bal2 = op + bal3;
+            }
+            cTotal = parseFloat(cTotal).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            dTotal = parseFloat(dTotal).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            bal2 = parseFloat(bal2).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+
+            str = str + "<tr style='border-collapse:separate;'><td class='Acctd' colspan='2' style='border-left:0;border-top:0' ></td><td  class='Acctd' style='font-weight:bold;text-align:left;border-top:0'>TOTAL:</td><td class='Acctd myamount' colspan='1'  style='font-weight:bold;text-aligh:left;border-top:0'>" + cTotal + "</td> <td class='Acctd myamount' colspan='1'  style='font-weight:bold;text-aligh:left;border-top:0'>" + dTotal + "</td><td class='Acctd myamount' style='font-weight:bold;text-aligh:right;border-top:0' >  </td><td class='Acctd Erasable' data-html2canvas-ignore='true'  colspan='4'></td> </tr>";
+            str = str + "<tr style='border-collapse:separate'><td class='Acctd' colspan='2' style='border-left:0;border-top:0'></td><td class='Acctd' style='font-weight:bold;text-align:left;border-top:0'>OPENING:</td><td class='Acctd myamount' colspan='1'  style='font-weight:bold;text-aligh:left;border-top:0'></td> <td class='Acctd myamount' colspan='1'  style='font-weight:bold;text-aligh:left;border-top:0'></td><td class='Acctd myamount'  style='font-weight:bold;text-aligh:right;border-top:0' >  " + bal2 + "</td><td class='Acctd Erasable' data-html2canvas-ignore='true' colspan='4'></td> </tr>";
+            mTotal = 0;
+            if (data.length > 0) document.getElementById("BalanceLedger").innerHTML = parseFloat(op).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            if (pendingStatus > 0) {
+                str = str + "<tr style='border-collapse:separate'><td class='Acctd' colspan='2' style='border-left:0;border-top:0'></td><td class='Acctd' style='font-weight:bold;text-align:left;border-top:0'>SHARED UNAPPROVED TRANSACTIONS <i class='fa fa-arrow-down'></i></td><td class='Acctd myamount' colspan='1'  style='font-weight:bold;text-aligh:left;border-top:0'></td> <td class='Acctd myamount' colspan='1'  style='font-weight:bold;text-aligh:left;border-top:0'></td><td class='Acctd myamount'  style='font-weight:bold;text-aligh:right;border-top:0' >  </td><td class='Acctd Erasable' data-html2canvas-ignore='true' colspan='4'></td> </tr>";
+            }
+            document.getElementById("ledger").innerHTML = str + strPending;
+            document.getElementById("ledger2").innerHTML = str + strPending;
+            document.getElementById("MyDiv").innerHTML = str2 + strPending2;
+
+            AccountSharedwithUserName(accid, userid);
+            CalculateBudget();
+            $('#spandataloading').hide();
+            $('#loader').hide();
+            //$('#loadI').attr('class', 'fa fa-gear');
+
+        }
+        function ledgerDiv(mLID, Title, Date, Status, Payment1, Receipt1, Balance1, Vtype, share, Attachment) {
+            // alert(Title)
+            var nar = Title.split("<u>");
+            var not1 = nar[0].split("[");
+            var nar2 = nar[1].split("</u>");
+            var narID = Title.split("id=");
+            var narid2 = narID[1].split(" href");
+
+            var month1 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var dformat = SettingValues.dateFormat1.split("-");
+            console.log(Date);
+            var Cdate = Date.split("-");
+            var ddArray = { "DD": "01", "MM": "01", "YYYY": "2018", "YY": "19" };
+            ddArray[dformat[0]] = Cdate[0]; ddArray[dformat[1]] = Cdate[1]; ddArray[dformat[2]] = Cdate[2];
+
+
+            var dat1 = month1[parseInt(ddArray.MM) - 1] + " " + ddArray.DD + " " + ddArray.YYYY;
+            var dd = "";
+            //dd = dd + ' <div class="col-sm-12 col-md-6 col-lg-6">';
+            dd = dd + '     <div class="account-ledger-box col-lg-12 col-md-12">';
+            //<a id="07f96374-34a6-4a4a-86c6-2522f100b4c2" href="#" onclick="loadpage(this)"><u>DAILY EXPENSE CASH(CASH IN HAND) </u></a>
+            dd = dd + '             <div class="box-header">';
+            if (share == "1") {
+
+                dd = dd + '                 <h3 class="box-title"><a id="' + narid2[0] + '" href="#" onclick="loadpage(this)">' + nar2[0] + '</a></h3>';
+            }
+            else {
+                dd = dd + '                 <h3 class="box-title"><a id="' + narid2[0] + '" href="#" >' + nar2[0] + '</a></h3>';
+            }
+            //dd = dd + '                 <span class="box-tools">    <span class="edit-leger"> <a href="#" id = ' + mLID + ' onclick="Attachment(this)"> <img src="MunshiImagesMain/attached.svg" width="12px"/> </a> </span>          <a href="#" class="green">' + Status + '</a></span>';
+
+             
+            if (Attachment == 0) { dd = dd + '<span class="box-tools">   <a href="#" class="green">' + Status + '</a></span>' }
+            else {dd = dd + '<span class="box-tools"><span class="edit-leger"> <a href="#" id = ' + mLID + ' onclick="Attachment(this)"> <img src="MunshiImagesMain/attached.svg" width="12px"/> </a> </span><a href="#" class="green">' + Status + '</a></span>';}
+
+            dd = dd + '             </div>';
+
+
+            dd = dd + '         <div class="grocery-items">';
+            dd = dd + '         <div class="date-d">	<a href="#">' + dat1 + '</a>	</div>';
+            dd = dd + '';
+            dd = dd + '             <div class="box-body table-responsive">';
+            dd = dd + '                 <table class="table table-hover">';
+            dd = dd + '                     <tbody>';
+            dd = dd + '                     <tr>';
+            dd = dd + '                         <td  class="text-l">Payment</td>';
+            dd = dd + '                             <td class="text-r">' + Receipt1 + '</td>';
+            dd = dd + '                     </tr>';
+            dd = dd + '                         <tr>';
+            dd = dd + '                         <td  class="text-l">Receipt</td>';
+            dd = dd + '                             <td class="text-r">' + Payment1 + '</td>';
+            dd = dd + '                         <tr>';
+            dd = dd + '                         <td  class="text-l">Balance</td>';
+            dd = dd + '                             <td  class="text-r">' + Balance1 + '</td>';
+            dd = dd + '                     </tr>';
+
+            dd = dd + '                     </tbody></table>';
+            dd = dd + '             </div>';
+
+            dd = dd + '';
+            dd = dd + '         </div>';
+            dd = dd + '             <div class="note-edit-serach">';
+
+            if (share == "1") {
+
+                dd = dd + '        <span class="edit-leger"> <a href="#" id="' + mLID + ':' + Vtype + '" onclick=loadpageEdit(this)> <img src="img/edit-icon.png"> </a> </span>         ';
+            }
+            else {
+                dd = dd + ' <span class="edit-leger"> <a style="cursor:default" href="#" id="' + mLID + ':' + Vtype + '" > <img src="img/edit-icon.png"> </a> </span>  ';
+            }
+
+
+
+
+
+
+
+            //dd = dd + '             <span class="edit-leger"> <a href="#" id="' + mLID + ':' + Vtype + '" onclick=loadpageEdit(this)> <img src="img/edit-icon.png"> </a> </span>';
+            dd = dd + '             <span class="note-ledger"> NOTE: <span class="add-note">' + not1[0] + '</span> </span>';
+            dd = dd + '             </div>';
+            dd = dd + '         <div style="    clear: both;"></div></div></div>';
+            return dd;
+        }
+        function AccountSharedwithUserName(Acc, Userid) {
+ 
+                $.ajax({
+                    type: 'POST',
+                    url: 'Users.asmx/AccountSharedwithUserName',
+                    dataType: 'json',
+                    data: "{'AccountID':'" + Acc + "','UserID':'" + Userid + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+                       
+
+                        //alert("Transaction  Deleted");
+                        $.alert({ title: 'Alert!:', content: 'Transaction  Deleted', });
+                        location.reload();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+
+         
+
+
+        }
+        function loadpage(b) {
+            //alert(b.id);
+            sessionStorage.setItem("AccountTitle", b.innerText.replace("]", ""));
+            sessionStorage.setItem("Accountid", b.id);
+            LoadFile("AccountLedger.html?id=" + b.id);
+        }
+        function loadpageEdit(c) {
+            var ids = c.id.split(":");
+            sessionStorage.setItem("TransID", ids[0]);
+            sessionStorage.setItem("TransType", ids[1]);
+            sessionStorage.setItem("InputOption", "Edit");
+            if (ids[1] == "P") {
+                LoadFile("addExpense.html");
+            }
+            if (ids[1] == "R") {
+                LoadFile("addIncome.html");
+            }
+            //alert(c.id);
+        }
+        var Amounttr = 0;
+        var fromusr = "";
+        function transfer(a, b) {
+            sessionStorage.setItem("TransID", b);
+            var elm = a;
+            //document.getElementById("mtransfertitle").innerHTML = elm.offsetParent.getElementById("tdNarration").innerHTML;
+            var ch = elm.childNodes;
+            var nn, nn2
+            nn = ch[9].innerText == "" ? 0 : parseFloat(ch[9].innerText.replace(new RegExp(",", 'g'), ""));
+            nn2 = ch[7].innerText == "" ? 0 : parseFloat(ch[7].innerText.replace(new RegExp(",", 'g'), ""));
+
+            Amounttr = nn + nn2; //parseFloat(isNaN(ch[9].innerText) ? '0': ch[9].innerText) + parseFloat(isNaN(ch[7].innerText) ? '0': ch[7].innerText);
+            var Nar = ch[5].innerText.split("]");
+            fromusr = Nar[1];
+            document.getElementById("mtransfertitle").innerHTML = ch[5].innerText + " Amount: " + Amounttr;
+            $("#mTransfer").modal();
+        }
+        function viewtransaction(c) {
+            var ids = c.id.split(":");
+            sessionStorage.setItem("TransID", ids[0]);
+            sessionStorage.setItem("TransType", ids[1]);
+            LoadFile("viewTransaction.html");
+
+        }
+        function deleteIT(dd) {
+            var lid = dd.id;
+            $.confirm({
+                theme: 'light',
+                title: 'Confirm!',
+                content: 'Delete Transaction; confirm!',
+                buttons: {
+                    confirm: function () {
+ 
+
+                            $.ajax({
+                                type: 'POST',
+                                url: 'Accounts.asmx/deleteLedgerbyID',
+                                dataType: 'json',
+                                data: "{'Lid':'" + lid + "'}",
+                                contentType: 'application/json; charset=utf-8',
+
+                                success: function (response) {
+
+ 
+ 
+
+
+                                    $.alert({ title: 'Alert!', content: 'Transaction  Deleted', });
+                                    //alert("");
+                                    location.reload();
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                }
+                            });
+
+
+
+                      
+                    },
+                    cancel: function () {
+
+                    }
+
+                }
+            });
+
+
+
+
+        }
+
+
+        function Attachment(dd) {
+            var lid = dd.id;
+            // alert(lid);
+
+            $('#loader').show();
+
+        
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Accounts.asmx/LoadAttachmentsTransactionIDwise',
+                    dataType: 'json',
+                    data: "{'TransactionID':'" + lid + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+                        
+
+                        var str = "";
+                        var dt = "";
+                        var mvalue;
+                        var optg = "";
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        dt = "";
+                        var dt2 = "";
+                        for (var i = 0; i < data.Row.length; i++) {
+
+
+
+                            //dt2 = dt2 + "<center><img style='width:80%;' class='mySlides' id='" + data.Row[i].FileID + "' src='../imgAttachments/" + data.Row[i].FileID + "." + data.Row[i].FileExtension + "'/></center>";
+
+
+                            if (data.Row[i].FileExtension == "pdf") {
+                                dt2 = dt2 + "<center><embed style='width:80%;' height='600px;' class='mySlides' id='" + data.Row[i].FileID + "' src='../imgAttachments/" + data.Row[i].FileID + "." + data.Row[i].FileExtension + "'/></center>";
+                            }
+                            else {
+                                dt2 = dt2 + "<center><embed style='width:80%;' class='mySlides' id='" + data.Row[i].FileID + "' src='../imgAttachments/" + data.Row[i].FileID + "." + data.Row[i].FileExtension + "'/></center>";
+                            }
+
+
+                        }
+
+                        dt2 = dt2 + '<button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>';
+                        dt2 = dt2 + '   <button class="w3-button w3-black w3-display-right" onclick = "plusDivs(1)" >&#10095;</button>';
+                        document.getElementById("Images").innerHTML = dt2;
+                        $('#loader').hide();
+
+                        $("#FilterAttachment").modal();
+                        plusDivs(0);
+                    },
+                    error: function (error) {
+
+                        console.log(error);
+                    }
+                });
+
+         
+
+
+
+
+
+        }
+
+
+
+
+        function LoadTransactionDetail(dd, St) {
+            var lid = dd;
+            var userid = sessionStorage.getItem("UserID");
+           
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Accounts.asmx/LoadTransactionStausDetail',
+                    dataType: 'json',
+                    data: "{'TransID':'" + lid + "','UserID':'" + userid + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+
+                       
+
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+
+                        var status = ["Send/Resend", "Pending", "Rejected", "Approved"];
+                        var str;//= "<div id='P" + lid + "' class='hidden'>";
+                        // title="Header" data-toggle="popover" data-placement="top" data-content
+                        //str = "<a tabindex='0' href='#'  title='Status' class='pop2233' data-toggle='popover' data-placement='top'   ";
+                        str = ' <div class="dropdown" >';
+                        str = str + '    <a class=" dropdown-toggle" type="label"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                        //alert("a");
+                        if (data.Row.length > 0) {
+                            str = str + status[parseInt(data.Row[0].NotificationStatus)]
+                        }
+                        else {
+                            str = str + '        ' + St;
+                        }
+                        //alert("b");
+                        str = str + '</a>';
+                        str = str + '    <div class="dropdown-menu center1" aria-labelledby="dropdownMenuButton">';
+                        var dt = "";
+                        var class1 = "";
+                        var mRow;
+                        //var tpay;
+                        //var trec;
+                        var bal;
+                        var mTotal;
+
+                        for (var i = 0; i < data.Row.length; i++) {
+                            //  alert(data.Row[i].Category);
+                            //if (SharedRead==3)
+                            var approved = "";
+                            var NotificatioStatus = "";
+                            if (data.Row[i].NotificationStatus == 1) {
+                                NotificatioStatus = "Pending";
+                                class1 = "text-info";
+                                approved = "     <span>" + data.Row[i].Descrption + " by " + data.Row[i].ToUserName + "" + "</span>";
+                            }
+                            if (data.Row[i].NotificationStatus == 0) {
+                                NotificatioStatus = "Send/Resend";
+                                class1 = "text-primary";
+                                approved = "     <span>" + data.Row[i].Descrption + " by " + data.Row[i].ToUserName + "" + "</span>";
+                            }
+                            if (data.Row[i].NotificationStatus == 2) {
+                                NotificatioStatus = "Rejected";
+                                class1 = "text-warning";
+                                approved = "     <span>" + data.Row[i].Descrption + " by " + data.Row[i].ToUserName + "" + "</span>";
+                            }
+
+                            if (data.Row[i].NotificationStatus == 3) {
+                                NotificatioStatus = "Approved";
+                                class1 = "text-success";
+                                approved = "   <i class='fa fa-check'></i>  <span >" + data.Row[i].Descrption + " by " + data.Row[i].FromUserName + "</span>";
+
+                            }
+                            var dtd = data.Row[i].NotiDate.split(" ");
+                            var dtd2 = dtd[0].split("-");
+                            var dformat = SettingValues.dateFormat1.split("-");
+                            var ddArray = { "DD": dtd2[0], "MM": dtd2[1], "YYYY": dtd2[2], "YY": (dtd2[2]).toString().substring(2, 4) };
+                            var tdate = ddArray[dformat[0]] + "-" + ddArray[dformat[1]] + "-" + ddArray[dformat[2]];
+                            var tm = dtd[1].split(":");
+                            var slab = "";
+                            if (SettingValues.timeformat == "12") {
+                                if (parseInt(tm[0]) > 11) { tm[0] = "00" + parseInt(tm[0]) % 12; slab = " PM"; }
+                                else {
+                                    slab = " AM";
+                                }
+                            }
+                            var time2 = tm[0] + ":" + tm[1] + ":" + tm[2] + slab;
+                            dt = dt + '<a class="dropdown-item  ' + class1 + '" href="#" style="font-size:9px;">' + approved + '  at ' + tdate + " " + time2 + "<a/></br>";
+
+
+
+
+
+                        }
+
+                        str = str + dt;
+                        str = str + '   </div>';
+                        str = str + '</div>';
+
+
+
+                        //str = str+ " data-content='" + dt + "' >aa</a>";
+                        // str = str + dt;// + "</div>";
+                        var t = document.getElementById("P" + lid);
+                        t.innerHTML = str;
+
+
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+ 
+        }
+
+        $('.table-responsive').on('show.bs.dropdown', function () {
+            $('.table-responsive').css("overflow", "inherit");
+        });
+
+        $('.table-responsive').on('hide.bs.dropdown', function () {
+            $('.table-responsive').css("overflow", "auto");
+        })
+
+        $(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+
+    </script>
+
+
+
+
+
+    <!-- Modal -->
+    <div id="myShared" class="modal fade">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="">
+                    <div id="notFound" class="row col-12 text-center" style="display:none;">
+                        <span>No shared account found</span>
+                    </div>
+                    <!--<div class="col-12">
+                        <h5 id="Already" style="display:block;">Already Shared with</h5>
+                        <div id="userdata"></div>
+                    </div>
+                    <div id="firstChoice" class="row">
+                        <div class="col-12 text-right">
+                            <button type="button" class="btn btn-default small bg-success text-white" onmouseup="  document.getElementById('InvDiv').style.display = 'Block';    Opt = 'newInvitation';">Add Share</button>
+                            <button type="button" class="btn btn-default small bg-warning text-white" data-dismiss="modal" onmouseup=" Opt = 'Reminder';">Remind</button>
+                            <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">Cancel</button>
+
+                        </div>
+                    </div>
+                    <div id="secondChoice" class="row ">
+                        <div class="col-12 text-right">
+
+
+                        </div>
+                    </div>-->
+
+
+                    <div id="InvDiv" class="share-form">
+                        <button type="button" class="close" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+                        <div class="modal-header">
+
+                            <h4 class="modal-title small">Confirmation for Sharing</h4>
+
+
+                        </div>
+                        <div class="row mt-2 ">
+                            <div class="col-12">
+                                <div class="input-group small mt-2 col-12 ">
+
+                                    <input id="txtUser" type="text" inputmode="text" class="form-control" placeholder="Enter User Name" required />
+
+                                </div>
+                                <div class="input-group small mt-2 col-12">
+
+                                    <input id="txtemail" class="form-control" type="text" inputmode="email" placeholder="Enter Email" required />
+
+                                </div>
+                                <div class="select-country input-group  mt-2">
+                                    <select id="CountryData" class="select2 form-control  " type="text"></select>
+                                </div>
+                                <div class="input-group small mt-2 col-12">
+
+                                    <input id="txtCell" class="form-control" type="text" inputmode="numeric" placeholder="Enter Cell #" required />
+
+                                </div>
+                                <div class="input-group small mt-2 col-12">
+                                    <div class="permission">
+                                        <span class="input-group-text">Permission</span>
+                                    </div>
+                                    <select id="selPermissionInvt" class="form-control small">
+                                        <option value="Readonly" selected>Readonly</option>
+                                        <option value="Read & Write">Read & Write</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+
+
+                            <div class="col-12">
+
+                                <button class="form-control bg-warning" data-dismiss="modal" onmouseup="Opt = 'newInvitation';"> <i class="fa fa-send-o"></i> Send</button>
+                            </div>
+                        </div>
+
+                        <div id="result" class="col-12" style="display:none;">
+                            <center>
+                                <h5>Invitation Sent</h5>
+                            </center>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+
+        /*eslint eqeqeq: ["error", "smart"]*/
+        var Opt = "";
+        var DataAvail;
+        var dt1 = new Date();
+        dt1.setMonth(dt1.getMonth() + 1, 0);
+        //document.getElementById("txtDate2").value = dt1.getDate() + "/" + (dt1.getMonth() + 1) + "/" + dt1.getFullYear();
+        //document.getElementById("txtDate1").value = "01/" + (dt1.getMonth() + 1) + "/" + dt1.getFullYear();
+        if (window.sessionStorage.getItem("DateParam") == "ALL" || window.sessionStorage.getItem("StartDate") == null) {
+            document.getElementById("txtDate2").value = dt1.getDate() + "/" + (dt1.getMonth() + 1) + "/" + dt1.getFullYear();
+            document.getElementById("txtDate1").value = "01/" + (dt1.getMonth() + 1) + "/" + dt1.getFullYear();
+        }
+
+
+        var EndtDate = dt1.getFullYear() + "/" + (dt1.getMonth() + 1) + "/" + dt1.getDate();
+        var StartDate = dt1.getFullYear() + "/" + (dt1.getMonth() + 1) + "/" + "01";
+
+        function SendInvite(Param1) {
+
+            // document.getElementById("form1").style.display = "none";
+            // document.getElementById("result").style.display = "block";
+            var d = document;
+            var vartxtUse = d.getElementById("txtUser").value;
+            var vartxtemail = d.getElementById("txtemail").value;
+            var vartxtCell = d.getElementById("txtCell").value;
+            var varPermission = d.getElementById("selPermissionInvt").value;
+
+
+            var retv = checkforExisitingUser(vartxtUse, vartxtCell, vartxtemail, varPermission, Param1);
+
+            //}
+
+
+        }
+        var Messege = "";
+        $('#myShared').on('shown.bs.modal', function (e) {
+            //CheckSharedAccount(mValTo);
+
+
+        });
+        $('#myShared').on('hidden.bs.modal', function (e) {
+            if (Opt == "Reminder") {
+                //alert("Reminder");
+                SendInvite("Reminder");
+            }
+            else if (Opt == "newInvitation") {
+                //alert("newInvitation");
+                SendInvite("newInvitation");
+            }
+            else if (Opt == "Cancel") {
+                //alert("No");
+            }
+            // this handler is detached after it has run once
+        });
+        var options = {
+            "backdrop": "static",
+            "show": true
+        }
+        function CheckSharedAccount() {
+            document.getElementById('InvDiv').style.display = 'block';
+            $("#myShared").modal();
+            //    var AccountID = accid.replace(new RegExp(" ", 'g'),"");
+            //    if (AccountID.length == 36) {
+            //        $('#spandataloading').show();
+            //        $.ajax({
+            //            type: "POST",
+            //            dataType: "json",
+            //            contentType: "application/json; charset=utf-8",
+            //            url: "Users.asmx/CheckSharedAccount",
+            //            data: "{'AccountID':'" + AccountID + "' }",
+            //            success: function (Record) {
+
+            //                var txt = '{"Row": ' + Record.d + '}';
+            //                var data = JSON.parse(txt);
+            //                //alert(Record.d);
+            //                if (data.Row[0].AccountID == "Not Found") {
+            //                    document.getElementById("secondChoice").style.display = "block";
+            //                   // document.getElementById("firstChoice").style.display = "none";
+            //                   // document.getElementById('Already').style.display = 'none';
+            //                    document.getElementById('InvDiv').style.display = 'block';
+            //                    $("#myShared").modal();
+            //                }
+            //                else {
+            //                    $('#spandataloading').hide();
+            //                    document.getElementById('InvDiv').style.display = 'block';
+            //                    //document.getElementById('Already').style.display = 'block';
+            //                    //DataAvail = data;
+            //                    //ShowDialog(data);
+            //                }
+
+            //                //$("#myShared").modal('show');
+            //                //if (Record.d == "[]") {
+            //                //    Message = "NotDataFound1";
+
+            //                //}
+            //                //else {
+            //                //    Message = "DataFound";
+            //                //    //var txt = '{"Row": ' + Record.d + '}';
+            //                //    //var data = JSON.parse(txt);
+            //                //    for (var i = 0; i < data.Row.length; i++) {
+            //                //        //  alert(data.Row[i].Category);
+            //                //        //balance = data.Row[i].Balance;
+            //                //        // var strbalance = " &#xf0a4; "+"[" + balance + "]" ;
+            //                //        //dt = dt + "<option value=" + data.Row[i].AccID + ">" + data.Row[i].Title + balance + "</option > ";
+
+            //                //    }
+            //                //}
+            //            },
+            //            Error: function (textMsg) {
+
+            //                Messege = "Error";
+            //                // $('#Result').text("Error: " + Error);
+
+            //            }
+
+
+            //        });
+
+            //        $('#spandataloading').hide();
+            //    }
+            //    else
+            //        alert("Please Select Expense Account");
+
+
+            //}
+        }
+        function ShowDialog(data) {
+            // alert("a");
+            var str = "";
+            var dt = "";
+            for (var i = 0; i < data.Row.length; i++) {
+
+                dt = dt + '<div class="row mt-2 p-1">';
+
+
+                dt = dt + '<div class="col-2 p-1">';
+                dt = dt + '<img id="Rpic" style="border:solid 3px grey; border-radius:1000px; height:100%; width:100%;" src=" /userpic/' + data.Row[i].UserID + '.jpg" onerror="this.src=/userpic/userError.png">';
+
+                //dt = dt + '<img id="Rpic" style="border:solid 3px grey; border-radius:1000px; height:50px; width:50px; src="userpic/' + data.Row[i].UserID +'.jpg" />';
+                dt = dt + '</div>';
+                dt = dt + '<div class="col-7 small  p-1">';
+                dt = dt + '    <span>' + data.Row[i].UserName + '</span>';
+                dt = dt + ' <br/>   <span style="font-size:8px; Color:green;">' + data.Row[i].Status + '</span>';
+                dt = dt + '</div>';
+                dt = dt + '<div class="col-2 small  p-1">';
+                dt = dt + '    <span><input type="checkbox" id="' + data.Row[i].UserID + '" /></span>';
+                dt = dt + '</div>';
+
+                dt = dt + '<div class="col-1" >';
+
+                dt = dt + '</div>';
+                dt = dt + '</div>';
+                str = str + dt;
+                dt = "";
+            }
+            if (str == "") {
+                document.getElementById("secondChoice").style.display = "block";
+                document.getElementById("firstChoice").style.display = "none";
+                document.getElementById('InvDiv').style.display = 'none';
+            }
+            else {
+                //document.getElementById("userdata").innerHTML = str;
+                //document.getElementById("userdata").style.display = "block";
+                document.getElementById("secondChoice").style.display = "none";
+                document.getElementById("firstChoice").style.display = "block";
+                document.getElementById('InvDiv').style.display = 'none';
+            }
+
+
+
+            //event.preventDefault();
+            //jQuery.noConflict();
+
+
+            $("#myShared").modal();
+        }
+
+
+        function checkforExisitingUser(usr, cell, email, permission, Param1) {
+            // UserName, string CellNo, string Email
+            var usrID = sessionStorage.getItem("UserID");
+
+ 
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    url: "Users.asmx/sp_SearchExisitingSharedUser",
+                    data: "{'SenderUserID':'" + usrID + "','CellNo':'" + cell + "','Email':'" + email + "','Permission':'" + permission + "'}",
+                    success: function (Record) {
+ 
+
+                        //alert(Record.d);
+                        var txt = '{"Row": ' + Record.d + '}';
+                        // var data = JSON.parse(txt);
+
+                        if (Record.d == "Not Found") {
+
+                            EmailInvite(Param1, Record.d);
+                            return "not Found";
+                        }
+                        else {
+                            EmailInvite(Param1, Record.d);
+                            return Record.d;
+                        }
+
+
+                    },
+                    Error: function (textMsg) {
+
+                        Messege = "Error";
+                        return "error";
+
+                        // $('#Result').text("Error: " + Error);
+
+                    }
+
+
+                });
+
+
+ 
+
+        }
+        function EmailInvite(Param1, msg) {
+            var d = document;
+            var vartxtUse = d.getElementById("txtUser").value;
+            var vartxtemail = d.getElementById("txtemail").value;
+            var vartxtCell = d.getElementById("txtCell").value;
+            var varPermission = d.getElementById("selPermissionInvt").value;
+            var varCountryID = d.getElementById("CountryData").value;
+            var retv = msg;
+            // alert(Param1);
+            if (retv == "error") {
+               // alert("Technical issue while sending invitation. Please try again");
+                $.alert({ title: 'Alert!:', content: 'Technical issue while sending invitation. Please try again', });
+            }
+            if (retv == "Not Found") {
+                if (Param1 == "Reminder") {
+                    vartxtUse = DataAvail.UserName;
+                    vartxtemail = DataAvail.Email;
+                    vartxtCell = DataAvail.CellNo;
+                    varPermission = $("#selPermission :selected").text();
+                    VarNaration = "Please check this application it is usefull for daily basis financial";
+
+                    varStatus = "1";
+                    VarSendBy = window.sessionStorage.getItem("UserID");
+                }
+                else {
+                    vartxtUse = txtUser.value;
+                    vartxtemail = txtemail.value;
+                    vartxtCell = txtCell.value;
+                    //VarNaration = txtNarration.value;
+                    varPermission = $("#selPermissionInvt :selected").text();
+                    varStatus = "1";
+                    VarSendBy = window.sessionStorage.getItem("UserID");
+                    //alert("reminder");
+                }
+
+
+                //if ($("#form1").checkValidity()) {
+                //alert("going");
+                var UR = window.location.href.split("AccountLedger.html");
+                var SenderName = sessionStorage.getItem("UserTitle");
+                SendEmailShareAccount(vartxtUse, vartxtCell, vartxtemail, accid, accTitle, varPermission, Param1, UR[0], SenderName, varCountryID);
+            }
+            else {
+                if (msg.includes("Already Invite")) {
+                    var ar = confirm(msg + " Invite again");
+                    if (ar) {
+                        vartxtUse = txtUser.value;
+                        vartxtemail = txtemail.value;
+                        vartxtCell = txtCell.value;
+                        //VarNaration = txtNarration.value;
+                        varPermission = $("#selPermissionInvt :selected").text();
+                        varStatus = "1";
+                        VarSendBy = window.sessionStorage.getItem("UserID");
+                        var UR2 = window.location.href.split("AccountLedger.html");
+                        var SenderName2 = sessionStorage.getItem("UserTitle");
+
+                        SendEmailShareAccount(vartxtUse, vartxtCell, vartxtemail, accid, accTitle, varPermission, "Reminder", UR2[0], SenderName2, varCountryID);
+
+                    }
+                }
+                else {
+                    //alert("This email is already registered as user. Please search in settings ---> Share Account");
+                    $.alert({ title: 'Alert!:', content: 'This email is already registered as user. Please search in settings ---> Share Account', });
+                }
+            }
+        }
+
+
+        $(function () {
+            $('#txtDate1').datetimepicker({
+                format: 'DD/MM/YYYY', ignoreReadonly: true,
+                allowInputToggle: true
+            });
+        });
+
+
+        $('#cal21').click(function () {
+            $(document).ready(function () {
+                $("#txtDate1").datetimepicker().focus();
+            });
+        });
+
+        $(function () {
+            $('#txtDate2').datetimepicker({
+                format: 'DD/MM/YYYY', ignoreReadonly: true,
+                allowInputToggle: true
+            });
+        });
+
+
+        $('#cal22').click(function () {
+            $(document).ready(function () {
+                $("#txtDate2").datetimepicker().focus();
+            });
+        });
+
+
+        var dt2 = new Date();
+        dt2.setMonth(dt2.getMonth() + 1, 0);
+
+        if (window.sessionStorage.getItem("DateParam") == "ALL" || window.sessionStorage.getItem("StartDate") == null) {
+            document.getElementById("txtDate2").value = dt2.getDate() + "/" + (dt2.getMonth() + 1) + "/" + dt2.getFullYear();
+            document.getElementById("txtDate1").value = "01/" + (dt2.getMonth() + 1) + "/" + dt2.getFullYear();
+        }
+
+        getAccountOpening();
+
+    </script>
+    <!-- Modal -->
+    <div id="mTransfer" class="modal fade">
+        <div class="modal-dialog ">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="" class="modal-title">
+
+                        <span id="FilterTitle">Select Account to transfer</span>
+
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="row mt-2 ">
+                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                            <span id="mtransfertitle"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 ">
+                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                            <div class="input-group small mt-2 col-12 ">
+                                <div class="form-control divSelect2" style="padding:0px;">
+                                    <select id="paymentsID" class="select2 form-control " style="border:0;"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                            <button class="form-control bg-warning" data-dismiss="modal" onmouseup="Opt = 'Transfer';"> <i class="fa fa-send-o"></i> Transfer</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $('#mTransfer').on('shown.bs.modal', function (e) {
+            //CheckSharedAccount(mValTo);
+
+
+        });
+        $('#mTransfer').on('hidden.bs.modal', function (e) {
+            if (Opt == "Transfer") {
+                //alert("Reminder");
+                addPayment();
+            }
+            else if (Opt == "Cancel") {
+                //alert("No");
+            }
+            // this handler is detached after it has run once
+        });
+        //loadCashBank();
+        //function loadCashBank() {
+        //    var userid = sessionStorage.getItem("UserID");
+        //    var type = "source";
+        //    $('#spandataloading').show();
+        //    //  var type = "E";
+        //    //$('#loadI').attr('class', 'fa fa-refresh fa-spin');
+
+        //    $.ajax({
+        //        type: 'POST',
+        //        url: 'Accounts.asmx/getCashBank',
+        //        dataType: 'json',
+        //        data: "{'UserID':'" + userid + "','type':'" + type + "'}",
+        //        contentType: 'application/json; charset=utf-8',
+
+        //        success: function (response) {
+
+        //            var txt = '{"Row": ' + response.d + '}';
+        //            var data = JSON.parse(txt);
+        //            $('#spandataloading').hide()
+        //            //  alert(data.Row[0].District);
+        //            // yaha loop lage ga na
+        //            var str = "";
+        //            var dt = "";
+        //            var mvalue;
+        //            dt = "<option> Select Source </option>";
+        //            for (var i = 0; i < data.Row.length; i++) {
+        //                //  alert(data.Row[i].Category);
+
+
+        //                balance = data.Row[i].Balance;
+        //                // var strbalance = " &#xf0a4; "+"[" + balance + "]" ;
+
+        //                dt = dt + "<option value=" + data.Row[i].AccID + ">" + data.Row[i].Title+  "</option > ";
+
+
+
+        //            }
+
+        //            document.getElementById("paymentsID").innerHTML = dt;
+
+
+        //            //$('#loadI').attr('class', 'fa fa-gear');
+
+
+        //        },
+        //        error: function (error) {
+        //            console.log(error);
+        //        }
+        //    });
+
+
+        //    function EditRow(a) {
+        //        // alert(a.id);
+        //        //var mDiv = document.getElementById("ID" + a.id);
+        //        //var mIcon = document.getElementById("C" + a.id);
+        //        //alert(mIcon.className);
+        //        //mIcon.className = mIcon.className + " border1";
+        //        // mIcon.addEventListener('click', function () { loadIcon(); }, false);
+        //        //alert(mIcon.className);
+        //        document.location.href = "EditCategory.html?ID=" + a.id;
+
+
+        //    }
+
+        //}
+
+        loadCashBankNewUI("All", "paymentsID");
+        function loadCashBankNewUI(t, control) {
+            //alert("newUI");
+            var userid = sessionStorage.getItem("UserID");
+            var ChartLevel = window.sessionStorage.getItem("ChartLevel", ChartLevel);
+            var type = t;
+            $('#spandataloading').show();
+            //  var type = "E";
+            //$('#loadI').attr('class', 'fa fa-refresh fa-spin');
+            //AccountID, AccountTitle.SubCatID, SubCatName, CatID, CatName
+
+          
+                $.ajax({
+                    type: 'POST',
+                    url: 'Accounts.asmx/getCashBankNewUI',
+                    dataType: 'json',
+                    data: "{'UserID':'" + userid + "','type':'" + type + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+                        
+
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        $('#spandataloading').hide()
+                        //  alert(data.Row[0].District);
+                        // yaha loop lage ga na
+                        var str = "";
+                        var dt = "";
+                        var mvalue;
+                        var optg = "";
+                        var Ccat
+
+
+                        if (ChartLevel == '3') {
+
+
+
+                            if (data.Row.length > 0) {
+                                //alert(data.Row[0].CatName + " - " + data.Row[0].SubCatName);
+
+                                dt = "<option></option><optgroup label='" + data.Row[0].CatName + " - " + data.Row[0].SubCatName + "' > ";
+                                Ccat = data.Row[0].CatName + " - " + data.Row[0].SubCatName;
+                            }
+
+                            for (var i = 0; i < data.Row.length; i++) {
+
+                                //  alert(data.Row[i].Category);
+                                if ((data.Row[i].CatName + " - " + data.Row[i].SubCatName) == Ccat) {
+                                    balance = data.Row[i].Balance;
+                                    // var strbalance = " &#xf0a4; "+"[" + balance + "]" ;
+                                    dt = dt + "<option value=" + data.Row[i].AccountID + ">" + data.Row[i].AccountTitle + balance + "</option > ";
+                                    Ccat = data.Row[i].CatName + " - " + data.Row[i].SubCatName;
+                                }
+                                else {
+                                    // alert(data.Row[i].CatName + " - " + data.Row[i].SubCatName);
+                                    dt = dt + "</optgroup>";
+                                    str = str + dt;
+                                    dt = "<optgroup label='" + data.Row[i].CatName + " - " + data.Row[i].SubCatName + "' > ";
+                                    Ccat = data.Row[i].CatName + " - " + data.Row[i].SubCatName;
+                                    balance = data.Row[i].Balance;
+                                    // var strbalance = " &#xf0a4; "+"[" + balance + "]" ;
+                                    dt = dt + "<option value=" + data.Row[i].AccountID + ">" + data.Row[i].AccountTitle + balance + "</option > ";
+
+                                }
+
+
+                            }
+                            dt = dt + "</optgroup>";
+
+                        }
+
+                        else if (ChartLevel == '2') {
+
+
+
+                            if (data.Row.length > 0) {
+                                //alert(data.Row[0].CatName + " - " + data.Row[0].SubCatName);
+
+                                dt = "<option></option><optgroup label='" + data.Row[0].SubCatName + "' > ";
+                                Ccat = data.Row[0].SubCatName;
+                            }
+
+                            for (var i = 0; i < data.Row.length; i++) {
+
+                                //  alert(data.Row[i].Category);
+                                if ((data.Row[i].SubCatName) == Ccat) {
+                                    balance = data.Row[i].Balance;
+                                    // var strbalance = " &#xf0a4; "+"[" + balance + "]" ;
+                                    dt = dt + "<option value=" + data.Row[i].AccountID + ">" + data.Row[i].AccountTitle + balance + "</option > ";
+                                    Ccat = data.Row[i].SubCatName;
+                                }
+                                else {
+                                    // alert(data.Row[i].CatName + " - " + data.Row[i].SubCatName);
+                                    dt = dt + "</optgroup>";
+                                    str = str + dt;
+                                    dt = "<optgroup label='" + data.Row[i].SubCatName + "' > ";
+                                    Ccat = data.Row[i].SubCatName;
+                                    balance = data.Row[i].Balance;
+                                    // var strbalance = " &#xf0a4; "+"[" + balance + "]" ;
+                                    dt = dt + "<option value=" + data.Row[i].AccountID + ">" + data.Row[i].AccountTitle + balance + "</option > ";
+
+                                }
+
+
+                            }
+                            dt = dt + "</optgroup>";
+
+                        }
+
+                        else if (ChartLevel == '1') {
+
+
+
+                            if (data.Row.length > 0) {
+                                dt = "<option></option><optgroup> ";
+
+                            }
+
+                            for (var i = 0; i < data.Row.length; i++) {
+
+
+                                balance = data.Row[i].Balance;
+
+                                dt = dt + "<option value=" + data.Row[i].AccountID + ">" + data.Row[i].AccountTitle + balance + "</option > ";
+
+
+
+                            }
+                            dt = dt + "</optgroup>";
+
+                        }
+
+
+
+                        //////////////if (data.Row.length > 0) {
+                        //////////////    //alert(data.Row[0].CatName + " - " + data.Row[0].SubCatName);
+                        //////////////    dt = "<option></option><optgroup label='" + data.Row[0].CatName + " - " + data.Row[0].SubCatName + "' > ";
+                        //////////////    Ccat = data.Row[0].CatName + " - " + data.Row[0].SubCatName;
+                        //////////////}
+                        ////////////////dt = "<option> Select Source </option>";
+                        //////////////for (var i = 0; i < data.Row.length; i++) {
+
+                        //////////////    //  alert(data.Row[i].Category);
+                        //////////////    if ((data.Row[i].CatName + " - " + data.Row[i].SubCatName) == Ccat) {
+                        //////////////        balance = data.Row[i].Balance;
+                        //////////////        // var strbalance = " &#xf0a4; "+"[" + balance + "]" ;
+                        //////////////        dt = dt + "<option value=" + data.Row[i].AccountID + ">" + data.Row[i].AccountTitle + balance + "</option > ";
+                        //////////////        Ccat = data.Row[i].CatName + " - " + data.Row[i].SubCatName;
+                        //////////////    }
+                        //////////////    else {
+                        //////////////        // alert(data.Row[i].CatName + " - " + data.Row[i].SubCatName);
+                        //////////////        dt = dt + "</optgroup>";
+                        //////////////        str = str + dt;
+                        //////////////        dt = "<optgroup label='" + data.Row[i].CatName + " - " + data.Row[i].SubCatName + "' > ";
+                        //////////////        Ccat = data.Row[i].CatName + " - " + data.Row[i].SubCatName;
+                        //////////////        balance = data.Row[i].Balance;
+                        //////////////        // var strbalance = " &#xf0a4; "+"[" + balance + "]" ;
+                        //////////////        dt = dt + "<option value=" + data.Row[i].AccountID + ">" + data.Row[i].AccountTitle + balance + "</option > ";
+
+                        //////////////    }
+
+
+                        //////////////}
+                        //////////////dt = dt + "</optgroup>";
+
+
+
+
+                        str = str + dt;
+                        document.getElementById(control).innerHTML = str;
+                        //$.fn.select2.defaults.set("theme", "bootstrap");
+                        $("#" + control).select2({
+
+                            placeholder: "Select Account",
+                            allowClear: true
+
+                        });
+                        $(".select2-container").css({ "width": "100% !important" })
+                        //$('#loadI').attr('class', 'fa fa-gear');
+                        //if (t == "All") cc = 1;
+                        //if (t == "Source") pc = 1;
+
+                        ////alert(cc + " cc1 " + pc);
+                        //if (pc == 1 && cc == 1) {
+                        //    // alert(cc + " cc " + pc);
+                        //    LoadTransaction();
+                        //}
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+
+ 
+
+            function EditRow(a) {
+                // alert(a.id);
+                //var mDiv = document.getElementById("ID" + a.id);
+                //var mIcon = document.getElementById("C" + a.id);
+                //alert(mIcon.className);
+                //mIcon.className = mIcon.className + " border1";
+                // mIcon.addEventListener('click', function () { loadIcon(); }, false);
+                //alert(mIcon.className);
+                document.location.href = "EditCategory.html?ID=" + a.id;
+
+
+            }
+
+        }
+
+        function addPayment() {
+
+
+            //string Source, DateTime TrDate, string TrAccount, double Amount, string Narration, string Type
+
+
+            //  var ID = document.getElementById("")
+            //alert("Payment AccountID: " + mValTo);
+            //alert("Source AccountID: " + mValFrom);
+            var TransID = sessionStorage.getItem("TransID");
+            var LID1 = "None";
+            var TType = "New";
+            var userid = sessionStorage.getItem("UserID");
+            var trAcc = document.getElementById("paymentsID").value;// $("#paymentsID option:selected").value; //mValTo;
+            var sel = document.getElementById("paymentsID");
+            var trAccText = sel.options[sel.selectedIndex].text; //document.getElementById("paymentsID").text;
+            var source = '00000000-0000-0000-0000-000000000000'; //mValFrom;
+            var dtt = new Date();
+            var trdate = dtt.getFullYear() + "-" + (dtt.getMonth() + 1) + "-" + dtt.getDate() + " " + dtt.getHours() + ":" + dtt.getMinutes();//  "2018-01-01";
+            var amt = Amounttr; //document.getElementById("txtAmount").value;//5000;
+            var narS = fromusr + ' [To: <a id=' + source + ' href="#" ><u>' + ' Transfer Account ' + '</u><a>]'; //"Paid for Testing';
+            var narT = fromusr + ' [From: <a id=' + trAcc + ' href="#" ><u>' + trAccText + '</u><a>]'; //"Paid for Testing';
+
+            if (typeof trAcc == 'undefined' || typeof source == 'undefined' || amt == "") {
+                //alert("Invalid input. Transaction Failed");
+                $.alert({ title: 'Alert!:', content: 'Invalid input. Transaction Failed', });
+            }
+            else {
+                $('#spandataloading').show();
+                $('#iSave').attr('class', 'fa fa-refresh fa-spin');
+                var type = "R";
+ 
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Accounts.asmx/addTransaction',
+                        dataType: 'json',
+                        data: "{'Source':'" + source + "','TrDate':'" + trdate + "','TrAccount':'" + trAcc + "','Amount':'" + amt + "','NarrationS':'" + narS + "','NarrationT':'" + narT + "','Type':'" + type + "','TType':'" + TType + "','LID':'" + LID1 + "','UserID':'" + userid + "'}",
+                        contentType: 'application/json; charset=utf-8',
+
+                        success: function (response) {
+
+                            
+
+                            //alert(response.d);
+                            updatenotificationTransferStatus(TransID, userid);
+                            //alert("Transaction Saved.");
+                            $.alert({ title: 'Alert!:', content: 'Transaction Saved.', });
+                            $('#iSave').attr('class', 'fa fa-save');
+                            document.location.href = "main.html";
+                            //var txt = '{"Row": ' + response.d + '}';
+                            //var data = JSON.parse(txt);
+                            clearAll();
+                            $('#spandataloading').hide();
+
+
+
+                            //$('#loadI').attr('class', 'fa fa-gear');
+
+
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+
+              
+
+
+
+
+            }
+
+        }
+
+        function updatenotificationTransferStatus(a, b) {
+
+       
+                $.ajax({
+                    type: 'POST',
+                    url: 'users.asmx/UpdateTransferStatus',
+                    dataType: 'json',
+                    data: "{'TransID':'" + a + "','UserID':'" + b + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+ 
+
+                        //alert(response.d);
+
+                        //alert("Transfer Complete");
+
+                        $.alert({ title: 'Alert!:', content: 'Transfer Complete', });
+
+
+                        //$('#loadI').attr('class', 'fa fa-gear');
+
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+           
+
+        }
+
+
+
+
+
+    </script>
+
+    <!--Modal Date Filter-->
+    <div id="LedgerFilter99" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="LedgerFilterTitle" class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Cancel';">&times;</button>
+                </div>
+
+                <div id="LedgerInvDiv" class="modal-body">
+                    <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="title">
+                                <input id="LedgerFilter1" name="LedgerFilterSelect" type="radio" value="1" checked onchange="CallFilterCheck(this)" /><label for="LedgerFilter1">Regular</label>
+                            </div>
+
+                            <div class="col-12">
+                                <select id="LedgerFilterList" class="w-100 form-control pl-0 ">
+
+                                    <option value="0">Today</option>
+                                    <option value="30" selected>Last 30 Days</option>
+                                    <option value="90">Last Quarter</option>
+                                    <option value="180">Last Six Months</option>
+                                    <option value="365">Full Year</option>
+
+                                </select>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="col-lg-8 col-md-8 col-sm-12">
+
+                            <div class="col-12">
+                                <div class="title">
+                                    <input id="LedgerFilter2" name="LedgerFilterSelect" type="radio" value="2" onchange="CallFilterCheck(this)" /><label for="Filter2">Custom</label>
+                                </div>
+                                <div class="col-lg-6 col-md-6  col-sm-12 no-padding">
+                                    <div class="col-12">
+                                        <input placeholder="From" type="date" class="form-control" id="LedgerFromDate" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 m-no-padding">
+
+                                    <div class="col-12 ">
+                                        <input placeholder="To" type="date" class="form-control" id="LedgerToDate" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+
+
+
+                    <style>
+                        .MyCancel {
+                            background-image: url('MunshiImagesMain/Cancel_Normal.svg');
+                            background-repeat: no-repeat;
+                            color: #EB2227;
+                            padding: 4px;
+                            font-weight: bold;
+                        }
+
+                        .Itext {
+                            border-radius: 0px !important;
+                            background-color: #747572 !important;
+                            color: whitesmoke;
+                            border: solid 1px #747572;
+                        }
+
+                        #Filter * {
+                            border-radius: 0px !important;
+                        }
+
+                        .MyCancel:hover {
+                            background-image: url('MunshiImagesMain/Cancel_Hover.svg');
+                            background-repeat: no-repeat;
+                            color: gray;
+                            padding: 4px;
+                            text-decoration: unset;
+                            font-weight: bold;
+                        }
+
+                        .MySubmit {
+                            background-image: url('MunshiImagesMain/Submit_Normal.svg');
+                            background-repeat: no-repeat;
+                            color: #0C72BA;
+                            padding: 4px;
+                            font-weight: bold;
+                        }
+
+                            .MySubmit:hover {
+                                background-image: url('MunshiImagesMain/Submit_Hover.svg');
+                                background-repeat: no-repeat;
+                                color: gray;
+                                padding: 4px;
+                                text-decoration: unset;
+                                font-weight: bold;
+                            }
+                    </style>
+                    <div class="modal-footer">
+                        <div class="col-12 text-right">
+                            <a id="LedgerbtnReset" href="#" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Cancel';" class="MyCancel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Cancel</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a id="Ledgerbtnsave" href="#" class="MySubmit" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Apply';">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;    Apply</a>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+            <script>
+                $('#LedgerFromDate').prop("disabled", true);
+                $('#LedgerToDate').prop("disabled", true);
+                function CallFilterCheck(a) {
+                    if (a.id == "LedgerFilter1" && a.checked) {
+                        $('#LedgerFilterList').prop("disabled", false);
+                        $('#LedgerFromDate').prop("disabled", true);
+                        $('#LedgerToDate').prop("disabled", true);
+
+                    } else
+                        if (a.id == "LedgerFilter2" && a.checked) {
+                            $('#LedgerFilterList').prop("disabled", true);
+                            $('#LedgerFromDate').prop("disabled", false);
+                            $('#LedgerToDate').prop("disabled", false);
+
+                        }
+                }
+
+                var LedgerOptFilter = "";
+                var LedgerFormOptionOptFilter = "";
+                function LedgerFilterShowPopup(a) {
+                    //alert(LedgerOptFilter);
+                    $("#LedgerFilterTitle").html('Select <span style="color:oranged;">' + a + '</span> Account');
+                    $("#LedgerFilter99").modal();
+                    FormOptionOptFilter = a;
+
+                }
+
+                $('#LedgerFilter99').on('hidden.bs.modal', function (e) {
+                    // alert(LedgerOptFilter);
+                    if (LedgerOptFilter == "Cancel") {
+                        //alert("Reminder");
+                        //SendInvite("Reminder");
+                        //alert(LedgerFormOptionOptFilter + " Cancel");
+                    }
+                    else if (LedgerOptFilter == "Apply") {
+
+                        if ($('#LedgerFilterList').prop("disabled") == false) {
+
+                            var val1 = parseInt(document.getElementById("LedgerFilterList").value);
+
+                            var param = "none";
+                            if (val1 == "-1") {
+                                param = "ALL";
+                            }
+
+                            var dateto = new Date();
+                            var datefrom = new Date();
+                            datefrom.setDate(dateto.getDate() - val1);
+
+                            var Sdate = dateto.getFullYear() + "." + (dateto.getMonth() < 10 ? "0" + (dateto.getMonth() + 1) : (dateto.getMonth() + 1)) + "." + (dateto.getDate() < 10 ? "0" + dateto.getDate() : dateto.getDate()); //document.getElementById("txtDate1").value;
+                            document.getElementById("txtDate2").value = Sdate;
+                            var Edate = datefrom.getFullYear() + "." + (datefrom.getMonth() < 10 ? "0" + (datefrom.getMonth() + 1) : (datefrom.getMonth() + 1)) + "." + (datefrom.getDate() < 10 ? "0" + datefrom.getDate() : datefrom.getDate()); //document.getElementById("txtDate1").value;
+                            document.getElementById("txtDate1").value = Edate;
+
+                            window.sessionStorage.setItem("StartDate", Edate);
+                            window.sessionStorage.setItem("EndDate", Sdate);
+
+                            window.sessionStorage.setItem("DateParam", param);
+
+                            SessionDate();
+                            getAccountOpening();
+
+
+                        } else {
+
+                            var param = "none";
+
+                            var Sd1 = document.getElementById("LedgerFromDate").value;
+                            var Ed1 = document.getElementById("LedgerToDate").value;
+                            var SD2 = Sd1.split("-");
+                            document.getElementById("txtDate1").value = SD2[0] + "." + SD2[1] + "." + SD2[2];
+
+                            var ED2 = Ed1.split("-");
+                            document.getElementById("txtDate2").value = ED2[0] + "." + ED2[1] + "." + ED2[2];
+
+
+                            window.sessionStorage.setItem("StartDate", document.getElementById("txtDate1").value);
+                            window.sessionStorage.setItem("EndDate", document.getElementById("txtDate2").value);
+
+                            window.sessionStorage.setItem("DateParam", param);
+
+                            SessionDate();
+                            getAccountOpening()
+                        }
+                        //alert("newInvitation");
+                        //SendInvite("newInvitation");
+
+                        var tt;
+                        if (LedgerFormOptionOptFilter == "To") {
+                            //tt = $("#AccountTitle option:selected").text();
+                            //document.getElementById("cashID").value = tt;
+                            //srcText = tt;
+                            //mValFrom = $("#AccountTitle").val();
+
+                            //alert(tt + ForText);
+                        }
+                        else {
+                            // document.getElementById("cashID").value = document.getElementById("AccountTitle").value;
+                            //tt = $("#AccountTitle option:selected").text();
+                            //document.getElementById("paymentsID").value = tt;
+                            //ForText = tt;
+                            //mValTo = $("#AccountTitle").val();
+                            //alert(tt + srcText);
+                        }
+                        //alert(FormOption + " Submit");
+                    }
+
+                    // this handler is detached after it has run once
+                });
+            </script>
+        </div>
+
+    </div>
+    <!--Modal Date Filter End-->
+
+
+
+
+
+    <link href="css/w3slidercss.css" rel="stylesheet" />
+    <style>
+        .mySlides {
+            display: none;
+        }
+    </style>
+
+
+
+
+    <div id="FilterAttachment" class="modal fade">
+        <div class="modal-dialog modal-lg">
+
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="FilterTitle">Attachments</span></h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="OptFilter = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body ">
+
+                    <div id="InvDiv" class="row ">
+
+
+                        <div class="row p-4">
+
+
+
+
+                            <div id="Images" style="width:90%;" class="w3-content w3-display-container">
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                    <style>
+                        .MyCancel {
+                            background: image: url('MunshiImagesMain/Cancel_Normal.svg');
+                            background-repeat: no-repeat;
+                            color: #EB2227;
+                            padding: 4px;
+                            font-weight: bold;
+                        }
+
+
+
+                        .Itext {
+                            border: radius: 0px !important;
+                            background-color: #747572 !important;
+                            color: whitesmoke;
+                            border: solid 1px #747572;
+                        }
+
+                        #Filter * {
+                            border: radius: 0px !important;
+                        }
+
+                        .MyCancel:hover {
+                            background - image: url('MunshiImagesMain/Cancel_Hover.svg');
+                            background-repeat: no-repeat;
+                            color: gray;
+                            padding: 4px;
+                            text-decoration: unset;
+                            font-weight: bold;
+                        }
+                    </style>
+
+                    <div class="row p-3">
+                        <div class="col-12 pt-3">
+                            <a id="btnReset" href="#" data-dismiss="modal" onmouseup="OptFilter = 'Cancel';" class="MyCancel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Cancel</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+            //alert(n);
+            showDivs(slideIndex += n);
+        }
+
+        function showDivs(n) {
+            //alert(n);
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex - 1].style.display = "block";
+        }
+    </script>
+
+
+
+    <script>
+
+        loadCountry("CountryData");
+        function loadCountry(control) {
+            //alert("newUI");
+            var userid = sessionStorage.getItem("UserID");
+            //var type = t;
+            //$('#spandataloading').show();
+            //  var type = "E";
+            //$('#loadI').attr('class', 'fa fa-refresh fa-spin');
+            //AccountID, AccountTitle.SubCatID, SubCatName, CatID, CatName
+ 
+
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Settings.asmx/LoadCountry',
+                    dataType: 'json',
+                    // data: "{'UserID':'" + userid + "','type':'" + type + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+                     
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        //$('#spandataloading').hide()
+                        //  alert(data.Row[0].District);
+                        // yaha loop lage ga na
+                        var str = "";
+                        var dt = "";
+                        var mvalue;
+                        var optg = "";
+                        var Ccat
+
+                        for (var i = 0; i < data.Row.length; i++) {
+
+
+                            // dt = dt + '<li data-value="' + data.Row[i].CountryID + '"><img sizes="12" src="../lib/Flags100/' + data.Row[i].alpha2Code +'.png"><span class="country-code-name">'+data.Row[i].name + ' (' + data.Row[i].callingCodes0 + ')'+' </span></li>';
+                            // balance = data.Row[i].Balance;
+                            // var strbalance = " &#xf0a4; "+"[" + balance + "]" ;
+                            dt = dt + "<option data-image='../lib/Flags100/" + data.Row[i].alpha2Code + ".png' value=" + data.Row[i].CountryID + ">" + data.Row[i].name + " (" + data.Row[i].callingCodes0 + ")" + "</option > ";
+
+
+
+                        }
+
+                        str = str + dt;
+                        document.getElementById(control).innerHTML = str;
+
+
+                        $("#" + control).select2({
+                            placeholder: "Select Country",
+                            templateResult: formatState,
+                            templateSelection: formatState
+                        });
+                        //alert("a");
+                        function formatState(opt) {
+                            if (!opt.id) {
+                                return opt.text.toUpperCase();
+                            }
+
+                            var optimage = $(opt.element).attr('data-image');
+                            console.log(optimage)
+                            if (!optimage) {
+                                return opt.text.toUpperCase();
+                            } else {
+                                var $opt = $(
+                                    '<span><img src="' + optimage + '" width="18px" /> <c> ' + opt.text.toUpperCase() + '</c></span>'
+                                );
+                                return $opt;
+                            }
+                        };
+                        //$("#" + control).select2({
+                        //    placeholder: "Select Country",
+                        //    allowClear: true
+                        //});
+
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+ 
+
+
+
+
+
+
+        }
+    </script>
+
+
+    <script type="text/javascript">
+
+
+
+
+
+
+
+
+        var tableToExcel = (function () {
+
+            var uri = 'data:application/vnd.ms-excel;base64,'
+                , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+                , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+                , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+            return function (table, name) {
+                if (!table.nodeType) table = document.getElementById(table)
+
+                var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+                window.location.href = uri + base64(format(template, ctx))
+            }
+        })()
+
+
+
+    </script>
+
+    <!--*********************** Model for sub Data Entry **************************-->
+    <div id="EntryGraph" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title"><span id="BudgetFilterTitle"></span></h4>
+                    <button type="button" class="close" data-dismiss="modal" onmouseup="OptFilter = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div id="InvDiv" class="row ">
+
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="box dashboard-box" style="border:0;">
+                                <div class="col-md-12 col-lg-12 graph no-padding">
+                                    <div class="dashboard-box-g">
+                                        <div style="width:100%; height:100%;">
+                                            <canvas id="CChartPopup"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+            <script>
+                var DataBudget = [];
+                var DataTrans = [];
+                var Lable = [];
+                var myChartPopup = [];
+                var chartOptionpopup;
+                var scalevaluepopup;
+                var chartdatapopup;
+                function EntryGraph(a) {
+                    var dat = a.split(":");
+                    $("#BudgetFilterTitle").html("Budget Status of " + dat[1])
+                    $("#EntryGraph").modal();
+                    $('#loader').show();
+
+
+                 
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'Accounts.asmx/BudgetAnalysisMonth',
+                            dataType: 'json',
+                            data: "{'AccountID':'" + dat[0] + "'}",
+                            contentType: 'application/json; charset=utf-8',
+
+                            success: function (response) {
+
+
+
+                          
+
+
+                                DataBudget = [];
+                                DataTrans = [];
+                                Lable = [];
+                                myChartPopup = [];
+                                var txt = '{"Row": ' + response.d + '}';
+                                var data = JSON.parse(txt);
+                                LedgerObj = [];
+                                for (var i = 0; i < data.Row.length; i++) {
+                                    //AccountID,Accounttitle,budgetamount,intrans,inledger,innetworth,infullstatement,inbalancesheet,budgettype
+                                    DataTrans.push(Math.abs(data.Row[i].Balance));
+                                    DataBudget.push(data.Row[i].BudgetAmount);
+                                    Lable.push(data.Row[i].Main);
+
+                                }
+                                drawchartPopup();
+                                $('#spandataloading').hide();
+                                $('#loader').hide();
+                                //$('#loadI').attr('class', 'fa fa-gear');
+
+
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        });
+
+
+
+               
+
+
+
+
+
+                }
+                function drawchartPopup() {
+                    scalevaluepopup = {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                fontSize: 8,
+                                display: true
+                            },
+                            gridLines: {
+                                display: true,
+                                drawBorder: true
+                            }
+
+                        }],
+
+                        xAxes: [{
+                            barPercentage: 1,
+                            offset: true,
+                            ticks: {
+                                minRotation: 0,
+                                display: true //this will remove only the label
+                            },
+                            gridLines: {
+                                display: false
+                                ,
+                                drawBorder: true
+                            }
+                        }]
+                    }
+
+
+                    chartOptionpopup = {
+
+
+                        maintainAspectRatio: false,
+                        cutoutPercentage: 30,
+                        scales: scalevaluepopup,
+                        legend: {
+                            display: false
+                        }
+                    }
+
+
+                    chartdatapopup = {
+                        labels: Lable,
+
+                        datasets: [{
+                            label: 'Budget ',
+                            data: DataBudget,
+
+                            backgroundColor: '#06a953',
+                            borderColor: '#06a953',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Transaction ',
+                            data: DataTrans,
+
+                            backgroundColor: '#e20707',
+                            borderColor: '#e20707',
+                            borderWidth: 1
+                        }
+
+
+                        ]
+                    };
+
+                    var ctx = document.getElementById("CChartPopup");
+                    if (myChartPopup.length > 0) {
+                        var MChart = myChartPopup[1];
+                        MChart.destroy();
+                    }
+                    myChartPopup[1] = new Chart(ctx, {
+                        type: 'bar',
+                        data: chartdatapopup,
+                        options: chartOptionpopup
+                    });
+
+                }
+            </script>
+        </div>
+
+    </div>
+    <!--*********************** Model for sub Data Entry End **********************-->
+</body>
+</html>

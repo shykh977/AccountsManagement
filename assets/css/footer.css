@@ -1,0 +1,44 @@
+.foot-box {
+  padding:40px;
+  background-color:#212121;
+  color:#8f8f8f;
+  font-size:16px;
+  text-align:center;
+}
+
+.foot-list {
+  text-align:center;
+  list-style:none;
+  padding-left:0px;
+  margin-bottom:0px;
+}
+
+.foot-list li {
+  padding-left:0px;
+  display:inline;
+  text-align:center;
+  list-style:none;
+}
+
+.foot-list li a {
+  font-size:14px;
+  text-align:center;
+  padding:10px;
+  color:inherit;
+}
+
+.foot-list li a:hover {
+  font-size:14px;
+  text-align:center;
+  padding:10px;
+  color:#ff4d00;
+  text-decoration:underline;
+}
+
+.copyright-box {
+  text-align:center;
+  font-size:14px;
+  background-color:#141414;
+  color:#858585;
+}
+

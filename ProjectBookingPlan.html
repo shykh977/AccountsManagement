@@ -1,0 +1,418 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/budgetsetting.css" rel="stylesheet" />
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        document.getElementById("CurrencyName").innerHTML = SettingValues.CurrencyCode;
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Booking Plan</div>
+                    
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">OnBooking</span>
+                        </div>
+                        <input id="txtOnBooking" type="number" inputmode="numeric" class="form-control" placeholder="On Booking Amount" />
+                    </div> 
+                    
+                    
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Installment Months</span>
+                        </div>
+                        <input id="txtInstallmentsMonths" type="text" inputmode="numeric" class="form-control" placeholder="Enter Installment Months" />
+                    </div>  
+                    
+                    
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Installment Amount</span>
+                        </div>
+                        <input id="txtInstallmentsAmount" type="text" inputmode="numeric" class="form-control" placeholder="Enter Installment Amount" />
+                    </div> 
+                    
+                    
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Custom Installments</span>
+                        </div>
+                        <input id="txtCustomInstallments" type="text" inputmode="numeric" class="form-control" placeholder="Enter Custom Installment Amount" />
+                    </div>
+                    
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Custom Installment Months</span>
+                        </div>
+                        <input id="txtCustomInstallmentsMonths" type="text" inputmode="numeric" class="form-control" placeholder="Enter Custom Installment Months" />
+                    </div>
+                    
+                    <div class="input-group small mt-2 " style="display:none">
+                        <div class="input-group-prepend   pr-0 pl-0" style="width:180px">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="">Custom Installment Amount</span>
+                        </div>
+                        <input id="txtCustomInstallmentsAmount" value="0" type="text" inputmode="numeric" class="form-control" placeholder="Enter Custom Installment Amount" />
+                    </div>
+
+
+
+                  
+
+                    <div class="mt-2">                
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="Save();"> <span class="btn-name">Save  </span> </a>                            
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">Users</div>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>On Booking</th>
+                                        <th>Installments Months</th>
+                                        <th>Installments Amount</th>
+                                        <th>Custom Installments</th>
+                                        <th>Custom Installments Months</th>
+                                       <!-- <th>Custom Installments Amount</th>-->
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="CustomerList">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal -->
+    <div id="myAddExpes" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="ModelTitle"></span> Assign Project To User</h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+
+                    <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                        <div class=" col-gl-12 col-md-12 col-sm-12">
+                            <div class="d-flex w-100 "></div>
+
+
+
+                            <div class="input-group small mt-2 ">
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Projects </span>
+                                    </div>
+
+                                    <select id="Projects" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                                    <!--<a id="btnReset" href="#" class="reset-btn " onclick="Clear();"> <span class="btn-name">Reset </span> </a>-->
+                                    <a id="" href="#" class="save-btn " onclick="AssignProjectsToSubUsers();"> <span class="btn-name">Save  </span> </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                            <div class=" col-gl-12 ">
+                                <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                                    
+                                    <div class="col-lg-12  " style="padding:15px;">
+                                        <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                            <thead>
+                                                <tr style="border-bottom:solid 1px #747572">
+                                                    <th>S.No.</th>
+                                                    <th>On Booking</th>
+                                                    <th>Installments Months</th>
+                                                    <th>Installments Amount</th>                                                    
+                                                    <th>Custom Installments</th>
+                                                    <th>Custom Installments Months</th>
+                                                    <th>Custom Installments Amount</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ProjectAssignedList">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/Budgetsetting.js"></script>
+</body>
+</html>
+
+
+<script>
+
+
+
+    var save = "ADD";
+    var BookingPlanID = "";
+    function Save() {
+
+        if (save == 'ADD') {
+            CreateBookingPlan()
+        }
+        else {
+            UpdateBookingPlan()
+        }
+    }
+
+
+
+
+    function CreateBookingPlan() {
+
+        var txtOnBooking =                  document.getElementById("txtOnBooking").value;
+        var txtInstallmentsMonths =         document.getElementById("txtInstallmentsMonths").value;
+        var txtInstallmentsAmount =         document.getElementById("txtInstallmentsAmount").value;
+        var txtCustomInstallments =         document.getElementById("txtCustomInstallments").value;
+        var txtCustomInstallmentsMonths =   document.getElementById("txtCustomInstallmentsMonths").value;
+        var txtCustomInstallmentsAmount =   document.getElementById("txtCustomInstallmentsAmount").value;
+
+        var ProjectId = sessionStorage.getItem("ProjectId")
+
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/CreateBookingPlan',
+            dataType: 'json',
+            data: "{'ProjectId':'" + ProjectId + "','OnBooking':'" + txtOnBooking + "','InstallmentsMonths':'" + txtInstallmentsMonths + "','InstallmentsAmount':'" + txtInstallmentsAmount + "','CustomInstallments':'" + txtCustomInstallments + "','CustomInstallmentsMonths':'" + txtCustomInstallmentsMonths + "','CustomInstallmentsAmount':'" + txtCustomInstallmentsAmount + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Booking Plan Has Been Added")
+                GetProjectBookingPlan()
+                Clear()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function UpdateBookingPlan() {
+
+        var txtOnBooking = document.getElementById("txtOnBooking").value;
+        var txtInstallmentsMonths = document.getElementById("txtInstallmentsMonths").value;
+        var txtInstallmentsAmount = document.getElementById("txtInstallmentsAmount").value;
+        var txtCustomInstallments = document.getElementById("txtCustomInstallments").value;
+        var txtCustomInstallmentsMonths = document.getElementById("txtCustomInstallmentsMonths").value;
+        var txtCustomInstallmentsAmount = document.getElementById("txtCustomInstallmentsAmount").value;
+        var ProjectId = sessionStorage.getItem("ProjectId")
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/UpdateBookingPlan',
+            dataType: 'json',
+            data: "{'BookingPlanId':'" + BookingPlanID + "','ProjectId':'" + ProjectId + "','OnBooking':'" + txtOnBooking + "','InstallmentsMonths':'" + txtInstallmentsMonths + "','InstallmentsAmount':'" + txtInstallmentsAmount + "','CustomInstallments':'" + txtCustomInstallments + "','CustomInstallmentsMonths':'" + txtCustomInstallmentsMonths + "','CustomInstallmentsAmount':'" + txtCustomInstallmentsAmount + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Booking Plan Has Been Updated")
+                Clear()
+                GetProjectBookingPlan()
+
+                document.getElementById("btnsave").innerHTML = 'Save';
+                save = 'ADD'
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+
+
+    GetProjectBookingPlan()
+    function GetProjectBookingPlan() {
+        var ProjectId = sessionStorage.getItem("ProjectId")
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/GetProjectBookingPlan',
+            dataType: 'json',
+            data: "{'ProjectId':'" + ProjectId + "'}",
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+                var str = "";
+                var dt = "";
+                var mRow = 0;
+                for (var i = 0; i < data.Row.length; i++) {
+                    mRow = mRow + 1;
+                    dt = dt + " <tr>";
+                    dt = dt + "   <td>" + mRow + ".</td>";
+                    dt = dt + "   <td> " + data.Row[i].OnBooking                + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].InstallmentsMonths       + " Month(s)</td>";
+                    dt = dt + "   <td> " + data.Row[i].InstallmentsAmount       + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].CustomInstallments       + "</td>";
+                    dt = dt + "   <td> " + data.Row[i].CustomInstallmentsMonths + "</td>";
+                   // dt = dt + "   <td> " + data.Row[i].CustomInstallmentsAmount + "</td>";
+                   
+                    
+                
+                    //dt = dt + " <td><a href='#'  onclick=AssignProjects('" + data.Row[i].SubUserId + "');> Assign Project</a></td>";
+                    dt = dt + " <td><a href='#'  onclick=EditBookingPlan('" + data.Row[i].BookingPlanId + "');><i class='fa fa-edit'></i> &nbsp;</a></td>";
+                    dt = dt + " <td><a href='#'  onclick=DeleteProjectBookingPlan('" + data.Row[i].BookingPlanId + "');>  <i class='fa fa-trash' style='color:red'></i> &nbsp;</a></td>";
+                   
+
+
+                    dt = dt + "</tr>";
+                    str = str + dt;
+                    dt = "";
+                }
+                document.getElementById("CustomerList").innerHTML = str;
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    
+
+    function EditBookingPlan(BookingPlanId) {
+
+        BookingPlanID = BookingPlanId
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/GetProjectBookingPlanById',
+            dataType: 'json',
+            data: "{'BookingPlanId':'" + BookingPlanId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                var txt = '{"Row": ' + response.d + '}';
+                var data = JSON.parse(txt);
+
+                
+               
+                document.getElementById("txtOnBooking").value = data.Row[0].OnBooking;
+                document.getElementById("txtInstallmentsMonths").value = data.Row[0].InstallmentsMonths;
+                document.getElementById("txtInstallmentsAmount").value = data.Row[0].InstallmentsAmount;
+                document.getElementById("txtCustomInstallments").value = data.Row[0].CustomInstallments;
+                document.getElementById("txtCustomInstallmentsMonths").value = data.Row[0].CustomInstallmentsMonths;
+                document.getElementById("txtCustomInstallmentsAmount").value = data.Row[0].CustomInstallmentsAmount;
+
+                document.getElementById("btnsave").innerHTML = 'Update';
+
+                save = 'update'
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function DeleteProjectBookingPlan(BookingPlanId) {
+        $.ajax({
+            type: 'POST',
+            url: 'Project.asmx/DeleteProjectBookingPlan',
+            dataType: 'json',
+            data: "{'BookingPlanId':'" + BookingPlanId + "'}",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                alert("Booking Plan Has Been Deleted")
+                GetProjectBookingPlan()
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+
+
+
+
+    function Clear() {
+        document.getElementById("txtOnBooking").value           =       '';
+        document.getElementById("txtInstallmentsMonths").value  =       '';
+        document.getElementById("txtInstallmentsAmount").value  =       '';
+        document.getElementById("txtCustomInstallments").value  =       '';
+        document.getElementById("txtCustomInstallmentsMonths").value =  '';
+        document.getElementById("txtCustomInstallmentsAmount").value = '';
+
+        document.getElementById("btnsave").innerHTML = 'Save';
+        save = 'ADD'
+    }
+
+</script>

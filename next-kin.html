@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <!--Move Account page-->
+    <title>Move Accounts</title>
+
+    <script>
+        $(function () {
+
+            $("#includedContent").load("navbar.html");
+
+        });
+    </script>
+    <script>
+
+        //var app = angular.module('myapp', []);
+
+        //app.controller('MainCtrl', ['$scope', '$window', function ($scope, $window) {
+        //    $scope.catName = $window.catName;
+
+
+        //}]);
+
+    </script>
+
+</head>
+<body>
+    <section class="content-header breadcrumb-header">
+        <h1>
+            <ol class="breadcrumb">
+                <li><a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></li>
+
+                <li><span id="MainHeading" class="pagenameb"> Next to kin</span></li>
+            </ol>
+
+        </h1>
+
+    </section>
+
+    <section class="content-inr expense">
+        <div class="nextkin-main">
+           
+
+            <div class="bg-white">
+                <div class="d-flex w-100"></div>
+                <div class="col-lg-12 p-0">
+
+
+                    <div class="col-lg-12 form-control text-center text-white" style="background-color:#757472;    margin-bottom: 20px;">Noninee data </div>
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+
+                            <span class="input-group-text w-100 Itext " style="font-size:small" id="CurrencyName">Name</span>
+                        </div>
+                        <input id="Name" type="text" class="form-control" placeholder="Name">
+                    </div>
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+
+                            <span class="input-group-text w-100 Itext " style="font-size:small" id="CurrencyName">Email</span>
+                        </div>
+                        <input id="Email" type="text" class="form-control" placeholder="Email">
+                    </div>
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+
+                            <span class="input-group-text w-100 Itext " style="font-size:small" id="CurrencyName">Contact No.</span>
+                        </div>
+                        <input id="Contactno" type="text" class="form-control" placeholder="Contact No.">
+                    </div>
+
+
+                    <div class="col-lg-12 form-control text-center  text-white mt-4 mb-4" style="background-color:#757472">Auto Reply</div>
+                    <p>In case the user do not use the System, then Auto Generate the reply to the nominee in</p>
+                    <div class="auto-genrate">
+                        <span class="select-time"><input type="radio" />3 Months</span>
+                        <span class="select-time"><input type="radio" />6 Months</span>
+                        <span class="select-time"><input type="radio" />12 Months</span>
+                    </div>
+                    <div class="send-nominee">
+                        <span class="select-time">
+                            Send email to the nominee in interval of
+
+                            <span class="select-d-time"> <input type="text" /> Days, and  </span>
+                            <span class="select-d-time"> <input type="text" /> Times. </span>
+                            
+                        </span>
+
+                    </div>
+
+                    <div class="d-flex w-100 ">
+
+                        <div class="" style="width:150px">
+                            <a id="btnsave" href="#" class="save-btn " onclick="UpdateAccount()"> <span class="btn-name">Submit  </span> </a>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            
+               
+
+                <div class="nextkin-footer">
+
+                    <p>if no reply received, then account will be automatically closed for ever.</p>
+                    <p>(In case of closure of account, data will be deleted and no backup will be provided)</p>
+
+
+                </div>
+
+          
+            
+
+        </div>
+        
+
+    </section>
+    <script src="js/move-account.js"></script>
+</body>
+</html>

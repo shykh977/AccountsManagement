@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/dycalendar.min.css" />
+    <script>
+        $(function () {
+
+            $("#includedContent").load("navbar.html");
+
+        });
+    </script>
+
+    <!--<script type='text/javascript'>
+        $(document).ready(function () {
+            $(".home").hover(
+                function () { $(this).attr("src", "img/seating/Setting_Language2.svg"); },
+                function () { $(this).attr("src", "img/seating/Setting_Language1.svg");
+                });
+        });
+    </script>-->
+    <style>
+
+        @media (max-width: 768px) {
+            section.content.dashboard {
+                padding-bottom: 0px;
+                min-height: 742px;
+            }
+        }
+    </style>
+</head>
+
+
+<body class="bg-white">
+
+    <div id="includedContent"></div>
+
+    <section class="content-header breadcrumb-header">
+        <h1>
+            <ol class="breadcrumb">
+                <li><a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></li>
+
+                <li><span id="MainHeading" class="pagename"> Settings</span></li>
+            </ol>
+
+        </h1>
+
+        
+
+    </section>
+
+   
+
+
+    <section class="content-inr expense">
+        <div id="moveMAin">
+
+            <div class="seating-section">
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1 ">
+                        <div class="share-icon"><img src="img/seating/Setting_category1.svg" style="width:40px;" /></div>
+                        <div class="share-tittle">Accounts Categories</div>
+                        <div class="mt-1"><a href="expenseN.html">Add or Edit Account Type</a></div>
+                    </div>
+                </div>
+                <!--<div class="row border-bottom">
+                    <div class="col-2"><img src="img/seating/income.png" style="width:30px;" /></div>
+                    <div class="col-10">Income Categories<br /><a href="income.html">Add or Edit Income Category</div></a></div>
+                </div>-->
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body  p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img class="home" src="img/seating/Setting_Language1.svg" style="width:40px;" /></div>
+                        <div class="share-tittle">Language</div>
+
+                        <div class="mt-1"><a href="settings//lang.html">Choose language</a></div>
+                    </div>
+                </div>
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/Setting_currency1.svg" style="width:40px;" /></div>
+                        <div class="share-tittle">Currency</div>
+
+                        <div class="mt-1"><a href="settings/currency.html">Choose currency</a></div>
+                    </div>
+                </div>
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/Setting_currency-3a.svg" style="width:40px;" /></div>
+                        <div class="share-tittle">Currency format</div>
+
+                        <div class="mt-1"><a href="#">Choose currency format</a></div>
+                    </div>
+                </div>
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/date.png" style="width:40px;" /></div>
+                        <div class="share-tittle">Date format</div>
+
+                        <div class="mt-1"><a href="#">Choose your preferred date format</a></div>
+                    </div>
+                </div>
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/Setting_share1.svg" style="width:30px;" /></div>
+                        <div class="mt-1">Share Accounts</div>
+                        <div class="mt-1"><a href="UserSharing.html">Choose your preferred User to Share</a></div>
+                    </div>
+                </div>
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/Setting_Transfer1.svg" style="width:40px;" /></div>
+                        <div class="share-tittle">Move Accounts</div>
+
+                        <div class="mt-1"><a href="MoveAccount.html">Choose your preferred User to Share</a></div>
+                    </div>
+                </div>
+
+
+                <div class="card  CardStyleSettings border-0">
+
+                    <div class="card-body p-1 mt-1" style="text-align:center; vertical-align:middle; font-size:12px;">
+                        <div class="share-icon"><img src="img/seating/Setting_data1.svg" style="width:40px;" /></div>
+                        <div class="share-tittle">Backup & Restore</div>
+                        <div class="mt-1"><a onclick="$('body').removeClass('sidebar-open'); LoadFile('Setting-newdesign.html');">Backup or restore your date</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <script>
+        go();
+        window.addEventListener('resize', go);
+
+        function go() {
+            // alert("abc");
+            var cardContainerW = $("#dFlexWW").width();
+            var cardContainerH = $("#dFlexWW").height();
+            var h = window.innerHeight
+                || document.documentElement.clientHeight
+                || document.body.clientHeight;
+            var w = window.innerWidth
+                || document.documentElement.clientWidth
+                || document.body.clientWidth;
+            $("#moveMAin").height(h - 150vh);
+            if (w > 1360) {
+                var ww = (w - 500) / 4;
+                ww = ww + 200;
+                $(".CardStyleSettings").css({ "width": ww + "px !important", "hieght": "300px" });
+                //alert(ww);
+            }
+
+
+        }
+    </script>
+</body>
+</html>

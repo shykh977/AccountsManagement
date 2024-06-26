@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/bootstrap.min.js"></script>
+    <link href="lib/select2/css/select2.min.css?123457" rel="stylesheet" />
+    <script src="lib/select2/js/select2.min.js"></script>
+    <link href="../css/jquery-confirm.min.css" rel="stylesheet" />
+    <script src="../js/jquery-confirm.min.js"></script>
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="css/dycalendar.min.css" />
+   
+    
+</head>
+
+<body class="bg-white">
+    <section class="content-header breadcrumb-header">
+        <h1>
+            <ol class="breadcrumb">
+                <li><a href="#" class="callback" onclick="PageBackward();"><img src="img/back-arrow.png"></a></li>
+
+                <li><span id="MainHeading" class="pagenameb"> Billing info</span></li>
+            </ol>
+
+        </h1>
+
+    </section>
+    <section class="content-inr expense">
+
+
+        <div id="main" class="data-usage billing-info">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <div class="col-md-4 data-usage-box2">
+                    <div class="total-data-usage d-green"><div class="t-gb"><b>BILLING</b></div></div>
+
+                    <div class="data-b-info">
+                        <div class="col-md-12 col-sm-12 border-bottom">
+
+                            <div class="gb col-md-6 col-sm-6"></div>
+                            <div class="gb-r col-md-3  col-sm-3"><b>No.</b></div>
+                            <div class="gb-r col-md-3  col-sm-3"><b>Amount</b></div>
+                        </div>
+
+
+                        <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6">Total Invoices</div>
+                            <div class="gb-r col-md-3  col-sm-3">3</div>
+                            <div class="gb-r col-md-3  col-sm-3">50 $</div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6">Paid Invoices</div>
+                            <div class="gb-r col-md-3  col-sm-3">3</div>
+                            <div class="gb-r col-md-3  col-sm-3">50 $</div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6">Pending invoices</div>
+                            <div class="gb-r col-md-3  col-sm-3">3</div>
+                            <div class="gb-r col-md-3  col-sm-3">50 $</div>
+                        </div>
+                    </div><h4>Billing Graph </h4>
+                          <img class="img-responsive" src="img/1g.jpg" />
+                   
+                    <div class="data-limit">
+
+                        <div class="data-gb-used"> <span class="data-orange-color"></span>Paid Invoices</div>
+                        <div class="data-gb-used"> <span class="data-green-color"></span>Pending Invoices</div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-md-4 data-usage-box2">
+
+                    <div class="total-data-usage d-blue"><div class="t-gb"><b>FUNDS</b></div></div>
+                    <div class="data-b-info">
+                        <div class="col-md-12 col-sm-12  border-bottom">
+
+                            <div class="gb col-md-6 col-sm-6"></div>
+                            <div class="gb-r col-md-3  col-sm-3"><b></b></div>
+                            <div class="gb-r col-md-3  col-sm-3"><b>Amount</b></div>
+                        </div>
+
+
+                        <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6">Total Funds</div>
+
+                            <div class="gb-r col-md-3 pull-right">50 $</div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6">Funds Transfered</div>
+
+                            <div class="gb-r col-md-3 pull-right">50 $</div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6">Balance Funds</div>
+
+                            <div class="gb-r col-md-3 pull-right">50 $</div>
+                        </div>
+                    </div>
+
+                    <h4>FUND  Graph </h4>
+                    <img class="img-responsive" src="img/2g.jpg" />
+                    <div class="data-limit">
+                        <div class="data-gb-used"> <span class="data-blue-light-color"></span>Fund Transferred</div>
+                        <div class="data-gb-used"> <span class="data-chd-color"></span>Balance Funds</div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-4 data-usage-box2 commission">
+
+                    <div class="total-data-usage d-rd"><div class="t-gb"><b>COMMISSION </b></div></div>
+                    <div class="data-b-info">
+
+                        <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6"></div>
+                            <div class="gb-r col-md-3"><b></b></div>
+                            <div class="gb-r col-md-3"><b>&nbsp;</b></div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6">User Invited</div>
+
+                            <div class="gb-r col-md-3 pull-right">50</div>
+                        </div>
+                    <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6">User Accecpted </div>
+
+                            <div class="gb-r col-md-3 pull-right">50</div>
+                        </div>
+                    <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6">User Paid invoices</div>
+
+                            <div class="gb-r col-md-3 pull-right">50</div>
+                        </div>
+                    <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6">Total Comission Due</div>
+
+                            <div class="gb-r col-md-3 pull-right">50</div>
+                        </div>
+                    <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6">User Paid invoices</div>
+
+                            <div class="gb-r col-md-3 pull-right">50</div>
+                        </div>
+                    <div class="col-md-12 col-sm-12 border-bottom">
+                            <div class="gb col-md-6 col-sm-6">User Leave / Not Use</div>
+
+                            <div class="gb-r col-md-3 pull-right">50</div>
+                        </div>
+                    </div><h4>COMMISSION  Graph </h4>
+
+                    <img class="img-responsive" src="img/3g.jpg" />
+                    <div class="data-limit">
+                        <div class="data-gb-used"> <span class="data-chd-color"></span>User Accepted</div>
+                        <div class="data-gb-used"> <span class="data-green-color"></span>User Paid </div>
+                        <div class="data-gb-used"> <span class="data-chh-color"></span>User Leave / Not Use</div>
+
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+
+
+
+
+
+
+            </div>
+
+            <div class="clear"></div>
+
+
+
+        </div>
+
+
+    </section>
+
+        
+
+    
+
+</body>
+</html>

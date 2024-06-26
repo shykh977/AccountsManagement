@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!--Move Account page-->
+    <title>Move Accounts</title>
+
+    <script>
+        $(function () {
+
+            $("#includedContent").load("navbar.html");
+
+        });
+    </script>
+    <script>
+
+        //var app = angular.module('myapp', []);
+
+        //app.controller('MainCtrl', ['$scope', '$window', function ($scope, $window) {
+        //    $scope.catName = $window.catName;
+
+
+        //}]);
+
+    </script>
+
+</head>
+<body>
+    <section class="content-header breadcrumb-header">
+        <h1>
+            <ol class="breadcrumb">
+                <li><a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></li>
+
+                <li><span id="MainHeading" class="pagenameb"> Move Accounts</span></li>
+            </ol>
+
+        </h1>
+
+    </section>
+
+    <section class="content-inr expense">
+        <div class="">
+            <div id="includedContent"></div>
+
+            <div class="row pt-2 border-bottom p-4 bg-white " style="padding:15px 15px 15px 15px;margin:0px;">
+                <div class="d-flex w-100"></div>
+                <div class="col-lg-12 p-0" style="margin-bottom:30px;">
+
+
+                    <div class="col-lg-12 form-control text-center text-white" style="background-color:#757472;    margin-bottom: 20px;">Current Position of Account </div>
+
+
+                    <div id="CatL3" style="display:none;">
+
+                        <div class="input-group small mt-2 ">
+                            <div class="input-group-prepend Mywidth pr-0 pl-0">
+                                <span class="input-group-text w-100 text-white" style="font-size:small;background-color:#757472">Category </span>
+                            </div>
+
+                            <select id="Category" onchange="GetSubCategory(this.value,'SubCategory')" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+                            <span id="SubNameL2" class="input-group-text w-100 text-white" style="font-size:small;background-color:#757472">Sub-Category </span>
+                        </div>
+
+                        <select id="SubCategory" onchange="getAccountbySubCatID(this.value,'AccountTitle')" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                    </div>
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 text-white" style="font-size:small;background-color:#757472">Account Title </span>
+                        </div>
+
+                        <select id="AccountTitle" onchange="setValeAccount(this)" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                    </div>
+                    <div class="col-lg-12 form-control text-center  text-white mt-4 mb-4" style="background-color:#757472">Move Account to New Position</div>
+
+
+                    <div id="NCatL3" style="display:none;">
+
+                        <div class="input-group small mt-0 ">
+                            <div class="input-group-prepend Mywidth pr-0 pl-0">
+                                <span class="input-group-text w-100 text-white" style="font-size:small;background-color:#757472">Category </span>
+                            </div>
+
+                            <select id="NCategory" onchange="GetSubCategory(this.value,'NSubCategory')" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                        </div>
+                    </div>
+
+
+
+                        <div class="input-group small mt-2 ">
+                            <div class="input-group-prepend Mywidth pr-0 pl-0">
+                                <span id="NSubNameL2" class="input-group-text w-100 text-white" style="font-size:small;background-color:#757472">Sub-Category </span>
+                            </div>
+
+                            <select id="NSubCategory" onchange="setsubcat(this)" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                        </div>
+                   
+
+
+
+                </div>
+
+            </div>
+
+            <div class="row pt-2 border-bottom p-4 bg-white  " style="padding:15px 15px 15px 15px;margin:0px;">
+                <div class="d-flex w-100 " style="justify-content:center; text-align: center;">
+
+                    <div class="" style="width:150px">
+                        <a id="btnsave" href="#" class="move-btn " onclick="UpdateAccount()"> <span class="btn-name">Move  </span> </a>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="container" style="display:none;" id="divColor">
+
+            <div class="col-lg-12" style="position:absolute;top:0px;left:0px; background-color:white;">
+                <span style="font-size:14px;" id="title" class="small">Choose color...</span><br />
+                <table style="width:100%;" id="tableColor"></table>
+
+            </div>
+        </div>
+
+    </section>
+    <script src="js/move-account.js"></script>
+</body>
+</html>

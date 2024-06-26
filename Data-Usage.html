@@ -1,0 +1,1026 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<script src="js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/bootstrap.min.js"></script>
+    <link href="lib/select2/css/select2.min.css?123457" rel="stylesheet" />
+    <script src="lib/select2/js/select2.min.js"></script>
+    <link href="../css/jquery-confirm.min.css" rel="stylesheet" />
+    <script src="../js/jquery-confirm.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/dycalendar.min.css" />-->
+    <script src="lib/Chart.js/Chart.min.js"></script>
+    <style>
+        span.select2-selection.select2-selection--single {
+            background-color: #eeeeee;
+        }
+
+        .Reg-logo {
+            border: solid 3px #494848;
+        }
+
+        .profile-information .profil-ifo img.profile-user-img.img-responsive.img-circle {
+            clear: both;
+            height: 200px;
+            width: 200px;
+            padding: 0;
+            border: 0;
+        }
+
+        .profile-information {
+            background: #fff;
+            padding-top: 40px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+        input:checked + .slider {
+            background-color: #009444;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+
+        .user-conform {
+            clear: both;
+            /* border-bottom: dashed 1px #ccc; */
+            height: 46px
+        }
+
+            .user-conform span.pull-left {
+                padding: 7px 0px;
+                display: inline-block;
+                font-size: 90%;
+                font-weight: bold;
+                word-break: break-all;
+                width: 74%;
+            }
+
+        div#closeaccount .modal-body hr {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            clear: both;
+            display: block;
+        }
+
+        div#closeaccount .modal-body {
+            padding-bottom: 0px;
+        }
+
+        span.pull-left.m-set {
+            width: auto;
+        }
+
+        div#closeaccount .modal-footer {
+            top: 0;
+            padding-top: 0;
+        }
+
+        .user-conformb {
+            clear: both;
+            margin-bottom: 12px;
+        }
+
+            .user-conformb span.pull-left {
+                padding: 7px 0px;
+                display: inline-block;
+                font-size: 92%;
+                font-weight: bold;
+            }
+
+            .user-conformb label.pull-right select.browser-default.custom-select {
+                border: solid 1px #ccc;
+                padding: 6px 8px;
+                font-size: 12px;
+                font-weight: normal;
+                width: 100%;
+            }
+
+            .user-conformb span {
+                display: block;
+                padding: 0px 0px 10px 0px;
+                display: inline-block;
+                font-size: 92%;
+                font-weight: bold;
+            }
+
+            .user-conformb textarea {
+                width: 100%;
+            }
+    </style>
+</head>
+
+<body class="bg-white">
+    <section class="content-header breadcrumb-header">
+        <h1>
+            <ol class="breadcrumb">
+                <li><a href="#" class="callback" onclick="PageBackward();"><img src="img/back-arrow.png"></a></li>
+
+                <li><span id="MainHeading" class="pagenameb"> Data Usage</span></li>
+            </ol>
+
+        </h1>
+        <input id="txtDate1" readonly class="form-control date" style="display:none;" type="text" placeholder="Select date" required />
+        <input id="txtDate2" readonly class="form-control date" style="display:none;" type="text" placeholder="Select date" required />
+        <div href="#" class="calender-link" id="menu1">
+
+            <div class="links-add-date">
+
+
+
+
+                <a href="#" class="calender-linka" id="txtcalender-img" onclick="LedgerFilterShowPopup('Date Filter')">
+                    <span class="icon-f"><img src="img/calender-icon.png" />	 </span> <b>Select Date</b>
+                </a>
+            </div>
+
+
+
+
+
+
+
+
+            <!-- <a href="#" class="callback" onclick='PageFarward();' ><img src="img/forword-arrow.png" /></a>-->
+        </div>
+
+    </section>
+    <section class="content-inr expense">
+
+
+        <div id="main" class="data-usage">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <div class="col-md-6 data-usage-box">
+
+
+                    <div style="width:100%; height:100%;">
+                        <canvas id="CChart2"></canvas>
+                        <div id="TCChart2" class="table-amount" style="display:none"></div>
+                    </div>
+                    <div class="data-limit"><b>Total Limit <span id="TotalLimit"></span> MB</b> <span class="data-orange-color"></span> Used <span id="UsedData"></span> MB <span class="data-green-color"></span> Available <span id="AvailableData"></span> MB</div>
+
+
+                    <!--<img class="img-responsive" src="img/data-usage2.jpg" />-->
+
+                </div>
+                <div class="col-md-6 data-usage-box2">
+
+                    <!--<img class="img-responsive" src="img/data-usage.jpg" />-->
+
+                    <div style="width:100%; height:100%;">
+                        <canvas id="CChart1"></canvas>
+                        <div id="TCChart1" class="table-amount" style="display:none"></div>
+                    </div>
+
+                    <div class="data-limit"><b>Date Consumption</b> <span class="data-orange-color"></span> Images <span class="data-blue-color"></span> Data <!--<span class="data-green-color"></span> Available--></div>
+
+
+
+
+
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-lg-12 pt-4">
+                    <div class="col-md-4 data-stroage" style="display:none;">
+                        <div class="gb col-md-6 col-sm-6"><b>5.0 GB </b><br> Total Image Limit</div>
+                        <div class="gb-r col-md-6"><b>5.0 GB </b><br> Used Size</div>
+
+                    </div>
+                    <div class="col-md-4 data-stroage" style="display:none;">
+                        <div class="gb col-md-6 col-sm-6"><b>5.0 GB </b><br> Available Size</div>
+                        <div class="gb-r col-md-6"><b>5.0 GB </b><br> Download Images</div>
+
+                    </div>
+                    <div class="col-md-4 data-stroage" style="display:none;">
+                        <div class="gb col-md-6 col-sm-6"><b>5.0 GB </b><br> Upload Images</div>
+                        <div class="gb-r col-md-6"><b>5.0 GB </b><br> Images Quantity</div>
+
+                    </div>
+                    <div class="clear"></div>
+                    <div class="col-md-4 total-data-usage d-blue"><div class="t-gb"><b><span id="TotalData">0</span> MB</b><br> Total Data Limit</div></div>
+                    <div class="col-md-4 total-data-usage d-org"><div class="t-gb"><b><span id="TotalDataUsed">0</span> MB</b><br> Total Data Used</div></div>
+                    <div class="col-md-4 total-data-usage d-green"><div class="t-gb"><b><span id="TotalDataLeft">0</span> MB</b><br> Total Data Available</div></div>
+
+
+
+
+                </div>
+
+
+
+
+            </div>
+
+            <div class="clear"></div>
+
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Model for Filter ******************************************-->
+    <div id="LedgerFilter99" class="modal draggable fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="LedgerFilterTitle" class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Cancel';">&times;</button>
+                </div>
+
+                <div id="LedgerInvDiv" class="modal-body">
+                    <div class="col-lg-12 col-md-12 col-sm-12 no-padding">
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="title">
+                                <input id="LedgerFilter1" name="LedgerFilterSelect" type="radio" value="1" checked onchange="CallFilterCheck(this)" /><label for="LedgerFilter1">Regular</label>
+                            </div>
+
+                            <div class="col-12">
+                                <select id="LedgerFilterList" class="w-100 form-control pl-0 ">
+                                    <option value="-1">ALL</option>
+                                    <option value="0">Today</option>
+                                    <option value="30" selected>Last 30 Days</option>
+                                    <option value="90">Last Quarter</option>
+                                    <option value="180">Last Six Months</option>
+                                    <option value="365">Full Year</option>
+
+                                </select>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="col-lg-8 col-md-8 col-sm-12">
+
+                            <div class="col-12">
+                                <div class="title">
+                                    <input id="LedgerFilter2" name="LedgerFilterSelect" type="radio" value="2" onchange="CallFilterCheck(this)" /><label for="Filter2">Custom</label>
+                                </div>
+                                <div class="col-lg-6 col-md-6  col-sm-12 no-padding">
+                                    <div class="col-12">
+                                        <input placeholder="From" type="date" class="form-control" id="LedgerFromDate" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 m-no-padding">
+
+                                    <div class="col-12 ">
+                                        <input placeholder="To" type="date" class="form-control" id="LedgerToDate" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+
+
+
+                    <style>
+                        .MyCancel {
+                            background-image: url('MunshiImagesMain/Cancel_Normal.svg');
+                            background-repeat: no-repeat;
+                            color: #EB2227;
+                            padding: 4px;
+                            font-weight: bold;
+                        }
+
+                        .Itext {
+                            border-radius: 0px !important;
+                            background-color: #747572 !important;
+                            color: whitesmoke;
+                            border: solid 1px #747572;
+                        }
+
+                        #Filter * {
+                            border-radius: 0px !important;
+                        }
+
+                        .MyCancel:hover {
+                            background-image: url('MunshiImagesMain/Cancel_Hover.svg');
+                            background-repeat: no-repeat;
+                            color: gray;
+                            padding: 4px;
+                            text-decoration: unset;
+                            font-weight: bold;
+                        }
+
+                        .MySubmit {
+                            background-image: url('MunshiImagesMain/Submit_Normal.svg');
+                            background-repeat: no-repeat;
+                            color: #0C72BA;
+                            padding: 4px;
+                            font-weight: bold;
+                        }
+
+                            .MySubmit:hover {
+                                background-image: url('MunshiImagesMain/Submit_Hover.svg');
+                                background-repeat: no-repeat;
+                                color: gray;
+                                padding: 4px;
+                                text-decoration: unset;
+                                font-weight: bold;
+                            }
+                    </style>
+                    <div class="modal-footer">
+                        <div class="col-12 text-right">
+                            <a id="LedgerbtnReset" href="#" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Cancel';" class="MyCancel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Cancel</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a id="Ledgerbtnsave" href="#" class="MySubmit" data-dismiss="modal" onmouseup="LedgerOptFilter = 'Apply';">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;    Apply</a>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <script>
+
+
+
+
+
+
+
+
+
+                SessionDate();
+
+                function SessionDate() {
+
+                    var StartDate = window.sessionStorage.getItem("StartDate");
+                    var EndDate = window.sessionStorage.getItem("EndDate");
+
+                    //alert(StartDate); alert(EndDate);
+
+                    var SD = StartDate.split(".");
+                    var ED = EndDate.split(".");
+
+                    StartDate = SD[2] + "/" + SD[1] + "/" + SD[0];
+                    EndDate = ED[2] + "/" + ED[1] + "/" + ED[0];
+
+                    //alert(StartDate); alert(EndDate);
+
+                    document.getElementById("txtDate1").value = StartDate;
+                    document.getElementById("txtDate2").value = EndDate;
+                }
+
+
+                $('#LedgerFromDate').prop("disabled", true);
+                $('#LedgerToDate').prop("disabled", true);
+                function CallFilterCheck(a) {
+                    if (a.id == "LedgerFilter1" && a.checked) {
+                        $('#LedgerFilterList').prop("disabled", false);
+                        $('#LedgerFromDate').prop("disabled", true);
+                        $('#LedgerToDate').prop("disabled", true);
+
+                    } else
+                        if (a.id == "LedgerFilter2" && a.checked) {
+                            $('#LedgerFilterList').prop("disabled", true);
+                            $('#LedgerFromDate').prop("disabled", false);
+                            $('#LedgerToDate').prop("disabled", false);
+
+                        }
+                }
+
+                var LedgerOptFilter = "";
+                var LedgerFormOptionOptFilter = "";
+                function LedgerFilterShowPopup(a) {
+                    //alert(LedgerOptFilter);
+                    $("#LedgerFilterTitle").html('Select <span style="color:oranged;">' + a + '</span> Account');
+                    $("#LedgerFilter99").modal();
+                    FormOptionOptFilter = a;
+
+                }
+
+                $('#LedgerFilter99').on('hidden.bs.modal', function (e) {
+                    // alert(LedgerOptFilter);
+                    if (LedgerOptFilter == "Cancel") {
+                        //alert("Reminder");
+                        //SendInvite("Reminder");
+                        //alert(LedgerFormOptionOptFilter + " Cancel");
+                    }
+                    else if (LedgerOptFilter == "Apply") {
+
+                        if ($('#LedgerFilterList').prop("disabled") == false) {
+
+                            var val1 = parseInt(document.getElementById("LedgerFilterList").value);
+
+                            var param = "none";
+                            if (val1 == "-1") {
+                                param = "ALL";
+                            }
+
+                            var dateto = new Date();
+                            var datefrom = new Date();
+                            datefrom.setDate(dateto.getDate() - val1);
+
+                            var Sdate = dateto.getFullYear() + "." + (dateto.getMonth() < 10 ? "0" + (dateto.getMonth() + 1) : (dateto.getMonth() + 1)) + "." + (dateto.getDate() < 10 ? "0" + dateto.getDate() : dateto.getDate()); //document.getElementById("txtDate1").value;
+                            document.getElementById("txtDate2").value = Sdate;
+                            var Edate = datefrom.getFullYear() + "." + (datefrom.getMonth() < 10 ? "0" + (datefrom.getMonth() + 1) : (datefrom.getMonth() + 1)) + "." + (datefrom.getDate() < 10 ? "0" + datefrom.getDate() : datefrom.getDate()); //document.getElementById("txtDate1").value;
+                            document.getElementById("txtDate1").value = Edate;
+
+                            window.sessionStorage.setItem("StartDate", Edate);
+                            window.sessionStorage.setItem("EndDate", Sdate);
+
+                            window.sessionStorage.setItem("DateParam", param);
+
+                            SessionDate();
+                            LoadDataUsageDetail(param);
+
+
+                        } else {
+
+                            var param = "none";
+
+                            var Sd1 = document.getElementById("LedgerFromDate").value;
+                            var Ed1 = document.getElementById("LedgerToDate").value;
+                            var SD2 = Sd1.split("-");
+                            document.getElementById("txtDate1").value = SD2[0] + "." + SD2[1] + "." + SD2[2];
+
+                            var ED2 = Ed1.split("-");
+                            document.getElementById("txtDate2").value = ED2[0] + "." + ED2[1] + "." + ED2[2];
+
+
+                            window.sessionStorage.setItem("StartDate", document.getElementById("txtDate1").value);
+                            window.sessionStorage.setItem("EndDate", document.getElementById("txtDate2").value);
+
+                            window.sessionStorage.setItem("DateParam", param);
+
+                            SessionDate();
+                            LoadDataUsageDetail(param)
+                        }
+                        //alert("newInvitation");
+                        //SendInvite("newInvitation");
+
+                        var tt;
+                        if (LedgerFormOptionOptFilter == "To") {
+                            //tt = $("#AccountTitle option:selected").text();
+                            //document.getElementById("cashID").value = tt;
+                            //srcText = tt;
+                            //mValFrom = $("#AccountTitle").val();
+
+                            //alert(tt + ForText);
+                        }
+                        else {
+                            // document.getElementById("cashID").value = document.getElementById("AccountTitle").value;
+                            //tt = $("#AccountTitle option:selected").text();
+                            //document.getElementById("paymentsID").value = tt;
+                            //ForText = tt;
+                            //mValTo = $("#AccountTitle").val();
+                            //alert(tt + srcText);
+                        }
+                        //alert(FormOption + " Submit");
+                    }
+
+                    // this handler is detached after it has run once
+                });
+            </script>
+
+        </div>
+
+    </div>
+    <!-- Model for Filter End **************************************-->
+
+
+
+    <script>
+
+
+        var UserID = sessionStorage.getItem("UserID");
+        var Bandwidth = sessionStorage.getItem("Bandwidth") + ".00";
+
+        var chartname = [];
+        var chartvalue = [];
+        var chartcolor = [];
+
+        var chartname2 = [];
+        var chartvalue2 = [];
+        var chartcolor2 = [];
+
+
+        document.getElementById("TotalData").innerHTML = parseFloat(Bandwidth).toFixed(2);
+        document.getElementById("TotalLimit").innerHTML = parseFloat(Bandwidth).toFixed(2);
+
+        LoadDataUsageDetail('ALL');
+
+        function LoadDataUsageDetail(param) {
+
+            if (param == "ALL") {
+
+           
+                    $('#loader').show();
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Users.asmx/LoadDataUsageDetail',
+                        dataType: 'json',
+                        data: "{'UserID':'" + UserID + "'}",
+                        contentType: 'application/json; charset=utf-8',
+
+                        success: function (response) {
+
+
+                            
+
+
+                            var str = "";
+                            var dt = "";
+                            var mvalue;
+                            var optg = "";
+                            var txt = '{"Row": ' + response.d + '}';
+                            var data = JSON.parse(txt);
+                            dt = "";
+                            var dt2 = "";
+                            chartvalue = [];
+                            chartname = [];
+                            chartcolor = [];
+                            chartvalue2 = [];
+                            chartname2 = [];
+                            chartcolor2 = [];
+
+                            var TotalDataUsedinBytes = parseFloat(data.Row[0].DataBytes) + parseFloat(data.Row[0].AttachmentBytes);
+
+                            var TotalDataUsedinKB = parseFloat(TotalDataUsedinBytes) / 1024;
+
+                            var TotalDataUsedinMB = parseFloat(TotalDataUsedinKB) / 1024;
+
+
+                            var total = parseFloat(Bandwidth);
+                            var used = parseFloat(parseFloat(data.Row[0].DataBytes) / 1048579);
+                            var attach = parseFloat(data.Row[0].AttachmentBytes) / 1048579;
+
+                            //chartvalue.push(parseFloat(total - (used + attach) / total * 100).toFixed(2));
+                            chartvalue.push(parseFloat(used / total * 100).toFixed(2));
+                            chartvalue.push(parseFloat(attach / total * 100).toFixed(2));
+
+                            //chartname.push("Available");
+                            chartname.push("Data");
+                            chartname.push("Image");
+
+                            //chartcolor.push("rgb(104,202,145)");
+                            chartcolor.push("rgb(0,120,230)");
+                            chartcolor.push("rgb(243,156,18)");
+
+
+
+                            chartvalue2.push(parseFloat(total - (used + attach) / total * 100).toFixed(2));
+                            chartvalue2.push(parseFloat((used + attach) / total * 100).toFixed(2));
+
+                            chartname2.push("Available");
+                            chartname2.push("Used");
+
+                            chartcolor2.push("rgb(104,202,145)");
+                            chartcolor2.push("rgb(243,156,18)");
+
+
+
+                            document.getElementById("TotalDataUsed").innerHTML = parseFloat(TotalDataUsedinMB).toFixed(2);
+                            document.getElementById("UsedData").innerHTML = parseFloat(TotalDataUsedinMB).toFixed(2);
+                            document.getElementById("TotalDataLeft").innerHTML = parseFloat(Bandwidth) - parseFloat(TotalDataUsedinMB).toFixed(2);
+                            document.getElementById("AvailableData").innerHTML = parseFloat(Bandwidth) - parseFloat(TotalDataUsedinMB).toFixed(2);
+
+                            drawchartsingle("doughnut");
+
+                            drawchartsingle2("doughnut");
+
+                            $('#loader').hide();
+
+                        },
+                        error: function (error) {
+                            $('#loader').hide();
+                            console.log(error);
+                        }
+                    });
+ 
+            }
+            else {
+                var Sdate = document.getElementById("txtDate1").value;
+                var Edate = document.getElementById("txtDate2").value;
+
+                var SD = Sdate.split("/");
+                var ED = Edate.split("/");
+
+                Sdate = SD[2] + "/" + SD[1] + "/" + SD[0];
+                Edate = ED[2] + "/" + ED[1] + "/" + ED[0];
+
+                //alert(Sdate + ' ' + Edate);
+ 
+                    $('#loader').show();
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Users.asmx/LoadDataUsageDetailByFilter',
+                        dataType: 'json',
+                        data: "{'UserID':'" + UserID + "','StartDate':'" + Sdate + "','EndDate':'" + Edate + "'}",
+                        contentType: 'application/json; charset=utf-8',
+
+                        success: function (response) {
+
+
+                        
+
+
+                            var str = "";
+                            var dt = "";
+                            var mvalue;
+                            var optg = "";
+                            var txt = '{"Row": ' + response.d + '}';
+                            var data = JSON.parse(txt);
+                            dt = "";
+                            var dt2 = "";
+                            chartvalue = [];
+                            chartname = [];
+                            chartcolor = [];
+                            chartvalue2 = [];
+                            chartname2 = [];
+                            chartcolor2 = [];
+
+                            var TotalDataUsedinBytes = parseFloat(data.Row[0].DataBytes) + parseFloat(data.Row[0].AttachmentBytes);
+
+                            var TotalDataUsedinKB = parseFloat(TotalDataUsedinBytes) / 1024;
+
+                            var TotalDataUsedinMB = parseFloat(TotalDataUsedinKB) / 1024;
+
+
+                            var total = parseFloat(Bandwidth);
+                            var used = parseFloat(parseFloat(data.Row[0].DataBytes) / 1048579);
+                            var attach = parseFloat(data.Row[0].AttachmentBytes) / 1048579;
+
+                            //chartvalue.push(parseFloat(total - (used + attach) / total * 100).toFixed(2));
+                            chartvalue.push(parseFloat(used / total * 100).toFixed(2));
+                            chartvalue.push(parseFloat(attach / total * 100).toFixed(2));
+
+                            //chartname.push("Available");
+                            chartname.push("Data");
+                            chartname.push("Image");
+
+                            //chartcolor.push("rgb(104,202,145)");
+                            chartcolor.push("rgb(0,120,230)");
+                            chartcolor.push("rgb(243,156,18)");
+
+
+
+                            chartvalue2.push(parseFloat(total - (used + attach) / total * 100).toFixed(2));
+                            chartvalue2.push(parseFloat((used + attach) / total * 100).toFixed(2));
+
+                            chartname2.push("Available");
+                            chartname2.push("Used");
+
+                            chartcolor2.push("rgb(104,202,145)");
+                            chartcolor2.push("rgb(243,156,18)");
+
+
+
+                            document.getElementById("TotalDataUsed").innerHTML = parseFloat(TotalDataUsedinMB).toFixed(2);
+                            document.getElementById("UsedData").innerHTML = parseFloat(TotalDataUsedinMB).toFixed(2);
+                            document.getElementById("TotalDataLeft").innerHTML = parseFloat(Bandwidth) - parseFloat(TotalDataUsedinMB).toFixed(2);
+                            document.getElementById("AvailableData").innerHTML = parseFloat(Bandwidth) - parseFloat(TotalDataUsedinMB).toFixed(2);
+
+                            drawchartsingle("doughnut");
+
+                            drawchartsingle2("doughnut");
+
+                            $('#loader').hide();
+
+                        },
+                        error: function (error) {
+                            $('#loader').hide();
+                            console.log(error);
+                        }
+                    });
+ 
+            }
+        }
+
+
+
+
+    </script>
+
+    <script>
+
+        var scalevalue;
+        var chartdata;
+        var chartOption;
+        var myChart = [];
+        function returnScalvalue(ChartType) {
+
+            if (ChartType == "bar")
+                scalevalue = {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 8,
+                            display: true
+                        },
+                        gridLines: {
+                            display: true,
+                            drawBorder: true
+                        }
+
+                    }],
+
+                    xAxes: [{
+                        barPercentage: 1,
+                        offset: true,
+                        ticks: {
+                            minRotation: 90,
+                            display: true //this will remove only the label
+                        },
+                        gridLines: {
+                            display: false
+                            ,
+                            drawBorder: true
+                        }
+                    }]
+                }
+            else
+                scalevalue = {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 8,
+                            display: false
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        }
+
+                    }],
+
+                    xAxes: [{
+                        barPercentage: 1,
+                        offset: true,
+                        ticks: {
+                            display: false //this will remove only the label
+                        },
+                        gridLines: {
+                            display: false
+                            ,
+                            drawBorder: false
+                        }
+                    }]
+                }
+            chartOption = {
+
+
+                maintainAspectRatio: true,
+                //cutoutPercentage: 30,
+                scales: scalevalue,
+                legend: {
+                    display: false
+                }
+            }
+
+
+        }
+        function drawchartsingle(ChartType) {
+            // alert(catvalues);
+
+            returnScalvalue(ChartType);
+            chartdata = {
+                labels: chartname,
+
+                datasets: [{
+
+                    data: chartvalue,
+
+                    backgroundColor: chartcolor,
+                    borderColor: chartcolor,
+                    borderWidth: 1
+                }
+                    //,
+                    //{
+
+                    //    data: chartvalue,
+
+                    //    backgroundColor: chartcolor,
+                    //    borderColor: chartcolor,
+                    //    borderWidth: 1
+                    //}
+                ]
+            };
+
+            var ctx = document.getElementById("CChart1");
+            if (myChart.length > 0) {
+                var MChart = myChart[1];
+                MChart.destroy();
+            }
+            myChart[1] = new Chart(ctx, {
+                type: ChartType,
+                data: chartdata,
+                options: chartOption
+            });
+
+        }
+
+
+        var scalevalue2;
+        var chartdata2;
+        var chartOption2;
+        var myChart2 = [];
+        function returnScalvalue2(ChartType) {
+
+            if (ChartType == "bar")
+                scalevalue2 = {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 8,
+                            display: true
+                        },
+                        gridLines: {
+                            display: true,
+                            drawBorder: true
+                        }
+
+                    }],
+
+                    xAxes: [{
+                        barPercentage: 1,
+                        offset: true,
+                        ticks: {
+                            minRotation: 90,
+                            display: true //this will remove only the label
+                        },
+                        gridLines: {
+                            display: false
+                            ,
+                            drawBorder: true
+                        }
+                    }]
+                }
+            else
+                scalevalue2 = {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 8,
+                            display: false
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        }
+
+                    }],
+
+                    xAxes: [{
+                        barPercentage: 1,
+                        offset: true,
+                        ticks: {
+                            display: false //this will remove only the label
+                        },
+                        gridLines: {
+                            display: false
+                            ,
+                            drawBorder: false
+                        }
+                    }]
+                }
+            chartOption2 = {
+
+
+                maintainAspectRatio: true,
+                //cutoutPercentage: 30,
+                scales: scalevalue2,
+                legend: {
+                    display: false
+                }
+            }
+
+
+        }
+        function drawchartsingle2(ChartType) {
+            // alert(catvalues);
+
+            returnScalvalue2(ChartType);
+            chartdata2 = {
+                labels: chartname2,
+
+                datasets: [{
+
+                    data: chartvalue2,
+
+                    backgroundColor: chartcolor2,
+                    borderColor: chartcolor2,
+                    borderWidth: 1
+                }
+                    //,
+                    //{
+
+                    //    data: chartvalue[1],
+
+                    //    backgroundColor: chartcolor[1],
+                    //    borderColor: chartcolor[1],
+                    //    borderWidth: 1
+                    //}
+                ]
+            };
+
+            var ctx = document.getElementById("CChart2");
+            if (myChart2.length > 0) {
+                var MChart = myChart2[1];
+                MChart.destroy();
+            }
+            myChart2[1] = new Chart(ctx, {
+                type: ChartType,
+                data: chartdata2,
+                options: chartOption2
+            });
+
+        }
+
+
+
+    </script>
+
+
+
+
+</body>
+</html>

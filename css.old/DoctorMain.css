@@ -1,0 +1,103 @@
+﻿body {
+}
+.sidebar-menu > li.treeview .dashboard-icon
+{
+    background-image: url(../img/dashboardicon/dashboard1-a.svg);
+    background-repeat: no-repeat;
+    background-position: center left;
+    color: white;
+    text-decoration: unset;
+    font-weight: normal;
+    background-size: auto;
+}
+
+.sidebar-menu li.treeview.menu-open .dashboard-icon
+{
+    color: #f99d1c;
+    background-image: url(../img/dashboardicon/dashboard1-b.svg);
+}
+
+.sidebar-menu > li.treeview .payment-icon
+{
+    background-image: url(../img/dashboardicon/payment1-a.svg);
+    background-repeat: no-repeat;
+    background-position: center left;
+    color: white;
+    text-decoration: unset;
+    font-weight: normal;
+    background-size: auto;
+}
+
+.sidebar-menu li.treeview.menu-open .payment-icon
+{
+    color: #f99d1c;
+    background-image: url(../img/dashboardicon/payment1-b.svg);
+}
+
+.sidebar-menu > li.treeview .receipt-icon
+{
+    background-image: url(../img/dashboardicon/receipt1-a.svg);
+    background-repeat: no-repeat;
+    background-position: center left;
+    color: white;
+    text-decoration: unset;
+    font-weight: normal;
+    background-size: auto;
+}
+
+.sidebar-menu li.treeview.menu-open .receipt-icon
+{
+    color: #f99d1c;
+    background-image: url(../img/dashboardicon/receipt1-b.svg);
+}
+
+.sidebar-menu > li.treeview .transfer-icon
+{
+    background-image: url(../img/dashboardicon/transfer1-a.svg);
+    background-repeat: no-repeat;
+    background-position: center left;
+    color: white;
+    text-decoration: unset;
+    font-weight: normal;
+    background-size: auto;
+}
+
+.sidebar-menu li.treeview.menu-open .transfer-icon
+{
+    color: #f99d1c;
+    background-image: url(../img/dashboardicon/transfer1-b.svg);
+}
+
+.sidebar-menu > li.treeview .reports-icon
+{
+    background-image: url(../img/dashboardicon/report1-a.svg);
+    background-repeat: no-repeat;
+    background-position: center left;
+    color: white;
+    text-decoration: unset;
+    font-weight: normal;
+    background-size: auto;
+}
+
+.sidebar-menu li.treeview.menu-open .reports-icon
+{
+    color: #f99d1c;
+    background-image: url(../img/dashboardicon/report1-b.svg);
+}
+
+.sidebar-menu > li.treeview .settings-icon
+{
+    background-image: url(../img/dashboardicon/setting1-a.svg);
+    background-repeat: no-repeat;
+    background-position: center left;
+    color: white;
+    text-decoration: unset;
+    font-weight: normal;
+    background-size: auto;
+}
+
+.sidebar-menu li.treeview.menu-open .settings-icon
+{
+    color: #f99d1c;
+    background-image: url(../img/dashboardicon/setting1-b.svg);
+}

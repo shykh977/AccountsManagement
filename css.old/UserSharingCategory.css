@@ -1,0 +1,150 @@
+
+        .navbar-nav {
+            display: block;
+            /* display: flex; */
+            -ms-flex-direction: column;
+            /* flex-direction: column; */
+            /* padding-left: 0; */
+            /* margin-bottom: 0; */
+            /* list-style: none; */
+        }
+
+        .dropdown-toggle::after {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: 0;
+            vertical-align: middle;
+            content: "";
+            border-top: 0;
+            border-right: 0;
+            border-bottom: 0;
+            border-left: 0;
+        }
+div#clientAreaSharing h6 {
+    vertical-align: middle;
+    text-align: center !important;
+    background-color: #162e47;
+    font-size: 18px;
+    padding: 11px !important;
+    text-transform: uppercase;
+}
+        .dropdown-menu.show {
+            display: table !important;
+        }
+
+        .dbhead {
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 9px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: whitesmoke;
+            margin: 3px;
+        }
+
+
+        .flip-cardb {
+            background-color: #FFF;
+            width: 122px;
+            height: 106px;
+            /* perspective: 1000px; */
+            margin-bottom: 10px;
+            border: solid 1px #5e6b70;
+        }
+
+        .css-Cell {
+            width: 122px;
+            min-width: 120px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        .flip-cardb-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);*/
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateX(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+
+        .flip-card-front {
+            /*background-color: #bbb;*/
+            /*color: black;*/
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        .flip-card-back {
+            background-color: #2980b9;
+            color: white;
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .flip-card-back-a {
+            font-size: 14px;
+            padding: 3px;
+            color: whitesmoke;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+  
+        #Accordin section p {
+            display: none;
+            text-align: center;
+        }
+
+        #Accordin section a {
+            text-align: center;
+            color: black;
+            text-decoration: none;
+        }
+
+            #Accordin section a:hover {
+                text-decoration: underline;
+            }
+
+        #Accordin section:target p {
+            display: block;
+        }
+
+        label {
+            
+            margin: 0px;
+            display: block;
+            text-align: left;
+        }
+
+            label:hover {
+                background: #eee;
+                cursor: pointer;
+            }
+
+        #maincontents {
+            background-color: white !important;
+        }
+
+        .CardStyleSharing {
+            min-width: 350px;
+            width: 49%;
+            margin-bottom: 10px;
+        }
+
+        .share_amount.w-100.text-center {
+            overflow-wrap: break-word;
+            color: #000000;
+        }
+   

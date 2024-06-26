@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<script src="js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/bootstrap.min.js"></script>
+    <link href="lib/select2/css/select2.min.css?123457" rel="stylesheet" />
+    <script src="lib/select2/js/select2.min.js"></script>
+    <link href="../css/jquery-confirm.min.css" rel="stylesheet" />
+    <script src="../js/jquery-confirm.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/dycalendar.min.css" />-->
+    <script src="lib/Chart.js/Chart.min.js"></script>
+    
+</head>
+
+<body class="bg-white">
+    <section class="content-header breadcrumb-header">
+        <h1>
+            <ol class="breadcrumb">
+                <li><a href="#" class="callback" onclick="PageBackward();"><img src="img/back-arrow.png"></a></li>
+
+                <li><span id="MainHeading" class="pagenameb"> Invitations & Friends</span></li>
+            </ol>
+
+        </h1>
+
+    </section>
+    <section class="content-inr expense">
+
+
+        <div id="main" class="invitations-friends">
+
+            <div class="col-md-6">
+                <div class="col-md-12 col-sm-12 if-data-info"><span class="pull-left">Total Invitations Send</span> <b class="pull-right"><span id="InviteSend">0</span></b></div>
+                <div class="col-md-12 col-sm-12 if-data-info"><span class="pull-left">Rejected Invitation</span> <b class="pull-right">0</b></div>
+                <div class="col-md-12 col-sm-12 if-data-info"><span class="pull-left">Regular User ( Active Users)</span> <b class="pull-right"><span id="ActiveUser">0</span></b></div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12 col-sm-12 if-data-info"><span class="pull-left">Accepted (Payment Made by Invite)</span> <b class="pull-right"><span id="AcceptInvite">0</span></b></div>
+                <div class="col-md-12 col-sm-12 if-data-info"><span class="pull-left">Pending Invitations</span> <b class="pull-right"><span id="PandingInvite">0</span></b></div>
+                <div class="col-md-12 col-sm-12 if-data-info"><span class="pull-left">Not used For 1 months (inactive)</span> <b class="pull-right"><span id="DeactiveUser">0</span></b></div>
+            </div>
+
+
+
+
+
+
+
+            <div class="col-md-12 col-sm-12 if-g-section">
+
+                <div class="col-md-6 col-sm-12">
+
+
+                    <div style="width:100%; height:100%;">
+                        <canvas id="CChart3"></canvas>
+                        <div id="TCChart3" class="table-amount" style="display:none"></div>
+                    </div>
+
+                    <!--<img class="img-responsive" src="img/4g.jpg" />-->
+
+
+
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="data-limit">
+                        <div class="data-gb-used"> <span class="data-chd-color"></span>Accepted Invitations</div>
+                        <div class="data-gb-used"> <span class="data-orange-color"></span>Rejected Invitations </div>
+                        <div class="data-gb-used"> <span class="data-blue-light-color"></span>Pending Invitations</div>
+                        <div class="data-gb-used"> <span class="data-blue-color"></span>Regular User (Active)</div>
+                        <div class="data-gb-used"> <span class="data-mate-color"></span>Not used for 1 months</div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+            <div class="clear"></div>
+
+
+
+        </div>
+
+
+    </section>
+
+        <script>
+            var stage = new createjs.Stage("CChart3");
+
+            var c = new createjs.Shape();
+            c.graphics.f("#f00").dc(0, 0, 50); // Drawn a 100x100 circle from the center
+
+            var t = new createjs.Text("Resize the browser/frame to redraw", "24px Arial bold", "#000");
+            t.x = t.y = 20;
+            stage.addChild(c, t);
+
+            window.addEventListener("resize", handleResize);
+            function handleResize() {
+                var w = window.innerWidth - 2; // -2 accounts for the border
+                var h = window.innerHeight - 2;
+                stage.canvas.width = w;
+                stage.canvas.height = h;
+                //
+                var ratio = 100 / 100; // 100 is the width and height of the circle content.
+                var windowRatio = w / h;
+                var scale = w / 100;
+                if (windowRatio > ratio) {
+                    scale = h / 100;
+                }
+                // Scale up to fit width or height
+                c.scaleX = c.scaleY = scale;
+
+                // Center the shape
+                c.x = w / 2;
+                c.y = h / 2;
+
+                stage.update();
+            }
+
+            handleResize(); // First draw
+
+
+        </script>
+    <script>
+
+        var UserID = sessionStorage.getItem("UserID");
+        var chartname = [];
+        var chartvalue = [];
+        var chartcolor = [];
+
+
+        LoadReferralDetail();
+
+
+        function LoadReferralDetail() {
+
+          
+                $('#loader').show();
+                $.ajax({
+                    type: 'POST',
+                    url: 'Users.asmx/LoadReferralDetail',
+                    dataType: 'json',
+                    data: "{'UserID':'" + UserID + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+ 
+
+                        var str = "";
+                        var dt = "";
+                        var mvalue;
+                        var optg = "";
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        dt = "";
+                        var dt2 = "";
+
+
+                       
+                        var Invited = parseInt(data.Row[0].Invites);
+                        var Accepted = parseInt(data.Row[0].Accepted);
+                        var Panding = parseInt(Invited - Accepted);
+                        var ActiveUsers = parseInt(data.Row[0].ActiveUsers);
+                        var Deactiveusers = parseInt(data.Row[0].Deactiveusers);
+
+                        //chartvalue.push(parseFloat(Invited / 100).toFixed(2));
+                        chartvalue.push(parseFloat(Accepted / Invited * 100));
+                        chartvalue.push(parseFloat(Panding / Invited * 100));
+                        chartvalue.push(parseFloat(ActiveUsers / Invited * 100));
+                        chartvalue.push(parseFloat(Deactiveusers / Invited * 100));
+
+                        //chartname.push("Total Invitations");
+                        chartname.push("Accepted Invitations");
+                        chartname.push("Pending Invitations");
+                        chartname.push("Regular User (Active)");
+                        chartname.push("Not used for 1 months");
+
+                        //chartcolor.push("rgb(104,202,145)");
+                        chartcolor.push("rgb(202,107,165)");
+                        chartcolor.push("rgb(108,197,253)");
+                        chartcolor.push("rgb(0,120,230)");
+                        chartcolor.push("rgb(220,186,53)");
+
+
+                        document.getElementById("InviteSend").innerHTML = Invited
+                        document.getElementById("AcceptInvite").innerHTML = Accepted
+                        document.getElementById("PandingInvite").innerHTML = Panding
+                        document.getElementById("ActiveUser").innerHTML = ActiveUsers
+                        document.getElementById("DeactiveUser").innerHTML = Deactiveusers
+
+                        drawchartsingle("doughnut");
+
+                        $('#loader').hide();
+
+                    },
+                    error: function (error) {
+                        $('#loader').hide();
+                        console.log(error);
+                    }
+                });
+
+         
+        }
+
+
+ 
+
+
+        var scalevalue;
+        var chartdata;
+        var chartOption;
+        var myChart = [];
+        function returnScalvalue(ChartType) {
+
+            if (ChartType == "bar")
+                scalevalue = {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 8,
+                            display: true
+                        },
+                        gridLines: {
+                            display: true,
+                            drawBorder: true
+                        }
+
+                    }],
+
+                    xAxes: [{
+                        barPercentage: 1,
+                        offset: true,
+                        ticks: {
+                            minRotation: 90,
+                            display: true //this will remove only the label
+                        },
+                        gridLines: {
+                            display: false
+                            ,
+                            drawBorder: true
+                        }
+                    }]
+                }
+            else
+                scalevalue = {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 8,
+                            display: false
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        }
+
+                    }],
+
+                    xAxes: [{
+                        barPercentage: 1,
+                        offset: true,
+                        ticks: {
+                            display: false //this will remove only the label
+                        },
+                        gridLines: {
+                            display: false
+                            ,
+                            drawBorder: false
+                        }
+                    }]
+                }
+            chartOption = {
+
+
+                maintainAspectRatio: true,
+               // cutoutPerce

@@ -1,0 +1,1129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Add Expense</title>
+
+    <link href="css/add-expense.css" rel="stylesheet" />
+    
+    <script src="js/jspdf.min.js"></script>
+    <script src="js/html2canvas.min.js"></script>
+    <script src="js/html2pdf.bundle.min.js"></script>
+
+    <script>
+        var mValFrom, mValTo;
+        var TType = "New";
+        var LID1 = "None";
+        var Opt = "";
+        //$("#Mainwarraper").css('overflow', 'visible');
+    </script>
+
+
+    <style>
+        section.content-inr.expense .select2-container--default.select2-container--focus,
+        .select2-selection.select2-container--focus,
+        .select2-container--default:focus,
+        .select2-selection:focus,
+        .select2-container--default:active,
+        .select2-selection:active {
+            outline: -webkit-focus-ring-color auto 0px;
+            border: solid 1px #E8F0FE;
+            background: #E8F0FE;
+            color: #000000 !important;
+            box-sizing: border-box;
+            outline-color: #aecbff;
+            display: inline-block;
+            height: -webkit-fill-available;
+        }
+
+        .Attachimg {
+            background-image: url('MunshiImagesMain/Save_Normal.svg');
+            background-repeat: no-repeat;
+            color: #009444;
+            padding: 4px;
+            font-weight: bold;
+        }
+
+            .Attachimg:hover {
+                background-image: url('MunshiImagesMain/Save_Hover.svg');
+                background-repeat: no-repeat;
+                color: gray;
+                padding: 4px;
+                text-decoration: unset;
+                font-weight: bold;
+            }
+
+
+        .ColorFill {
+            width: 30px;
+            height: 30px;
+            float: left;
+            margin: 6px;
+            border: solid 1px #a1a1a1;
+        }
+
+
+
+
+
+        /* INVOICE TRANSACTION*/
+
+
+
+
+
+        .invoicet-report {
+            background: #fff;
+            border: 1px solid #434343;
+            width: 740px;
+            margin: 20px auto;
+        }
+
+        .invoicet-top-head {
+            padding: 44px;
+        }
+
+        .invoicet-report .progress-header {
+            text-align: left;
+        }
+
+            .invoicet-report .progress-header span.pull-right img {
+                width: 66px;
+            }
+
+        .invoicet-top-head table {
+            max-width: 450px;
+            width: 50%;
+        }
+
+        .banner-invoicet {
+            margin: 0 auto;
+        }
+
+        .invoicet-top-head td {
+            border: 0;
+        }
+
+        .invoicet-Contant th.td-left {
+            border-right: solid 2px #767676;
+        }
+
+        .invoicet-Contant td.td-left {
+            border-right: solid 2px #767676;
+        }
+
+        .invoicet-Contant {
+            padding-left: 44px;
+            padding-right: 44px;
+            padding-bottom: 44px;
+        }
+
+            .invoicet-Contant table {
+                width: 100%;
+            }
+
+                .invoicet-Contant table tr th.td-left {
+                    width: 75%;
+                }
+
+                .invoicet-Contant table tr th {
+                    background: #000;
+                    padding: 8px;
+                    color: #fff;
+                    text-align: center;
+                    font-size: 14px;
+                }
+
+            .invoicet-Contant td.td-right {
+                text-align: center;
+                padding: 14px;
+                width: 30%;
+            }
+
+            .invoicet-Contant td.td-left-des {
+                border-right: solid 2px #767676;
+                padding: 20px 0px;
+            }
+
+            .invoicet-Contant td.td-left.text-r-align {
+                text-align: right;
+                padding-right: 5%;
+                background: #f8f7f7;
+            }
+
+            .invoicet-Contant td.td-left.text-r-align-white {
+                background: #fff;
+                text-align: right;
+                padding-right: 5%;
+            }
+
+            .invoicet-Contant td.td-right.text-b {
+                background: #f8f7f7;
+            }
+
+            .invoicet-Contant.bottom th.td-left {
+                border: 0;
+            }
+
+            .invoicet-Contant td.td-right.Amount-td {
+                border-left: solid 2px;
+            }
+
+            .invoicet-Contant.bottom th.td-left {
+                border: 0;
+                text-align: left;
+                width: auto;
+            }
+
+            .invoicet-Contant.bottom th {
+                border-right: solid 2px #767676 !important;
+            }
+
+            .invoicet-Contant.bottom {
+                margin-top: 0;
+                padding-top: 0px;
+            }
+
+                .invoicet-Contant.bottom td.td-left {
+                    border: 0;
+                    text-align: right;
+                    padding-left: 5%;
+                }
+
+        /* INVOICE TRANSACTION*/
+
+
+        .print-btn {
+            color: #ffffff;
+            background: #00508b;
+        }
+
+        .print-btn {
+            text-align: center;
+            padding: 6px 20px;
+            font-weight: bold;
+            border: solid 0px #ddd;
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            overflow: hidden;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            /* user-select: none; */
+            -webkit-tap-highlight-color: transparent;
+            vertical-align: middle;
+            z-index: 1;
+            font-size: 12px;
+            color: #ffffff !important;
+            min-width: 100px;
+            text-transform: uppercase;
+        }
+	
+
+    </style>
+
+
+
+
+</head>
+<body>
+
+    <section class="content-inr expense" style="padding-top: 0px;">
+        <div class=" p-0 m-0 " style="font-family:Arial;">
+
+            <div id="loader" class="loader" style="margin:0;display:none;"></div>
+
+            <div class="row mt-2 text-center  " style="border-bottom:solid 1px #747572;margin-left:0px; margin-right:0px;">
+                <div class="d-flex w-100">
+                    <div class="receipt-p"> <a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></div>
+                    <div id="payment" class="payment"> Payment</div>
+                    <div id="receipt" class="receipt" onclick="sessionStorage.setItem('InputOption', 'New');LoadFile('AddIncome.html')"> Receipt</div>
+                </div>
+            </div>
+
+            <div id="inputDiv" class="row bg-white  " style="padding:10px;margin:0px !important;">
+                <div class=" col-gl-12 col-md-12 col-sm-12">
+                    <div class="d-flex w-100 "></div>
+
+
+                    <div class="input-group small mt-2 ">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small" id="CurrencyName">Rs.</span>
+                        </div>
+                        <input id="txtAmount" type="number" inputmode="numeric" class="form-control" placeholder="Enter Amount" />
+                    </div>
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth  pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small">From</span>
+                        </div>
+                        <!--<input id="cashID" class="form-control " readonly type="text" onclick="ShowPopup('From');" style="background-color:transparent !important" />-->
+                        <div id="" class="form-control divSelect2" style="padding:0px;">
+                            <select id="cashID" class="select2  form-control" onchange="setValeCash(this);"></select>
+                        </div>
+                        <!--<button class="btn form-control  col-1  Itext " onclick="ShowPopup('From');" style="padding: 3px !important;">...</button>-->
+                        <!--<select id="cashID" onchange="setValeCash(this)" class="form-control" style="font-family:'fontAwesome',Arial;"></select>-->
+                    </div>
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small">To</span>
+                        </div>
+                        <div class="form-control divSelect2" style="padding:0px;">
+                            <select id="paymentsID" class="select2 form-control  " type="text" onchange="setValue(this);"></select>
+                        </div>
+                        <!--<button class="btn form-control Itext col-1  " onclick="ShowPopup('To');" style="padding: 3px !important;">...</button>-->
+                        <!--<select id="paymentsID" onchange="setValue(this)" class="form-control"></select>-->
+                    </div>
+                    <!--<div class="input-group small mt-2">
+                        <div class="input-group-prepend col-2 pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small">To:</span>
+                        </div>
+                        <input id="textbox1" class="form-control " readonly type="text" onclick="ShowHide('OptGroupText');" />
+
+                        <select id="OptGroupText" multiple size="8" class="form-control input-group-prepend " style="width:100%" onchange="OnselectionTo(this);">
+                            <optgroup id="g1" label="Alaskan/Hawaiian Time Zone" onclick="expend99(this)">
+                                <option value="AK">Alaska</option>
+                                <option value="HI">Hawaii</option>
+                            </optgroup>
+                            <optgroup id="g2" label="Pacific Time Zone" onclick="expend99(this)">
+                                <option value="CA">California</option>
+                                <option value="NV">Nevada</option>
+                                <option value="OR">Oregon</option>
+                                <option value="WA">Washington</option>
+                            </optgroup>
+                        </select>
+                    </div>-->
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext" style="font-size:small">Date</span>
+                        </div>
+                        <input id="txtDate" class="form-control" onchange="CallDtChange(this.value);" type="date" placeholder="Select date" />
+                    </div>
+
+                    <div class="input-group  small mt-2">
+                        <div class="input-group-prepend  Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext">Notes</span>
+                        </div>
+                        <textarea id="txtNarration" class="form-control" rows="3" placeholder="Enter note here"></textarea>
+                    </div>
+
+
+
+                    <div class="input-group small mt-2">
+                        <div class="input-group-prepend Mywidth pr-0 pl-0">
+                            <span class="input-group-text w-100 Itext">Highlighter</span>
+                        </div>
+                        <div id="divColor" class="form-control" onclick="$('#FillDiv').toggle(); " style="cursor:pointer;background-color:rgb(255, 255, 255);border:solid 1px #a1a1a1;"></div>
+                    </div>
+
+
+
+
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 pt-2">
+                        <div id="FillDiv" style="height:56px;  background-color: whitesmoke;border: 1px solid rgb(161, 161, 161);margin-left: 1px;margin-top: 25px; padding: 6px;overflow:auto;" class="col-12"></div>
+                    </div>
+
+
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                        <div>
+                            <input id="imgfile" class="form-control" onchange="MyFile();" type="file" name="image" accept="application/pdf, image/*" />
+                            <a id="btnReset" href="#" class="attach-btn " onclick="AddAttchement();"> <span class="btn-name">Attachment </span> </a><br /><span style="font-size:12px;"> (Maximum two attachments allowed)</span>
+
+                            <div id="AttachmentData" style="max-height:100px;overflow:auto;">
+                                <br />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <!--<div class="row mt-2">
+                        <div class="col-12" style="text-align:right;">
+                            <a href="UserInvitation.html"> Invite a Friend</a>
+                        </div>
+                    </div>-->
+
+                    <div class="mt-2">
+                        <!--<div class="col-2">
+                            <button onclick="Sharing()" class="form-control bg-success" style="color:white"><i class="fa fa-share"></i> Sharing</button>
+                        </div>-->
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                            <a id="btnPrint" href="#" class="save-btn " onclick="GetPDF(sessionStorage.getItem('TransID'));"> <span class="btn-name">Print </span> </a>
+                            <a id="btnReset" href="#" class="reset-btn " onclick="clearAll();"> <span class="btn-name">Reset </span> </a>
+                            <a id="btnsave" href="#" class="save-btn " onclick="addPayment();"> <span class="btn-name">Save  </span> </a>
+                            <a id="btnEdit" href="#" class="reset-btn delete-btn pull-right" onclick="deleteIT(sessionStorage.getItem('TransID'));"> <span class="btn-name">Delete  </span> </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="CalHead" class="col-xl-5 ">
+                    <div id="MyCal" class="col-xl-12" style="overflow:hidden;">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div id="datetimepicker12"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-0 text-center">
+                <div class="col-lg-12 ">
+                    <span id="spandataloading" style="display:none;color:darkblue;"><i id="idataloading" class="fa fa-refresh fa-spin"> </i> data processing.....</span>
+                </div>
+            </div>
+            <div class=" row bg-white" id="Table1" style="background-color:green;margin:0px;">
+                <div class=" col-gl-12 ">
+                    <div style="width:100%; overflow-y:auto; overflow-x:hidden;">
+                        <div class="col-lg-12  " style="color:#747572;padding-left:15px;padding-top:15px; padding-bottom:0px;    font-weight:bold;">PAYMENTS HISTORY</div>
+                        <div class="col-lg-12  " style="padding:15px;">
+                            <table class="table table-borderless table-hover w-100" style="font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:solid 1px #747572">
+                                        <th>S.No.</th>
+                                        <th>Date</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th class="textar">Amount</th>
+                                        <!--<th class="textac">Status</th>-->
+                                        <th class="textac">Edit</th>
+                                        <th class="textac">Delete</th>
+                                        <th class="textac">Voucher</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ledger">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <!--<td></td>-->
+                                        <td></td>
+                                        <td></td>
+                                        <td class="textac"></td>
+                                        <td class="textac"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal -->
+    <div id="myAddExpes" class="modal fade">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="ModelTitle"></span></h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="Opt = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div id="InvDiv" class="row ">
+
+                        <div class="row w-100 p-0 m-0 ">
+                            <div class="col-12">
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Category </span>
+                                    </div>
+
+                                    <select id="Category" onchange="GetSubCategory(this.value,'SubCategory')" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+                                <div class="input-group small mt-2 col-12 ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Sub-Category </span>
+                                    </div>
+
+                                    <select id="SubCategory" onchange="getAccountbySubCatID(this.value,'AccountTitle')" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+                                <div class="input-group small mt-2 col-12  ">
+                                    <div class="input-group-prepend col-3 pr-0 pl-0 ">
+                                        <span class="input-group-text w-100 Itext" style="font-size:small">Account Title </span>
+                                    </div>
+
+                                    <select id="AccountTitle" class="form-control " style="font-family:'fontAwesome',Arial;"></select>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div id="result" class="col-12" style="display:none;">
+                            <center>
+                                <h5>Invitation Sent</h5>
+                            </center>
+                        </div>
+
+                    </div>
+
+                    <div class="row p-3">
+                        <div class="col-12 pt-3">
+                            <a id="btnReset" href="#" data-dismiss="modal" onmouseup="Opt = 'Cancel';" class="MyCancel"> Cancel </a>
+
+                            <a id="btnsave" href="#" class="MySubmit" data-dismiss="modal" onmouseup="Opt = 'Submit';"> Submit </a>
+                        </div>
+                        <!--<div class="col-4">
+
+                            <button class="form-control bg-dark text-white" style="cursor:pointer;" data-dismiss="modal" onmouseup="Opt = 'Cancel';"> <i class="fa fa-close"></i> Cancel</button>
+                        </div>
+                        <div class="col-4"></div>
+                        <div class="col-4 align-self-end " style="text-align:right;">
+
+                            <button class="form-control bg-success text-white " style="cursor:pointer;" data-dismiss="modal" onmouseup="Opt = 'Submit';"> <i class="fa fa-save"></i> Submit</button>
+                        </div>-->
+
+                    </div>
+                </div>
+
+
+                <!--<div class="modal-footer">
+                <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                    </div>-->
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <link href="css/w3slidercss.css" rel="stylesheet" />
+    <style>
+        .mySlides {
+            display: none;
+        }
+    </style>
+
+
+
+
+    <div id="Filter" class="modal fade">
+        <div class="modal-dialog modal-lg">
+
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#747572;">
+
+                    <h4 class="modal-title small text-white"><span id="FilterTitle"></span></h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" onmouseup="OptFilter = 'Cancel';">&times;</button>
+
+                </div>
+                <div class="modal-body ">
+
+                    <div id="InvDiv" class="row ">
+
+
+                        <div class="row p-4">
+
+
+                            <!--<center><img style="width:90%;" id="AttachmentImage" src="" /></center>-->
+
+                            <div id="Images" style="width:90%;" class="w3-content w3-display-container">
+                                <!--<center><img style="width:90%;" id="AttachmentImage" src="" /></center>-->
+                                <!--<img style="width:86%;" class="mySlides" id="AttachmentImage" src="imgAttachments/01f010d8-dde2-4718-a04e-f17f51773e7f.png" />
+                                <img style="width:86%;" class="mySlides" src="imgAttachments/05024a1a-cfb6-4b2d-8a3b-dcfdbf583990.PNG" />
+                                <img style="width:86%;" class="mySlides" src="imgAttachments/07507935-053c-450d-ae02-b526fbeaccfe.png" />-->
+                                <!--<button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                                <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>-->
+                            </div>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                    <style>
+                        .MyCancel {
+                            background: image: url('MunshiImagesMain/Cancel_Normal.svg');
+                            background-repeat: no-repeat;
+                            color: #EB2227;
+                            padding: 4px;
+                            font-weight: bold;
+                        }
+
+
+
+                        .Itext {
+                            border: radius: 0px !important;
+                            background-color: #747572 !important;
+                            color: whitesmoke;
+                            border: solid 1px #747572;
+                        }
+
+                        #Filter * {
+                            border: radius: 0px !important;
+                        }
+
+                        .MyCancel:hover {
+                            background - image: url('MunshiImagesMain/Cancel_Hover.svg');
+                            background-repeat: no-repeat;
+                            color: gray;
+                            padding: 4px;
+                            text-decoration: unset;
+                            font-weight: bold;
+                        }
+                    </style>
+                    <div class="row p-3">
+                        <div class="col-12 pt-3">
+                            <a id="btnReset" href="#" data-dismiss="modal" onmouseup="OptFilter = 'Cancel';" class="MyCancel">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Cancel</a>
+
+                        </div>
+                        <!--<div class="col-4">
+
+                            <button class="form-control bg-dark text-white" style="cursor:pointer;" data-dismiss="modal" onmouseup="Opt = 'Cancel';"> <i class="fa fa-close"></i> Cancel</button>
+                        </div>
+                        <div class="col-4"></div>
+                        <div class="col-4 align-self-end " style="text-align:right;">
+
+                            <button class="form-control bg-success text-white " style="cursor:pointer;" data-dismiss="modal" onmouseup="Opt = 'Submit';"> <i class="fa fa-save"></i> Submit</button>
+                        </div>-->
+
+                    </div>
+                </div>
+
+
+                <!--<div class="modal-footer">
+                    <button type="button" class="btn btn-default small bg-success text-white" data-dismiss="modal" onmouseup="Opt = 'Yes';">Yes</button>
+                    <button type="button" class="btn btn-default small bg-secondary text-white" data-dismiss="modal" onmouseup="Opt = 'No';">No</button>
+                </div>-->
+            </div>
+
+
+
+
+
+
+        </div>
+        <script>
+
+
+            function FilterShowPopup() {
+
+                $("#FilterTitle").html('<span style="color:oranged;">Attachment</span>');
+
+                $("#Filter").modal();
+                plusDivs(0);
+
+            }
+
+        </script>
+    </div>
+
+
+
+
+
+    <script src="js/add-expense.js"></script>
+
+
+    <script>
+        function AddAttchement() {
+
+            $('#imgfile').click();
+
+
+        }
+
+        var file2;
+        $('#imgfile').hide();
+        var filename1 = [];
+
+
+
+        function Click() {
+
+            FilterShowPopup();
+        }
+
+
+        fillColor();
+
+        function fillColor() {
+            document.getElementById("FillDiv").style.display = "none";
+
+
+            var colorArray = ['FFFFFF', 'DA5353', 'FFFF00', '7FFFD4', 'F0FFFF', 'F5F5DC', 'FFE4C4', 'FFEBCD', 'DEB887', '7FFF00',
+                'FF7F50', '6495ED', 'FFF8DC', '00FFFF', 'BDB76B', 'FF8C00',
+                'E9967A', '8FBC8F', '00CED1'];
+            var elem = document.getElementById("FillDiv");
+
+            for (var a = 0; a < colorArray.length; a++) {
+                var str = "";
+                str = "<div onclick=ColorClicked('" + colorArray[a] + "') class='ColorFill' style='background-color:#" + colorArray[a] + ";' > </div>";
+                elem.innerHTML = elem.innerHTML + str;
+
+            }
+        }
+
+
+        function ColorClicked(a) {
+            //alert(a);
+            document.getElementById("divColor").style.backgroundColor = "#" + a;
+
+            $('#FillDiv').hide();
+        }
+
+
+    </script>
+
+
+
+
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+
+        function showDivs(n) {
+
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex - 1].style.display = "block";
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function GetPDF(c) {
+            // alert(c);
+            // LoadAttachmentsTransactionIDwiseForInvoice(c);
+            //var ids = c.split(":");
+            //sessionStorage.setItem("TransID", ids[0]);
+            //sessionStorage.setItem("TransType", ids[1]);
+
+
+            $.ajax({
+                type: 'POST',
+                url: 'Accounts.asmx/LoadTransactionInvoice',
+                dataType: 'json',
+                data: "{'TransID':'" + c + "', 'TType':'P', 'UserID':'" + userid + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+
+
+                    //alert(response.d);
+
+
+                    document.getElementById("TXNID").innerHTML = data.Row[0].TXNID;
+                    document.getElementById("TDate").innerHTML = data.Row[0].TDate;
+                    document.getElementById("TxnCurrency").innerHTML = "PKR";//data.Row[0].Currency1;
+
+
+                    //if (data.Row[0].Rate == "1") {
+                    //    document.getElementById("TxnCurrencyRatesHeading").innerHTML = "";
+                    //    document.getElementById("TxnCurrencyRates").innerHTML = "";
+                    //}
+                    //else if (data.Row[0].Rate == "0") {
+                    //    document.getElementById("TxnCurrencyRatesHeading").innerHTML = "";
+                    //    document.getElementById("TxnCurrencyRates").innerHTML = "";
+                    //}
+                    //else {
+                    //    document.getElementById("TxnCurrencyRatesHeading").innerHTML = "Currency Rates";
+                    //    document.getElementById("TxnCurrencyRates").innerHTML = data.Row[0].Rate;
+                    //}
+
+
+
+                    var Notes = data.Row[0].Narration.split("[");
+
+                    document.getElementById("name").innerHTML = data.Row[0].Name;
+                    document.getElementById("cell").innerHTML = data.Row[0].Cell;
+                    document.getElementById("email").innerHTML = data.Row[0].Email;
+                  /*  document.getElementById("pckname").innerHTML = data.Row[0].Package;*/
+                    //document.getElementById("Date").innerHTML = data.Row[0].TDate;
+
+
+
+                    document.getElementById("From").innerHTML = data.Row[0].AccId_CashT;
+                    document.getElementById("To").innerHTML = data.Row[0].AccId_PaymentT;
+                    document.getElementById("Payment").innerHTML = data.Row[0].Amount;
+
+
+                    if (Notes[0] == " ") {
+
+                        document.getElementById("note").style.display = "none";
+                    }
+                    else {
+                        document.getElementById("Narration").innerHTML = Notes[0];
+                        document.getElementById("note").style.display = "block";
+
+                    }
+
+
+                    //document.getElementById("bamt").innerHTML = parseFloat(data.Row[0].Amount).toFixed(2);
+                    LoadAttachmentsTransactionIDwiseForInvoice(c);
+                    // PDFFile();
+
+                    $('#spandataloading').hide();
+
+
+
+                },
+                error: function (error) {
+                    //alert("err111");
+                    console.log(error);
+                }
+            });
+
+
+
+
+        }
+
+
+
+
+
+        function LoadAttachmentsTransactionIDwiseForInvoice(TransID) {
+            $('#loader').show();
+
+            $.ajax({
+                type: 'POST',
+                url: 'Accounts.asmx/LoadAttachmentsTransactionIDwise',
+                dataType: 'json',
+                data: "{'TransactionID':'" + TransID + "'}",
+                contentType: 'application/json; charset=utf-8',
+
+                success: function (response) {
+
+
+
+                    var dt = "";
+
+                    var txt = '{"Row": ' + response.d + '}';
+                    var data = JSON.parse(txt);
+                    dt = "";
+                    //alert(data.Row.length);
+                    //alert(response.d);
+
+                    if (data.Row.length == "0") {
+
+                        // alert("a");
+                        document.getElementById("InvoiceAttachmentData").innerHTML = "";
+
+                        document.getElementById("ShowInvoiceAttachments").style.display = "none";
+                    }
+                    else {
+                        //alert("b");
+                        document.getElementById("ShowInvoiceAttachments").style.display = "block";
+
+
+
+
+
+
+                        for (var i = 0; i < data.Row.length; i++) {
+
+
+                            if (data.Row[i].FileExtension == "pdf") {
+                                document.getElementById("PDFnote").style.display = "block";
+
+                                // dt = dt + "<center><embed width='440' height='440' style= 'display: block;' scrolling='no' class='mySlides' id='" + data.Row[i].FileID + "' src='../imgAttachments/" + data.Row[i].FileID + "." + data.Row[i].FileExtension + "'/></embed></center>";
+                            }
+                            else {
+                                dt = dt + "<center><img style= 'width: 70%; padding:8px; height: 100%;  border: 0px;' id='" + data.Row[i].FileID + "' src='../imgAttachments/" + data.Row[i].FileID + "." + data.Row[i].FileExtension + "'/></center><br />";
+                            }
+
+
+                        }
+                        document.getElementById("InvoiceAttachmentData").innerHTML = dt;
+                    }
+                    $('#loader').hide();
+
+                    PDFFile();
+
+                },
+                error: function (error) {
+                    $('#loader').hide();
+                    console.log(error);
+                }
+            });
+
+        }
+
+
+ 
+
+
+
+
+        function PDFFile() {
+
+            $('#loader').show();
+            document.getElementById("PrintInvoice").style.display = "block";
+            // document.getElementById("PrintInvoice").innerHTML = document.getElementById("PrintInvoice").innerHTML;
+            var element = document.getElementById("PrintInvoice");
+            var opt = {
+                margin: 0,
+
+                filename: 'BTGAccountsSolutions-Voucher.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf(element, opt).then(function (pdf) {
+                //pdf is null when I log this...
+                document.getElementById("PrintInvoice").style.display = "none";
+            });
+
+            $('#loader').hide();
+
+        }
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+    <!--*********************** Invoice Print **********************-->
+
+
+    <div class="invoicet-report" id="PrintInvoice" style="display:none;">
+        <div class="progress-header">
+            <a href="#" class="logo"><span class="logo-lg">BTG Accounts<span style="color:#f49f21;"> Solution</span> </span></a>
+            <span href="#" class="pull-right"><img class="sorry" src="img/logo.png"></span>
+        </div>
+
+        <div class="invoicet-top-head">
+            <!--<div class="banner-invoicet"><img class="sorry" id="invimg" src=""></div>-->
+
+
+
+
+            <table class="pull-left">
+
+                <tbody>
+
+
+
+                    <tr>
+                        <td class="td-left"><span class="report-head-txt"><strong><span id="name">ABC</span></strong></span></td>
+
+                    </tr>
+                    <tr>
+                        <td class="td-left"><span class="report-head-txt"><span id="cell">033333333332</span></span></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="td-left"><span class="report-head-txt"><span id="email">abc@gmail.com</span></span></td>
+
+                    </tr>
+                    <tr>
+                        <td class="td-left"><span class="report-head-txt"></span></td>
+
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+
+            <table class="pull-right">
+
+                <tbody>
+
+                    <tr>
+                        <td class="td-left"><span class="report-head-txt"><strong>Transaction # &nbsp;&nbsp;</strong></span></td>
+                        <td class="td-right"><span class="report-head-txt" id="TXNID">TXN-PK000001-20200712112211</span> </td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="td-left"><span class="report-head-txt"><strong>Date</strong></span></td>
+                        <td class="td-right"><span class="report-head-txt" id="TDate">01-12-2019</span> </td>
+                    </tr>
+
+                    <tr>
+                        <td class="td-left"><span class="report-head-txt"><strong>Currency</strong></span></td>
+                        <td class="td-right"><span class="report-head-txt" id="TxnCurrency">PKR</span> </td>
+                    </tr>
+                    <tr>
+                        <td class="td-left"><span class="report-head-txt"><strong id="TxnCurrencyRatesHeading">Currency Rate</strong></span></td>
+                        <td class="td-right"><span class="report-head-txt" id="TxnCurrencyRates">1</span> </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+
+
+
+
+
+        </div>
+
+        <div style="padding: 38px;">
+            <center><h3>PAYMENT VOUCHER</h3></center>
+
+        </div>
+
+
+        <div class="invoicet-Contant">
+
+
+            <table>
+
+                <tbody>
+                    <tr>
+                        <th class=""><span>S.No</span></th>
+
+
+                        <th style="text-align:left"><span>From</span></th>
+                        <th style="text-align:left"><span>To</span></th>
+                        <th style="text-align:right"><span>Amount</span> </th>
+
+                    </tr>
+                    <tr>
+                        <td style="text-align:center"><span class=""><span id="SNO">01.</span></span></td>
+
+
+                        <td style="text-align:left; padding: 8px;"><span class=""><span id="From">From abc to XYZ</span></span> </td>
+                        <td style="text-align:left; padding: 8px;"><span class=""><span id="To">From abc to XYZ</span></span> </td>
+                        <td style="text-align:right; padding: 8px;"><span class=" "><span id="Payment">100000</span></span> </td>
+
+                    </tr>
+
+
+
+                </tbody>
+
+
+
+            </table>
+
+
+
+
+            <br />
+            <span id="note" style="font-size:12px; padding:8px; display:none;"><b>NOTE : </b><span id="Narration"></span></span>
+
+
+
+        </div>
+
+
+
+        <div id="ShowInvoiceAttachments" style="display:none;" class="invoicet-Contant">
+
+            <br />
+            <span style="font-size:12px; padding:8px;"><b>VOUCHER ATTACHMENTS: </b></span>
+            <br />
+            <div id="InvoiceAttachmentData" style="text-align:center;">
+                <center>
+
+                </center>
+            </div>
+
+
+            <br />
+            <span id="PDFnote" style="font-size:12px; padding:8px;  "><b>NOTE : </b>To download PDF File you have to download it separately from current voucher</span>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <tfoot class=" small font-weight-bold" style="display: table-footer-group; ">
+
+
+            <tr>
+                <td colspan="10" style="border:0px; padding:0px;">
+                    <table style="width:100%;">
+                        <tbody>
+                            <tr>
+                                <td style="background-color:#f5b21f;height:13px;border:0;width:100px;"></td>
+                                <td style="width:100px;border:0;">BTG Accounts Solution</td>
+                                <td style="background-color:#162e42;height:13px;padding:4px;border:0"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+
+            </tr>
+        </tfoot>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <!--*********************** Invoice Print **********************-->
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

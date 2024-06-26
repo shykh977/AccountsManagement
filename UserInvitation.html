@@ -1,0 +1,98 @@
+﻿
+<script src="js/DatabaseAjax.js"></script>
+
+<script>
+
+</script>
+
+<section class="content-header breadcrumb-header">
+    <h1>
+        <ol class="breadcrumb">
+            <li><a href="#" class="callback" onclick='PageBackward();'><img src="img/back-arrow.png" /></a></li>
+
+            <li><span id="MainHeading" class="pagenameb">Invite a Friend</span></li>
+        </ol>
+
+    </h1>
+
+</section>
+
+
+<div class="invite-friends">
+    <div id="includedContent"></div>
+
+    <div class="share-form">
+        <h1>Invite a Friend</h1>
+
+
+
+        <div class=" mt-2">
+            <div class="col-12">
+                <div class="input-group small mt-2 col-lg-12 col-sm-12 col-md-12 ">
+                    <!--<div class="input-group-prepend">
+                        <span class="input-group-text w-100 text-white" style="font-size:small;background-color:#757472"> Name </span>
+                    </div>-->
+
+                    <input id="txtUser" type="text" inputmode="text" class="form-control" placeholder="Enter User Name" required />
+
+                </div>
+                <div class="input-group small mt-2 col-12">
+                    <!--<div class="input-group-prepend">
+                        <span class="input-group-text w-100 text-white" style="font-size:small;background-color:#757472"> Email </span>
+                    </div>-->
+
+                    <input id="txtemail" class="form-control" type="text" inputmode="email" placeholder="Enter Email" required />
+
+                </div>
+                <div class="select-country input-group  mt-2">
+                    <select id="CountryData" class="select2 form-control  " type="text"></select>
+                </div>
+                <div class="input-group small mt-2 col-12">
+                    <!--<div class="input-group-prepend">
+                        <span class="input-group-text w-100 text-white" style="font-size:small;background-color:#757472"> Cell # </span>
+                    </div>-->
+
+                    <input id="txtCell" class="form-control" type="text" inputmode="numeric" placeholder="Enter Cell #" required />
+
+                </div>
+                <!--<div class="input-group small mt-2 col-12">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-sticky-note">&nbsp;</i></span>
+                    </div>
+                    <textarea id="txtNarration" class="form-control" rows="3" placeholder="Message for Friend"></textarea>
+                </div>-->
+                <!--<div class="input-group small mt-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-sticky-note">&nbsp;</i></span>
+                    </div>
+                    <textarea class="form-control" rows="3" placeholder="Enter note here"></textarea>
+                </div>-->
+                <!--<div class="row mt-2">
+                    <div class="col-12">
+
+                        <button class="form-control bg-success" onclick="window.location.href='itemslist.html'"><i class="fa fa-edit"></i> Bill Details/Items</button>
+                    </div>
+
+                </div>-->
+            </div>
+        </div>
+        <div class="mt-2">
+            <!--<div class="col-6">
+                <button class="form-control bg-primary"><i class="fa fa-eraser"></i> New</button>
+            </div>-->
+            <div class="col-12">
+                <button class="form-control bg-warning" onclick=" SendInvite('newInvitation'); return false;"> <i class="fa fa-send-o"></i> Send</button>
+            </div>
+        </div>
+
+        <div id="result" class="col-12" style="display:none;">
+            <center>
+                <h5>Invitation Sent</h5>
+            </center>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+</div>
+<script src="js/UserInvitation.js"></script>
+

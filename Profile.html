@@ -1,0 +1,1339 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/bootstrap.min.js"></script>
+    <link href="lib/select2/css/select2.min.css?123457" rel="stylesheet" />
+    <script src="lib/select2/js/select2.min.js"></script>
+    <link href="../css/jquery-confirm.min.css" rel="stylesheet" />
+    <script src="../js/jquery-confirm.min.js"></script>
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="css/dycalendar.min.css" />
+    <script>
+        $(function () {
+
+            $("#includedContent").load("navbar.html");
+
+        });
+    </script>
+    <style>
+        span.select2-selection.select2-selection--single {
+            background-color: #eeeeee;
+        }
+
+        .Reg-logo {
+            border: solid 3px #494848;
+        }
+
+        .profile-information .profil-ifo img.profile-user-img.img-responsive.img-circle {
+            clear: both;
+            height: 200px;
+            width: 200px;
+            padding: 0;
+            border: 0;
+        }
+
+        .profile-information {
+            background: #fff;
+            padding-top: 40px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+
+        input:checked + .slider {
+            background-color: #009444;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+            .slider.round:before {
+                border-radius: 50%;
+            }
+
+        .user-conform {
+            clear: both;
+            /* border-bottom: dashed 1px #ccc; */
+            height: 46px
+        }
+
+            .user-conform span.pull-left {
+                padding: 7px 0px;
+                display: inline-block;
+                font-size: 90%;
+                font-weight: bold;
+                word-break: break-all;
+                width: 74%;
+            }
+
+        div#closeaccount .modal-body hr {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            clear: both;
+            display: block;
+        }
+
+        div#closeaccount .modal-body {
+            padding-bottom: 0px;
+        }
+
+        span.pull-left.m-set {
+            width: auto;
+        }
+
+        div#closeaccount .modal-footer {
+            top: 0;
+            padding-top: 0;
+        }
+
+        .user-conformb {
+            clear: both;
+            margin-bottom: 12px;
+        }
+
+            .user-conformb span.pull-left {
+                padding: 7px 0px;
+                display: inline-block;
+                font-size: 92%;
+                font-weight: bold;
+            }
+
+            .user-conformb label.pull-right select.browser-default.custom-select {
+                border: solid 1px #ccc;
+                padding: 6px 8px;
+                font-size: 12px;
+                font-weight: normal;
+                width: 100%;
+            }
+
+            .user-conformb span {
+                display: block;
+                padding: 0px 0px 10px 0px;
+                display: inline-block;
+                font-size: 92%;
+                font-weight: bold;
+            }
+
+            .user-conformb textarea {
+                width: 100%;
+            }
+    </style>
+</head>
+
+<body class="bg-white">
+    <section class="content-header breadcrumb-header">
+        <h1>
+            <!--<ol class="breadcrumb">
+                <li><a href="#" class="callback" onclick="PageBackward();"><img src="img/back-arrow.png"></a></li>
+
+                <li><span id="MainHeading" class="pagenameb"> My Profile</span></li>
+            </ol>-->
+
+
+            <ol class="breadcrumb">
+                <li><a href="#" class="callback" onclick=openInNewTab('MainPage.html');><img src="img/back-arrow.png"></a></li>
+
+                <li><span id="MainHeading" class="pagenameb"> My Profile</span></li>
+
+
+                <script>
+                    function openInNewTab(url) {
+
+
+                        var ChartLevel = window.sessionStorage.getItem("ChartLevel", ChartLevel);
+
+
+                        if (ChartLevel == '1') { var CurrentPage = "DashboardLevel3Login.html"; }
+                        else if (ChartLevel == '2') { var CurrentPage = "DashboardLevel2Login.html"; }
+                        else { var CurrentPage = "Dashboard.html"; }
+
+                        window.sessionStorage.setItem("CurrentPage", CurrentPage);
+
+                        var win = window.open(url, '_parent');
+                        win.focus();
+                    }
+                </script>
+
+
+            </ol>
+
+        </h1>
+
+    </section>
+    <section class="content-inr expense">
+
+
+        <div id="main" class="profile-information">
+            <div class="col-lg-4 col-md-4 col-sm-12" id="leftPanel">
+                <div class="box box-primary profil-ifo">
+
+
+
+                    <div class="author">
+                        <div class="login-logo Reg-logo ">
+                            <img id="UserPic" class="profile-user-img img-responsive img-circle" src="" onerror="imgerror(this)" />
+                            <a href="#" id="upload1" class="uploadme"> Change </a>
+                        </div>
+                        <!--<img class="profile-user-img img-responsive img-circle" id="UserPic" src="" onerror="imgerror(this)">-->
+
+                    </div>
+
+                    <div class="box-body box-profile">
+                        <h3 class="profile-username text-center" id="lblFullName"></h3>
+                        <p id="lblEmail"></p>
+
+
+                        <!-- <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <sapn>Full Name:</sapn> <a class="pull-right" id="lblFullName2"></a>
+                            </li>
+                            <li class="list-group-item">
+                                <sapn>Email:</sapn> <a class="pull-right" id="lblEmail"></a>
+                            </li>
+                            <li class="list-group-item">
+                                <sapn>Country:</sapn> <a class="pull-right"><img width="20" style="margin-right:5px;margin-bottom: 4px;" src="abc.jpg" onerror="imgerror(this)" id="imCountry" /><span id="lblCountry"></span></a>
+                            </li>
+                            <li class="list-group-item">
+                                <sapn>Cell No:</sapn> <a class="pull-right" id="lblCellNo"></a>
+                            </li>
+                            <li class="list-group-item">
+                                <sapn>D.O.B:</sapn> <a class="pull-right" id="lblDateOfBirth"></a>
+                            </li>
+                            <li class="list-group-item">
+                                <sapn>Chart of Account System:</sapn> <a class="pull-right" id="lblChartofAccountLevel"></a>
+                            </li>
+                        </ul>-->
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 profil-edit-btn">
+
+                            <a id="btnEdit" href="#" class="reset-btn" data-widget="collapse" onclick="CallEdit();"> <span class="btn-name">Edit Profile</span> </a>
+
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+
+
+                <div class="box box-primary members-list box-body" style="display:none;">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Team Members</h3>
+                    </div>
+
+                    <div class="box-body">
+                        <ul class="list-unstyled team-members">
+                            <li>
+
+                                <div class="col-xs-3">
+                                    <div class="avatar">
+                                        <img src="/img/munshi-login.png" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    DJ Khaled
+                                    <br>
+                                    <span class="text-muted"><small>Offline</small></span>
+                                </div>
+
+                                <div class="col-xs-3 text-right">
+                                    <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
+                                </div>
+
+                            </li>
+                            <li>
+
+                                <div class="col-xs-3">
+                                    <div class="avatar">
+                                        <img src="/img/munshi-login.png" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    DJ Khaled
+                                    <br>
+                                    <span class="text-muted"><small>Offline</small></span>
+                                </div>
+
+                                <div class="col-xs-3 text-right">
+                                    <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
+                                </div>
+
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12  profile-edit-info" id="rightPanel">
+
+
+                <div class="col-md-12">
+                    <form class="form" action="##" method="post" id="registrationForm" _lpchecked="1">
+                        <!--<h2>Edit profile</h2>
+                        <hr class="colorgraph">-->
+                        <div class="form-group">
+
+                            <div class="col-xs-12">
+                                <label for="first_name"><b>Full Name</b></label>
+                                <input type="text" class="form-control" name="first_name" id="txtFullName" placeholder="Enter Full Name" title="Enter your first name if any.">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-xs-12">
+                                <label for="email"><b>Email</b></label>
+                                <input type="email" class="form-control" name="email" onkeyup="callemailout();" id="txtemail" placeholder="Enter Email" title="Enter Email">
+                                <span style="display:none" id="chkEmail">Valid email</span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <div class="col-xs-12 ">
+                                <label for="phone"> <b> Country</b> </label>
+                                <div class="select-country input-group">
+                                    <select id="CountryData" class="select2 form-control  " type="text"></select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label for="mobile"><b>Mobile</b></label>
+                                <input type="number" class="form-control" onblur="callcelllout();" name="mobile" id="txtCellNo" placeholder="Enter Cell #" title="Enter your mobile number if any">
+                            </div>
+                        </div>
+                        <div class="form-group" id="D.O.B">
+
+                            <div class="col-xs-12">
+                                <label for="email"><b>D.O.B</b></label>
+                                <input type="date" class="form-control" name="dob" id="txtdob" placeholder="Date Of  Birth" title="Enter Your Date Of  Birth">
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="password"><b>Password</b></label>
+                                <input type="password" class="form-control" name="password" id="txtpassword" placeholder="Enter Paswword" title="Enter Your Password" onkeyup="checkStrength(this.value, getElementById('STpassord'), getElementById('STpassord'));" >
+                                <span style="display:block" id="STpassord">Please check your password</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="password2"><b>Verify</b></label>
+                                <input type="password" class="form-control" name="password2" id="txtpassword2" placeholder="Confirm Password" title="Enter Your Confirm Password" onkeyup="Passmatch(this.value);">
+                                <span style="display:block" id="STCpassord">Please check your password</span>
+                            </div>
+                        </div>-->
+                        <div class="form-group">
+
+                            <div class="col-xs-12" style="display:none;">
+                                <label for="email"><b>Gender</b></label>
+                                <div class="g-f-s">
+                                    <label class="radio-inline" for="Gender-0">
+                                        <input type="radio" name="Gender" id="Gender-0" value="Male">
+                                        Male
+                                    </label>
+                                    <label class="radio-inline" for="Gender-1">
+                                        <input type="radio" name="Gender" id="Gender-1" value="Female">
+                                        Female
+                                    </label>
+
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12" id="SearchBy">
+                                <label for="email"><b>Search by</b></label>
+                                <div class="g-f-s">
+                                    <label class="checkbox-inline" for="SFields-0">
+                                        <input type="checkbox" name="SFields" id="chkFullName" value="FullName">
+                                        Full Name
+                                    </label>
+                                    <label class="checkbox-inline" for="SFields-1">
+                                        <input type="checkbox" name="SFields" id="chkemail" value="email">
+                                        Email
+                                    </label>
+                                    <label class="checkbox-inline" for="SFields-1">
+                                        <input type="checkbox" name="SFields" id="chkCellNo" value="CellNo">
+                                        Mobile
+                                    </label>
+
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12" style="display:none;">
+                                <label for="email"><b>Account Level</b></label>
+                                <div class="g-f-s">
+                                    <select id="txtLevel" class="form-control">
+                                        <option value="3" style="white-space:normal;">3 (three)  Level Chart of Account</option>
+                                        <option value="2" style="white-space:normal;">2 (two)    Level Chart of Account</option>
+                                        <option value="1" style="white-space:normal;">1 (single) Level Chart of Account</option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 pt-4">
+
+
+                            <a id="btnsave" href="#" class="save-btn" onclick="CallSave(1);"> <span class="btn-name"> Update Profile </span> </a>
+                            <a id="clos-user-account" href="#" class="save-btn pull-right" data-toggle="modal" data-target="#closeaccount" style="display:none;"> <span class="btn-name"> Close Account </span> </a>
+
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="clear"></div>
+
+
+
+
+                <div class="clear"></div>
+
+
+
+                <input id="imgfile" placeholder="Photo" class="" onchange="MyFile();" type="file" name="image" accept="image/*" style="display:none;" />
+
+
+
+
+
+
+            </div>
+            <div class="clear"></div>
+
+            <div class="col-md-12 password_reset">
+                <form class="form" action="##" method="post" id="registrationForm" _lpchecked="1">
+                    <h2>Reset Password </h2>
+
+                    <div class="form-group">
+
+                        <div class="col-xs-6 col-sm-12 ">
+                            <!--<label for="password"><b>Password</b></label>-->
+                            <input type="password" class="form-control" name="password" id="txtpassword" placeholder="Enter Password" title="Enter Your Password" onkeyup="checkStrength(this.value, getElementById('STpassord'), getElementById('STpassord'));">
+                            <span style="display:block" id="STpassord">Please check your password</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-xs-6 col-sm-12">
+                            <!--<label for="password2"><b>Verify</b></label>-->
+                            <input type="password" class="form-control" name="password2" id="txtpassword2" placeholder="Confirm Password" title="Enter Your Confirm Password" onkeyup="Passmatch(this.value);">
+                            <input type="hidden" id="CurrentEmail" value="" />
+                            <input type="hidden" id="CurrentCellNo" value="" />
+
+                            <span style="display:block" id="STCpassord">Verify your password</span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <a id="editpassword" href="#" class="reset-btn pull-left" onclick="CallEditPassword();" style="display: block;"> <span class="btn-name"> Edit Password </span> </a>
+                        <a id="btnsave2" href="#" class="save-btn pull-right" onclick="CallSave(2);" style="display:none;"> <span class="btn-name"> Update Password </span> </a>
+                    </div>
+                </form>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <script>
+        $("#txtLevel").val(sessionStorage.getItem("ChartLevel"));
+        var w = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+
+        loadCountry("CountryData");
+        $('#fileupload').hide();
+        $(".uploadme").click(function () {
+            $('#imgfile').click();
+        });
+        function imgerror(e) {
+            e.src = "userpic/userError.png";
+
+        }
+        function CallEdit() {
+
+
+            $('#txtFullName').removeAttr('readonly');
+            // $('#txtemail').removeAttr('readonly');
+            $("#CountryData").prop("disabled", false);
+            $('#txtCellNo').removeAttr('readonly');
+            $('#txtdob').removeAttr('readonly');
+            //$('#txtpassword').removeAttr('readonly');
+            //$('#txtpassword2').removeAttr('readonly');
+            $('#Gender-0').removeAttr('disabled');
+            $('#Gender-1').removeAttr('disabled');
+            $('#chkFullName').removeAttr('disabled');
+            $('#chkemail').removeAttr('disabled');
+            $('#chkCellNo').removeAttr('disabled');
+            //$('#btnsave').show();
+            $('#btnsave').css("visibility", "visible");
+            //$('#btnsave2').css("display", "block");
+            $('#upload1').show();
+            $('#btnEdit').hide();
+            //$('#txtpassword').val("");
+            //$('#txtpassword2').val("");
+            //$('#btnEdit').show();
+
+
+            // $('.box-profile').hide();
+
+            $('.profile-edit-info').show();
+
+        }
+
+        function CallEditPassword() {
+
+
+           
+            $('#btnsave2').css("display", "block");
+         
+            $('#editpassword').hide();
+            $('#txtpassword').removeAttr('readonly');
+            $('#txtpassword2').removeAttr('readonly');
+            $('#txtpassword').val("");
+            $('#txtpassword2').val("");
+             
+
+
+            // $('.box-profile').hide();
+
+            $('.profile-edit-info').show();
+
+        }
+
+        function CallSave(a) {
+
+
+            $('.box-profile').show();
+            //$('#btnsave').hide();
+            $('#btnsave').css("visibility", "hidden");
+            $('#upload1').hide();
+            $('#btnEdit').show();
+            $('#txtFullName').attr('readonly', 'readonly');
+            $('#txtemail').attr('readonly', 'readonly');
+            $("#CountryData").prop("disabled", true);
+            $('#txtCellNo').attr('readonly', 'readonly');
+            $('#txtdob').attr('readonly', 'readonly');
+
+
+            $('#txtpassword').attr('readonly', 'readonly');
+            $('#txtpassword2').attr('readonly', 'readonly');
+            $('#Gender-0').attr("disabled", 'disabled');
+            $('#Gender-0').attr("disabled", 'disabled');
+            $('#chkFullName').attr("disabled", 'disabled');
+            $('#chkemail').attr("disabled", 'disabled');
+            $('#chkCellNo').attr("disabled", 'disabled');
+
+            //if (w < 1024) {
+            //    $('.profile-edit-info').hide();
+            //}
+            if (a == 1) {
+                CallSaveUser();
+            }
+            if (a == 2) {
+                //alert("aa");
+                CallSaveUserPassword();
+            }
+
+        }
+        function GetUserInfo() {
+            var UserID = sessionStorage.getItem("UserID");
+            
+            //alert("{'UserID':'" + UserID + "'}");
+            $('#loader').show();
+
+            var SubUserId = sessionStorage.getItem("SubUserId");
+
+            if (SubUserId == "") {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    url: "Users.asmx/getUserInfo",
+                    data: "{'UserID':'" + UserID + "'}",
+                    success: function (Record) {
+
+                        //$('#form1 input').attr('readonly', 'readonly');
+                        //alert(Record.d);
+                        var txt = '{"Row": ' + Record.d + '}';
+                        var data = JSON.parse(txt);
+                        //txtFullName, txtemail, CountryData, txtCellNo, txtdob, txtpassword, txtpassword2
+                        //UserPic,lblFullName,lblFullName2,lblEmail,lblCountry,lblCellNo,lblDateOfBirth
+                        //UserID ,UserName,Password,email,CellNo,DateofCreation,ActiveStatus,UserTitle,CountryID
+                        var random = Math.random() * 1000;
+                        $('#UserPic').attr('src', '/userpic/' + userid + '.jpg?' + random);
+                        document.getElementById("Rpic").src = '/userpic/' + userid + '.jpg?' + random;
+                        document.getElementById("Rpic2").src = '/userpic/' + userid + '.jpg?' + random;
+
+                        $('#lblFullName').html(data.Row.UserTitle);
+                        $('#lblFullName2').html(data.Row.UserTitle);
+                        $('#txtFullName').val(data.Row.UserTitle);
+                        $('#txtFullName').attr('readonly', 'readonly');
+                        $('#lblEmail').html(data.Row.email);
+                        $('#txtemail').val(data.Row.email);
+                        $('#lblChartofAccountLevel').html(data.Row.ChartLevel + " Level");
+                        $('#txtLevel').val(data.Row.ChartLevel);
+
+                        $('#txtemail').attr('readonly', 'readonly');
+                        $('#lblCountry').html(data.Row.CountryName);
+                        $('#CountryData').val(data.Row.CountryID);
+                        $('#CountryData').val(data.Row.CountryID);
+                        $("#CountryData").trigger('change');
+
+                        $("#CurrentEmail").val(data.Row.email);
+                        $("#CurrentCellNo").val(data.Row.CellNo);
+
+                        $("#imCountry").attr('src', '../lib/Flags100/' + data.Row.alpha2Code + '.png');
+                        $("#CountryData").prop("disabled", true);
+                        //$(".select-country").css({"background-color":"#777777 !important"})
+                        $('#lblCellNo').html(data.Row.CellNo);
+                        $('#txtCellNo').val(data.Row.CellNo);
+                        $('#txtCellNo').attr('readonly', 'readonly');
+                        //alert(data.Row.DateOfBirth);
+                        $('#lblDateOfBirth').html(data.Row.DateOfBirth);
+                        $('#txtdob').val(data.Row.DateOfBirth);
+                        $('#txtdob').attr('readonly', 'readonly');
+
+                        $('#txtpassword').val("********");
+                        $('#txtpassword').attr('readonly', 'readonly');
+
+                        $('#txtpassword2').val("********");
+                        $('#txtpassword2').attr('readonly', 'readonly');
+                        var sfiled = data.Row.SearchField.split("+");
+
+                        $('#Gender-0').attr("disabled", 'disabled');
+                        $('#Gender-1').attr("disabled", 'disabled');
+                        $('#chkFullName').attr("disabled", 'disabled');
+                        $('#chkemail').attr("disabled", 'disabled');
+                        $('#chkCellNo').attr("disabled", 'disabled');
+                        if (data.Row.Gender == "Male") {
+                            $('#Gender-0').attr('checked', 'checked');
+
+                        }
+                        else {
+                            $('#Gender-1').attr('checked', 'checked');
+                        }
+                        if (sfiled.length > 0) {
+                            for (var ii = 0; ii < sfiled.length; ii++) {
+                                $('#chk' + sfiled[ii]).attr('checked', 'checked');
+                            }
+                        }
+                        //$('#btnsave').hide();
+                        $('#btnsave').css("visibility", "hidden");
+                        $('#btnsave2').css("display", "none");
+                        $('#upload1').hide();
+                        $('#btnEdit').show();
+
+                        //lblFullName, lblFullName2, lblEmail, lblCountry, lblCellNo, lblDateOfBirth
+                        //alert("Login1");
+                        //if (data.Row.Password == Password) {
+                        //}
+                        $('#loader').hide();
+                    },
+                    Error: function (textMsg) {
+
+                        $('#Result').text("Error: " + Error);
+                    }
+                })
+
+            }
+            else {
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    url: "SubUsers.asmx/getSubUserInfo",
+                    data: "{'SubUserId':'" + SubUserId + "'}",
+                    success: function (Record) {
+
+                        //$('#form1 input').attr('readonly', 'readonly');
+                        //alert(Record.d);
+                        var txt = '{"Row": ' + Record.d + '}';
+                        var data = JSON.parse(txt);
+                        //txtFullName, txtemail, CountryData, txtCellNo, txtdob, txtpassword, txtpassword2
+                        //UserPic,lblFullName,lblFullName2,lblEmail,lblCountry,lblCellNo,lblDateOfBirth
+                        //UserID ,UserName,Password,email,CellNo,DateofCreation,ActiveStatus,UserTitle,CountryID
+                        var random = Math.random() * 1000;
+                        //$('#UserPic').attr('src', '/userpic/' + userid + '.jpg?' + random);
+                        //document.getElementById("Rpic").src = '/userpic/' + userid + '.jpg?' + random;
+                        //document.getElementById("Rpic2").src = '/userpic/' + userid + '.jpg?' + random;
+
+                        $('#lblFullName').html(data.Row.SubUserName);
+                        $('#lblFullName2').html(data.Row.SubUserName);
+                        $('#txtFullName').val(data.Row.SubUserName);
+                        $('#txtFullName').attr('readonly', 'readonly');
+                        $('#lblEmail').html(data.Row.SubUserEmail);
+                        $('#txtemail').val(data.Row.SubUserEmail);
+                        $('#lblChartofAccountLevel').html(data.Row.ChartLevel + " Level");
+                        $('#txtLevel').val(data.Row.ChartLevel);
+
+                        $('#txtemail').attr('readonly', 'readonly');
+                        $('#lblCountry').html(data.Row.CountryName);
+                        $('#CountryData').val(data.Row.CountryID);
+                        $('#CountryData').val(data.Row.CountryID);
+                        $("#CountryData").trigger('change');
+
+                        $("#CurrentEmail").val(data.Row.SubUserEmail);
+                        $("#CurrentCellNo").val(data.Row.Contact);
+
+                        $("#imCountry").attr('src', '../lib/Flags100/' + data.Row.alpha2Code + '.png');
+                        $("#CountryData").prop("disabled", true);
+                        //$(".select-country").css({"background-color":"#777777 !important"})
+
+                        //$('#lblCellNo').html(data.Row.Contact);
+                        //$('#txtCellNo').val(data.Row.Contact);
+                        //$('#txtCellNo').attr('readonly', 'readonly');
+                        ////alert(data.Row.DateOfBirth);
+                        //$('#lblDateOfBirth').html(data.Row.DateOfBirth);
+                        //$('#txtdob').val(data.Row.DateOfBirth);
+                        //$('#txtdob').attr('readonly', 'readonly');
+
+                        
+
+                        document.getElementById("D.O.B").style.display ='none'
+                        document.getElementById("SearchBy").style.display ='none'
+                        
+                        
+
+
+
+
+                        $('#txtpassword').val("********");
+                        $('#txtpassword').attr('readonly', 'readonly');
+
+                        $('#txtpassword2').val("********");
+                        $('#txtpassword2').attr('readonly', 'readonly');
+                        var sfiled = data.Row.SearchField.split("+");
+
+                        $('#Gender-0').attr("disabled", 'disabled');
+                        $('#Gender-1').attr("disabled", 'disabled');
+                        $('#chkFullName').attr("disabled", 'disabled');
+                        $('#chkemail').attr("disabled", 'disabled');
+                        $('#chkCellNo').attr("disabled", 'disabled');
+                        if (data.Row.Gender == "Male") {
+                            $('#Gender-0').attr('checked', 'checked');
+
+                        }
+                        else {
+                            $('#Gender-1').attr('checked', 'checked');
+                        }
+                        if (sfiled.length > 0) {
+                            for (var ii = 0; ii < sfiled.length; ii++) {
+                                $('#chk' + sfiled[ii]).attr('checked', 'checked');
+                            }
+                        }
+                        //$('#btnsave').hide();
+                        $('#btnsave').css("visibility", "hidden");
+                        $('#btnsave2').css("display", "none");
+                        $('#upload1').hide();
+                        $('#btnEdit').show();
+
+                        //lblFullName, lblFullName2, lblEmail, lblCountry, lblCellNo, lblDateOfBirth
+                        //alert("Login1");
+                        //if (data.Row.Password == Password) {
+                        //}
+                        $('#loader').hide();
+                    },
+                    Error: function (textMsg) {
+
+                        $('#Result').text("Error: " + Error);
+                    }
+                })
+            }          
+              
+
+         
+
+        }
+
+        loadCountry("CountryData");
+        function loadCountry(control) {
+            //alert("newUI");
+            var userid = sessionStorage.getItem("UserID");
+            //var type = t;
+            //$('#spandataloading').show();
+            //  var type = "E";
+            //$('#loadI').attr('class', 'fa fa-refresh fa-spin');
+            //AccountID, AccountTitle.SubCatID, SubCatName, CatID, CatName
+            $('#loader').show();
+
+          
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'Settings.asmx/LoadCountry',
+                    dataType: 'json',
+                    // data: "{'UserID':'" + userid + "','type':'" + type + "'}",
+                    contentType: 'application/json; charset=utf-8',
+
+                    success: function (response) {
+
+ 
+
+                        var txt = '{"Row": ' + response.d + '}';
+                        var data = JSON.parse(txt);
+                        //$('#spandataloading').hide()
+                        //  alert(data.Row[0].District);
+                        // yaha loop lage ga na
+                        var str = "";
+                        var dt = "";
+                        var mvalue;
+                        var optg = "";
+                        var Ccat
+
+                        for (var i = 0; i < data.Row.length; i++) {
+
+
+                            // dt = dt + '<li data-value="' + data.Row[i].CountryID + '"><img sizes="12" src="../lib/Flags100/' + data.Row[i].alpha2Code +'.png"><span class="country-code-name">'+data.Row[i].name + ' (' + data.Row[i].callingCodes0 + ')'+' </span></li>';
+                            // balance = data.Row[i].Balance;
+                            // var strbalance = " &#xf0a4; "+"[" + balance + "]" ;
+                            dt = dt + "<option data-image='../lib/Flags100/" + data.Row[i].alpha2Code + ".png' value=" + data.Row[i].CountryID + ">" + data.Row[i].name + " (" + data.Row[i].callingCodes0 + ")" + "</option > ";
+
+
+
+                        }
+
+                        str = str + dt;
+                        document.getElementById(control).innerHTML = str;
+
+
+                        $("#" + control).select2({
+                            placeholder: "Select Country",
+                            templateResult: formatState,
+                            templateSelection: formatState
+                        });
+
+                        function formatState(opt) {
+                            if (!opt.id) {
+                                return opt.text.toUpperCase();
+                            }
+
+                            var optimage = $(opt.element).attr('data-image');
+                            console.log(optimage)
+                            if (!optimage) {
+                                return opt.text.toUpperCase();
+                            } else {
+                                var $opt = $(
+                                    '<span><img src="' + optimage + '" width="18px" /> <c> ' + opt.text.toUpperCase() + '</c></span>'
+                                );
+                                return $opt;
+                            }
+                        };
+
+                        GetUserInfo();
+                        //$("#" + control).select2({
+                        //    placeholder: "Select Country",
+                        //    allowClear: true
+                        //});
+                        $('#loader').hide();
+
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+ 
+
+
+
+
+
+        }
+    </script>
+    <script>
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        var emailchk = 1;
+        var file2 = "";
+
+        function callemailout() {
+
+            //var a = document.getElementById("UserNameChoise");
+            var aa = document.getElementById("txtemail");
+            var chk = document.getElementById("chkEmail");
+            //chkEmail
+            if (validateEmail(aa.value)) {
+                chk.innerHTML = 'Valid Email';
+                chk.style.color = "green";
+                emailchk = 1;
+                //ChangeChoise(a);
+            }
+            else {
+                chk.innerHTML = 'Invalid Email';
+                chk.style.color = "Red";
+                emailchk = 0;
+                //aa.focus();
+            }
+
+
+        }
+        function MyFile() {
+            var elm = document.getElementById("imgfile").files[0];
+            getBase64(elm);
+        }
+
+
+        function getBase64(file) {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                file2 = reader.result;
+                document.getElementById("UserPic").src = file2;
+                return "";
+            };
+            reader.onerror = function (error) {
+                return "";
+            };
+        }
+
+        function CallSaveUser() {
+
+            if ((emailchk == 0 && txtCellNo.value == "") || (txtCellNo.value.length < 10 && emailchk == 0) || (emailchk == 0 && txtemail.value.length > 0)) {
+            
+                $.alert({ title: 'Alert!:', content: 'Please enter valid email or cell number with atleast 10 digits', });
+               
+            }
+            else
+
+                if ((txtemail.checkValidity() || txtCellNo.checkValidity()) && txtFullName.checkValidity()) {
+
+                    var d = document;
+                    //var varFullName = txtFullName.value;
+                    //txtFullName, txtemail, CountryData, txtCellNo, txtdob, txtpassword, txtpassword2
+                    var vartxtUse = txtemail.value// txtUser.value;
+                    //var vartxtpassword = txtpassword.value;
+                    var vartxtemail = txtemail.value;
+                    var vartxtCell = txtCellNo.value;
+                    var vartxtDOB = txtdob.value;
+                    var varFullName = txtFullName.value;
+                    var CountryID = document.getElementById("CountryData").value;
+                    var userid = sessionStorage.getItem("UserID");
+                    var varCurrentEmail = document.getElementById("CurrentEmail").value;
+                    var varCurrentCellNo = document.getElementById("CurrentCellNo").value;
+                    var varlevel = document.getElementById("txtLevel").value;
+                    var varGender = $("input[name='Gender']:checked").val();
+                    var varSName = "";
+                    var varData = "";
+                    $.each($("input[name='SFields']:checked"), function () {
+                        varSName = $(this).val() + "+" + varSName;
+                        varData = $("#txt" + $(this).val()).val() + " -+- " + varData;
+                    });
+                    //alert(varData);
+
+                    var vartxtActive = "1";
+
+                    var formData = new FormData();
+                    var totalFiles = document.getElementById("imgfile").files.length;
+                    //alert("99");
+                    // alert(totalFiles);
+
+                    var file1 = file2;
+                    formData.append("imgfile", file1);
+
+                    // alert(formData.get("imgfile"));
+
+                    formData.append("FullName", varFullName);
+                    formData.append("UserName", vartxtUse);
+                    //formData.append("Password", vartxtpassword);
+                    formData.append("email", vartxtemail);
+                    formData.append("Cell", vartxtCell);
+                    formData.append("DOB", vartxtDOB);
+                    //formData.append("Active", vartxtActive);
+                    formData.append("CountryID", CountryID);
+                    //'fullname':'"+ vartxtUse +"', 'username':'"+ vartxtUse +"', 'password':'" + vartxtpassword +"', 'cell':'"+ vartxtCell +"', 'email':'"+ vartxtemail +"', 'dob':'"+ vartxtDOB +"', 'active':'"+ vartxtActive +"', 'img':'"+ file1 +"'
+                    //if ($("#form1").checkValidity()) {
+                    //alert(formData);
+                    //var id = SaveUsers(vartxtUse, vartxtpassword, vartxtCell, vartxtemail, vartxtDOB, vartxtActive);
+                    //}
+                    //$.ajax({
+                    //    type: 'post',
+                    //    url: 'Users.asmx/SaveUsers2',
+                    //    data: formData,
+                    //    dataType: 'json',
+                    //    contentType: false,
+                    //    processData: false,
+                    //    success: function (response) {
+                    //        //alert("a1");
+                    //        alert("User Registered");
+                    //    },
+                    //    error: function (error) {
+
+
+                    //        document.getElementById("txtUser").value = "";
+                    //        document.getElementById("txtpassword").value = "";
+                    //        document.getElementById("txtemail").value = "";
+                    //        document.getElementById("txtCell").value = "";
+                    //        document.getElementById("txtDOB").value = "";
+                    //    }
+                    //});
+                    // alert("{'fullname':'" + varFullName + "', 'username':'" + vartxtUse + "',  'cell':'" + vartxtCell + "', 'email':'" + vartxtemail + "', 'dob':'" + vartxtDOB + "', 'active':'" + vartxtActive + "', 'img':'" + file1 + "','CountryID':'" + CountryID + "','UserID':'" + userid + "','CurrentEmail':'" + varCurrentEmail + "', 'CurrentCellNo':'" + varCurrentCellNo + "','Gender':'" + varGender + "','SearchField':'" + varSName + "'}");
+
+                   
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            url: "Users.asmx/UpdateUsers2",
+                            data: "{'fullname':'" + varFullName + "', 'username':'" + vartxtUse + "',  'cell':'" + vartxtCell + "', 'email':'" + vartxtemail + "', 'dob':'" + vartxtDOB + "', 'active':'" + vartxtActive + "', 'img':'" + file1 + "','CountryID':'" + CountryID + "','UserID':'" + userid + "','CurrentEmail':'" + varCurrentEmail + "', 'CurrentCellNo':'" + varCurrentCellNo + "','Gender':'" + varGender + "','SearchField':'" + varSName + "','SearchData':'" + varData + "','Level':'" + varlevel + "'}",
+                            success: function (response) {
+
+                                
+
+                                if (response.d.length == 36) {
+                                    $.alert({
+                                        title: 'Information:', content: 'User Information Updated', confirm: function () {
+                                            window.location.href = "/"; // shorthand.
+                                        }
+                                    });
+                                    GetUserInfo();
+                                    //alert("You are Registred");
+
+                                }
+                                else {
+                                    $.alert({ title: 'Information:', content: response.d, });
+                                }
+                                //  alert(response.d);
+
+                            },
+                            error: function (error) {
+                                $.alert({ title: 'Alert!', content: 'Issues while updating Information ', });
+                                //alert("error");
+                                console.log(error);
+                            }
+                        });
+
+                  
+
+                }
+                else {
+                    // document.getElementById("txtUser").style.borderColor = txtUser.checkValidity ? document.getElementById("txtUser").style.borderColor : "red";
+                    //document.getElementById("txtpassword").style.borderColor = txtpassword.checkValidity ? document.getElementById("txtpassword").style.borderColor : "red";
+                    document.getElementById("txtemail").style.borderColor = txtemail.checkValidity ? document.getElementById("txtemail").style.borderColor : "red";
+                    document.getElementById("txtCell").style.borderColor = txtCell.checkValidity ? document.getElementById("txtCell").style.borderColor = txtCell.checkValidity : "red";
+                    // document.getElementById("txtDOB").style.borderColor = txtDOB.checkValidity ? document.getElementById("txtDOB").style.borderColor = txtDOB.checkValidity : "red";
+                    //alert("a2");
+                }
+        }
+
+        function CallSaveUserPassword() {
+
+            if (txtpassword2.value != txtpassword.value || txtpassword2.value == "" || txtpassword.length < 5) {
+                $.alert({
+                    title: 'Information:', content: 'Password not matched or Please enter password comprising at least 6 (six) characters.',
+                })
+
+
+                $('#btnsave2').css("display", "block");
+
+                $('#editpassword').hide();
+                $('#txtpassword').removeAttr('readonly');
+                $('#txtpassword2').removeAttr('readonly');
+                $('#txtpassword').val("");
+                $('#txtpassword2').val("");
+
+
+
+                // $('.box-profile').hide();
+
+                $('.profile-edit-info').show();
+            }
+            else {
+
+                //if (txtpassword2.checkValidity() && txtpassword.checkValidity()) {
+
+                var d = document;
+                //var varFullName = txtFullName.value;
+                //txtFullName, txtemail, CountryData, txtCellNo, txtdob, txtpassword, txtpassword2
+                var userid = sessionStorage.getItem("UserID");
+                var vartxtpassword = document.getElementById("txtpassword").value;
+
+                //alert("abc");
+                //alert("{'Password':'" + vartxtpassword + "','UserID':'" + userid + "'}");
+
+
+                var SubUserId = sessionStorage.getItem("SubUserId");
+
+                if (SubUserId == "") {
+
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        url: "Users.asmx/UpdateUsersPassword2",
+                        data: "{'Password':'" + vartxtpassword + "','UserID':'" + userid + "'}",
+                        success: function (response) {
+
+
+
+                            if (response.d.length == 36) {
+                                $.alert({
+                                    title: 'Information:', content: 'User Password Updated', confirm: function () {
+                                        window.location.href = "/"; // shorthand.
+                                    }
+                                });
+                                //alert("You are Registred");
+
+                            }
+                            else {
+                                $.alert({ title: 'Information:', content: response.d, });
+                            }
+                            //  alert(response.d);
+                            //$('#btnsave2').css("visibility", "hidden");
+                            $('#btnsave2').hide();
+                            $('#editpassword').show();
+
+                        },
+                        error: function (error) {
+                            $.alert({ title: 'Alert!', content: 'Some Issue with Password updation', });
+                            //alert("error");
+                            console.log(error);
+                        }
+                    });
+                }
+                else {
+
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        url: "SubUsers.asmx/UpdateSubUsersPassword",
+                        data: "{'Password':'" + vartxtpassword + "','SubUserId':'" + SubUserId + "'}",
+                        success: function (response) {
+
+                            $.alert({
+                                title: 'Information:', content: 'User Password Updated', confirm: function () {
+                                    window.location.href = "/"; // shorthand.
+                                }
+                            });
+
+                            //if (response.d.length == 36) {
+                            //    $.alert({
+                            //        title: 'Information:', content: 'User Password Updated', confirm: function () {
+                            //            window.location.href = "/"; // shorthand.
+                            //        }
+                            //    });
+                            //    //alert("You are Registred");
+
+                            //}
+                            //else {
+                            //    $.alert({ title: 'Information:', content: response.d, });
+                            //}
+                            //  alert(response.d);
+                            //$('#btnsave2').css("visibility", "hidden");
+                            $('#btnsave2').hide();
+                            $('#editpassword').show();
+
+                        },
+                        error: function (error) {
+                            $.alert({ title: 'Alert!', content: 'Some Issue with Password updation', });
+                            //alert("error");
+                            console.log(error);
+                        }
+                    });
+                }
+
+                 
+
+                //}
+                //else {
+
+                //    document.getElementById("txtpassword").style.borderColor = txtpassword.checkValidity ? document.getElementById("txtpassword").style.borderColor : "red";
+
+                //}
+            }
+        }
+        function checkStrength(txtpass, strenghtMsg, errorMsg) {
+            var SthChk = new Array();
+            SthChk[0] = "Very Weak Password";
+            SthChk[1] = "Weak Password";
+            SthChk[2] = "Better Password";
+            SthChk[3] = "Medium Password";
+            SthChk[4] = "Strong Password";
+            SthChk[5] = "Strongest Password";
+            var STColor = new Array();
+            STColor[0] = "#B20E37";
+            STColor[1] = "#D32847";
+            STColor[2] = "#ff5f5f";
+            STColor[3] = "#83D680";
+            STColor[4] = "#4dcd00";
+            STColor[5] = "#399800";
+
+            errorMsg.innerHTML = '';
+            var score = 0;
+
+            //if txtpass bigger than 6 give 1 point
+            if (txtpass.length >= 6) score++;
+
+            //if txtpass has both lower and uppercase characters give 1 point
+            if ((txtpass.match(/[a-z]/)) && (txtpass.match(/[A-Z]/))) score++;
+
+            //if txtpass has at least one number give 1 point
+            if (txtpass.match(/\d+/)) score++;
+
+            //if txtpass has at least one special caracther give 1 point
+            if (txtpass.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/)) score++;
+
+            //if txtpass bigger than 12 give another 1 point
+            if (txtpass.length > 12) score++;
+
+            strenghtMsg.innerHTML = SthChk[score];
+            strenghtMsg.style.color = STColor[score];
+
+            if (txtpass.length < 6) {
+                errorMsg.innerHTML = "Invalid Password";
+                errorMsg.style.color = "red";
+            }
+
+
+        }
+
+        function Passmatch(pass) {
+            var pass1 = document.getElementById("txtpassword").value;
+            var pass2 = document.getElementById("txtpassword2").value;
+            var stc = document.getElementById("STCpassord");
+            if (pass1 == pass2) {
+                //stc.style
+                stc.style.color = "green";
+                stc.innerHTML = 'Password matched'
+
+            }
+            else {
+                stc.style.color = "Red";
+                stc.innerHTML = 'Password not matched';
+            }
+        }
+
+
+    </script>
+
+    <div class="modal fade" id="closeaccount" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete Account</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="user-conform">
+                        <span class="pull-left">Conform To Close Your Account using the button</span>
+
+                        <label class="switch pull-right">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+
+
+                    </div>
+
+                    <div class="user-conformb">
+                        <span class="pull-left m-set">Select Reason for leaving </span>
+
+                        <label class=" pull-right">
+                            <select class="browser-default custom-select">
+                                <option selected>This is temporary. I`ll be Back.</option>
+                                <option value="1"> I have an other Munshibaba account.</option>
+                                <option value="1"> My Aaccount was hacked.</option>
+                                <option value="1">   I don`t fell safe on Munshibaba.</option>
+                                <option value="1"> I don`t find Munshibaba Useful.</option>
+                                <option value="1">Other, please explain further.</option>
+                            </select>
+                        </label>
+
+
+                    </div>
+                    <div class="clear"></div>
+                    <hr />
+                    <div class="user-conformb">
+                        <span class="">Please Explain Further</span>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="modal-footer">
+                    <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+                        <a id="btnReset" href="#" class="reset-btn "> <span class="btn-name">DELETE  </span> </a>
+                        <a id="btnsave" href="#" class="save-btn "> <span class="btn-name">CANCEL  </span> </a>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
